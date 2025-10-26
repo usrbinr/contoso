@@ -71,7 +71,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ec2494965eeda4ae0ffa349998dc0a73.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-812842b2218a51dc0bed467e9fe37b4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -99,7 +99,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 </head>
-<body class="nav-sidebar floating nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
@@ -121,6 +121,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </i> 
 <span class="menu-text"></span></a>
   </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://bsky.app/profile/usrbinr.bsky.social"> <i class="bi bi-bluesky" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://linktr.ee/alejandro.hagan"> <i class="bi bi-Link" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
 </ul>
 </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -136,7 +146,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
       </a>
       </div>
@@ -144,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.md" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
@@ -215,6 +225,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../NEWS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">News</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../LICENSE.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">License</span></a>
   </div>
@@ -258,11 +274,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </td>
 </tr>
 </tbody></table></section><section id="details" class="level3"><h3 class="anchored" data-anchor-id="details">Details</h3>
-<p>The [create_contonso_duckdb] function registers the following Contoso datasets as DuckDB tables: - ‘sales’: Contains sales transaction data. - ‘product’: Contains details about products, including attributes like product name, manufacturer, and category. - ‘customer’: Contains customer demographic and geographic information. - ‘store’: Contains information about store locations and attributes. - ‘fx’: Contains foreign exchange rate data for currency conversion. - ‘date’: Contains various date-related information, including day, week, month, and year.</p>
+<p>The ‘create_contonso_duckd()’ function registers the following Contoso datasets as DuckDB tables:</p>
+<ul>
+<li>‘sales’: Contains sales transaction data.</li>
+<li>‘product’: Contains details about products, including attributes like product name, manufacturer, and category.</li>
+<li>‘customer’: Contains customer demographic and geographic information.</li>
+<li>‘store’: Contains information about store locations and attributes.</li>
+<li>‘fx’: Contains foreign exchange rate data for currency conversion.</li>
+<li>‘date’: Contains various date-related information, including day, week, month, and year.</li>
+</ul>
 <p>You can choose to store the database in memory or in a temporary directory. If you choose "temp", the database will be created in a temporary file on disk. If you choose "in_memory", the database will be created entirely in memory and will be discarded after the R session ends.</p>
 </section><section id="value" class="level3"><h3 class="anchored" data-anchor-id="value">Value</h3>
-<p>A list of lazy ‘tbl’ objects that are references to the Contoso datasets stored in the DuckDB database. The list contains the following tables: - ‘sales’ - ‘product’ - ‘customer’ - ‘store’ - ‘fx’ - ‘store’ - ‘orderrows’ - ‘date’</p>
-</section><section id="examples" class="level3"><h3 class="anchored" data-anchor-id="examples">Examples</h3>
+<p>A list of lazy ‘tbl’ objects that are references to the Contoso datasets stored in the DuckDB database. The list contains the following tables:</p>
+<ul>
+<li>‘sales’</li>
+<li>‘product’</li>
+<li>‘customer’</li>
+<li>‘store’</li>
+<li>‘fx’</li>
+<li>‘store’</li>
+<li>‘orderrows’</li>
+<li>‘date’</li>
+</ul></section><section id="examples" class="level3"><h3 class="anchored" data-anchor-id="examples">Examples</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://alejandrohagan.github.io/contoso/">"contoso"</a></span><span class="op">)</span></span>
 <span></span>
