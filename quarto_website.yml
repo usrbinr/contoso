@@ -43,6 +43,7 @@ website:
 
 format:
   html:
-    code-link: true
+    code-link: false
 #     theme: cosmo
 #     number-sections: false
+
