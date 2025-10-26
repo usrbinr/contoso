@@ -17,7 +17,7 @@ website:
         aria-label: $ALTDOC_PACKAGE_NAME GitHub
       - icon: bluesky
         href: https://bsky.app/profile/usrbinr.bsky.social
-      - icon: Link
+      - icon: link
         href: https://linktr.ee/alejandro.hagan
 
   sidebar:
