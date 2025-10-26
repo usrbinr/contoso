@@ -22,176 +22,25 @@
     ]
   },
   {
-    "objectID": "man/create_data_raw.html",
-    "href": "man/create_data_raw.html",
+    "objectID": "man/orderrows.html",
+    "href": "man/orderrows.html",
     "title": "contoso",
     "section": "",
-    "text": "Creates the data-raw files of the 10K row size Contonso files if they they do not already exists.\nIf it exists it will return nothing\n\n\n\ncreate_data_raw()\n\n\n\n\nlist of csv files",
+    "text": "This dataset contains detailed information about the individual items (rows) within each order in the Contonso dataset. It includes details such as the product, quantity, pricing, and cost of each item in an order. This dataset is useful for analyzing the breakdown of order components and individual product sales.\n\n\n\norderrows\n\n\n\n\nA data frame with 7 columns:\n\n\norder_key\n\n\ndouble Unique identifier for the order to which the item belongs.\n\n\nline_number\n\n\ndouble Line number within the order, identifying each product line.\n\n\nproduct_key\n\n\ndouble Unique identifier for the product in the order row.\n\n\nquantity\n\n\ndouble The quantity of the product ordered.\n\n\nunit_price\n\n\ndouble The price per unit of the product.\n\n\nnet_price\n\n\ndouble The total net price for the product, considering any applicable discounts.\n\n\nunit_cost\n\n\ndouble The cost per unit of the product.\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
     "crumbs": [
       "Reference",
-      "create_data_raw"
+      "orderrows"
     ]
   },
   {
-    "objectID": "man/create_data_raw.html#create-data-raw-files",
-    "href": "man/create_data_raw.html#create-data-raw-files",
+    "objectID": "man/orderrows.html#order-rows-data-from-the-contonso-dataset",
+    "href": "man/orderrows.html#order-rows-data-from-the-contonso-dataset",
     "title": "contoso",
     "section": "",
-    "text": "Creates the data-raw files of the 10K row size Contonso files if they they do not already exists.\nIf it exists it will return nothing\n\n\n\ncreate_data_raw()\n\n\n\n\nlist of csv files",
+    "text": "This dataset contains detailed information about the individual items (rows) within each order in the Contonso dataset. It includes details such as the product, quantity, pricing, and cost of each item in an order. This dataset is useful for analyzing the breakdown of order components and individual product sales.\n\n\n\norderrows\n\n\n\n\nA data frame with 7 columns:\n\n\norder_key\n\n\ndouble Unique identifier for the order to which the item belongs.\n\n\nline_number\n\n\ndouble Line number within the order, identifying each product line.\n\n\nproduct_key\n\n\ndouble Unique identifier for the product in the order row.\n\n\nquantity\n\n\ndouble The quantity of the product ordered.\n\n\nunit_price\n\n\ndouble The price per unit of the product.\n\n\nnet_price\n\n\ndouble The total net price for the product, considering any applicable discounts.\n\n\nunit_cost\n\n\ndouble The cost per unit of the product.\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
     "crumbs": [
       "Reference",
-      "create_data_raw"
-    ]
-  },
-  {
-    "objectID": "man/orders.html",
-    "href": "man/orders.html",
-    "title": "contoso",
-    "section": "",
-    "text": "This dataset contains information about customer orders, including order dates, delivery dates, and store details.\n\n\n\norders\n\n\n\n\nA data frame with 5 columns:\n\n\norder_key\n\n\ndouble Unique identifier for the order.\n\n\ncustomer_key\n\n\ndouble Unique identifier for the customer who placed the order.\n\n\nstore_key\n\n\ndouble Unique identifier for the store where the order was placed.\n\n\norder_date\n\n\nDate The date when the order was placed.\n\n\ndelivery_date\n\n\nDate The date when the order is expected to be delivered.\n\n\ncurrency_code\n\n\ncharacter The currency code used for the order (e.g., USD, EUR).\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
-    "crumbs": [
-      "Reference",
-      "orders"
-    ]
-  },
-  {
-    "objectID": "man/orders.html#order-data-from-the-contonso-dataset",
-    "href": "man/orders.html#order-data-from-the-contonso-dataset",
-    "title": "contoso",
-    "section": "",
-    "text": "This dataset contains information about customer orders, including order dates, delivery dates, and store details.\n\n\n\norders\n\n\n\n\nA data frame with 5 columns:\n\n\norder_key\n\n\ndouble Unique identifier for the order.\n\n\ncustomer_key\n\n\ndouble Unique identifier for the customer who placed the order.\n\n\nstore_key\n\n\ndouble Unique identifier for the store where the order was placed.\n\n\norder_date\n\n\nDate The date when the order was placed.\n\n\ndelivery_date\n\n\nDate The date when the order is expected to be delivered.\n\n\ncurrency_code\n\n\ncharacter The currency code used for the order (e.g., USD, EUR).\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
-    "crumbs": [
-      "Reference",
-      "orders"
-    ]
-  },
-  {
-    "objectID": "man/create_contoso_duckdb.html",
-    "href": "man/create_contoso_duckdb.html",
-    "title": "contoso",
-    "section": "",
-    "text": "Creates duckdb versions of Contoso datasets\n\ncreate_contoso_duckdb(db_dir = c(\"in_memory\"), size = \"100K\")\n\n\n\n\n\ndb_dir\n\n\n\"temp\" or \"in_memory\"\n\n\n\n\nsize\n\n\n\"100k\",\"1M\" or \"10M\"\n\n\n\nThe [create_contonso_duckdb] function registers the following Contoso datasets as DuckDB tables: - ‘sales’: Contains sales transaction data. - ‘product’: Contains details about products, including attributes like product name, manufacturer, and category. - ‘customer’: Contains customer demographic and geographic information. - ‘store’: Contains information about store locations and attributes. - ‘fx’: Contains foreign exchange rate data for currency conversion. - ‘date’: Contains various date-related information, including day, week, month, and year.\nYou can choose to store the database in memory or in a temporary directory. If you choose \"temp\", the database will be created in a temporary file on disk. If you choose \"in_memory\", the database will be created entirely in memory and will be discarded after the R session ends.\n\nA list of lazy ‘tbl’ objects that are references to the Contoso datasets stored in the DuckDB database. The list contains the following tables: - ‘sales’ - ‘product’ - ‘customer’ - ‘store’ - ‘fx’ - ‘store’ - ‘orderrows’ - ‘date’\n\n\nlibrary(\"contoso\")\n\n# Create a DuckDB version of Contoso datasets stored in memory\n\n create_contoso_duckdb(db_dir = \"in_memory\",size=\"100K\")",
-    "crumbs": [
-      "Reference",
-      "create_contoso_duckdb"
-    ]
-  },
-  {
-    "objectID": "man/create_contoso_duckdb.html#creates-duckdb-versions-of-contoso-datasets",
-    "href": "man/create_contoso_duckdb.html#creates-duckdb-versions-of-contoso-datasets",
-    "title": "contoso",
-    "section": "",
-    "text": "Creates duckdb versions of Contoso datasets\n\ncreate_contoso_duckdb(db_dir = c(\"in_memory\"), size = \"100K\")\n\n\n\n\n\ndb_dir\n\n\n\"temp\" or \"in_memory\"\n\n\n\n\nsize\n\n\n\"100k\",\"1M\" or \"10M\"\n\n\n\nThe [create_contonso_duckdb] function registers the following Contoso datasets as DuckDB tables: - ‘sales’: Contains sales transaction data. - ‘product’: Contains details about products, including attributes like product name, manufacturer, and category. - ‘customer’: Contains customer demographic and geographic information. - ‘store’: Contains information about store locations and attributes. - ‘fx’: Contains foreign exchange rate data for currency conversion. - ‘date’: Contains various date-related information, including day, week, month, and year.\nYou can choose to store the database in memory or in a temporary directory. If you choose \"temp\", the database will be created in a temporary file on disk. If you choose \"in_memory\", the database will be created entirely in memory and will be discarded after the R session ends.\n\nA list of lazy ‘tbl’ objects that are references to the Contoso datasets stored in the DuckDB database. The list contains the following tables: - ‘sales’ - ‘product’ - ‘customer’ - ‘store’ - ‘fx’ - ‘store’ - ‘orderrows’ - ‘date’\n\n\nlibrary(\"contoso\")\n\n# Create a DuckDB version of Contoso datasets stored in memory\n\n create_contoso_duckdb(db_dir = \"in_memory\",size=\"100K\")",
-    "crumbs": [
-      "Reference",
-      "create_contoso_duckdb"
-    ]
-  },
-  {
-    "objectID": "man/store.html",
-    "href": "man/store.html",
-    "title": "contoso",
-    "section": "",
-    "text": "This dataset contains information about stores within the Contonso dataset. It includes details about the store’s geographic location, operational status, and physical characteristics such as size and opening/closing dates. It provides insights into the store network of the company.\n\n\n\nstore\n\n\n\n\nA data frame with 11 columns:\n\n\nstore_key\n\n\ndouble Unique identifier for each store.\n\n\nstore_code\n\n\ndouble A code that uniquely identifies the store.\n\n\ngeo_area_key\n\n\ndouble Unique identifier for the geographical area where the store is located.\n\n\ncountry_code\n\n\ncharacter The country code where the store is located (e.g., \"US\", \"DE\").\n\n\ncountry_name\n\n\ncharacter The full name of the country where the store is located.\n\n\nstate\n\n\ncharacter The state or province where the store is located.\n\n\nopen_date\n\n\nDate The date when the store was opened.\n\n\nclose_date\n\n\nDate The date when the store was closed, if applicable.\n\n\ndescription\n\n\ncharacter A description of the store (e.g., \"Flagship store\", \"Outlet store\").\n\n\nsquare_meters\n\n\ndouble The physical size of the store in square meters.\n\n\nstatus\n\n\ncharacter The operational status of the store (e.g., \"Open\", \"Closed\").\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
-    "crumbs": [
-      "Reference",
-      "store"
-    ]
-  },
-  {
-    "objectID": "man/store.html#store-data-from-the-contonso-dataset",
-    "href": "man/store.html#store-data-from-the-contonso-dataset",
-    "title": "contoso",
-    "section": "",
-    "text": "This dataset contains information about stores within the Contonso dataset. It includes details about the store’s geographic location, operational status, and physical characteristics such as size and opening/closing dates. It provides insights into the store network of the company.\n\n\n\nstore\n\n\n\n\nA data frame with 11 columns:\n\n\nstore_key\n\n\ndouble Unique identifier for each store.\n\n\nstore_code\n\n\ndouble A code that uniquely identifies the store.\n\n\ngeo_area_key\n\n\ndouble Unique identifier for the geographical area where the store is located.\n\n\ncountry_code\n\n\ncharacter The country code where the store is located (e.g., \"US\", \"DE\").\n\n\ncountry_name\n\n\ncharacter The full name of the country where the store is located.\n\n\nstate\n\n\ncharacter The state or province where the store is located.\n\n\nopen_date\n\n\nDate The date when the store was opened.\n\n\nclose_date\n\n\nDate The date when the store was closed, if applicable.\n\n\ndescription\n\n\ncharacter A description of the store (e.g., \"Flagship store\", \"Outlet store\").\n\n\nsquare_meters\n\n\ndouble The physical size of the store in square meters.\n\n\nstatus\n\n\ncharacter The operational status of the store (e.g., \"Open\", \"Closed\").\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
-    "crumbs": [
-      "Reference",
-      "store"
-    ]
-  },
-  {
-    "objectID": "CITATION.html",
-    "href": "CITATION.html",
-    "title": "Citation",
-    "section": "",
-    "text": "Citation\n\nHagan A (2025). Contoso Dataset. R package version 1.0.0, https://github.com/alejandrohagan/contoso.",
-    "crumbs": [
-      "Citation"
-    ]
-  },
-  {
-    "objectID": "LICENSE.html",
-    "href": "LICENSE.html",
-    "title": "MIT License",
-    "section": "",
-    "text": "MIT License\nCopyright (c) 2025 contoso authors\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
-    "crumbs": [
-      "License"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "README",
-    "section": "",
-    "text": "Contoso is a synthetic dataset containing sample sales transaction data for the fictional “Contoso” company. It includes various supporting tables for business intelligence, such as customer, store, product, and currency exchange data.\nThis dataset is perfect for practicing time series analysis, financial modeling, or any business intelligence-related tasks.\nThe package comes with the following datasets:\n\n\nsales:\n\nContains information about sales transactions, including the total sales amount, customer, store, and product involved.\n\n\n\ncustomer:\n\nContains details about customers, such as customer key, name, address, and demographic information.\n\n\n\nstore:\n\nContains information about stores, including store key, name, location, and related details.\n\n\n\nproduct:\n\nContains information about products, such as product key, name, category, and price.\n\n\n\nfx:\n\nContains foreign exchange rate data, mapping currency pairs to their exchange rates on specific dates.\n\n\n\ndate:\n\nContains date-related information, including date, week, month, quarter, and year for use in time-based analysis.\n\n\n\norders:\n\nContains information about individual orders, including order key, customer key, order date, and store information.\n\n\n\norderrows:\n\nContains detailed line items for each order, including product key, quantity, and price for each item in the order.\n\n\n\nBuilt into the package is the 10K row version of the dataset.\nIf you want a larger dataset, there is also 100K, 1M and 10M which can be created with create_contoso_duckdb() function.\nThis will create a local duckdb database and attach the specified row size version from a motherduck database into your local database.\nUsing view, you can see the columns’ label using the labelled package.1\nThe data is originally sourced from the sqlbi github site\n\n\n\nContoso\n\nThe relationship keys that join each of the tables are listed below.\n\n\n\n\n    \n\n\n      \n\nsales\n                customer\n                product\n                store\n                order\n                orderrows\n                fx\n              \n\n\norder_key\n                  \n                  \n                  \n                  order_key\n                  order_key\n                  \n                \n\ncustomer_key\n                  customer_key\n                  \n                  \n                  customer_key\n                  \n                  \n                \n\nstore_key\n                  \n                  \n                  store_key\n                  store_key\n                  \n                  \n                \n\nproduct_key\n                  \n                  product_key\n                  \n                  \n                  product_key\n                  \n                \n\ncurrency_code\n                  \n                  \n                  \n                  \n                  \n                  from_currency\n                \n\n\n\n\n\n\n\nYou can install the development version of package from GitHub with:\n\n# install.packages(\"pak\")\npak::pak(\"alejandrohagan/contoso\")\n\n\nExample of how to create a duckdb database with Contoso tables loaded is below:\n\nlibrary(contoso)\n\n# Creates a list of DuckDB database containing Contoso datasets\ncontoso_db &lt;- create_contoso_duckdb(dir = \"temp\",size = \"1m\")\n\n# Access the sales dataset from the database\nsales_data &lt;- contoso_db$sales"
-  },
-  {
-    "objectID": "index.html#contoso",
-    "href": "index.html#contoso",
-    "title": "README",
-    "section": "",
-    "text": "Contoso is a synthetic dataset containing sample sales transaction data for the fictional “Contoso” company. It includes various supporting tables for business intelligence, such as customer, store, product, and currency exchange data.\nThis dataset is perfect for practicing time series analysis, financial modeling, or any business intelligence-related tasks.\nThe package comes with the following datasets:\n\n\nsales:\n\nContains information about sales transactions, including the total sales amount, customer, store, and product involved.\n\n\n\ncustomer:\n\nContains details about customers, such as customer key, name, address, and demographic information.\n\n\n\nstore:\n\nContains information about stores, including store key, name, location, and related details.\n\n\n\nproduct:\n\nContains information about products, such as product key, name, category, and price.\n\n\n\nfx:\n\nContains foreign exchange rate data, mapping currency pairs to their exchange rates on specific dates.\n\n\n\ndate:\n\nContains date-related information, including date, week, month, quarter, and year for use in time-based analysis.\n\n\n\norders:\n\nContains information about individual orders, including order key, customer key, order date, and store information.\n\n\n\norderrows:\n\nContains detailed line items for each order, including product key, quantity, and price for each item in the order.\n\n\n\nBuilt into the package is the 10K row version of the dataset.\nIf you want a larger dataset, there is also 100K, 1M and 10M which can be created with create_contoso_duckdb() function.\nThis will create a local duckdb database and attach the specified row size version from a motherduck database into your local database.\nUsing view, you can see the columns’ label using the labelled package.1\nThe data is originally sourced from the sqlbi github site\n\n\n\nContoso\n\nThe relationship keys that join each of the tables are listed below.\n\n\n\n\n    \n\n\n      \n\nsales\n                customer\n                product\n                store\n                order\n                orderrows\n                fx\n              \n\n\norder_key\n                  \n                  \n                  \n                  order_key\n                  order_key\n                  \n                \n\ncustomer_key\n                  customer_key\n                  \n                  \n                  customer_key\n                  \n                  \n                \n\nstore_key\n                  \n                  \n                  store_key\n                  store_key\n                  \n                  \n                \n\nproduct_key\n                  \n                  product_key\n                  \n                  \n                  product_key\n                  \n                \n\ncurrency_code\n                  \n                  \n                  \n                  \n                  \n                  from_currency\n                \n\n\n\n\n\n\n\nYou can install the development version of package from GitHub with:\n\n# install.packages(\"pak\")\npak::pak(\"alejandrohagan/contoso\")\n\n\nExample of how to create a duckdb database with Contoso tables loaded is below:\n\nlibrary(contoso)\n\n# Creates a list of DuckDB database containing Contoso datasets\ncontoso_db &lt;- create_contoso_duckdb(dir = \"temp\",size = \"1m\")\n\n# Access the sales dataset from the database\nsales_data &lt;- contoso_db$sales"
-  },
-  {
-    "objectID": "index.html#footnotes",
-    "href": "index.html#footnotes",
-    "title": "README",
-    "section": "Footnotes",
-    "text": "Footnotes\n\nInspiration from Crystal Lewis excellent blog post↩︎"
-  },
-  {
-    "objectID": "man/customer.html",
-    "href": "man/customer.html",
-    "title": "contoso",
-    "section": "",
-    "text": "This dataset contains information about customers from the Contonso dataset, including demographic details, geographical information, contact information, and other personal attributes. It provides insights into customer profiles, including location, age, occupation, and more.\n\n\n\ncustomer\n\n\n\n\nA data frame with 23 columns:\n\n\ncustomer_key\n\n\ndouble Unique identifier for each customer.\n\n\ngeo_area_key\n\n\ndouble Unique identifier for the geographical area the customer resides in.\n\n\nstart_dt\n\n\nDate Date when the customer relationship began.\n\n\nend_dt\n\n\nDate Date when the customer relationship ended, if applicable.\n\n\ncontinent\n\n\ncharacter The continent where the customer resides.\n\n\ngender\n\n\ncharacter The gender of the customer (e.g., ‘Male’, ‘Female’).\n\n\ntitle\n\n\ncharacter The title of the customer (e.g., ‘Mr.’, ‘Ms.’).\n\n\ngiven_name\n\n\ncharacter The given (first) name of the customer.\n\n\nmiddle_initial\n\n\ncharacter The middle initial of the customer, if applicable.\n\n\nsurname\n\n\ncharacter The surname (last name) of the customer.\n\n\nstreet_address\n\n\ncharacter The street address of the customer.\n\n\ncity\n\n\ncharacter The city where the customer resides.\n\n\nstate\n\n\ncharacter The state or province where the customer resides.\n\n\nstate_full\n\n\ncharacter The full name of the state or province.\n\n\nzip_code\n\n\ncharacter The postal (ZIP) code of the customer’s address.\n\n\ncountry\n\n\ncharacter The country where the customer resides, using the country code.\n\n\ncountry_full\n\n\ncharacter The full name of the country where the customer resides.\n\n\nbirthday\n\n\nDate The date of birth of the customer.\n\n\nage\n\n\ndouble The age of the customer.\n\n\noccupation\n\n\ncharacter The customer’s occupation or profession.\n\n\ncompany\n\n\ncharacter The company the customer is associated with, if applicable.\n\n\nvehicle\n\n\ncharacter The type or make of vehicle the customer owns or drives.\n\n\nlatitude\n\n\ndouble The latitude of the customer’s address.\n\n\nlongitude\n\n\ndouble The longitude of the customer’s address.\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
-    "crumbs": [
-      "Reference",
-      "customer"
-    ]
-  },
-  {
-    "objectID": "man/customer.html#customer-data-from-the-contonso-dataset",
-    "href": "man/customer.html#customer-data-from-the-contonso-dataset",
-    "title": "contoso",
-    "section": "",
-    "text": "This dataset contains information about customers from the Contonso dataset, including demographic details, geographical information, contact information, and other personal attributes. It provides insights into customer profiles, including location, age, occupation, and more.\n\n\n\ncustomer\n\n\n\n\nA data frame with 23 columns:\n\n\ncustomer_key\n\n\ndouble Unique identifier for each customer.\n\n\ngeo_area_key\n\n\ndouble Unique identifier for the geographical area the customer resides in.\n\n\nstart_dt\n\n\nDate Date when the customer relationship began.\n\n\nend_dt\n\n\nDate Date when the customer relationship ended, if applicable.\n\n\ncontinent\n\n\ncharacter The continent where the customer resides.\n\n\ngender\n\n\ncharacter The gender of the customer (e.g., ‘Male’, ‘Female’).\n\n\ntitle\n\n\ncharacter The title of the customer (e.g., ‘Mr.’, ‘Ms.’).\n\n\ngiven_name\n\n\ncharacter The given (first) name of the customer.\n\n\nmiddle_initial\n\n\ncharacter The middle initial of the customer, if applicable.\n\n\nsurname\n\n\ncharacter The surname (last name) of the customer.\n\n\nstreet_address\n\n\ncharacter The street address of the customer.\n\n\ncity\n\n\ncharacter The city where the customer resides.\n\n\nstate\n\n\ncharacter The state or province where the customer resides.\n\n\nstate_full\n\n\ncharacter The full name of the state or province.\n\n\nzip_code\n\n\ncharacter The postal (ZIP) code of the customer’s address.\n\n\ncountry\n\n\ncharacter The country where the customer resides, using the country code.\n\n\ncountry_full\n\n\ncharacter The full name of the country where the customer resides.\n\n\nbirthday\n\n\nDate The date of birth of the customer.\n\n\nage\n\n\ndouble The age of the customer.\n\n\noccupation\n\n\ncharacter The customer’s occupation or profession.\n\n\ncompany\n\n\ncharacter The company the customer is associated with, if applicable.\n\n\nvehicle\n\n\ncharacter The type or make of vehicle the customer owns or drives.\n\n\nlatitude\n\n\ndouble The latitude of the customer’s address.\n\n\nlongitude\n\n\ndouble The longitude of the customer’s address.\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
-    "crumbs": [
-      "Reference",
-      "customer"
-    ]
-  },
-  {
-    "objectID": "man/fx.html",
-    "href": "man/fx.html",
-    "title": "contoso",
-    "section": "",
-    "text": "This dataset contains information about foreign exchange (FX) rates between different currencies. It includes details about the exchange rate for a given date, as well as the currencies involved. This dataset is useful for analyzing currency conversions and understanding the exchange rates between different currencies over time.\n\n\n\nfx\n\n\n\n\nA data frame with 4 columns:\n\n\ndate\n\n\nDate The date of the exchange rate.\n\n\nfrom_currency\n\n\ncharacter The code of the source currency (e.g., \"USD\", \"EUR\").\n\n\nto_currency\n\n\ncharacter The code of the target currency (e.g., \"GBP\", \"JPY\").\n\n\nexchange\n\n\ndouble The exchange rate between the source and target currencies on the given date.\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
-    "crumbs": [
-      "Reference",
-      "fx"
-    ]
-  },
-  {
-    "objectID": "man/fx.html#foreign-exchange-data-from-the-contonso-dataset",
-    "href": "man/fx.html#foreign-exchange-data-from-the-contonso-dataset",
-    "title": "contoso",
-    "section": "",
-    "text": "This dataset contains information about foreign exchange (FX) rates between different currencies. It includes details about the exchange rate for a given date, as well as the currencies involved. This dataset is useful for analyzing currency conversions and understanding the exchange rates between different currencies over time.\n\n\n\nfx\n\n\n\n\nA data frame with 4 columns:\n\n\ndate\n\n\nDate The date of the exchange rate.\n\n\nfrom_currency\n\n\ncharacter The code of the source currency (e.g., \"USD\", \"EUR\").\n\n\nto_currency\n\n\ncharacter The code of the target currency (e.g., \"GBP\", \"JPY\").\n\n\nexchange\n\n\ndouble The exchange rate between the source and target currencies on the given date.\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
-    "crumbs": [
-      "Reference",
-      "fx"
+      "orderrows"
     ]
   },
   {
@@ -217,25 +66,154 @@
     ]
   },
   {
-    "objectID": "man/orderrows.html",
-    "href": "man/orderrows.html",
+    "objectID": "man/fx.html",
+    "href": "man/fx.html",
     "title": "contoso",
     "section": "",
-    "text": "This dataset contains detailed information about the individual items (rows) within each order in the Contonso dataset. It includes details such as the product, quantity, pricing, and cost of each item in an order. This dataset is useful for analyzing the breakdown of order components and individual product sales.\n\n\n\norderrows\n\n\n\n\nA data frame with 7 columns:\n\n\norder_key\n\n\ndouble Unique identifier for the order to which the item belongs.\n\n\nline_number\n\n\ndouble Line number within the order, identifying each product line.\n\n\nproduct_key\n\n\ndouble Unique identifier for the product in the order row.\n\n\nquantity\n\n\ndouble The quantity of the product ordered.\n\n\nunit_price\n\n\ndouble The price per unit of the product.\n\n\nnet_price\n\n\ndouble The total net price for the product, considering any applicable discounts.\n\n\nunit_cost\n\n\ndouble The cost per unit of the product.\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
+    "text": "This dataset contains information about foreign exchange (FX) rates between different currencies. It includes details about the exchange rate for a given date, as well as the currencies involved. This dataset is useful for analyzing currency conversions and understanding the exchange rates between different currencies over time.\n\n\n\nfx\n\n\n\n\nA data frame with 4 columns:\n\n\ndate\n\n\nDate The date of the exchange rate.\n\n\nfrom_currency\n\n\ncharacter The code of the source currency (e.g., \"USD\", \"EUR\").\n\n\nto_currency\n\n\ncharacter The code of the target currency (e.g., \"GBP\", \"JPY\").\n\n\nexchange\n\n\ndouble The exchange rate between the source and target currencies on the given date.\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
     "crumbs": [
       "Reference",
-      "orderrows"
+      "fx"
     ]
   },
   {
-    "objectID": "man/orderrows.html#order-rows-data-from-the-contonso-dataset",
-    "href": "man/orderrows.html#order-rows-data-from-the-contonso-dataset",
+    "objectID": "man/fx.html#foreign-exchange-data-from-the-contonso-dataset",
+    "href": "man/fx.html#foreign-exchange-data-from-the-contonso-dataset",
     "title": "contoso",
     "section": "",
-    "text": "This dataset contains detailed information about the individual items (rows) within each order in the Contonso dataset. It includes details such as the product, quantity, pricing, and cost of each item in an order. This dataset is useful for analyzing the breakdown of order components and individual product sales.\n\n\n\norderrows\n\n\n\n\nA data frame with 7 columns:\n\n\norder_key\n\n\ndouble Unique identifier for the order to which the item belongs.\n\n\nline_number\n\n\ndouble Line number within the order, identifying each product line.\n\n\nproduct_key\n\n\ndouble Unique identifier for the product in the order row.\n\n\nquantity\n\n\ndouble The quantity of the product ordered.\n\n\nunit_price\n\n\ndouble The price per unit of the product.\n\n\nnet_price\n\n\ndouble The total net price for the product, considering any applicable discounts.\n\n\nunit_cost\n\n\ndouble The cost per unit of the product.\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
+    "text": "This dataset contains information about foreign exchange (FX) rates between different currencies. It includes details about the exchange rate for a given date, as well as the currencies involved. This dataset is useful for analyzing currency conversions and understanding the exchange rates between different currencies over time.\n\n\n\nfx\n\n\n\n\nA data frame with 4 columns:\n\n\ndate\n\n\nDate The date of the exchange rate.\n\n\nfrom_currency\n\n\ncharacter The code of the source currency (e.g., \"USD\", \"EUR\").\n\n\nto_currency\n\n\ncharacter The code of the target currency (e.g., \"GBP\", \"JPY\").\n\n\nexchange\n\n\ndouble The exchange rate between the source and target currencies on the given date.\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
     "crumbs": [
       "Reference",
-      "orderrows"
+      "fx"
+    ]
+  },
+  {
+    "objectID": "man/customer.html",
+    "href": "man/customer.html",
+    "title": "contoso",
+    "section": "",
+    "text": "This dataset contains information about customers from the Contonso dataset, including demographic details, geographical information, contact information, and other personal attributes. It provides insights into customer profiles, including location, age, occupation, and more.\n\n\n\ncustomer\n\n\n\n\nA data frame with 23 columns:\n\n\ncustomer_key\n\n\ndouble Unique identifier for each customer.\n\n\ngeo_area_key\n\n\ndouble Unique identifier for the geographical area the customer resides in.\n\n\nstart_dt\n\n\nDate Date when the customer relationship began.\n\n\nend_dt\n\n\nDate Date when the customer relationship ended, if applicable.\n\n\ncontinent\n\n\ncharacter The continent where the customer resides.\n\n\ngender\n\n\ncharacter The gender of the customer (e.g., ‘Male’, ‘Female’).\n\n\ntitle\n\n\ncharacter The title of the customer (e.g., ‘Mr.’, ‘Ms.’).\n\n\ngiven_name\n\n\ncharacter The given (first) name of the customer.\n\n\nmiddle_initial\n\n\ncharacter The middle initial of the customer, if applicable.\n\n\nsurname\n\n\ncharacter The surname (last name) of the customer.\n\n\nstreet_address\n\n\ncharacter The street address of the customer.\n\n\ncity\n\n\ncharacter The city where the customer resides.\n\n\nstate\n\n\ncharacter The state or province where the customer resides.\n\n\nstate_full\n\n\ncharacter The full name of the state or province.\n\n\nzip_code\n\n\ncharacter The postal (ZIP) code of the customer’s address.\n\n\ncountry\n\n\ncharacter The country where the customer resides, using the country code.\n\n\ncountry_full\n\n\ncharacter The full name of the country where the customer resides.\n\n\nbirthday\n\n\nDate The date of birth of the customer.\n\n\nage\n\n\ndouble The age of the customer.\n\n\noccupation\n\n\ncharacter The customer’s occupation or profession.\n\n\ncompany\n\n\ncharacter The company the customer is associated with, if applicable.\n\n\nvehicle\n\n\ncharacter The type or make of vehicle the customer owns or drives.\n\n\nlatitude\n\n\ndouble The latitude of the customer’s address.\n\n\nlongitude\n\n\ndouble The longitude of the customer’s address.\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
+    "crumbs": [
+      "Reference",
+      "customer"
+    ]
+  },
+  {
+    "objectID": "man/customer.html#customer-data-from-the-contonso-dataset",
+    "href": "man/customer.html#customer-data-from-the-contonso-dataset",
+    "title": "contoso",
+    "section": "",
+    "text": "This dataset contains information about customers from the Contonso dataset, including demographic details, geographical information, contact information, and other personal attributes. It provides insights into customer profiles, including location, age, occupation, and more.\n\n\n\ncustomer\n\n\n\n\nA data frame with 23 columns:\n\n\ncustomer_key\n\n\ndouble Unique identifier for each customer.\n\n\ngeo_area_key\n\n\ndouble Unique identifier for the geographical area the customer resides in.\n\n\nstart_dt\n\n\nDate Date when the customer relationship began.\n\n\nend_dt\n\n\nDate Date when the customer relationship ended, if applicable.\n\n\ncontinent\n\n\ncharacter The continent where the customer resides.\n\n\ngender\n\n\ncharacter The gender of the customer (e.g., ‘Male’, ‘Female’).\n\n\ntitle\n\n\ncharacter The title of the customer (e.g., ‘Mr.’, ‘Ms.’).\n\n\ngiven_name\n\n\ncharacter The given (first) name of the customer.\n\n\nmiddle_initial\n\n\ncharacter The middle initial of the customer, if applicable.\n\n\nsurname\n\n\ncharacter The surname (last name) of the customer.\n\n\nstreet_address\n\n\ncharacter The street address of the customer.\n\n\ncity\n\n\ncharacter The city where the customer resides.\n\n\nstate\n\n\ncharacter The state or province where the customer resides.\n\n\nstate_full\n\n\ncharacter The full name of the state or province.\n\n\nzip_code\n\n\ncharacter The postal (ZIP) code of the customer’s address.\n\n\ncountry\n\n\ncharacter The country where the customer resides, using the country code.\n\n\ncountry_full\n\n\ncharacter The full name of the country where the customer resides.\n\n\nbirthday\n\n\nDate The date of birth of the customer.\n\n\nage\n\n\ndouble The age of the customer.\n\n\noccupation\n\n\ncharacter The customer’s occupation or profession.\n\n\ncompany\n\n\ncharacter The company the customer is associated with, if applicable.\n\n\nvehicle\n\n\ncharacter The type or make of vehicle the customer owns or drives.\n\n\nlatitude\n\n\ndouble The latitude of the customer’s address.\n\n\nlongitude\n\n\ndouble The longitude of the customer’s address.\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
+    "crumbs": [
+      "Reference",
+      "customer"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "README",
+    "section": "",
+    "text": "Contoso is a synthetic dataset containing sample sales transaction data for the fictional “Contoso” company. It includes various supporting tables for business intelligence, such as customer, store, product, and currency exchange data.\nThis dataset is perfect for practicing time series analysis, financial modeling, or any business intelligence-related tasks.\nThe package comes with the following datasets:\n\n\nsales:\n\nContains information about sales transactions, including the total sales amount, customer, store, and product involved.\n\n\n\ncustomer:\n\nContains details about customers, such as customer key, name, address, and demographic information.\n\n\n\nstore:\n\nContains information about stores, including store key, name, location, and related details.\n\n\n\nproduct:\n\nContains information about products, such as product key, name, category, and price.\n\n\n\nfx:\n\nContains foreign exchange rate data, mapping currency pairs to their exchange rates on specific dates.\n\n\n\ndate:\n\nContains date-related information, including date, week, month, quarter, and year for use in time-based analysis.\n\n\n\norders:\n\nContains information about individual orders, including order key, customer key, order date, and store information.\n\n\n\norderrows:\n\nContains detailed line items for each order, including product key, quantity, and price for each item in the order.\n\n\n\nBuilt into the package is the 10K row version of the dataset.\nIf you want a larger dataset, there is also 100K, 1M and 10M which can be created with create_contoso_duckdb() function.\nThis will create a local duckdb database and attach the specified row size version from a motherduck database into your local database.\nUsing view, you can see the columns’ label using the labelled package.1\nThe data is originally sourced from the sqlbi github site\n\n\n\nContoso\n\nThe relationship keys that join each of the tables are listed below.\n\n\n\n\n    \n\n\n      \n\nsales\n                customer\n                product\n                store\n                order\n                orderrows\n                fx\n              \n\n\norder_key\n                  \n                  \n                  \n                  order_key\n                  order_key\n                  \n                \n\ncustomer_key\n                  customer_key\n                  \n                  \n                  customer_key\n                  \n                  \n                \n\nstore_key\n                  \n                  \n                  store_key\n                  store_key\n                  \n                  \n                \n\nproduct_key\n                  \n                  product_key\n                  \n                  \n                  product_key\n                  \n                \n\ncurrency_code\n                  \n                  \n                  \n                  \n                  \n                  from_currency\n                \n\n\n\n\n\n\n\nYou can install the development version of package from GitHub with:\n\n# install.packages(\"pak\")\npak::pak(\"alejandrohagan/contoso\")\n\n\nExample of how to create a duckdb database with Contoso tables loaded is below:\n\nlibrary(contoso)\n\n# Creates a list of DuckDB database containing Contoso datasets\ncontoso_db &lt;- create_contoso_duckdb(dir = \"temp\",size = \"1m\")\n\n# Access the sales dataset from the database\nsales_data &lt;- contoso_db$sales"
+  },
+  {
+    "objectID": "index.html#contoso",
+    "href": "index.html#contoso",
+    "title": "README",
+    "section": "",
+    "text": "Contoso is a synthetic dataset containing sample sales transaction data for the fictional “Contoso” company. It includes various supporting tables for business intelligence, such as customer, store, product, and currency exchange data.\nThis dataset is perfect for practicing time series analysis, financial modeling, or any business intelligence-related tasks.\nThe package comes with the following datasets:\n\n\nsales:\n\nContains information about sales transactions, including the total sales amount, customer, store, and product involved.\n\n\n\ncustomer:\n\nContains details about customers, such as customer key, name, address, and demographic information.\n\n\n\nstore:\n\nContains information about stores, including store key, name, location, and related details.\n\n\n\nproduct:\n\nContains information about products, such as product key, name, category, and price.\n\n\n\nfx:\n\nContains foreign exchange rate data, mapping currency pairs to their exchange rates on specific dates.\n\n\n\ndate:\n\nContains date-related information, including date, week, month, quarter, and year for use in time-based analysis.\n\n\n\norders:\n\nContains information about individual orders, including order key, customer key, order date, and store information.\n\n\n\norderrows:\n\nContains detailed line items for each order, including product key, quantity, and price for each item in the order.\n\n\n\nBuilt into the package is the 10K row version of the dataset.\nIf you want a larger dataset, there is also 100K, 1M and 10M which can be created with create_contoso_duckdb() function.\nThis will create a local duckdb database and attach the specified row size version from a motherduck database into your local database.\nUsing view, you can see the columns’ label using the labelled package.1\nThe data is originally sourced from the sqlbi github site\n\n\n\nContoso\n\nThe relationship keys that join each of the tables are listed below.\n\n\n\n\n    \n\n\n      \n\nsales\n                customer\n                product\n                store\n                order\n                orderrows\n                fx\n              \n\n\norder_key\n                  \n                  \n                  \n                  order_key\n                  order_key\n                  \n                \n\ncustomer_key\n                  customer_key\n                  \n                  \n                  customer_key\n                  \n                  \n                \n\nstore_key\n                  \n                  \n                  store_key\n                  store_key\n                  \n                  \n                \n\nproduct_key\n                  \n                  product_key\n                  \n                  \n                  product_key\n                  \n                \n\ncurrency_code\n                  \n                  \n                  \n                  \n                  \n                  from_currency\n                \n\n\n\n\n\n\n\nYou can install the development version of package from GitHub with:\n\n# install.packages(\"pak\")\npak::pak(\"alejandrohagan/contoso\")\n\n\nExample of how to create a duckdb database with Contoso tables loaded is below:\n\nlibrary(contoso)\n\n# Creates a list of DuckDB database containing Contoso datasets\ncontoso_db &lt;- create_contoso_duckdb(dir = \"temp\",size = \"1m\")\n\n# Access the sales dataset from the database\nsales_data &lt;- contoso_db$sales"
+  },
+  {
+    "objectID": "index.html#footnotes",
+    "href": "index.html#footnotes",
+    "title": "README",
+    "section": "Footnotes",
+    "text": "Footnotes\n\nInspiration from Crystal Lewis excellent blog post↩︎"
+  },
+  {
+    "objectID": "LICENSE.html",
+    "href": "LICENSE.html",
+    "title": "MIT License",
+    "section": "",
+    "text": "MIT License\nCopyright (c) 2025 contoso authors\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
+    "crumbs": [
+      "License"
+    ]
+  },
+  {
+    "objectID": "CITATION.html",
+    "href": "CITATION.html",
+    "title": "Citation",
+    "section": "",
+    "text": "Citation\n\nHagan A (2025). Contoso Dataset. R package version 1.0.0, https://github.com/alejandrohagan/contoso.",
+    "crumbs": [
+      "Citation"
+    ]
+  },
+  {
+    "objectID": "man/store.html",
+    "href": "man/store.html",
+    "title": "contoso",
+    "section": "",
+    "text": "This dataset contains information about stores within the Contonso dataset. It includes details about the store’s geographic location, operational status, and physical characteristics such as size and opening/closing dates. It provides insights into the store network of the company.\n\n\n\nstore\n\n\n\n\nA data frame with 11 columns:\n\n\nstore_key\n\n\ndouble Unique identifier for each store.\n\n\nstore_code\n\n\ndouble A code that uniquely identifies the store.\n\n\ngeo_area_key\n\n\ndouble Unique identifier for the geographical area where the store is located.\n\n\ncountry_code\n\n\ncharacter The country code where the store is located (e.g., \"US\", \"DE\").\n\n\ncountry_name\n\n\ncharacter The full name of the country where the store is located.\n\n\nstate\n\n\ncharacter The state or province where the store is located.\n\n\nopen_date\n\n\nDate The date when the store was opened.\n\n\nclose_date\n\n\nDate The date when the store was closed, if applicable.\n\n\ndescription\n\n\ncharacter A description of the store (e.g., \"Flagship store\", \"Outlet store\").\n\n\nsquare_meters\n\n\ndouble The physical size of the store in square meters.\n\n\nstatus\n\n\ncharacter The operational status of the store (e.g., \"Open\", \"Closed\").\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
+    "crumbs": [
+      "Reference",
+      "store"
+    ]
+  },
+  {
+    "objectID": "man/store.html#store-data-from-the-contonso-dataset",
+    "href": "man/store.html#store-data-from-the-contonso-dataset",
+    "title": "contoso",
+    "section": "",
+    "text": "This dataset contains information about stores within the Contonso dataset. It includes details about the store’s geographic location, operational status, and physical characteristics such as size and opening/closing dates. It provides insights into the store network of the company.\n\n\n\nstore\n\n\n\n\nA data frame with 11 columns:\n\n\nstore_key\n\n\ndouble Unique identifier for each store.\n\n\nstore_code\n\n\ndouble A code that uniquely identifies the store.\n\n\ngeo_area_key\n\n\ndouble Unique identifier for the geographical area where the store is located.\n\n\ncountry_code\n\n\ncharacter The country code where the store is located (e.g., \"US\", \"DE\").\n\n\ncountry_name\n\n\ncharacter The full name of the country where the store is located.\n\n\nstate\n\n\ncharacter The state or province where the store is located.\n\n\nopen_date\n\n\nDate The date when the store was opened.\n\n\nclose_date\n\n\nDate The date when the store was closed, if applicable.\n\n\ndescription\n\n\ncharacter A description of the store (e.g., \"Flagship store\", \"Outlet store\").\n\n\nsquare_meters\n\n\ndouble The physical size of the store in square meters.\n\n\nstatus\n\n\ncharacter The operational status of the store (e.g., \"Open\", \"Closed\").\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
+    "crumbs": [
+      "Reference",
+      "store"
+    ]
+  },
+  {
+    "objectID": "man/create_contoso_duckdb.html",
+    "href": "man/create_contoso_duckdb.html",
+    "title": "contoso",
+    "section": "",
+    "text": "Creates duckdb versions of Contoso datasets\n\ncreate_contoso_duckdb(db_dir = c(\"in_memory\"), size = \"100K\")\n\n\n\n\n\ndb_dir\n\n\n\"temp\" or \"in_memory\"\n\n\n\n\nsize\n\n\n\"100k\",\"1M\" or \"10M\"\n\n\n\nThe [create_contonso_duckdb] function registers the following Contoso datasets as DuckDB tables: - ‘sales’: Contains sales transaction data. - ‘product’: Contains details about products, including attributes like product name, manufacturer, and category. - ‘customer’: Contains customer demographic and geographic information. - ‘store’: Contains information about store locations and attributes. - ‘fx’: Contains foreign exchange rate data for currency conversion. - ‘date’: Contains various date-related information, including day, week, month, and year.\nYou can choose to store the database in memory or in a temporary directory. If you choose \"temp\", the database will be created in a temporary file on disk. If you choose \"in_memory\", the database will be created entirely in memory and will be discarded after the R session ends.\n\nA list of lazy ‘tbl’ objects that are references to the Contoso datasets stored in the DuckDB database. The list contains the following tables: - ‘sales’ - ‘product’ - ‘customer’ - ‘store’ - ‘fx’ - ‘store’ - ‘orderrows’ - ‘date’\n\n\nlibrary(\"contoso\")\n\n# Create a DuckDB version of Contoso datasets stored in memory\n\n create_contoso_duckdb(db_dir = \"in_memory\",size=\"100K\")",
+    "crumbs": [
+      "Reference",
+      "create_contoso_duckdb"
+    ]
+  },
+  {
+    "objectID": "man/create_contoso_duckdb.html#creates-duckdb-versions-of-contoso-datasets",
+    "href": "man/create_contoso_duckdb.html#creates-duckdb-versions-of-contoso-datasets",
+    "title": "contoso",
+    "section": "",
+    "text": "Creates duckdb versions of Contoso datasets\n\ncreate_contoso_duckdb(db_dir = c(\"in_memory\"), size = \"100K\")\n\n\n\n\n\ndb_dir\n\n\n\"temp\" or \"in_memory\"\n\n\n\n\nsize\n\n\n\"100k\",\"1M\" or \"10M\"\n\n\n\nThe [create_contonso_duckdb] function registers the following Contoso datasets as DuckDB tables: - ‘sales’: Contains sales transaction data. - ‘product’: Contains details about products, including attributes like product name, manufacturer, and category. - ‘customer’: Contains customer demographic and geographic information. - ‘store’: Contains information about store locations and attributes. - ‘fx’: Contains foreign exchange rate data for currency conversion. - ‘date’: Contains various date-related information, including day, week, month, and year.\nYou can choose to store the database in memory or in a temporary directory. If you choose \"temp\", the database will be created in a temporary file on disk. If you choose \"in_memory\", the database will be created entirely in memory and will be discarded after the R session ends.\n\nA list of lazy ‘tbl’ objects that are references to the Contoso datasets stored in the DuckDB database. The list contains the following tables: - ‘sales’ - ‘product’ - ‘customer’ - ‘store’ - ‘fx’ - ‘store’ - ‘orderrows’ - ‘date’\n\n\nlibrary(\"contoso\")\n\n# Create a DuckDB version of Contoso datasets stored in memory\n\n create_contoso_duckdb(db_dir = \"in_memory\",size=\"100K\")",
+    "crumbs": [
+      "Reference",
+      "create_contoso_duckdb"
+    ]
+  },
+  {
+    "objectID": "man/orders.html",
+    "href": "man/orders.html",
+    "title": "contoso",
+    "section": "",
+    "text": "This dataset contains information about customer orders, including order dates, delivery dates, and store details.\n\n\n\norders\n\n\n\n\nA data frame with 5 columns:\n\n\norder_key\n\n\ndouble Unique identifier for the order.\n\n\ncustomer_key\n\n\ndouble Unique identifier for the customer who placed the order.\n\n\nstore_key\n\n\ndouble Unique identifier for the store where the order was placed.\n\n\norder_date\n\n\nDate The date when the order was placed.\n\n\ndelivery_date\n\n\nDate The date when the order is expected to be delivered.\n\n\ncurrency_code\n\n\ncharacter The currency code used for the order (e.g., USD, EUR).\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
+    "crumbs": [
+      "Reference",
+      "orders"
+    ]
+  },
+  {
+    "objectID": "man/orders.html#order-data-from-the-contonso-dataset",
+    "href": "man/orders.html#order-data-from-the-contonso-dataset",
+    "title": "contoso",
+    "section": "",
+    "text": "This dataset contains information about customer orders, including order dates, delivery dates, and store details.\n\n\n\norders\n\n\n\n\nA data frame with 5 columns:\n\n\norder_key\n\n\ndouble Unique identifier for the order.\n\n\ncustomer_key\n\n\ndouble Unique identifier for the customer who placed the order.\n\n\nstore_key\n\n\ndouble Unique identifier for the store where the order was placed.\n\n\norder_date\n\n\nDate The date when the order was placed.\n\n\ndelivery_date\n\n\nDate The date when the order is expected to be delivered.\n\n\ncurrency_code\n\n\ncharacter The currency code used for the order (e.g., USD, EUR).\n\n\n\n\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data",
+    "crumbs": [
+      "Reference",
+      "orders"
     ]
   },
   {
