@@ -311,9 +311,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ul>
 <p>Built into the package is the 10K row version of the dataset.</p>
+<p>Using <code>view()</code>, you can see the columns’ label using the <a href="https://larmarange.github.io/labelled/index.html">labelled</a> package.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <p>If you want a larger dataset, there is also 100K, 1M and 10M which can be created with <code>create_contoso_duckdb()</code> function.</p>
 <p>This will create a local duckdb database and attach the specified row size version from a motherduck database into your local database.</p>
-<p>Using view, you can see the columns’ label using the <a href="https://larmarange.github.io/labelled/index.html">labelled</a> package.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>The data is originally sourced from the <a href="https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data">sqlbi</a> github site</p>
 <section id="dataset-overview" class="level3">
 <h3 class="anchored" data-anchor-id="dataset-overview">Dataset overview</h3>
@@ -332,19 +332,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
     <script>
       // Create table-specific functions using external factory
-      const tableFns_spk811qk0yxdmuw9cw4k = TinyTable.createTableFunctions("tinytable_spk811qk0yxdmuw9cw4k");
+      const tableFns_g0sibogafo7t76wmz1yd = TinyTable.createTableFunctions("tinytable_g0sibogafo7t76wmz1yd");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '5', j: 1 }, { i: '5', j: 2 }, { i: '5', j: 3 }, { i: '5', j: 4 }, { i: '5', j: 5 }, { i: '5', j: 6 }, { i: '5', j: 7 } ], css_id: 'tinytable_css_m3m356lquu4zvqyxypc2',}, 
-          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 }, { i: '0', j: 5 }, { i: '0', j: 6 }, { i: '0', j: 7 } ], css_id: 'tinytable_css_qjcl7dav8wdrzsk8d6v5',}, 
+          { positions: [ { i: '5', j: 1 }, { i: '5', j: 2 }, { i: '5', j: 3 }, { i: '5', j: 4 }, { i: '5', j: 5 }, { i: '5', j: 6 }, { i: '5', j: 7 } ], css_id: 'tinytable_css_5vhjisiwgbljp5vz20k2',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 }, { i: '0', j: 5 }, { i: '0', j: 6 }, { i: '0', j: 7 } ], css_id: 'tinytable_css_0utbxw98tpirtiul6p2n',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_spk811qk0yxdmuw9cw4k.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_g0sibogafo7t76wmz1yd.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -353,11 +353,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
     <style>
     /* tinytable css entries after */
-    #tinytable_spk811qk0yxdmuw9cw4k td.tinytable_css_m3m356lquu4zvqyxypc2, #tinytable_spk811qk0yxdmuw9cw4k th.tinytable_css_m3m356lquu4zvqyxypc2 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
-    #tinytable_spk811qk0yxdmuw9cw4k td.tinytable_css_qjcl7dav8wdrzsk8d6v5, #tinytable_spk811qk0yxdmuw9cw4k th.tinytable_css_qjcl7dav8wdrzsk8d6v5 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_g0sibogafo7t76wmz1yd td.tinytable_css_5vhjisiwgbljp5vz20k2, #tinytable_g0sibogafo7t76wmz1yd th.tinytable_css_5vhjisiwgbljp5vz20k2 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_g0sibogafo7t76wmz1yd td.tinytable_css_0utbxw98tpirtiul6p2n, #tinytable_g0sibogafo7t76wmz1yd th.tinytable_css_0utbxw98tpirtiul6p2n {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
     </style>
     <div class="container">
-      <table class="tinytable" id="tinytable_spk811qk0yxdmuw9cw4k" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_g0sibogafo7t76wmz1yd" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         
         <thead>
               <tr>
