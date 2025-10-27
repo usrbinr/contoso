@@ -1,4 +1,8 @@
 urls:
   reference: https:/usrbinr.github.io/contoso/man
   article: https:/usrbinr.github.io/contoso/vignettes
-
+altdoc: 0.6.0.9000
+pandoc: 3.6.3
+pkgdown: 2.1.3
+pkgdown_sha: ~
+last_built: 2025-10-27T01:25:22+0000
