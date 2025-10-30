@@ -12,38 +12,33 @@ website:
   navbar:
     search: true
     right:
+      - text: References
+        menu:
+          - man/create_contoso_duckdb.qmd
+          - man/store.qmd
+          - man/sales.qmd
+          - man/product.qmd
+          - man/orders.qmd
+          - man/orderrows.qmd
+          - man/fx.qmd
+          - man/date.qmd
+          - man/customer.qmd
+      - text: "v$ALTDOC_PACKAGE_VERSION"
+        file: $ALTDOC_NEWS
+      - text: License
+        file: $ALTDOC_LICENSE
+      - text: Citation
+        file: $ALTDOC_CITATION
       - icon: github
         href: $ALTDOC_PACKAGE_URL_GITHUB
-        aria-label: $ALTDOC_PACKAGE_NAME GitHub
+        aria-label: "$ALTDOC_PACKAGE_NAME GitHub"
       - icon: bluesky
         href: https://bsky.app/profile/usrbinr.bsky.social
       - icon: link
         href: https://linktr.ee/alejandro.hagan
 
-  sidebar:
-    collapse-level: 1
-    style: "docked"
-    contents:
-      - text: Home
-        file: index.qmd
-      - section: $ALTDOC_VIGNETTE_BLOCK
-      - section: $ALTDOC_MAN_BLOCK
-      - text: News
-        file: $ALTDOC_NEWS
-      - text: Changelog
-        file: $ALTDOC_CHANGELOG
-      - text: License
-        file: $ALTDOC_LICENSE
-      - text: Licence
-        file: $ALTDOC_LICENCE
-      - text: Code of conduct
-        file: $ALTDOC_CODE_OF_CONDUCT
-      - text: Citation
-        file: $ALTDOC_CITATION
-
 format:
   html:
-    code-link: true
-#     theme: cosmo
-#     number-sections: false
-
+    theme:
+      light: cosmo
+      dark: darkly

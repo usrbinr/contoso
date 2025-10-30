@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.25">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
 <title>contoso</title>
 <style>
 code{white-space: pre-wrap;}
@@ -54,6 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
+
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -68,10 +72,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-812842b2218a51dc0bed467e9fe37b4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-5b49d03b2e050e4ce0886efacee5267a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-5e57eaa37147b559230aced56b25e179.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-5b49d03b2e050e4ce0886efacee5267a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -98,11 +107,178 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+
+
 </head>
-<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
     </a>
@@ -116,7 +292,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-<li class="nav-item compact">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-references" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">References</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-references">    
+        <li>
+    <a class="dropdown-item" href="./man/create_contoso_duckdb.html">
+ <span class="dropdown-text">Creates duckdb versions of Contoso datasets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./man/store.html">
+ <span class="dropdown-text">Store Data from the Contonso Dataset</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./man/sales.html">
+ <span class="dropdown-text">Sales Data from the Contonso Dataset</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./man/product.html">
+ <span class="dropdown-text">Product Data from the Contonso Dataset</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./man/orders.html">
+ <span class="dropdown-text">Order Data from the Contonso Dataset</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./man/orderrows.html">
+ <span class="dropdown-text">Order Rows Data from the Contonso Dataset</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./man/fx.html">
+ <span class="dropdown-text">Foreign Exchange Data from the Contonso Dataset</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./man/date.html">
+ <span class="dropdown-text">Date Dimension Data from the Contonso Dataset</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./man/customer.html">
+ <span class="dropdown-text">Customer Data from the Contonso Dataset</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./NEWS.html"> 
+<span class="menu-text">v1.0.0</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./LICENSE.html"> 
+<span class="menu-text">License</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./CITATION.html"> 
+<span class="menu-text">Citation</span></a>
+  </li>  
+  <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/usrbinr/contoso/"> <i class="bi bi-github" role="img" aria-label="contoso GitHub">
 </i> 
 <span class="menu-text"></span></a>
@@ -132,230 +363,147 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text"></span></a>
   </li>  
 </ul>
-</div> <!-- /navcollapse -->
+          </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
-    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Home</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      </a>
-      </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-<li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Home</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
- <span class="menu-text">Reference</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">
-<li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./man/create_contoso_duckdb.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">create_contoso_duckdb</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./man/customer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">customer</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./man/date.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">date</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./man/fx.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">fx</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./man/orderrows.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">orderrows</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./man/orders.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">orders</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./man/product.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">product</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./man/sales.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">sales</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./man/store.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">store</span></a>
-  </div>
-</li>
-      </ul>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./NEWS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">News</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./LICENSE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">License</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./CITATION.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Citation</span></a>
-  </div>
-</li>
-    </ul>
-</div>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
     <div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="undefined"><i class="bi bi-link-45deg"></i></a></li></ul></div></div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header><section id="contoso" class="level2"><h2 class="anchored" data-anchor-id="contoso">Contoso</h2>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+
+<section id="contoso" class="level2">
+<h2 class="anchored" data-anchor-id="contoso">Contoso</h2>
 <p>Contoso is a synthetic dataset containing sample sales transaction data for the fictional “Contoso” company. It includes various supporting tables for business intelligence, such as customer, store, product, and currency exchange data.</p>
-<p>This dataset is perfect for practicing time series analysis, financial modeling, or any business intelligence-related tasks.</p>
-<p>The package comes with the following datasets:</p>
+<p>This dataset is perfect for practicing time series analysis, joins, financial modeling, or any business intelligence-related tasks.</p>
+<p>It comes with a build in dataset as well as the ability to create an in-memory database with <a href="https://duckdb.org/">duckdb</a></p>
+<p>The package comes with the following tables:</p>
 <ul>
-<li>
-<strong>sales</strong>:
+<li><strong>sales</strong>:
 <ul>
 <li>Contains information about sales transactions, including the total sales amount, customer, store, and product involved.</li>
-</ul>
-</li>
-<li>
-<strong>customer</strong>:
+</ul></li>
+<li><strong>customer</strong>:
 <ul>
 <li>Contains details about customers, such as customer key, name, address, and demographic information.</li>
-</ul>
-</li>
-<li>
-<strong>store</strong>:
+</ul></li>
+<li><strong>store</strong>:
 <ul>
 <li>Contains information about stores, including store key, name, location, and related details.</li>
-</ul>
-</li>
-<li>
-<strong>product</strong>:
+</ul></li>
+<li><strong>product</strong>:
 <ul>
 <li>Contains information about products, such as product key, name, category, and price.</li>
-</ul>
-</li>
-<li>
-<strong>fx</strong>:
+</ul></li>
+<li><strong>fx</strong>:
 <ul>
 <li>Contains foreign exchange rate data, mapping currency pairs to their exchange rates on specific dates.</li>
-</ul>
-</li>
-<li>
-<strong>date</strong>:
+</ul></li>
+<li><strong>date</strong>:
 <ul>
 <li>Contains date-related information, including date, week, month, quarter, and year for use in time-based analysis.</li>
-</ul>
-</li>
-<li>
-<strong>orders</strong>:
+</ul></li>
+<li><strong>orders</strong>:
 <ul>
 <li>Contains information about individual orders, including order key, customer key, order date, and store information.</li>
-</ul>
-</li>
-<li>
-<strong>orderrows</strong>:
+</ul></li>
+<li><strong>orderrows</strong>:
 <ul>
 <li>Contains detailed line items for each order, including product key, quantity, and price for each item in the order.</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <p>Built into the package is the 10K row version of the dataset.</p>
-<p>Using <code>view()</code>, you can see the columns’ label using the <a href="https://larmarange.github.io/labelled/index.html">labelled</a> package.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
-<p>If you want a larger dataset, there is also 100K, 1M, 10M and 100M which can be created with <code><a href="https:/usrbinr.github.io/contoso/man/create_contoso_duckdb.html">create_contoso_duckdb()</a></code> function.</p>
-<p>This will create a local duckdb database and attach the specified row size version from a motherduck database into your local database.</p>
+<p>Using <code>view()</code>, you can see the columns’ label using the <a href="https://larmarange.github.io/labelled/index.html">labelled</a> package.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Inspiration to using <a href="https://larmarange.github.io/labelled/index.html">labelled</a> comes from <a href="https://cghlewis.com/blog/dict_clean/">Crystal Lewis</a> excellent blog post</p>
+</div>
+</div>
+<p>If you want a larger dataset, there is also 100K, 1M, 10M and 100M row version which can be created with <code>create_contoso_duckdb()</code> function.</p>
+<p>This will create a local duckdb database which will attach the specified row size version from a motherduck database into your local database.</p>
+</section>
+<section id="source" class="level2">
+<h2 class="anchored" data-anchor-id="source">Source</h2>
 <p>The data is originally sourced from the <a href="https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data">sqlbi</a> github site</p>
-<section id="dataset-overview" class="level3"><h3 class="anchored" data-anchor-id="dataset-overview">Dataset overview</h3>
+<section id="dataset-overview" class="level3">
+<h3 class="anchored" data-anchor-id="dataset-overview">Dataset overview</h3>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="man/figures/contoso.svg" class="img-fluid figure-img"></p>
-<figcaption>Contoso</figcaption></figure>
+<figure class="figure">
+<p><img src="man/figures/contoso.svg" class="img-fluid figure-img"></p>
+<figcaption>Contoso</figcaption>
+</figure>
 </div>
 <p>The relationship keys that join each of the tables are listed below.</p>
 <div class="cell" width="8">
 <div class="cell-output-display">
 <!-- preamble start -->
 
-    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script><script>
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
       // Create table-specific functions using external factory
-      const tableFns_da18ha7ckaczxadvd5n0 = TinyTable.createTableFunctions("tinytable_da18ha7ckaczxadvd5n0");
+      const tableFns_jw8n69od4grz2bemcko9 = TinyTable.createTableFunctions("tinytable_jw8n69od4grz2bemcko9");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '5', j: 1 }, { i: '5', j: 2 }, { i: '5', j: 3 }, { i: '5', j: 4 }, { i: '5', j: 5 }, { i: '5', j: 6 }, { i: '5', j: 7 } ], css_id: 'tinytable_css_tv3mhf9qphpa7yhsxcrf',}, 
-          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 }, { i: '0', j: 5 }, { i: '0', j: 6 }, { i: '0', j: 7 } ], css_id: 'tinytable_css_xr5ikhs3hiozj66aagul',}, 
+          { positions: [ { i: '5', j: 1 }, { i: '5', j: 2 }, { i: '5', j: 3 }, { i: '5', j: 4 }, { i: '5', j: 5 }, { i: '5', j: 6 }, { i: '5', j: 7 } ], css_id: 'tinytable_css_7mq1t42qze7nhsvci0xk',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 }, { i: '0', j: 5 }, { i: '0', j: 6 }, { i: '0', j: 7 } ], css_id: 'tinytable_css_8vj2m25lwbul0jyxj2k4',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_da18ha7ckaczxadvd5n0.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_jw8n69od4grz2bemcko9.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
-    </script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
-<style>
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
     /* tinytable css entries after */
-    #tinytable_da18ha7ckaczxadvd5n0 td.tinytable_css_tv3mhf9qphpa7yhsxcrf, #tinytable_da18ha7ckaczxadvd5n0 th.tinytable_css_tv3mhf9qphpa7yhsxcrf {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
-    #tinytable_da18ha7ckaczxadvd5n0 td.tinytable_css_xr5ikhs3hiozj66aagul, #tinytable_da18ha7ckaczxadvd5n0 th.tinytable_css_xr5ikhs3hiozj66aagul {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_jw8n69od4grz2bemcko9 td.tinytable_css_7mq1t42qze7nhsvci0xk, #tinytable_jw8n69od4grz2bemcko9 th.tinytable_css_7mq1t42qze7nhsvci0xk {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_jw8n69od4grz2bemcko9 td.tinytable_css_8vj2m25lwbul0jyxj2k4, #tinytable_jw8n69od4grz2bemcko9 th.tinytable_css_8vj2m25lwbul0jyxj2k4 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
     </style>
-<div class="container">
-      <table class="tinytable" id="tinytable_da18ha7ckaczxadvd5n0" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
-<thead><tr>
-<th scope="col" data-row="0" data-col="1">sales</th>
+    <div class="container">
+      <table class="tinytable" id="tinytable_jw8n69od4grz2bemcko9" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1">sales</th>
                 <th scope="col" data-row="0" data-col="2">customer</th>
                 <th scope="col" data-row="0" data-col="3">product</th>
                 <th scope="col" data-row="0" data-col="4">store</th>
                 <th scope="col" data-row="0" data-col="5">order</th>
                 <th scope="col" data-row="0" data-col="6">orderrows</th>
                 <th scope="col" data-row="0" data-col="7">fx</th>
-              </tr></thead>
-<tbody>
-<tr>
-<td data-row="1" data-col="1">order_key</td>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">order_key</td>
                   <td data-row="1" data-col="2"></td>
                   <td data-row="1" data-col="3"></td>
                   <td data-row="1" data-col="4"></td>
@@ -363,8 +511,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                   <td data-row="1" data-col="6">order_key</td>
                   <td data-row="1" data-col="7"></td>
                 </tr>
-<tr>
-<td data-row="2" data-col="1">customer_key</td>
+                <tr>
+                  <td data-row="2" data-col="1">customer_key</td>
                   <td data-row="2" data-col="2">customer_key</td>
                   <td data-row="2" data-col="3"></td>
                   <td data-row="2" data-col="4"></td>
@@ -372,8 +520,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                   <td data-row="2" data-col="6"></td>
                   <td data-row="2" data-col="7"></td>
                 </tr>
-<tr>
-<td data-row="3" data-col="1">store_key</td>
+                <tr>
+                  <td data-row="3" data-col="1">store_key</td>
                   <td data-row="3" data-col="2"></td>
                   <td data-row="3" data-col="3"></td>
                   <td data-row="3" data-col="4">store_key</td>
@@ -381,8 +529,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                   <td data-row="3" data-col="6"></td>
                   <td data-row="3" data-col="7"></td>
                 </tr>
-<tr>
-<td data-row="4" data-col="1">product_key</td>
+                <tr>
+                  <td data-row="4" data-col="1">product_key</td>
                   <td data-row="4" data-col="2"></td>
                   <td data-row="4" data-col="3">product_key</td>
                   <td data-row="4" data-col="4"></td>
@@ -390,8 +538,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                   <td data-row="4" data-col="6">product_key</td>
                   <td data-row="4" data-col="7"></td>
                 </tr>
-<tr>
-<td data-row="5" data-col="1">currency_code</td>
+                <tr>
+                  <td data-row="5" data-col="1">currency_code</td>
                   <td data-row="5" data-col="2"></td>
                   <td data-row="5" data-col="3"></td>
                   <td data-row="5" data-col="4"></td>
@@ -399,36 +547,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                   <td data-row="5" data-col="6"></td>
                   <td data-row="5" data-col="7">from_currency</td>
                 </tr>
-</tbody>
-</table>
-</div>
+        </tbody>
+      </table>
+    </div>
 <!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
-</section><section id="installation" class="level3"><h3 class="anchored" data-anchor-id="installation">Installation</h3>
+</section>
+<section id="installation" class="level3">
+<h3 class="anchored" data-anchor-id="installation">Installation</h3>
 <p>You can install the development version of package from <a href="https://github.com/alejandrohagan/contoso">GitHub</a> with:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html">pak</a></span><span class="op">(</span><span class="st">"alejandrohagan/contoso"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("pak")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"alejandrohagan/contoso"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section><section id="example" class="level3"><h3 class="anchored" data-anchor-id="example">Example</h3>
+</section>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example">Example</h3>
 <p>Example of how to create a duckdb database with Contoso tables loaded is below:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://usrbinr.github.io/contoso/">contoso</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Creates a list of DuckDB database containing Contoso datasets</span></span>
-<span><span class="va">contoso_db</span> <span class="op">&lt;-</span> <span class="fu"><a href="https:/usrbinr.github.io/contoso/man/create_contoso_duckdb.html">create_contoso_duckdb</a></span><span class="op">(</span>dir <span class="op">=</span> <span class="st">"temp"</span>,size <span class="op">=</span> <span class="st">"1m"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Access the sales dataset from the database</span></span>
-<span><span class="va">sales_data</span> <span class="op">&lt;-</span> <span class="va">contoso_db</span><span class="op">$</span><span class="va">sales</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(contoso)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates a list of DuckDB database containing Contoso datasets</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>contoso_db <span class="ot">&lt;-</span> <span class="fu">create_contoso_duckdb</span>(<span class="at">dir =</span> <span class="st">"temp"</span>,<span class="at">size =</span> <span class="st">"1m"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the sales dataset from the database</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>sales_data <span class="ot">&lt;-</span> contoso_db<span class="sc">$</span>sales</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 
-</section></section><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-<ol>
-<li id="fn1"><p>Inspiration from <a href="https://cghlewis.com/blog/dict_clean/">Crystal Lewis</a> excellent blog post<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
@@ -828,6 +994,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
   </script>
 </div> <!-- /content -->
+
 
 
 
