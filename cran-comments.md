@@ -8,4 +8,4 @@
 
 * description field in DESCRIPTION file does not begin with the package name, it begins with the suggested "This package"
 
-* updated .Rbuildignore to rmeove non-standard top files
+* updated .Rbuildignore to remove non-standard top files
