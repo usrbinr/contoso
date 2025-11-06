@@ -7,3 +7,5 @@
 * Spelling of tables (Contoso, fx, orderrows) in DESCRIPTION is intentional, these are the names of the tables
 
 * description field in DESCRIPTION file does not begin with the package name, it begins with the suggested "This package"
+
+* updated .Rbuildignore to rmeove non-standard top files
