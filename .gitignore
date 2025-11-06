@@ -5,3 +5,6 @@
 altdoc/freeze.rds
 _quarto/*
 !_quarto/_freeze/
+README.qmd
+README.html
+/README_files
