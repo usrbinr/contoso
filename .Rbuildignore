@@ -10,3 +10,6 @@
 ^\.github$
 ^altdoc$
 ^_quarto$
+^README\.qmd$
+^README\.html$
+^README_files$
