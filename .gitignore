@@ -7,5 +7,5 @@ _quarto/*
 !_quarto/_freeze/
 README.qmd
 README.html
-/README_files
+/README_files/*
 renv.lock
