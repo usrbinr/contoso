@@ -1,4 +1,4 @@
-## Contoso
+![logo](man/figures/logo.png)
 
 Contoso is a synthetic dataset containing sample sales transaction data for the fictional "Contoso" company. It includes various supporting tables for business intelligence, such as customer, store, product, and currency exchange data.
 
