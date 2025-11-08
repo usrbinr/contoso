@@ -1,8 +1,4 @@
-  <!-- badges: start -->
-  [![R-CMD-check](https://github.com/usrbinr/contoso/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/usrbinr/contoso/actions/workflows/R-CMD-check.yaml)
-  <!-- badges: end -->
-
-![Logo of MyPackage, an R package for managing databases](man/figures/logo.png)
+![](man/figures/logo.png)
 
 Contoso is a synthetic dataset containing sample sales transaction data
 for the fictional “Contoso” company. It includes various supporting
@@ -66,7 +62,7 @@ github site
 
 ### Dataset overview
 
-![Diagram showing relationships in various Contoso tables](man/figures/contoso.svg)
+![](man/figures/contoso.svg)
 
 The relationship keys that join each of the tables are listed below.
 
