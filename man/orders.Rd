@@ -7,12 +7,12 @@
 \format{
 A data frame with 5 columns:
 \describe{
-  \item{order_key}{\code{double} Unique identifier for the order.}
-  \item{customer_key}{\code{double} Unique identifier for the customer who placed the order.}
-  \item{store_key}{\code{double} Unique identifier for the store where the order was placed.}
-  \item{order_date}{\code{Date} The date when the order was placed.}
-  \item{delivery_date}{\code{Date} The date when the order is expected to be delivered.}
-  \item{currency_code}{\code{character} The currency code used for the order (e.g., USD, EUR).}
+\item{order_key}{\code{double} Unique identifier for the order.}
+\item{customer_key}{\code{double} Unique identifier for the customer who placed the order.}
+\item{store_key}{\code{double} Unique identifier for the store where the order was placed.}
+\item{order_date}{\code{Date} The date when the order was placed.}
+\item{delivery_date}{\code{Date} The date when the order is expected to be delivered.}
+\item{currency_code}{\code{character} The currency code used for the order (e.g., USD, EUR).}
 }
 }
 \source{

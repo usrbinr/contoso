@@ -1,6 +1,6 @@
 
 
-## Contoso
+![](man/figures/logo.png)
 
 Contoso is a synthetic dataset containing sample sales transaction data
 for the fictional “Contoso” company. It includes various supporting
@@ -45,8 +45,6 @@ Built into the package is the 10K row version of the dataset.
 Using `view()`, you can see the columns’ label using the
 [labelled](https://larmarange.github.io/labelled/index.html) package.
 
-> [!NOTE]
->
 > Inspiration to using
 > [labelled](https://larmarange.github.io/labelled/index.html) comes
 > from [Crystal Lewis](https://cghlewis.com/blog/dict_clean/) excellent

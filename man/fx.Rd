@@ -7,10 +7,10 @@
 \format{
 A data frame with 4 columns:
 \describe{
-  \item{date}{\code{Date} The date of the exchange rate.}
-  \item{from_currency}{\code{character} The code of the source currency (e.g., "USD", "EUR").}
-  \item{to_currency}{\code{character} The code of the target currency (e.g., "GBP", "JPY").}
-  \item{exchange}{\code{double} The exchange rate between the source and target currencies on the given date.}
+\item{date}{\code{Date} The date of the exchange rate.}
+\item{from_currency}{\code{character} The code of the source currency (e.g., "USD", "EUR").}
+\item{to_currency}{\code{character} The code of the target currency (e.g., "GBP", "JPY").}
+\item{exchange}{\code{double} The exchange rate between the source and target currencies on the given date.}
 }
 }
 \source{

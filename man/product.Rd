@@ -7,20 +7,20 @@
 \format{
 A data frame with 14 columns:
 \describe{
-  \item{product_key}{\code{double} Unique identifier for each product.}
-  \item{product_code}{\code{character} A code that uniquely identifies the product.}
-  \item{product_name}{\code{character} The name or description of the product.}
-  \item{manufacturer}{\code{character} The name of the manufacturer of the product.}
-  \item{brand}{\code{character} The brand of the product.}
-  \item{color}{\code{character} The color of the product.}
-  \item{weight_unit}{\code{character} The unit of measurement for the product's weight (e.g., "kg", "lbs").}
-  \item{weight}{\code{double} The weight of the product.}
-  \item{cost}{\code{double} The cost price of the product.}
-  \item{price}{\code{double} The selling price of the product.}
-  \item{category_key}{\code{double} Unique identifier for the category to which the product belongs.}
-  \item{category_name}{\code{character} The name of the category to which the product belongs.}
-  \item{sub_category_key}{\code{double} Unique identifier for the subcategory to which the product belongs.}
-  \item{sub_category_name}{\code{character} The name of the subcategory to which the product belongs.}
+\item{product_key}{\code{double} Unique identifier for each product.}
+\item{product_code}{\code{character} A code that uniquely identifies the product.}
+\item{product_name}{\code{character} The name or description of the product.}
+\item{manufacturer}{\code{character} The name of the manufacturer of the product.}
+\item{brand}{\code{character} The brand of the product.}
+\item{color}{\code{character} The color of the product.}
+\item{weight_unit}{\code{character} The unit of measurement for the product's weight (e.g., "kg", "lbs").}
+\item{weight}{\code{double} The weight of the product.}
+\item{cost}{\code{double} The cost price of the product.}
+\item{price}{\code{double} The selling price of the product.}
+\item{category_key}{\code{double} Unique identifier for the category to which the product belongs.}
+\item{category_name}{\code{character} The name of the category to which the product belongs.}
+\item{sub_category_key}{\code{double} Unique identifier for the subcategory to which the product belongs.}
+\item{sub_category_name}{\code{character} The name of the subcategory to which the product belongs.}
 }
 }
 \source{

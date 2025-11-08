@@ -7,23 +7,23 @@
 \format{
 A data frame with 17 columns:
 \describe{
-  \item{date}{\code{Date} The actual date for the record.}
-  \item{date_key}{\code{double} Unique identifier for the date (often in YYYYMMDD format).}
-  \item{year}{\code{double} The year part of the date.}
-  \item{year_quarter}{\code{character} The year and quarter (e.g., "2025 Q1").}
-  \item{year_quarter_number}{\code{double} The numerical representation of the quarter (e.g., 1, 2, 3, 4).}
-  \item{quarter}{\code{character} The quarter of the year (e.g., "Q1", "Q2").}
-  \item{year_month}{\code{character} The year and month (e.g., "2025-03").}
-  \item{year_month_short}{\code{character} A shortened version of year and month (e.g., "2025 Mar").}
-  \item{year_month_number}{\code{double} The numerical representation of the year-month (e.g., 202503 for March 2025).}
-  \item{month}{\code{character} The month name (e.g., "March").}
-  \item{month_short}{\code{character} The abbreviated month name (e.g., "Mar").}
-  \item{month_number}{\code{double} The numerical representation of the month (e.g., 3 for March).}
-  \item{dayof_week}{\code{character} The full name of the day of the week (e.g., "Monday").}
-  \item{dayof_week_short}{\code{character} The abbreviated day of the week (e.g., "Mon").}
-  \item{dayof_week_number}{\code{double} The numerical representation of the day of the week (e.g., 1 for Monday).}
-  \item{working_day}{\code{double} Indicator of whether the date is a working day (1 for working day, 0 for non-working day).}
-  \item{working_day_number}{\code{double} A numerical indicator for working day (e.g., 1 for working day, 0 for non-working day).}
+\item{date}{\code{Date} The actual date for the record.}
+\item{date_key}{\code{double} Unique identifier for the date (often in YYYYMMDD format).}
+\item{year}{\code{double} The year part of the date.}
+\item{year_quarter}{\code{character} The year and quarter (e.g., "2025 Q1").}
+\item{year_quarter_number}{\code{double} The numerical representation of the quarter (e.g., 1, 2, 3, 4).}
+\item{quarter}{\code{character} The quarter of the year (e.g., "Q1", "Q2").}
+\item{year_month}{\code{character} The year and month (e.g., "2025-03").}
+\item{year_month_short}{\code{character} A shortened version of year and month (e.g., "2025 Mar").}
+\item{year_month_number}{\code{double} The numerical representation of the year-month (e.g., 202503 for March 2025).}
+\item{month}{\code{character} The month name (e.g., "March").}
+\item{month_short}{\code{character} The abbreviated month name (e.g., "Mar").}
+\item{month_number}{\code{double} The numerical representation of the month (e.g., 3 for March).}
+\item{dayof_week}{\code{character} The full name of the day of the week (e.g., "Monday").}
+\item{dayof_week_short}{\code{character} The abbreviated day of the week (e.g., "Mon").}
+\item{dayof_week_number}{\code{double} The numerical representation of the day of the week (e.g., 1 for Monday).}
+\item{working_day}{\code{double} Indicator of whether the date is a working day (1 for working day, 0 for non-working day).}
+\item{working_day_number}{\code{double} A numerical indicator for working day (e.g., 1 for working day, 0 for non-working day).}
 }
 }
 \source{

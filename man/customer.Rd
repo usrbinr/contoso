@@ -7,30 +7,30 @@
 \format{
 A data frame with 23 columns:
 \describe{
-  \item{customer_key}{\code{double} Unique identifier for each customer.}
-  \item{geo_area_key}{\code{double} Unique identifier for the geographical area the customer resides in.}
-  \item{start_dt}{\code{Date} Date when the customer relationship began.}
-  \item{end_dt}{\code{Date} Date when the customer relationship ended, if applicable.}
-  \item{continent}{\code{character} The continent where the customer resides.}
-  \item{gender}{\code{character} The gender of the customer (e.g., 'Male', 'Female').}
-  \item{title}{\code{character} The title of the customer (e.g., 'Mr.', 'Ms.').}
-  \item{given_name}{\code{character} The given (first) name of the customer.}
-  \item{middle_initial}{\code{character} The middle initial of the customer, if applicable.}
-  \item{surname}{\code{character} The surname (last name) of the customer.}
-  \item{street_address}{\code{character} The street address of the customer.}
-  \item{city}{\code{character} The city where the customer resides.}
-  \item{state}{\code{character} The state or province where the customer resides.}
-  \item{state_full}{\code{character} The full name of the state or province.}
-  \item{zip_code}{\code{character} The postal (ZIP) code of the customer's address.}
-  \item{country}{\code{character} The country where the customer resides, using the country code.}
-  \item{country_full}{\code{character} The full name of the country where the customer resides.}
-  \item{birthday}{\code{Date} The date of birth of the customer.}
-  \item{age}{\code{double} The age of the customer.}
-  \item{occupation}{\code{character} The customer's occupation or profession.}
-  \item{company}{\code{character} The company the customer is associated with, if applicable.}
-  \item{vehicle}{\code{character} The type or make of vehicle the customer owns or drives.}
-  \item{latitude}{\code{double} The latitude of the customer's address.}
-  \item{longitude}{\code{double} The longitude of the customer's address.}
+\item{customer_key}{\code{double} Unique identifier for each customer.}
+\item{geo_area_key}{\code{double} Unique identifier for the geographical area the customer resides in.}
+\item{start_dt}{\code{Date} Date when the customer relationship began.}
+\item{end_dt}{\code{Date} Date when the customer relationship ended, if applicable.}
+\item{continent}{\code{character} The continent where the customer resides.}
+\item{gender}{\code{character} The gender of the customer (e.g., 'Male', 'Female').}
+\item{title}{\code{character} The title of the customer (e.g., 'Mr.', 'Ms.').}
+\item{given_name}{\code{character} The given (first) name of the customer.}
+\item{middle_initial}{\code{character} The middle initial of the customer, if applicable.}
+\item{surname}{\code{character} The surname (last name) of the customer.}
+\item{street_address}{\code{character} The street address of the customer.}
+\item{city}{\code{character} The city where the customer resides.}
+\item{state}{\code{character} The state or province where the customer resides.}
+\item{state_full}{\code{character} The full name of the state or province.}
+\item{zip_code}{\code{character} The postal (ZIP) code of the customer's address.}
+\item{country}{\code{character} The country where the customer resides, using the country code.}
+\item{country_full}{\code{character} The full name of the country where the customer resides.}
+\item{birthday}{\code{Date} The date of birth of the customer.}
+\item{age}{\code{double} The age of the customer.}
+\item{occupation}{\code{character} The customer's occupation or profession.}
+\item{company}{\code{character} The company the customer is associated with, if applicable.}
+\item{vehicle}{\code{character} The type or make of vehicle the customer owns or drives.}
+\item{latitude}{\code{double} The latitude of the customer's address.}
+\item{longitude}{\code{double} The longitude of the customer's address.}
 }
 }
 \source{

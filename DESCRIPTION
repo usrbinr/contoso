@@ -1,6 +1,6 @@
 Package: contoso
 Type: Package
-Title: The Contoso Dataset
+Title: Dataset of the 'Contoso' Company
 Version: 1.0.0
 Authors@R: c(
     person(
@@ -9,27 +9,28 @@ Authors@R: c(
       role = c("aut", "cre")
     )
   )
-Description: This package provides access to a made-up dataset simulating sales transactions from the fictional "Contoso" company. The dataset includes various related tables that contain essential business and operational data, useful for analyzing sales performance and other business insights. Key tables included in the package are:
+Description: A collection of synthetic datasets simulating sales transactions from a fictional company. The dataset includes various related tables that contain essential business and operational data, useful for analyzing sales performance and other business insights. Key tables included in the package are:
   - "sales": Contains data on individual sales transactions, including order details, pricing, quantities, and customer information.
   - "customer": Stores customer-specific details such as demographics, geographic location, occupation, and birthday.
   - "store": Provides information about stores, including location, size, status, and operational dates.
   - "orders": Contains details about customer orders, including order and delivery dates, store, and customer data.
-  - "orderrows": Provides detailed information about each item in an order, including product, quantity, pricing, and cost.
   - "product": Contains data on products, including attributes such as product name, category, price, cost, and weight.
-  - "fx": Foreign exchange data with exchange rates for different currencies used in the sales transactions.
   - "date": A time-based table that includes date-related attributes like year, month, quarter, day, and working day indicators.
   This dataset is ideal for practicing data analysis, performing time-series analysis, creating reports, or simulating business intelligence scenarios.
 License: MIT + file LICENSE
 Imports:
     DBI,
     dplyr,
-    duckdb
+    cli,
+    duckdb (>= 1.4.0)
 Suggests:
     testthat (>= 3.0.0)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.2
+Roxygen: list(markdown = TRUE)
 Depends: 
     R (>= 3.5)
-URL: https://usrbinr.github.io/contoso/
+URL: https://usrbinr.github.io/contoso/, https://github.com/usrbinr/contoso
 Config/testthat/edition: 3
+BugReports: https://github.com/usrbinr/contoso/issues

@@ -1,3 +1,9 @@
+# contoso 1.1.0
+* launch_ui function added
+* pkgdown instead of altdocs
+* new logo
+
+
 # contoso 1.0.0
 
 * Support for 100M row database now supported

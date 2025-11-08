@@ -7,17 +7,17 @@
 \format{
 A data frame with 11 columns:
 \describe{
-  \item{store_key}{\code{double} Unique identifier for each store.}
-  \item{store_code}{\code{double} A code that uniquely identifies the store.}
-  \item{geo_area_key}{\code{double} Unique identifier for the geographical area where the store is located.}
-  \item{country_code}{\code{character} The country code where the store is located (e.g., "US", "DE").}
-  \item{country_name}{\code{character} The full name of the country where the store is located.}
-  \item{state}{\code{character} The state or province where the store is located.}
-  \item{open_date}{\code{Date} The date when the store was opened.}
-  \item{close_date}{\code{Date} The date when the store was closed, if applicable.}
-  \item{description}{\code{character} A description of the store (e.g., "Flagship store", "Outlet store").}
-  \item{square_meters}{\code{double} The physical size of the store in square meters.}
-  \item{status}{\code{character} The operational status of the store (e.g., "Open", "Closed").}
+\item{store_key}{\code{double} Unique identifier for each store.}
+\item{store_code}{\code{double} A code that uniquely identifies the store.}
+\item{geo_area_key}{\code{double} Unique identifier for the geographical area where the store is located.}
+\item{country_code}{\code{character} The country code where the store is located (e.g., "US", "DE").}
+\item{country_name}{\code{character} The full name of the country where the store is located.}
+\item{state}{\code{character} The state or province where the store is located.}
+\item{open_date}{\code{Date} The date when the store was opened.}
+\item{close_date}{\code{Date} The date when the store was closed, if applicable.}
+\item{description}{\code{character} A description of the store (e.g., "Flagship store", "Outlet store").}
+\item{square_meters}{\code{double} The physical size of the store in square meters.}
+\item{status}{\code{character} The operational status of the store (e.g., "Open", "Closed").}
 }
 }
 \source{

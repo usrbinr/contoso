@@ -7,26 +7,26 @@
 \format{
 A data frame with sales columns:
 \describe{
-  \item{order_key}{\code{double} Unique identifier for each order.}
-  \item{line_number}{\code{double} Line number within the order (for multi-line orders).}
-  \item{order_date}{\code{Date} Date when the order was placed.}
-  \item{delivery_date}{\code{Date} Date when the order was delivered.}
-  \item{customer_key}{\code{double} Unique identifier for the customer who placed the order.}
-  \item{store_key}{\code{double} Unique identifier for the store where the order was placed.}
-  \item{product_key}{\code{double} Unique identifier for the product in the order.}
-  \item{quantity}{\code{double} The quantity of the product ordered.}
-  \item{unit_price}{\code{double} The price per unit of the product.}
-  \item{net_price}{\code{double} The total net price for the product, considering any discounts.}
-  \item{unit_cost}{\code{double} The cost per unit of the product.}
-  \item{currency_code}{\code{character} The currency code used for the transaction (e.g., USD, EUR).}
-  \item{exchange_rate}{\code{double} The exchange rate applied to the currency, if applicable.}
-  \item{gross_revenue}{\code{double} A product's unit_price multiplied by quantity.}
-  \item{net_revenue}{\code{double} A product's net_price multiplied by quantity.}
-  \item{unit_discount}{\code{double} A product's unit_price minute net_price.}
-  \item{discounts}{\code{double} A product's unit_discount multiplied by quantity.}
-  \item{cogs}{\code{double} A product's unit_cost multiplied by quantity.}
-  \item{margin}{\code{double} A product's net_revenue minus cogs.}
-  \item{unit_margin}{\code{double} A product margin divided by quantity.}
+\item{order_key}{\code{double} Unique identifier for each order.}
+\item{line_number}{\code{double} Line number within the order (for multi-line orders).}
+\item{order_date}{\code{Date} Date when the order was placed.}
+\item{delivery_date}{\code{Date} Date when the order was delivered.}
+\item{customer_key}{\code{double} Unique identifier for the customer who placed the order.}
+\item{store_key}{\code{double} Unique identifier for the store where the order was placed.}
+\item{product_key}{\code{double} Unique identifier for the product in the order.}
+\item{quantity}{\code{double} The quantity of the product ordered.}
+\item{unit_price}{\code{double} The price per unit of the product.}
+\item{net_price}{\code{double} The total net price for the product, considering any discounts.}
+\item{unit_cost}{\code{double} The cost per unit of the product.}
+\item{currency_code}{\code{character} The currency code used for the transaction (e.g., USD, EUR).}
+\item{exchange_rate}{\code{double} The exchange rate applied to the currency, if applicable.}
+\item{gross_revenue}{\code{double} A product's unit_price multiplied by quantity.}
+\item{net_revenue}{\code{double} A product's net_price multiplied by quantity.}
+\item{unit_discount}{\code{double} A product's unit_price minute net_price.}
+\item{discounts}{\code{double} A product's unit_discount multiplied by quantity.}
+\item{cogs}{\code{double} A product's unit_cost multiplied by quantity.}
+\item{margin}{\code{double} A product's net_revenue minus cogs.}
+\item{unit_margin}{\code{double} A product margin divided by quantity.}
 }
 }
 \source{

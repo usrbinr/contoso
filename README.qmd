@@ -37,9 +37,8 @@ Built into the package is the 10K row version of the dataset.
 
 Using `view()`, you can see the columns' label using the [labelled](https://larmarange.github.io/labelled/index.html) package.
 
-::: {.callout-note}
-Inspiration to using [labelled](https://larmarange.github.io/labelled/index.html) comes from [Crystal Lewis](https://cghlewis.com/blog/dict_clean/) excellent blog post
-:::
+
+> Inspiration to using [labelled](https://larmarange.github.io/labelled/index.html) comes from [Crystal Lewis](https://cghlewis.com/blog/dict_clean/) excellent blog post
 
 If you want a larger dataset, there is also 100K, 1M, 10M and 100M row version which can be created with `create_contoso_duckdb()` function.
   

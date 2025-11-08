@@ -12,29 +12,32 @@ create_contoso_duckdb(db_dir = c("in_memory"), size = "100K")
 \item{size}{"100k","1M", "10M", or "100M"}
 }
 \value{
-A list of lazy `tbl` objects that are references to the Contoso datasets stored in the DuckDB database. The list contains the following tables:
-
-- `sales`
-- `product`
-- `customer`
-- `store`
-- `fx`
-- `store`
-- `orderrows`
-- `date`
+A list of lazy \code{tbl} objects that are references to the Contoso datasets stored in the DuckDB database. The list contains the following tables:
+\itemize{
+\item \code{sales}
+\item \code{product}
+\item \code{customer}
+\item \code{store}
+\item \code{fx}
+\item \code{store}
+\item \code{orderrows}
+\item \code{date}
+}
 }
 \description{
 Creates duckdb versions of Contoso datasets
 }
 \details{
-The `create_contonso_duckd()` function registers the following Contoso datasets as DuckDB tables:
-
-- `sales`: Contains sales transaction data.
-- `product`: Contains details about products, including attributes like product name, manufacturer, and category.
-- `customer`: Contains customer demographic and geographic information.
-- `store`: Contains information about store locations and attributes.
-- `fx`: Contains foreign exchange rate data for currency conversion.
-- `date`: Contains various date-related information, including day, week, month, and year.
+The \code{create_contonso_duckd()} function registers the following Contoso datasets as DuckDB tables:
+\itemize{
+\item \code{sales}: Contains sales transaction data.
+\item \code{product}: Contains details about products, including attributes like product name, manufacturer, and category.
+\item \code{customer}: Contains customer demographic and geographic information.
+\item \code{store}: Contains information about store locations and attributes.
+\item \code{fx}: Contains foreign exchange rate data for currency conversion.
+\item \code{date}: Contains various date-related information, including day, week, month, and year.
+\item \code{con}: the duckdb connection to your database
+}
 
 You can choose to store the database in memory or in a temporary directory. If you choose "temp", the database will be created in a temporary file on disk. If you choose "in_memory", the database will be created entirely in memory and will be discarded after the R session ends.
 }
