@@ -1,3 +1,5 @@
+
+
 ![](man/figures/logo.png)
 
 Contoso is a synthetic dataset containing sample sales transaction data
