@@ -55,7 +55,7 @@ The data is originally sourced from the [sqlbi](https://github.com/sql-bi/Contos
 ### Dataset overview 
 
 
-![Contoso](man/figures/contoso.svg)
+![](man/figures/contoso.svg)
 
 The relationship keys that join each of the tables are listed below.
 
