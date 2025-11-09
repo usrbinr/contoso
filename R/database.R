@@ -151,7 +151,7 @@ return(out)
 #' @export
 launch_ui <- function(.con){
 
-  if (!DBI::dbIsValid(db$con)) {
+  if (!DBI::dbIsValid(.con)) {
 
     cli::cli_abort("Database connection is invalid, please reconnect before proceeding.")
   }
@@ -164,4 +164,3 @@ launch_ui <- function(.con){
 
 
 
-utils::globalVariables(c("db"))
