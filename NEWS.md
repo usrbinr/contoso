@@ -1,3 +1,8 @@
+## 1.1.1 
+* Patch to fixed launch_ui function
+
+
+
 # contoso 1.1.0
 * launch_ui function added
 * pkgdown instead of altdocs
