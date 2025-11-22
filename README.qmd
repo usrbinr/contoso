@@ -3,7 +3,8 @@ format: gfm
 ---
 
  <!-- badges: start -->
-  [![CRAN status](https://www.r-pkg.org/badges/version/contoso)](https://CRAN.R-project.org/package=contoso)
+  [![CRAN status](https://www.r-pkg.org/badges/version/contoso?svg=1)](https://CRAN.R-project.org/package=contoso)
+  [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/usrbinr/contoso/HEAD)
   <!-- badges: end -->
 
 

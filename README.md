@@ -1,7 +1,8 @@
 
 
 <!-- badges: start --> [![CRAN
-status](https://www.r-pkg.org/badges/version/contoso.png)](https://CRAN.R-project.org/package=contoso)
+status](https://www.r-pkg.org/badges/version/contoso?svg=1.png)](https://CRAN.R-project.org/package=contoso)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/usrbinr/contoso/HEAD)
 <!-- badges: end -->
 
 ![](man/figures/logo.png)
