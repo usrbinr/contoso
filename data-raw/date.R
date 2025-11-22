@@ -3,7 +3,7 @@
 
 dir <- "data-raw"
 
-date <- readr::read_csv(file.path(dir,"date.csv"),name_repair = janitor::make_clean_names,show_col_types = FALSE)
+calendar <- readr::read_csv(file.path(dir,"date.csv"),name_repair = janitor::make_clean_names,show_col_types = FALSE)
 
 date_labels <- list(
     date = "Full date",
@@ -26,7 +26,7 @@ date_labels <- list(
 )
 
 # Example: Assuming 'dates' is your data frame
-labelled::var_label(date) <- date_labels
+labelled::var_label(calendar) <- date_labels
 
 
-usethis::use_data(date, overwrite = TRUE)
+usethis::use_data(calendar, overwrite = TRUE)

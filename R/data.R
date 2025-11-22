@@ -68,9 +68,9 @@
 #' @source https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data
 "customer"
 
-#' Date Dimension Data from the Contonso Dataset
+#' Calendar Dimension Data from the Contonso Dataset
 #'
-#' This dataset contains date-related information used for time-based analysis in the Contonso dataset. It includes various representations
+#' This dataset contains calendar-related information used for time-based analysis in the Contonso dataset. It includes various representations
 #' of date-related attributes, such as year, quarter, month, and day, along with indicators for working days. It is useful for time-series
 #' analysis and aggregating data by different time periods.
 #'
@@ -95,7 +95,7 @@
 #'   \item{working_day_number}{\code{double} A numerical indicator for working day (e.g., 1 for working day, 0 for non-working day).}
 #' }
 #' @source https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data
-"date"
+"calendar"
 
 #' Store Data from the Contonso Dataset
 #'

@@ -30,7 +30,7 @@ The package comes with the following tables:
 - **fx**:
   - Contains foreign exchange rate data, mapping currency pairs to their
     exchange rates on specific dates.
-- **date**:
+- **calendar**:
   - Contains date-related information, including date, week, month,
     quarter, and year for use in time-based analysis.
 - **orders**:
