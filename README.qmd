@@ -2,6 +2,11 @@
 format: gfm
 ---
 
+ <!-- badges: start -->
+  [![CRAN status](https://www.r-pkg.org/badges/version/contoso)](https://CRAN.R-project.org/package=contoso)
+  <!-- badges: end -->
+
+
 ![](man/figures/logo.png)
 
 

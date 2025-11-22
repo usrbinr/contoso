@@ -1,5 +1,9 @@
 
 
+<!-- badges: start --> [![CRAN
+status](https://www.r-pkg.org/badges/version/contoso.png)](https://CRAN.R-project.org/package=contoso)
+<!-- badges: end -->
+
 ![](man/figures/logo.png)
 
 Contoso is a synthetic dataset containing sample sales transaction data
