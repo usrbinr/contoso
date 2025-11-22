@@ -1,4 +1,5 @@
 # contoso 1.2.0
+* changed 'date' table name to 'calendar' to avoid namespace conflicts with lubridate and base packages
 
 # contoso 1.1.1
 * Patch to fixed launch_ui function
