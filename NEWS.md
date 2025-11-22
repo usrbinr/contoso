@@ -1,3 +1,5 @@
+# contoso 1.2.0
+
 # contoso 1.1.1
 * Patch to fixed launch_ui function
 
