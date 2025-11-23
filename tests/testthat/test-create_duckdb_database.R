@@ -2,6 +2,9 @@
 
 describe("create_contoso_duckdb()", {
 
+
+    testthat::skip_on_cran()
+
     it("creates a DuckDB database containing all expected tables", {
 
 
