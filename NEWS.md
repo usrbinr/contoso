@@ -1,4 +1,6 @@
 # contoso 1.2.1
+* fixed create_contoso_duckdb() due to error created by table name changed
+* updated tests 
 
 # contoso 1.2.0
 * changed 'date' table name to 'calendar' to avoid namespace conflicts with lubridate and base packages

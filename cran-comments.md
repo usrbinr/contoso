@@ -1,4 +1,6 @@
 ## R CMD check results
 
-0 errors ✔ | 0 warnings ✔ | 0 notes ✔
-* updated table name to avoid namespace conflicts with popular packages
+0 errors ✔ | 0 warnings ✔ | 1 note ✖
+* Days since last update: 1
+
+* fixed error in function caused by table name change

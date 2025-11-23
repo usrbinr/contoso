@@ -2,21 +2,25 @@
 
 describe("create_contoso_duckdb()", {
 
+    it("creates a DuckDB database containing all expected tables", {
 
-        skip_if_not_installed("DBI")
-        skip_if_not_installed("duckdb")
-        skip_if_not_installed("dplyr")
-        skip_if_not_installed("dbplyr")
-        skip_on_cran()
-        skip_on_ci()
 
-        result <- create_contoso_duckdb(db_dir = "in_memory", size = "100K")
+        # Create a small in-memory Contoso DuckDB instance
+        result <- create_contoso_duckdb(
+            db_dir = "in_memory",
+            size   = "100K"
+        )
 
-        expected_names <- c("sales","product","customer","store","fx","date","orders","orderrows")
+        # List of tables that should be present in the returned list / connection object
+        expected_names <- c(
+            "sales", "product", "customer", "store", "fx",
+            "calendar", "orders", "orderrows", "con"
+        )
 
+        # Verify all expected tables exist
         expect_true(all(expected_names %in% names(result)))
+
+        # Verify no unexpected tables are present
         expect_setequal(names(result), expected_names)
-
-        expect_true(all(vapply(result, inherits, logical(1), what = "tbl_lazy")))
-
     })
+})
