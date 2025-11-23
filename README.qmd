@@ -5,6 +5,7 @@ format: gfm
  <!-- badges: start -->
   [![CRAN status](https://www.r-pkg.org/badges/version/contoso?svg=1)](https://CRAN.R-project.org/package=contoso)
   [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/usrbinr/contoso/HEAD)
+  [![](https://cranlogs.r-pkg.org/badges/contoso)](https://cran.r-project.org/package=contoso)
   <!-- badges: end -->
 
 

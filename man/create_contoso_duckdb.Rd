@@ -21,7 +21,7 @@ A list of lazy \code{tbl} objects that are references to the Contoso datasets st
 \item \code{fx}
 \item \code{store}
 \item \code{orderrows}
-\item \code{date}
+\item \code{calendar}
 }
 }
 \description{
@@ -35,7 +35,7 @@ The \code{create_contonso_duckd()} function registers the following Contoso data
 \item \code{customer}: Contains customer demographic and geographic information.
 \item \code{store}: Contains information about store locations and attributes.
 \item \code{fx}: Contains foreign exchange rate data for currency conversion.
-\item \code{date}: Contains various date-related information, including day, week, month, and year.
+\item \code{calendar}: Contains various date-related information, including day, week, month, and year.
 \item \code{con}: the duckdb connection to your database
 }
 

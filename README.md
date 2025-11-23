@@ -3,6 +3,7 @@
 <!-- badges: start --> [![CRAN
 status](https://www.r-pkg.org/badges/version/contoso?svg=1.png)](https://CRAN.R-project.org/package=contoso)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/usrbinr/contoso/HEAD)
+[![](https://cranlogs.r-pkg.org/badges/contoso.png)](https://cran.r-project.org/package=contoso)
 <!-- badges: end -->
 
 ![](man/figures/logo.png)

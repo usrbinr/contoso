@@ -13,7 +13,7 @@
 #' - `customer`: Contains customer demographic and geographic information.
 #' - `store`: Contains information about store locations and attributes.
 #' - `fx`: Contains foreign exchange rate data for currency conversion.
-#' - `date`: Contains various date-related information, including day, week, month, and year.
+#' - `calendar`: Contains various date-related information, including day, week, month, and year.
 #' - `con`: the duckdb connection to your database
 #'
 #' You can choose to store the database in memory or in a temporary directory. If you choose "temp", the database will be created in a temporary file on disk. If you choose "in_memory", the database will be created entirely in memory and will be discarded after the R session ends.
@@ -27,7 +27,7 @@
 #' - `fx`
 #' - `store`
 #' - `orderrows`
-#' - `date`
+#' - `calendar`
 #'
 #' @examples
 #' # Create a DuckDB version of Contoso datasets stored in memory
@@ -59,7 +59,7 @@ suppressWarnings(DBI::dbExecute(con,"INSTALL motherduck;"))
 
 suppressWarnings(DBI::dbExecute(con,"ATTACH 'md:_share/contoso/5cd50a2d-d482-4160-b260-f10091290db9' as contoso"))
 
-tables_vec <- c("sales","product","customer","store","orders","orderrows","fx","date")
+tables_vec <- c("sales","product","customer","store","orders","orderrows","fx","calendar")
 
 schema_options_vec <- c("100k"="small","1m"="medium","10m"="large","100m"="mega")
 
@@ -80,7 +80,7 @@ store_db <- dplyr::tbl(con,sql_vec[[4]])
 orders_db <- dplyr::tbl(con,sql_vec[[5]])
 orderrows_db <- dplyr::tbl(con,sql_vec[[6]])
 fx_db <- dplyr::tbl(con,sql_vec[[7]])
-date_db <- dplyr::tbl(con,sql_vec[[8]])
+calendar_db <- dplyr::tbl(con,sql_vec[[8]])
 
 
 out <- list(
@@ -89,7 +89,7 @@ out <- list(
   ,customer=customer_db
   ,store=store_db
   ,fx=fx_db
-  ,date=date_db
+  ,calendar=calendar_db
   ,orders=orders_db
   ,orderrows=orderrows_db
   ,con=con
