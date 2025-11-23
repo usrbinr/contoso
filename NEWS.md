@@ -1,3 +1,5 @@
+# contoso 1.2.1
+
 # contoso 1.2.0
 * changed 'date' table name to 'calendar' to avoid namespace conflicts with lubridate and base packages
 
