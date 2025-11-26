@@ -1,7 +1,7 @@
 Package: contoso
 Type: Package
 Title: Dataset of the 'Contoso' Company
-Version: 1.2.1
+Version: 1.2.2
 Authors@R: c(
     person(
       "Alejandro", "Hagan",
@@ -22,7 +22,9 @@ Imports:
     DBI,
     dplyr,
     cli,
-    duckdb (>= 1.4.0)
+    duckdb (>= 1.4.0),
+    assertthat,
+    cli
 Suggests:
     testthat (>= 3.0.0),
     dbplyr

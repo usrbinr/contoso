@@ -1,3 +1,7 @@
+# contoso 1.2.2
+* create_contoso_duckdb() will not work if you are using windows due to lack of support from motherduck
+* [see here for more information](https://motherduck.com/docs/integrations/language-apis-and-drivers/r/#considerations-and-limitations)
+
 # contoso 1.2.1
 * fixed create_contoso_duckdb() due to error created by table name changed
 * updated tests 

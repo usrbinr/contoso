@@ -40,6 +40,12 @@ create_contoso_duckdb <- function(db_dir= c("in_memory"),size="100K"){
 
   db_dir <- match.arg(db_dir, choices = c("temp", "in_memory"),several.ok = FALSE)
 
+  # validation of windows to fail gracefully if operating systems is windows
+  system_name <- Sys.info()[["sysname"]]
+
+  assertthat::assert_that(tolower(system_name)!="windows",msg =cli::cli_abort("Motherduck exention is not currently avalable in windows. See {.url https://motherduck.com/docs/integrations/language-apis-and-drivers/r/#considerations-and-limitations} for more information"))
+
+
   # size <- "1M"
   stopifnot(is.character(size))
   size <- tolower(size)
