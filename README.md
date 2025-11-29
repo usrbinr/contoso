@@ -1,9 +1,8 @@
 
 
-<!-- badges: start --> [![CRAN
-status](https://www.r-pkg.org/badges/version/contoso?svg=1.png)](https://CRAN.R-project.org/package=contoso)
+<!-- badges: start --> 
+[![CRAN status](https://www.r-pkg.org/badges/version/contoso?svg=1.png)](https://CRAN.R-project.org/package=contoso)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/usrbinr/contoso/HEAD)
-[![](https://cranlogs.r-pkg.org/badges/contoso.png)](https://cran.r-project.org/package=contoso)
 <!-- badges: end -->
 
 ![](man/figures/logo.png)
@@ -95,6 +94,11 @@ install.packages("contoso")
 
 Example of how to create a duckdb database with Contoso tables loaded is
 below:
+
+> This function uses the motherduck extension to attach the data from
+> motherduck to your local database. As of 2025-11-29, motherduck
+> extension is not supported on windows so this function will fail on a
+> windows machine
 
 ``` r
 library(contoso)
