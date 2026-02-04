@@ -1,12 +1,15 @@
-#' @param db_dir "temp" or "in_memory"
+#' @param size Dataset size: "small", "medium", "large", or "mega"
 #'
-#' @param size "100k","1M", "10M", or "100M"
-#'
-#' @title Creates duckdb versions of Contoso datasets
+#' @title Creates DuckDB database with Contoso datasets
 #' @name create_contoso_duckdb
 #'
+#' @description
+#' Creates a DuckDB connection with Contoso datasets loaded from cloud storage.
+#' The datasets are stored as Parquet files on Backblaze B2 and streamed directly
+#' into DuckDB.
+#'
 #' @details
-#' The `create_contonso_duckd()` function registers the following Contoso datasets as DuckDB tables:
+#' The `create_contoso_duckdb()` function creates views for the following Contoso datasets:
 #'
 #' - `sales`: Contains sales transaction data.
 #' - `product`: Contains details about products, including attributes like product name, manufacturer, and category.
@@ -14,100 +17,82 @@
 #' - `store`: Contains information about store locations and attributes.
 #' - `fx`: Contains foreign exchange rate data for currency conversion.
 #' - `calendar`: Contains various date-related information, including day, week, month, and year.
-#' - `con`: the duckdb connection to your database
+#' - `orders`: Contains order header information.
+#' - `orderrows`: Contains order line items.
 #'
-#' You can choose to store the database in memory or in a temporary directory. If you choose "temp", the database will be created in a temporary file on disk. If you choose "in_memory", the database will be created entirely in memory and will be discarded after the R session ends.
+#' Available sizes (approximate sales rows):
+#' - `small`: ~8,000 rows
+#' - `medium`: ~2.3 million rows
+#' - `large`: ~47 million rows
+#' - `mega`: ~237 million rows
 #'
-#' @return A list of lazy `tbl` objects that are references to the Contoso datasets stored in the DuckDB database. The list contains the following tables:
-#'
-#' - `sales`
-#' - `product`
-#' - `customer`
-#' - `store`
-#' - `fx`
-#' - `store`
-#' - `orderrows`
-#' - `calendar`
+#' @return A list containing:
+#' - `sales`, `product`, `customer`, `store`, `fx`, `calendar`, `orders`, `orderrows`: lazy `tbl` objects
+#' - `con`: the DuckDB connection (use `DBI::dbDisconnect(db$con, shutdown = TRUE)` when done)
 #'
 #' @examples
-#' # Create a DuckDB version of Contoso datasets stored in memory
-#'
 #' \dontrun{
-#'  create_contoso_duckdb(db_dir = "in_memory",size="100K")
+#'   db <- create_contoso_duckdb(size = "small")
+#'   db$sales |> head()
+#'   DBI::dbDisconnect(db$con, shutdown = TRUE)
 #' }
 #' @export
-create_contoso_duckdb <- function(db_dir= c("in_memory"),size="100K"){
-
-  db_dir <- match.arg(db_dir, choices = c("temp", "in_memory"),several.ok = FALSE)
-
-  # validation of windows to fail gracefully if operating systems is windows
-  system_name <- Sys.info()[["sysname"]]
-
-  assertthat::assert_that(tolower(system_name)!="windows",msg =cli::cli_abort("Motherduck exention is not currently avalable in windows. See {.url https://motherduck.com/docs/integrations/language-apis-and-drivers/r/#considerations-and-limitations} for more information"))
-
-
-  # size <- "1M"
+create_contoso_duckdb <- function(size = "small") {
   stopifnot(is.character(size))
   size <- tolower(size)
-  size_vec <- match.arg(size,choices=c("100k","1m","10m","100m"),several.ok = FALSE)
+  size <- match.arg(size, choices = c("small", "medium", "large", "mega"), several.ok = FALSE)
 
-  if(db_dir=="temp"){
-    db_dir <-   tempfile()
-    con <- suppressWarnings(DBI::dbConnect(duckdb::duckdb(db_dir)))
-  }else{
-    con <- suppressWarnings(DBI::dbConnect(duckdb::duckdb()))
+  # Map size names to B2 folder names
+  size_to_folder <- c(
+    "small" = "contoso_100k",
+    "medium" = "contoso_1m",
+    "large" = "contoso_10m",
+    "mega" = "contoso_100m"
+  )
+  folder <- size_to_folder[[size]]
+
+  # B2 bucket configuration (read-only credentials)
+  b2_endpoint <- "s3.us-east-005.backblazeb2.com"
+  b2_key_id <- "005b2c7eeac0b520000000002"
+  b2_key_secret <- "K005i8HhA1dzX3BNaPE2WnVevU7LBsk"
+  b2_bucket <- "contoso-datasets"
+
+  # Create DuckDB connection
+ con <- DBI::dbConnect(duckdb::duckdb())
+
+  # Install and load httpfs extension
+  DBI::dbExecute(con, "INSTALL httpfs; LOAD httpfs;")
+
+  # Configure S3 settings for B2
+  DBI::dbExecute(con, sprintf("SET s3_endpoint = '%s';", b2_endpoint))
+  DBI::dbExecute(con, sprintf("SET s3_access_key_id = '%s';", b2_key_id))
+  DBI::dbExecute(con, sprintf("SET s3_secret_access_key = '%s';", b2_key_secret))
+  DBI::dbExecute(con, "SET s3_url_style = 'path';")
+
+  # Table names
+  tables_vec <- c("sales", "product", "customer", "store", "orders", "orderrows", "fx", "calendar")
+
+  # Create views for each table pointing to B2 parquet files
+  for (tbl in tables_vec) {
+    parquet_url <- sprintf("s3://%s/%s/%s.parquet", b2_bucket, folder, tbl)
+    DBI::dbExecute(con, sprintf("CREATE VIEW %s AS SELECT * FROM read_parquet('%s');", tbl, parquet_url))
   }
 
+  # Create lazy tbl references
+  out <- list(
+    sales = dplyr::tbl(con, "sales"),
+    product = dplyr::tbl(con, "product"),
+    customer = dplyr::tbl(con, "customer"),
+    store = dplyr::tbl(con, "store"),
+    fx = dplyr::tbl(con, "fx"),
+    calendar = dplyr::tbl(con, "calendar"),
+    orders = dplyr::tbl(con, "orders"),
+    orderrows = dplyr::tbl(con, "orderrows"),
+    con = con
+  )
 
-  #attach motherduck database
-
-suppressWarnings(DBI::dbExecute(con,"INSTALL motherduck;"))
-
-suppressWarnings(DBI::dbExecute(con,"ATTACH 'md:_share/contoso/5cd50a2d-d482-4160-b260-f10091290db9' as contoso"))
-
-tables_vec <- c("sales","product","customer","store","orders","orderrows","fx","calendar")
-
-schema_options_vec <- c("100k"="small","1m"="medium","10m"="large","100m"="mega")
-
-schema_vec <- schema_options_vec[size_vec] |> unname()
-
-sql_vec <- lapply(
-  tables_vec,
-  function(x) DBI::Id("contoso", schema_vec, x)
-)
-
-
-# there's a better way to do this but I'm lazy
-
-sales_db <- dplyr::tbl(con,sql_vec[[1]])
-product_db <- dplyr::tbl(con,sql_vec[[2]])
-customer_db <- dplyr::tbl(con,sql_vec[[3]])
-store_db <- dplyr::tbl(con,sql_vec[[4]])
-orders_db <- dplyr::tbl(con,sql_vec[[5]])
-orderrows_db <- dplyr::tbl(con,sql_vec[[6]])
-fx_db <- dplyr::tbl(con,sql_vec[[7]])
-calendar_db <- dplyr::tbl(con,sql_vec[[8]])
-
-
-out <- list(
-  sales=sales_db
-  ,product=product_db
-  ,customer=customer_db
-  ,store=store_db
-  ,fx=fx_db
-  ,calendar=calendar_db
-  ,orders=orders_db
-  ,orderrows=orderrows_db
-  ,con=con
-)
-
-
-
-return(out)
+  return(out)
 }
-
-
-
 
 
 #' @title Launch the DuckDB UI in your browser
@@ -167,6 +152,3 @@ launch_ui <- function(.con){
   DBI::dbExecute(.con,"CALL start_ui()")
 
 }
-
-
-

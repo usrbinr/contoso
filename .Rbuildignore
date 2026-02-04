@@ -15,3 +15,14 @@
 ^README\.qmd$
 ^README\.html$
 ^README_files$
+
+# qrtdown
+^\.quarto$
+^_quarto\.yml$
+^_qrtdown\.yml$
+^reference\.qmd$
+^articles\.qmd$
+^citation\.qmd$
+^index\.qmd$
+^vignettes/articles$
+^llms\.txt$

@@ -1,0 +1,36 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+  - '*.qmd'
+  - '*.md'
+  - '!inst/'
+  - '!renv/'
+  - '!packrat/'
+website:
+  title: contoso
+  navbar:
+    title: contoso 1.2.2
+    left:
+    - text: Reference
+      href: reference.qmd
+    - text: Citation
+      href: citation.qmd
+    - text: Changelog
+      href: NEWS.md
+    logo: man/figures/logo.png
+    right:
+    - icon: github
+      href: https://github.com/usrbinr/contoso
+      aria-label: Source code
+  page-footer:
+    left: Built with [Quarto](https://quarto.org/) and [qrtdown](https://codeberg.org/usrbinr/qrtdown)
+    right: contoso 1.3.0
+  repo-url: https://usrbinr.github.io/contoso/
+format:
+  html:
+    theme:
+      light: cosmo
+    toc: true
+    code-overflow: wrap
+

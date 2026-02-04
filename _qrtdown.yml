@@ -1,0 +1,19 @@
+url: https://usrbinr.github.io/contoso/
+template:
+  theme: cosmo
+  code_overflow: wrap
+navbar:
+  title: contoso 1.2.2
+  left:
+  - text: Reference
+    href: reference.qmd
+  - text: Citation
+    href: citation.qmd
+  - text: Changelog
+    href: NEWS.md
+  right:
+  - icon: github
+    href: https://github.com/usrbinr/contoso
+    aria-label: Source code
+reference: []
+articles: []

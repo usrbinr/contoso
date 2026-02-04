@@ -10,3 +10,7 @@ README.html
 /README_files/*
 renv.lock
 docs
+
+# qrtdown
+/.quarto/
+**/*.quarto_ipynb

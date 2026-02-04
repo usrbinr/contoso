@@ -1,8 +1,11 @@
 
 
-<!-- badges: start --> 
-[![CRAN status](https://www.r-pkg.org/badges/version/contoso?svg=1.png)](https://CRAN.R-project.org/package=contoso)
+<!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/contoso?svg=1.png)](https://CRAN.R-project.org/package=contoso)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/usrbinr/contoso/HEAD)
+
 <!-- badges: end -->
 
 ![](man/figures/logo.png)
@@ -55,11 +58,15 @@ Using `view()`, you can see the columns’ label using the
 > from [Crystal Lewis](https://cghlewis.com/blog/dict_clean/) excellent
 > blog post
 
-If you want a larger dataset, there is also 100K, 1M, 10M and 100M row
-version which can be created with `create_contoso_duckdb()` function.
+For larger datasets, use `create_contoso_duckdb()` with one of the
+following sizes:
 
-This will create a local duckdb database which will attach the specified
-row size version from a motherduck database into your local database.
+| Size   | Approx Sales Rows |
+|--------|-------------------|
+| small  | ~8,000            |
+| medium | ~2.3 million      |
+| large  | ~47 million       |
+| mega   | ~237 million      |
 
 ## Source
 
@@ -92,20 +99,18 @@ install.packages("contoso")
 
 ### Example
 
-Example of how to create a duckdb database with Contoso tables loaded is
-below:
-
-> This function uses the motherduck extension to attach the data from
-> motherduck to your local database. As of 2025-11-29, motherduck
-> extension is not supported on windows so this function will fail on a
-> windows machine
-
 ``` r
 library(contoso)
 
-# Creates a list of DuckDB database containing Contoso datasets
-contoso_db <- create_contoso_duckdb(dir = "temp",size = "1m")
+# Create a DuckDB connection to Contoso datasets
+db <- create_contoso_duckdb(size = "medium")
 
-# Access the sales dataset from the database
-sales_data <- contoso_db$sales
+# Access the sales dataset
+db$sales |> head()
+
+# Launch the DuckDB UI to explore all tables interactively
+launch_ui(db$con)
+
+# Clean up when done
+DBI::dbDisconnect(db$con, shutdown = TRUE)
 ```

@@ -2,33 +2,27 @@
 % Please edit documentation in R/database.R
 \name{create_contoso_duckdb}
 \alias{create_contoso_duckdb}
-\title{Creates duckdb versions of Contoso datasets}
+\title{Creates DuckDB database with Contoso datasets}
 \usage{
-create_contoso_duckdb(db_dir = c("in_memory"), size = "100K")
+create_contoso_duckdb(size = "small")
 }
 \arguments{
-\item{db_dir}{"temp" or "in_memory"}
-
-\item{size}{"100k","1M", "10M", or "100M"}
+\item{size}{Dataset size: "small", "medium", "large", or "mega"}
 }
 \value{
-A list of lazy \code{tbl} objects that are references to the Contoso datasets stored in the DuckDB database. The list contains the following tables:
+A list containing:
 \itemize{
-\item \code{sales}
-\item \code{product}
-\item \code{customer}
-\item \code{store}
-\item \code{fx}
-\item \code{store}
-\item \code{orderrows}
-\item \code{calendar}
+\item \code{sales}, \code{product}, \code{customer}, \code{store}, \code{fx}, \code{calendar}, \code{orders}, \code{orderrows}: lazy \code{tbl} objects
+\item \code{con}: the DuckDB connection (use \code{DBI::dbDisconnect(db$con, shutdown = TRUE)} when done)
 }
 }
 \description{
-Creates duckdb versions of Contoso datasets
+Creates a DuckDB connection with Contoso datasets loaded from cloud storage.
+The datasets are stored as Parquet files on Backblaze B2 and streamed directly
+into DuckDB.
 }
 \details{
-The \code{create_contonso_duckd()} function registers the following Contoso datasets as DuckDB tables:
+The \code{create_contoso_duckdb()} function creates views for the following Contoso datasets:
 \itemize{
 \item \code{sales}: Contains sales transaction data.
 \item \code{product}: Contains details about products, including attributes like product name, manufacturer, and category.
@@ -36,15 +30,22 @@ The \code{create_contonso_duckd()} function registers the following Contoso data
 \item \code{store}: Contains information about store locations and attributes.
 \item \code{fx}: Contains foreign exchange rate data for currency conversion.
 \item \code{calendar}: Contains various date-related information, including day, week, month, and year.
-\item \code{con}: the duckdb connection to your database
+\item \code{orders}: Contains order header information.
+\item \code{orderrows}: Contains order line items.
 }
 
-You can choose to store the database in memory or in a temporary directory. If you choose "temp", the database will be created in a temporary file on disk. If you choose "in_memory", the database will be created entirely in memory and will be discarded after the R session ends.
+Available sizes (approximate sales rows):
+\itemize{
+\item \code{small}: ~8,000 rows
+\item \code{medium}: ~2.3 million rows
+\item \code{large}: ~47 million rows
+\item \code{mega}: ~237 million rows
+}
 }
 \examples{
-# Create a DuckDB version of Contoso datasets stored in memory
-
 \dontrun{
- create_contoso_duckdb(db_dir = "in_memory",size="100K")
+  db <- create_contoso_duckdb(size = "small")
+  db$sales |> head()
+  DBI::dbDisconnect(db$con, shutdown = TRUE)
 }
 }

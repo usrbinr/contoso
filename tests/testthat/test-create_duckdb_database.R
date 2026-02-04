@@ -8,11 +8,8 @@ describe("create_contoso_duckdb()", {
     it("creates a DuckDB database containing all expected tables", {
 
 
-        # Create a small in-memory Contoso DuckDB instance
-        result <- create_contoso_duckdb(
-            db_dir = "in_memory",
-            size   = "100K"
-        )
+        # Create a small Contoso DuckDB instance
+        result <- create_contoso_duckdb(size = "small")
 
         # List of tables that should be present in the returned list / connection object
         expected_names <- c(
@@ -25,5 +22,8 @@ describe("create_contoso_duckdb()", {
 
         # Verify no unexpected tables are present
         expect_setequal(names(result), expected_names)
+
+        # Clean up
+        DBI::dbDisconnect(result$con, shutdown = TRUE)
     })
 })

@@ -1,7 +1,7 @@
 Package: contoso
 Type: Package
 Title: Dataset of the 'Contoso' Company
-Version: 1.2.2
+Version: 2.0.0
 Authors@R: c(
     person(
       "Alejandro", "Hagan",
@@ -15,7 +15,7 @@ Description: A collection of synthetic datasets simulating sales transactions fr
   - "store": Provides information about stores, including location, size, status, and operational dates.
   - "orders": Contains details about customer orders, including order and delivery dates, store, and customer data.
   - "product": Contains data on products, including attributes such as product name, category, price, cost, and weight.
-  - "date": A time-based table that includes date-related attributes like year, month, quarter, day, and working day indicators.
+  - "calendar": A time-based table that includes date-related attributes like year, month, quarter, day, and working day indicators.
   This dataset is ideal for practicing data analysis, performing time-series analysis, creating reports, or simulating business intelligence scenarios.
 License: MIT + file LICENSE
 Imports:
@@ -23,8 +23,7 @@ Imports:
     dplyr,
     cli,
     duckdb (>= 1.4.0),
-    assertthat,
-    cli
+    assertthat
 Suggests:
     testthat (>= 3.0.0),
     dbplyr

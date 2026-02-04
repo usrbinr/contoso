@@ -1,0 +1,282 @@
+---
+title: "Function reference"
+---
+
+All functions and classes exported by contoso.
+
+## Functions
+
+| Function | Description |
+|----------|-------------|
+| [`calendar()`](#calendar) | Calendar Dimension Data from the Contonso Dataset |
+| [`create_contoso_duckdb()`](#create_contoso_duckdb) | Creates DuckDB database with Contoso datasets |
+| [`customer()`](#customer) | Customer Data from the Contonso Dataset |
+| [`fx()`](#fx) | Foreign Exchange Data from the Contonso Dataset |
+| [`launch_ui()`](#launch_ui) | Launch the DuckDB UI in your browser |
+| [`orderrows()`](#orderrows) | Order Rows Data from the Contonso Dataset |
+| [`orders()`](#orders) | Order Data from the Contonso Dataset |
+| [`product()`](#product) | Product Data from the Contonso Dataset |
+| [`sales()`](#sales) | Sales Data from the Contonso Dataset |
+| [`store()`](#store) | Store Data from the Contonso Dataset |
+
+***
+
+## Function Details
+
+### `calendar()` {#calendar}
+
+Calendar Dimension Data from the Contonso Dataset
+
+#### Usage
+
+```r
+calendar
+```
+
+#### Description
+
+This dataset contains calendar-related information used for time-based analysis in the Contonso dataset. It includes various representations
+of date-related attributes, such as year, quarter, month, and day, along with indicators for working days. It is useful for time-series
+analysis and aggregating data by different time periods.
+
+***
+
+### `create_contoso_duckdb()` {#create_contoso_duckdb}
+
+Creates DuckDB database with Contoso datasets
+
+#### Usage
+
+```r
+create_contoso_duckdb(size = "small")
+```
+
+#### Arguments
+
+| Argument | Description |
+|----------|-------------|
+| `size` | Dataset size: "small", "medium", "large", or "mega" |
+
+#### Value
+
+A list containing:
+
+ sales, product, customer, store, fx, calendar, orders, orderrows: lazy tbl objects
+ con: the DuckDB connection (use DBI::dbDisconnect(db$con, shutdown = TRUE) when done)
+
+#### Description
+
+Creates a DuckDB connection with Contoso datasets loaded from cloud storage.
+The datasets are stored as Parquet files on Backblaze B2 and streamed directly
+into DuckDB.
+
+#### Details
+
+The create_contoso_duckdb() function creates views for the following Contoso datasets:
+
+ sales: Contains sales transaction data.
+ product: Contains details about products, including attributes like product name, manufacturer, and category.
+ customer: Contains customer demographic and geographic information.
+ store: Contains information about store locations and attributes.
+ fx: Contains foreign exchange rate data for currency conversion.
+ calendar: Contains various date-related information, including day, week, month, and year.
+ orders: Contains order header information.
+ orderrows: Contains order line items.
+
+Available sizes (approximate sales rows):
+
+ small: ~8,000 rows
+ medium: ~2.3 million rows
+ large: ~47 million rows
+ mega: ~237 million rows
+
+#### Examples
+
+```r
+db <- create_contoso_duckdb(size = "small")
+  db$sales |> head()
+  DBI::dbDisconnect(db$con, shutdown = TRUE)
+```
+
+***
+
+### `customer()` {#customer}
+
+Customer Data from the Contonso Dataset
+
+#### Usage
+
+```r
+customer
+```
+
+#### Description
+
+This dataset contains information about customers from the Contonso dataset, including demographic details, geographical information,
+contact information, and other personal attributes. It provides insights into customer profiles, including location, age, occupation,
+and more.
+
+***
+
+### `fx()` {#fx}
+
+Foreign Exchange Data from the Contonso Dataset
+
+#### Usage
+
+```r
+fx
+```
+
+#### Description
+
+This dataset contains information about foreign exchange (FX) rates between different currencies. It includes details about the
+exchange rate for a given date, as well as the currencies involved. This dataset is useful for analyzing currency conversions
+and understanding the exchange rates between different currencies over time.
+
+***
+
+### `launch_ui()` {#launch_ui}
+
+Launch the DuckDB UI in your browser
+
+#### Usage
+
+```r
+launch_ui(.con)
+```
+
+#### Arguments
+
+| Argument | Description |
+|----------|-------------|
+| `.con` | A valid DBIConnection object connected to a DuckDB database. The function will check that the connection is valid before proceeding. |
+
+#### Value
+
+The function is called for its side effects and does not return a value.
+It launches the DuckDB UI and opens it in your default web browser.
+
+#### Description
+
+The launch_ui() function installs and launches the DuckDB UI extension
+for an active DuckDB database connection. This allows users to interact
+with the database via a web-based graphical interface.
+
+Your connection from create_contoso_duckdb() is returned in the list.
+
+#### Details
+
+The function performs the following steps:
+
+ Checks that the provided DuckDB connection is valid.
+If the connection is invalid, it aborts with a descriptive error message.
+ Installs the ui extension into the connected DuckDB instance.
+ Calls the start_ui() procedure to launch the DuckDB UI in your browser.
+
+This provides a convenient way to explore and manage DuckDB databases
+interactively without needing to leave the R environment.
+
+#### Examples
+
+```r
+# Connect to DuckDB
+db <- create_contoso_duckdb()
+
+# Launch the DuckDB UI
+launch_ui(db$con)
+
+# Clean up
+DBI::dbDisconnect(db$con, shutdown = TRUE)
+```
+
+***
+
+### `orderrows()` {#orderrows}
+
+Order Rows Data from the Contonso Dataset
+
+#### Usage
+
+```r
+orderrows
+```
+
+#### Description
+
+This dataset contains detailed information about the individual items (rows) within each order in the Contonso dataset. It includes
+details such as the product, quantity, pricing, and cost of each item in an order. This dataset is useful for analyzing the breakdown
+of order components and individual product sales.
+
+***
+
+### `orders()` {#orders}
+
+Order Data from the Contonso Dataset
+
+#### Usage
+
+```r
+orders
+```
+
+#### Description
+
+This dataset contains information about customer orders, including order dates, delivery dates, and store details.
+
+***
+
+### `product()` {#product}
+
+Product Data from the Contonso Dataset
+
+#### Usage
+
+```r
+product
+```
+
+#### Description
+
+This dataset contains information about products in the Contonso dataset. It includes product details such as identifiers,
+descriptions, pricing, weight, and categorization. This dataset is useful for analyzing product characteristics, pricing, and
+product-related sales insights.
+
+***
+
+### `sales()` {#sales}
+
+Sales Data from the Contonso Dataset
+
+#### Usage
+
+```r
+sales
+```
+
+#### Description
+
+This dataset contains information about sales orders, including order details, pricing, and customer data from the Contonso dataset.
+It provides insights into the transactions that have occurred, including order dates, delivery dates, customer and store information,
+as well as product details.
+
+***
+
+### `store()` {#store}
+
+Store Data from the Contonso Dataset
+
+#### Usage
+
+```r
+store
+```
+
+#### Description
+
+This dataset contains information about stores within the Contonso dataset. It includes details about the store's geographic
+location, operational status, and physical characteristics such as size and opening/closing dates. It provides insights into the
+store network of the company.
+
+***
+
