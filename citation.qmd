@@ -8,7 +8,7 @@ To cite this package in publications, use:
 
 > 
 > Hagan A (2025). _Contoso Dataset_.
-<https://github.com/usrbinr/contoso>.
+<https://codeberg.org/usrbinr/contoso>.
 
 ## BibTeX entry
 
@@ -17,7 +17,7 @@ To cite this package in publications, use:
   title = {Contoso Dataset},
   author = {Alejandro Hagan},
   year = {2025},
-  url = {https://github.com/usrbinr/contoso},
+  url = {https://codeberg.org/usrbinr/contoso},
 }
 ```
 

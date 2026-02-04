@@ -8,11 +8,14 @@ All functions and classes exported by contoso.
 
 | Function | Description |
 |----------|-------------|
-| [`calendar()`](#calendar) | Calendar Dimension Data from the Contonso Dataset |
 | [`create_contoso_duckdb()`](#create_contoso_duckdb) | Creates DuckDB database with Contoso datasets |
+| [`launch_ui()`](#launch_ui) | Launch the DuckDB UI in your browser |
+
+| Data| Description |
+|----------|-------------|
+| [`calendar()`](#calendar) | Calendar Dimension Data from the Contonso Dataset |
 | [`customer()`](#customer) | Customer Data from the Contonso Dataset |
 | [`fx()`](#fx) | Foreign Exchange Data from the Contonso Dataset |
-| [`launch_ui()`](#launch_ui) | Launch the DuckDB UI in your browser |
 | [`orderrows()`](#orderrows) | Order Rows Data from the Contonso Dataset |
 | [`orders()`](#orders) | Order Data from the Contonso Dataset |
 | [`product()`](#product) | Product Data from the Contonso Dataset |
@@ -22,24 +25,6 @@ All functions and classes exported by contoso.
 ***
 
 ## Function Details
-
-### `calendar()` {#calendar}
-
-Calendar Dimension Data from the Contonso Dataset
-
-#### Usage
-
-```r
-calendar
-```
-
-#### Description
-
-This dataset contains calendar-related information used for time-based analysis in the Contonso dataset. It includes various representations
-of date-related attributes, such as year, quarter, month, and day, along with indicators for working days. It is useful for time-series
-analysis and aggregating data by different time periods.
-
-***
 
 ### `create_contoso_duckdb()` {#create_contoso_duckdb}
 
@@ -100,42 +85,6 @@ db <- create_contoso_duckdb(size = "small")
 
 ***
 
-### `customer()` {#customer}
-
-Customer Data from the Contonso Dataset
-
-#### Usage
-
-```r
-customer
-```
-
-#### Description
-
-This dataset contains information about customers from the Contonso dataset, including demographic details, geographical information,
-contact information, and other personal attributes. It provides insights into customer profiles, including location, age, occupation,
-and more.
-
-***
-
-### `fx()` {#fx}
-
-Foreign Exchange Data from the Contonso Dataset
-
-#### Usage
-
-```r
-fx
-```
-
-#### Description
-
-This dataset contains information about foreign exchange (FX) rates between different currencies. It includes details about the
-exchange rate for a given date, as well as the currencies involved. This dataset is useful for analyzing currency conversions
-and understanding the exchange rates between different currencies over time.
-
-***
-
 ### `launch_ui()` {#launch_ui}
 
 Launch the DuckDB UI in your browser
@@ -191,6 +140,63 @@ DBI::dbDisconnect(db$con, shutdown = TRUE)
 ```
 
 ***
+## Data Details
+
+### `calendar()` {#calendar}
+
+Calendar Dimension Data from the Contonso Dataset
+
+#### Usage
+
+```r
+calendar
+```
+
+#### Description
+
+This dataset contains calendar-related information used for time-based analysis in the Contonso dataset. It includes various representations
+of date-related attributes, such as year, quarter, month, and day, along with indicators for working days. It is useful for time-series
+analysis and aggregating data by different time periods.
+
+***
+
+
+### `customer()` {#customer}
+
+Customer Data from the Contonso Dataset
+
+#### Usage
+
+```r
+customer
+```
+
+#### Description
+
+This dataset contains information about customers from the Contonso dataset, including demographic details, geographical information,
+contact information, and other personal attributes. It provides insights into customer profiles, including location, age, occupation,
+and more.
+
+***
+
+### `fx()` {#fx}
+
+Foreign Exchange Data from the Contonso Dataset
+
+#### Usage
+
+```r
+fx
+```
+
+#### Description
+
+This dataset contains information about foreign exchange (FX) rates between different currencies. It includes details about the
+exchange rate for a given date, as well as the currencies involved. This dataset is useful for analyzing currency conversions
+and understanding the exchange rates between different currencies over time.
+
+***
+
 
 ### `orderrows()` {#orderrows}
 

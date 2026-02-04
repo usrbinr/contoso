@@ -1,9 +1,8 @@
-url: https://usrbinr.github.io/contoso/
+url: https://codeberg.org/usrbinr/contoso/
 template:
   theme: cosmo
   code_overflow: wrap
 navbar:
-  title: contoso 1.2.2
   left:
   - text: Reference
     href: reference.qmd
@@ -12,8 +11,8 @@ navbar:
   - text: Changelog
     href: NEWS.md
   right:
-  - icon: github
-    href: https://github.com/usrbinr/contoso
+  - icon: git
+    href: https://codeberg.org/usrbinr/contoso
     aria-label: Source code
 reference: []
 articles: []

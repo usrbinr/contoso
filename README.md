@@ -2,13 +2,10 @@
 
 <!-- badges: start -->
 
-[![CRAN
-status](https://www.r-pkg.org/badges/version/contoso?svg=1.png)](https://CRAN.R-project.org/package=contoso)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/usrbinr/contoso/HEAD)
-
+<a href="https://CRAN.R-project.org/package=contoso"><img src="https://www.r-pkg.org/badges/version/contoso" alt="CRAN status" /></a>
 <!-- badges: end -->
 
-![](man/figures/logo.png)
+<img src="man/figures/logo.png" width="150" />
 
 Contoso is a synthetic dataset containing sample sales transaction data
 for the fictional “Contoso” company. It includes various supporting
@@ -90,11 +87,18 @@ The relationship keys that join each of the tables are listed below.
 
 ### Installation
 
-You can install the package from CRAN or the development version from
-[GitHub](https://github.com/usrbinr/contoso):
+You can install the package from CRAN:
 
 ``` r
 install.packages("contoso")
+```
+
+Or install the development version from
+[Codeberg](https://codeberg.org/usrbinr/contoso):
+
+``` r
+# install.packages("pak")
+pak::pak("codeberg::usrbinr/contoso")
 ```
 
 ### Example

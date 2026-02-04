@@ -33,6 +33,6 @@ RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 Depends: 
     R (>= 3.5)
-URL: https://usrbinr.github.io/contoso/, https://github.com/usrbinr/contoso
+URL: https://codeberg.org/usrbinr/contoso
 Config/testthat/edition: 3
-BugReports: https://github.com/usrbinr/contoso/issues
+BugReports: https://codeberg.org/usrbinr/contoso/issues
