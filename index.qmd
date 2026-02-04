@@ -3,6 +3,7 @@ title: contoso
 toc: false
 ---
 
+
 <!-- badges: start -->
 <a href="https://CRAN.R-project.org/package=contoso"><img src="https://www.r-pkg.org/badges/version/contoso" alt="CRAN status" /></a>
 <!-- badges: end -->
