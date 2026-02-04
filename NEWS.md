@@ -1,4 +1,5 @@
 # contoso 2.0.0
+* cran submission
 
 # contoso 1.3.0
 * Switched from MotherDuck to Backblaze B2 cloud storage for dataset hosting
