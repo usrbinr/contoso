@@ -9,7 +9,6 @@ README.qmd
 README.html
 /README_files/*
 renv.lock
-docs
 
 # qrtdown
 /.quarto/
