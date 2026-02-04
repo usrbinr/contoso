@@ -8,6 +8,7 @@ project:
   - '!renv/'
   - '!packrat/'
 website:
+  site-url: https://usrbinr.codeberg.page/contoso/
   title: contoso
   navbar:
     title: contoso 2.0.0
