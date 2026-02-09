@@ -21,18 +21,158 @@
     "text": "MIT License\nCopyright (c) 2025 contoso authors\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
   },
   {
+    "objectID": "reference/sales.html",
+    "href": "reference/sales.html",
+    "title": "sales",
+    "section": "",
+    "text": "&lt; Back to Reference"
+  },
+  {
+    "objectID": "reference/sales.html#usage",
+    "href": "reference/sales.html#usage",
+    "title": "sales",
+    "section": "Usage",
+    "text": "Usage\nsales"
+  },
+  {
+    "objectID": "reference/sales.html#description",
+    "href": "reference/sales.html#description",
+    "title": "sales",
+    "section": "Description",
+    "text": "Description\nThis dataset contains information about sales orders, including order details, pricing, and customer data from the Contonso dataset. It provides insights into the transactions that have occurred, including order dates, delivery dates, customer and store information, as well as product details."
+  },
+  {
+    "objectID": "reference/orders.html",
+    "href": "reference/orders.html",
+    "title": "orders",
+    "section": "",
+    "text": "&lt; Back to Reference"
+  },
+  {
+    "objectID": "reference/orders.html#usage",
+    "href": "reference/orders.html#usage",
+    "title": "orders",
+    "section": "Usage",
+    "text": "Usage\norders"
+  },
+  {
+    "objectID": "reference/orders.html#description",
+    "href": "reference/orders.html#description",
+    "title": "orders",
+    "section": "Description",
+    "text": "Description\nThis dataset contains information about customer orders, including order dates, delivery dates, and store details."
+  },
+  {
+    "objectID": "reference/launch_ui.html",
+    "href": "reference/launch_ui.html",
+    "title": "launch_ui",
+    "section": "",
+    "text": "&lt; Back to Reference | View source"
+  },
+  {
+    "objectID": "reference/launch_ui.html#usage",
+    "href": "reference/launch_ui.html#usage",
+    "title": "launch_ui",
+    "section": "Usage",
+    "text": "Usage\nlaunch_ui(.con)"
+  },
+  {
+    "objectID": "reference/launch_ui.html#arguments",
+    "href": "reference/launch_ui.html#arguments",
+    "title": "launch_ui",
+    "section": "Arguments",
+    "text": "Arguments\n\n\n\n\n\n\n\nArgument\nDescription\n\n\n\n\n.con\nA valid DBIConnection object connected to a DuckDB database. The function will check that the connection is valid before proceeding."
+  },
+  {
+    "objectID": "reference/launch_ui.html#value",
+    "href": "reference/launch_ui.html#value",
+    "title": "launch_ui",
+    "section": "Value",
+    "text": "Value\nThe function is called for its side effects and does not return a value. It launches the DuckDB UI and opens it in your default web browser."
+  },
+  {
+    "objectID": "reference/launch_ui.html#description",
+    "href": "reference/launch_ui.html#description",
+    "title": "launch_ui",
+    "section": "Description",
+    "text": "Description\nThe launch_ui() function installs and launches the DuckDB UI extension for an active DuckDB database connection. This allows users to interact with the database via a web-based graphical interface.\nYour connection from create_contoso_duckdb() is returned in the list."
+  },
+  {
+    "objectID": "reference/launch_ui.html#details",
+    "href": "reference/launch_ui.html#details",
+    "title": "launch_ui",
+    "section": "Details",
+    "text": "Details\nThe function performs the following steps:\n\nChecks that the provided DuckDB connection is valid. If the connection is invalid, it aborts with a descriptive error message.\nInstalls the ui extension into the connected DuckDB instance.\nCalls the start_ui() procedure to launch the DuckDB UI in your browser.\n\nThis provides a convenient way to explore and manage DuckDB databases interactively without needing to leave the R environment."
+  },
+  {
+    "objectID": "reference/launch_ui.html#examples",
+    "href": "reference/launch_ui.html#examples",
+    "title": "launch_ui",
+    "section": "Examples",
+    "text": "Examples\n## Not run: \n# Connect to DuckDB\ndb &lt;- create_contoso_duckdb()\n\n# Launch the DuckDB UI\nlaunch_ui(db$con)\n\n# Clean up\nDBI::dbDisconnect(db$con, shutdown = TRUE)\n\n## End(Not run)"
+  },
+  {
+    "objectID": "reference/launch_ui.html#see-also",
+    "href": "reference/launch_ui.html#see-also",
+    "title": "launch_ui",
+    "section": "See also",
+    "text": "See also\n\ncreate_contoso_duckdb() for creating example Contoso datasets in DuckDB.\nDBI::dbConnect() and DBI::dbDisconnect() for managing DuckDB connections.\nduckdb::duckdb() for creating a DuckDB driver instance."
+  },
+  {
+    "objectID": "reference/customer.html",
+    "href": "reference/customer.html",
+    "title": "customer",
+    "section": "",
+    "text": "&lt; Back to Reference"
+  },
+  {
+    "objectID": "reference/customer.html#usage",
+    "href": "reference/customer.html#usage",
+    "title": "customer",
+    "section": "Usage",
+    "text": "Usage\ncustomer"
+  },
+  {
+    "objectID": "reference/customer.html#description",
+    "href": "reference/customer.html#description",
+    "title": "customer",
+    "section": "Description",
+    "text": "Description\nThis dataset contains information about customers from the Contonso dataset, including demographic details, geographical information, contact information, and other personal attributes. It provides insights into customer profiles, including location, age, occupation, and more."
+  },
+  {
+    "objectID": "reference/calendar.html",
+    "href": "reference/calendar.html",
+    "title": "calendar",
+    "section": "",
+    "text": "&lt; Back to Reference"
+  },
+  {
+    "objectID": "reference/calendar.html#usage",
+    "href": "reference/calendar.html#usage",
+    "title": "calendar",
+    "section": "Usage",
+    "text": "Usage\ncalendar"
+  },
+  {
+    "objectID": "reference/calendar.html#description",
+    "href": "reference/calendar.html#description",
+    "title": "calendar",
+    "section": "Description",
+    "text": "Description\nThis dataset contains calendar-related information used for time-based analysis in the Contonso dataset. It includes various representations of date-related attributes, such as year, quarter, month, and day, along with indicators for working days. It is useful for time-series analysis and aggregating data by different time periods."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "contoso",
     "section": "",
-    "text": "Contoso is a synthetic dataset containing sample sales transaction data for the fictional “Contoso” company. It includes various supporting tables for business intelligence, such as customer, store, product, and currency exchange data.\nThis dataset is perfect for practicing time series analysis, joins, financial modeling, or any business intelligence-related tasks.\nIt comes with a built-in dataset as well as the ability to create an in-memory database with duckdb\nThe package comes with the following tables:\nBuilt into the package is the 10K row version of the dataset.\nUsing view(), you can see the columns’ label using the labelled package.\nFor larger datasets, use create_contoso_duckdb() with one of the following sizes:"
+    "text": "Source Code\nReport a Bug\n\n\n\n\nMIT + file LICENSE\n\n\n\nCiting this package\n\n\n\n\nAlejandro Hagan (author, maintainer)\nContoso is a synthetic dataset containing sample sales transaction data for the fictional “Contoso” company. It includes various supporting tables for business intelligence, such as customer, store, product, and currency exchange data.\nThis dataset is perfect for practicing time series analysis, joins, financial modeling, or any business intelligence-related tasks.\nIt comes with a built-in dataset as well as the ability to create an in-memory database with duckdb\nThe package comes with the following tables:\nBuilt into the package is the 10K row version of the dataset.\nUsing view(), you can see the columns’ label using the labelled package.\nFor larger datasets, use create_contoso_duckdb() with one of the following sizes:"
   },
   {
     "objectID": "index.html#source",
     "href": "index.html#source",
     "title": "contoso",
     "section": "Source",
-    "text": "Source\nThe data is originally sourced from the sqlbi github site\n\nDataset overview\n\nThe relationship keys that join each of the tables are listed below.\n\n\n\n\n    \n\n    \n\n    \n    \n    \n      \n        \n        \n              \n                sales\n                customer\n                product\n                store\n                order\n                orderrows\n                fx\n              \n        \n        \n        \n                \n                  order_key\n                  \n                  \n                  \n                  order_key\n                  order_key\n                  \n                \n                \n                  customer_key\n                  customer_key\n                  \n                  \n                  customer_key\n                  \n                  \n                \n                \n                  store_key\n                  \n                  \n                  store_key\n                  store_key\n                  \n                  \n                \n                \n                  product_key\n                  \n                  product_key\n                  \n                  \n                  product_key\n                  \n                \n                \n                  currency_code\n                  \n                  \n                  \n                  \n                  \n                  from_currency\n                \n        \n      \n    \n\n\n\n\n\nInstallation\nYou can install the package from CRAN:\n\ninstall.packages(\"contoso\")\n\nOr install the development version from Codeberg:\n\n# install.packages(\"pak\")\npak::pak(\"codeberg::usrbinr/contoso\")\n\n\n\nExample\n\nlibrary(contoso)\n\n# Create a DuckDB connection to Contoso datasets\ndb &lt;- create_contoso_duckdb(size = \"medium\")\n\n# Access the sales dataset\ndb$sales |&gt; head()\n\n# Launch the DuckDB UI to explore all tables interactively\nlaunch_ui(db$con)\n\n# Clean up when done\nDBI::dbDisconnect(db$con, shutdown = TRUE)"
+    "text": "Source\nThe data is originally sourced from the sqlbi github site\n\nDataset overview\n\nThe relationship keys that join each of the tables are listed below.\n\n\n\n\n\n\n\n\nsales\ncustomer\nproduct\nstore\norder\norderrows\nfx\n\n\n\n\norder_key\n\n\n\norder_key\norder_key\n\n\n\ncustomer_key\ncustomer_key\n\n\ncustomer_key\n\n\n\n\nstore_key\n\n\nstore_key\nstore_key\n\n\n\n\nproduct_key\n\nproduct_key\n\n\nproduct_key\n\n\n\ncurrency_code\n\n\n\n\n\nfrom_currency\n\n\n\n\n\n\n\n\n\nInstallation\nYou can install the package from CRAN:\n\ninstall.packages(\"contoso\")\n\nOr install the development version from Codeberg:\n\n# install.packages(\"pak\")\npak::pak(\"codeberg::usrbinr/contoso\")\n\n\n\nExample\n\nlibrary(contoso)\n\n# Create a DuckDB connection to Contoso datasets\ndb &lt;- create_contoso_duckdb(size = \"medium\")\n\n# Access the sales dataset\ndb$sales |&gt; head()\n\n# Launch the DuckDB UI to explore all tables interactively\nlaunch_ui(db$con)\n\n# Clean up when done\nDBI::dbDisconnect(db$con, shutdown = TRUE)"
   },
   {
     "objectID": "citation.html",
@@ -63,17 +203,143 @@
     "text": "Functions\n\n\n\nFunction\nDescription\n\n\n\n\ncalendar()\nCalendar Dimension Data from the Contonso Dataset\n\n\ncreate_contoso_duckdb()\nCreates DuckDB database with Contoso datasets\n\n\ncustomer()\nCustomer Data from the Contonso Dataset\n\n\nfx()\nForeign Exchange Data from the Contonso Dataset\n\n\nlaunch_ui()\nLaunch the DuckDB UI in your browser\n\n\norderrows()\nOrder Rows Data from the Contonso Dataset\n\n\norders()\nOrder Data from the Contonso Dataset\n\n\nproduct()\nProduct Data from the Contonso Dataset\n\n\nsales()\nSales Data from the Contonso Dataset\n\n\nstore()\nStore Data from the Contonso Dataset"
   },
   {
-    "objectID": "reference.html#function-details",
-    "href": "reference.html#function-details",
-    "title": "Function reference",
-    "section": "Function Details",
-    "text": "Function Details\n\ncalendar()\nCalendar Dimension Data from the Contonso Dataset\n\nUsage\ncalendar\n\n\nDescription\nThis dataset contains calendar-related information used for time-based analysis in the Contonso dataset. It includes various representations of date-related attributes, such as year, quarter, month, and day, along with indicators for working days. It is useful for time-series analysis and aggregating data by different time periods.\n\n\n\n\ncreate_contoso_duckdb()\nCreates DuckDB database with Contoso datasets\n\nUsage\ncreate_contoso_duckdb(size = \"small\")\n\n\nArguments\n\n\n\nArgument\nDescription\n\n\n\n\nsize\nDataset size: “small”, “medium”, “large”, or “mega”\n\n\n\n\n\nValue\nA list containing:\nsales, product, customer, store, fx, calendar, orders, orderrows: lazy tbl objects con: the DuckDB connection (use DBI::dbDisconnect(db$con, shutdown = TRUE) when done)\n\n\nDescription\nCreates a DuckDB connection with Contoso datasets loaded from cloud storage. The datasets are stored as Parquet files on Backblaze B2 and streamed directly into DuckDB.\n\n\nDetails\nThe create_contoso_duckdb() function creates views for the following Contoso datasets:\nsales: Contains sales transaction data. product: Contains details about products, including attributes like product name, manufacturer, and category. customer: Contains customer demographic and geographic information. store: Contains information about store locations and attributes. fx: Contains foreign exchange rate data for currency conversion. calendar: Contains various date-related information, including day, week, month, and year. orders: Contains order header information. orderrows: Contains order line items.\nAvailable sizes (approximate sales rows):\nsmall: ~8,000 rows medium: ~2.3 million rows large: ~47 million rows mega: ~237 million rows\n\n\nExamples\ndb &lt;- create_contoso_duckdb(size = \"small\")\n  db$sales |&gt; head()\n  DBI::dbDisconnect(db$con, shutdown = TRUE)\n\n\n\n\ncustomer()\nCustomer Data from the Contonso Dataset\n\nUsage\ncustomer\n\n\nDescription\nThis dataset contains information about customers from the Contonso dataset, including demographic details, geographical information, contact information, and other personal attributes. It provides insights into customer profiles, including location, age, occupation, and more.\n\n\n\n\nfx()\nForeign Exchange Data from the Contonso Dataset\n\nUsage\nfx\n\n\nDescription\nThis dataset contains information about foreign exchange (FX) rates between different currencies. It includes details about the exchange rate for a given date, as well as the currencies involved. This dataset is useful for analyzing currency conversions and understanding the exchange rates between different currencies over time.\n\n\n\n\nlaunch_ui()\nLaunch the DuckDB UI in your browser\n\nUsage\nlaunch_ui(.con)\n\n\nArguments\n\n\n\n\n\n\n\nArgument\nDescription\n\n\n\n\n.con\nA valid DBIConnection object connected to a DuckDB database. The function will check that the connection is valid before proceeding.\n\n\n\n\n\nValue\nThe function is called for its side effects and does not return a value. It launches the DuckDB UI and opens it in your default web browser.\n\n\nDescription\nThe launch_ui() function installs and launches the DuckDB UI extension for an active DuckDB database connection. This allows users to interact with the database via a web-based graphical interface.\nYour connection from create_contoso_duckdb() is returned in the list.\n\n\nDetails\nThe function performs the following steps:\nChecks that the provided DuckDB connection is valid. If the connection is invalid, it aborts with a descriptive error message. Installs the ui extension into the connected DuckDB instance. Calls the start_ui() procedure to launch the DuckDB UI in your browser.\nThis provides a convenient way to explore and manage DuckDB databases interactively without needing to leave the R environment.\n\n\nExamples\n# Connect to DuckDB\ndb &lt;- create_contoso_duckdb()\n\n# Launch the DuckDB UI\nlaunch_ui(db$con)\n\n# Clean up\nDBI::dbDisconnect(db$con, shutdown = TRUE)\n\n\n\n\norderrows()\nOrder Rows Data from the Contonso Dataset\n\nUsage\norderrows\n\n\nDescription\nThis dataset contains detailed information about the individual items (rows) within each order in the Contonso dataset. It includes details such as the product, quantity, pricing, and cost of each item in an order. This dataset is useful for analyzing the breakdown of order components and individual product sales.\n\n\n\n\norders()\nOrder Data from the Contonso Dataset\n\nUsage\norders\n\n\nDescription\nThis dataset contains information about customer orders, including order dates, delivery dates, and store details.\n\n\n\n\nproduct()\nProduct Data from the Contonso Dataset\n\nUsage\nproduct\n\n\nDescription\nThis dataset contains information about products in the Contonso dataset. It includes product details such as identifiers, descriptions, pricing, weight, and categorization. This dataset is useful for analyzing product characteristics, pricing, and product-related sales insights.\n\n\n\n\nsales()\nSales Data from the Contonso Dataset\n\nUsage\nsales\n\n\nDescription\nThis dataset contains information about sales orders, including order details, pricing, and customer data from the Contonso dataset. It provides insights into the transactions that have occurred, including order dates, delivery dates, customer and store information, as well as product details.\n\n\n\n\nstore()\nStore Data from the Contonso Dataset\n\nUsage\nstore\n\n\nDescription\nThis dataset contains information about stores within the Contonso dataset. It includes details about the store’s geographic location, operational status, and physical characteristics such as size and opening/closing dates. It provides insights into the store network of the company."
+    "objectID": "reference/create_contoso_duckdb.html",
+    "href": "reference/create_contoso_duckdb.html",
+    "title": "create_contoso_duckdb",
+    "section": "",
+    "text": "&lt; Back to Reference | View source"
+  },
+  {
+    "objectID": "reference/create_contoso_duckdb.html#usage",
+    "href": "reference/create_contoso_duckdb.html#usage",
+    "title": "create_contoso_duckdb",
+    "section": "Usage",
+    "text": "Usage\ncreate_contoso_duckdb(size = \"small\")"
+  },
+  {
+    "objectID": "reference/create_contoso_duckdb.html#arguments",
+    "href": "reference/create_contoso_duckdb.html#arguments",
+    "title": "create_contoso_duckdb",
+    "section": "Arguments",
+    "text": "Arguments\n\n\n\nArgument\nDescription\n\n\n\n\nsize\nDataset size: “small”, “medium”, “large”, or “mega”"
+  },
+  {
+    "objectID": "reference/create_contoso_duckdb.html#value",
+    "href": "reference/create_contoso_duckdb.html#value",
+    "title": "create_contoso_duckdb",
+    "section": "Value",
+    "text": "Value\nA list containing:\n\nsales, product, customer, store, fx, calendar, orders, orderrows: lazy tbl objects\ncon: the DuckDB connection (use DBI::dbDisconnect(db$con, shutdown = TRUE) when done)"
+  },
+  {
+    "objectID": "reference/create_contoso_duckdb.html#description",
+    "href": "reference/create_contoso_duckdb.html#description",
+    "title": "create_contoso_duckdb",
+    "section": "Description",
+    "text": "Description\nCreates a DuckDB connection with Contoso datasets loaded from cloud storage. The datasets are stored as Parquet files on Backblaze B2 and streamed directly into DuckDB."
+  },
+  {
+    "objectID": "reference/create_contoso_duckdb.html#details",
+    "href": "reference/create_contoso_duckdb.html#details",
+    "title": "create_contoso_duckdb",
+    "section": "Details",
+    "text": "Details\nThe create_contoso_duckdb() function creates views for the following Contoso datasets:\n\nsales: Contains sales transaction data.\nproduct: Contains details about products, including attributes like product name, manufacturer, and category.\ncustomer: Contains customer demographic and geographic information.\nstore: Contains information about store locations and attributes.\nfx: Contains foreign exchange rate data for currency conversion.\ncalendar: Contains various date-related information, including day, week, month, and year.\norders: Contains order header information.\norderrows: Contains order line items.\n\nAvailable sizes (approximate sales rows):\n\nsmall: ~8,000 rows\nmedium: ~2.3 million rows\nlarge: ~47 million rows\nmega: ~237 million rows"
+  },
+  {
+    "objectID": "reference/create_contoso_duckdb.html#examples",
+    "href": "reference/create_contoso_duckdb.html#examples",
+    "title": "create_contoso_duckdb",
+    "section": "Examples",
+    "text": "Examples\n## Not run: \n  db  head()\n  DBI::dbDisconnect(db$con, shutdown = TRUE)\n\n## End(Not run)"
+  },
+  {
+    "objectID": "reference/fx.html",
+    "href": "reference/fx.html",
+    "title": "fx",
+    "section": "",
+    "text": "&lt; Back to Reference"
+  },
+  {
+    "objectID": "reference/fx.html#usage",
+    "href": "reference/fx.html#usage",
+    "title": "fx",
+    "section": "Usage",
+    "text": "Usage\nfx"
+  },
+  {
+    "objectID": "reference/fx.html#description",
+    "href": "reference/fx.html#description",
+    "title": "fx",
+    "section": "Description",
+    "text": "Description\nThis dataset contains information about foreign exchange (FX) rates between different currencies. It includes details about the exchange rate for a given date, as well as the currencies involved. This dataset is useful for analyzing currency conversions and understanding the exchange rates between different currencies over time."
+  },
+  {
+    "objectID": "reference/orderrows.html",
+    "href": "reference/orderrows.html",
+    "title": "orderrows",
+    "section": "",
+    "text": "&lt; Back to Reference"
+  },
+  {
+    "objectID": "reference/orderrows.html#usage",
+    "href": "reference/orderrows.html#usage",
+    "title": "orderrows",
+    "section": "Usage",
+    "text": "Usage\norderrows"
+  },
+  {
+    "objectID": "reference/orderrows.html#description",
+    "href": "reference/orderrows.html#description",
+    "title": "orderrows",
+    "section": "Description",
+    "text": "Description\nThis dataset contains detailed information about the individual items (rows) within each order in the Contonso dataset. It includes details such as the product, quantity, pricing, and cost of each item in an order. This dataset is useful for analyzing the breakdown of order components and individual product sales."
+  },
+  {
+    "objectID": "reference/product.html",
+    "href": "reference/product.html",
+    "title": "product",
+    "section": "",
+    "text": "&lt; Back to Reference"
+  },
+  {
+    "objectID": "reference/product.html#usage",
+    "href": "reference/product.html#usage",
+    "title": "product",
+    "section": "Usage",
+    "text": "Usage\nproduct"
+  },
+  {
+    "objectID": "reference/product.html#description",
+    "href": "reference/product.html#description",
+    "title": "product",
+    "section": "Description",
+    "text": "Description\nThis dataset contains information about products in the Contonso dataset. It includes product details such as identifiers, descriptions, pricing, weight, and categorization. This dataset is useful for analyzing product characteristics, pricing, and product-related sales insights."
+  },
+  {
+    "objectID": "reference/store.html",
+    "href": "reference/store.html",
+    "title": "store",
+    "section": "",
+    "text": "&lt; Back to Reference"
+  },
+  {
+    "objectID": "reference/store.html#usage",
+    "href": "reference/store.html#usage",
+    "title": "store",
+    "section": "Usage",
+    "text": "Usage\nstore"
+  },
+  {
+    "objectID": "reference/store.html#description",
+    "href": "reference/store.html#description",
+    "title": "store",
+    "section": "Description",
+    "text": "Description\nThis dataset contains information about stores within the Contonso dataset. It includes details about the store’s geographic location, operational status, and physical characteristics such as size and opening/closing dates. It provides insights into the store network of the company."
   },
   {
     "objectID": "NEWS.html",
     "href": "NEWS.html",
-    "title": "contoso 2.0.0",
+    "title": "contoso 2.0.1",
     "section": "",
-    "text": "contoso 2.0.0\n\ncran submission\n\n\n\ncontoso 1.3.0\n\nSwitched from MotherDuck to Backblaze B2 cloud storage for dataset hosting\nNow works on all platforms including Windows\nChanged size parameter to use descriptive names: “small”, “medium”, “large”, “mega”\nRemoved db_dir parameter (no longer needed)\n\n\n\ncontoso 1.2.2\n\ncreate_contoso_duckdb() will not work if you are using windows due to lack of support from motherduck\nsee here for more information\n\n\n\ncontoso 1.2.1\n\nfixed create_contoso_duckdb() due to error created by table name changed\nupdated tests\n\n\n\ncontoso 1.2.0\n\nchanged ‘date’ table name to ‘calendar’ to avoid namespace conflicts with lubridate and base packages\n\n\n\ncontoso 1.1.1\n\nPatch to fixed launch_ui function\n\n\n\ncontoso 1.1.0\n\nlaunch_ui function added\npkgdown instead of altdocs\nnew logo\n\n\n\ncontoso 1.0.0\n\nSupport for 100M row database now supported\nunit tests added\n\n\n\ncontoso 0.1.0\n\nwebsite Replace pkgdown with altdocs\n100k+ contoso packages are attached from motherduck database\ncontoso database sizes increased to 10M rows"
+    "text": "contoso 2.0.1\n\nconverted site docs from pkgdown to qrtdown\n\n\n\ncontoso 2.0.0\n\ncran submission\n\n\n\ncontoso 1.3.0\n\nSwitched from MotherDuck to Backblaze B2 cloud storage for dataset hosting\nNow works on all platforms including Windows\nChanged size parameter to use descriptive names: “small”, “medium”, “large”, “mega”\nRemoved db_dir parameter (no longer needed)\n\n\n\ncontoso 1.2.2\n\ncreate_contoso_duckdb() will not work if you are using windows due to lack of support from motherduck\nsee here for more information\n\n\n\ncontoso 1.2.1\n\nfixed create_contoso_duckdb() due to error created by table name changed\nupdated tests\n\n\n\ncontoso 1.2.0\n\nchanged ‘date’ table name to ‘calendar’ to avoid namespace conflicts with lubridate and base packages\n\n\n\ncontoso 1.1.1\n\nPatch to fixed launch_ui function\n\n\n\ncontoso 1.1.0\n\nlaunch_ui function added\npkgdown instead of altdocs\nnew logo\n\n\n\ncontoso 1.0.0\n\nSupport for 100M row database now supported\nunit tests added\n\n\n\ncontoso 0.1.0\n\nwebsite Replace pkgdown with altdocs\n100k+ contoso packages are attached from motherduck database\ncontoso database sizes increased to 10M rows"
   }
 ]
