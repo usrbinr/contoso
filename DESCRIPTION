@@ -1,7 +1,7 @@
 Package: contoso
 Type: Package
 Title: Dataset of the 'Contoso' Company
-Version: 2.0.0
+Version: 2.0.1
 Authors@R: c(
     person(
       "Alejandro", "Hagan",

@@ -13,3 +13,8 @@ renv.lock
 # qrtdown
 /.quarto/
 **/*.quarto_ipynb
+
+# qrtdown
+_quarto.yml
+reference/
+_freeze/

@@ -1,17 +1,23 @@
 project:
   type: website
   output-dir: docs
+  resources:
+  - man/figures/**
   render:
   - '*.qmd'
   - '*.md'
+  - reference/*.qmd
+  - vignettes/articles/*.qmd
+  - vignettes/articles/*.md
   - '!inst/'
   - '!renv/'
   - '!packrat/'
+execute:
+  freeze: auto
 website:
-  site-url: https://usrbinr.codeberg.page/contoso/
   title: contoso
   navbar:
-    title: contoso 2.0.0
+    title: contoso 2.0.1
     left:
     - text: Reference
       href: reference.qmd
@@ -26,8 +32,8 @@ website:
       aria-label: Source code
   page-footer:
     left: Built with [Quarto](https://quarto.org/) and [qrtdown](https://codeberg.org/usrbinr/qrtdown)
-    right: contoso 2.0.0
-  repo-url: https://codeberg.org/usrbinr/contoso/
+    right: contoso 2.0.1
+  repo-url: https://usrbinr.codeberg.page/contoso/
 format:
   html:
     theme:

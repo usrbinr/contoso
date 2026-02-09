@@ -90,7 +90,7 @@ tibble::tibble(
     ,fx=c(NA,NA,NA,NA,"from_currency")
 ) |>
     tidyr::replace_na(list(sales="",customer="",product="",store="",order="",orderrows="",fx="")) |>
-    tinytable::tt()
+    gt::gt()
 
 ```
 
@@ -99,6 +99,7 @@ tibble::tibble(
 You can install the package from CRAN:
 
 ```{r}
+#| label: install
 #| eval: false
 
 install.packages("contoso")
@@ -107,6 +108,7 @@ install.packages("contoso")
 Or install the development version from [Codeberg](https://codeberg.org/usrbinr/contoso):
 
 ```{r}
+#| label: codeberg
 #| eval: false
 
 # install.packages("pak")

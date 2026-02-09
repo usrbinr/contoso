@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -72,10 +37,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-5acddea9ec7addd5e9532e878e20728d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-e3345c6ef29c45a7958e8df45469d16f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-5acddea9ec7addd5e9532e878e20728d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-d1df8dc4b7b671d1cc69a36271deb873.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-c85bf800f77521da5fb58a3d41a41409.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-95b7c47c30a34e4c5c1b5ad6043067cf.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-c85bf800f77521da5fb58a3d41a41409.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -107,7 +76,169 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -119,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <img src="./man/figures/logo.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">contoso 2.0.0</span>
+    <span class="navbar-title">contoso 2.0.1</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -150,6 +281,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -164,24 +296,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#functions" id="toc-functions" class="nav-link active" data-scroll-target="#functions">Functions</a></li>
-  <li><a href="#function-details" id="toc-function-details" class="nav-link" data-scroll-target="#function-details">Function Details</a>
-  <ul class="collapse">
-  <li><a href="#calendar" id="toc-calendar" class="nav-link" data-scroll-target="#calendar"><code>calendar()</code></a></li>
-  <li><a href="#create_contoso_duckdb" id="toc-create_contoso_duckdb" class="nav-link" data-scroll-target="#create_contoso_duckdb"><code>create_contoso_duckdb()</code></a></li>
-  <li><a href="#customer" id="toc-customer" class="nav-link" data-scroll-target="#customer"><code>customer()</code></a></li>
-  <li><a href="#fx" id="toc-fx" class="nav-link" data-scroll-target="#fx"><code>fx()</code></a></li>
-  <li><a href="#launch_ui" id="toc-launch_ui" class="nav-link" data-scroll-target="#launch_ui"><code>launch_ui()</code></a></li>
-  <li><a href="#orderrows" id="toc-orderrows" class="nav-link" data-scroll-target="#orderrows"><code>orderrows()</code></a></li>
-  <li><a href="#orders" id="toc-orders" class="nav-link" data-scroll-target="#orders"><code>orders()</code></a></li>
-  <li><a href="#product" id="toc-product" class="nav-link" data-scroll-target="#product"><code>product()</code></a></li>
-  <li><a href="#sales" id="toc-sales" class="nav-link" data-scroll-target="#sales"><code>sales()</code></a></li>
-  <li><a href="#store" id="toc-store" class="nav-link" data-scroll-target="#store"><code>store()</code></a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -214,266 +334,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#calendar"><code>calendar()</code></a></td>
+<td><a href="./reference/calendar.html"><code>calendar()</code></a></td>
 <td>Calendar Dimension Data from the Contonso Dataset</td>
 </tr>
 <tr class="even">
-<td><a href="#create_contoso_duckdb"><code>create_contoso_duckdb()</code></a></td>
+<td><a href="./reference/create_contoso_duckdb.html"><code>create_contoso_duckdb()</code></a></td>
 <td>Creates DuckDB database with Contoso datasets</td>
 </tr>
 <tr class="odd">
-<td><a href="#customer"><code>customer()</code></a></td>
+<td><a href="./reference/customer.html"><code>customer()</code></a></td>
 <td>Customer Data from the Contonso Dataset</td>
 </tr>
 <tr class="even">
-<td><a href="#fx"><code>fx()</code></a></td>
+<td><a href="./reference/fx.html"><code>fx()</code></a></td>
 <td>Foreign Exchange Data from the Contonso Dataset</td>
 </tr>
 <tr class="odd">
-<td><a href="#launch_ui"><code>launch_ui()</code></a></td>
+<td><a href="./reference/launch_ui.html"><code>launch_ui()</code></a></td>
 <td>Launch the DuckDB UI in your browser</td>
 </tr>
 <tr class="even">
-<td><a href="#orderrows"><code>orderrows()</code></a></td>
+<td><a href="./reference/orderrows.html"><code>orderrows()</code></a></td>
 <td>Order Rows Data from the Contonso Dataset</td>
 </tr>
 <tr class="odd">
-<td><a href="#orders"><code>orders()</code></a></td>
+<td><a href="./reference/orders.html"><code>orders()</code></a></td>
 <td>Order Data from the Contonso Dataset</td>
 </tr>
 <tr class="even">
-<td><a href="#product"><code>product()</code></a></td>
+<td><a href="./reference/product.html"><code>product()</code></a></td>
 <td>Product Data from the Contonso Dataset</td>
 </tr>
 <tr class="odd">
-<td><a href="#sales"><code>sales()</code></a></td>
+<td><a href="./reference/sales.html"><code>sales()</code></a></td>
 <td>Sales Data from the Contonso Dataset</td>
 </tr>
 <tr class="even">
-<td><a href="#store"><code>store()</code></a></td>
+<td><a href="./reference/store.html"><code>store()</code></a></td>
 <td>Store Data from the Contonso Dataset</td>
 </tr>
 </tbody>
 </table>
-<hr>
-</section>
-<section id="function-details" class="level2">
-<h2 class="anchored" data-anchor-id="function-details">Function Details</h2>
-<section id="calendar" class="level3">
-<h3 class="anchored" data-anchor-id="calendar"><code>calendar()</code></h3>
-<p>Calendar Dimension Data from the Contonso Dataset</p>
-<section id="usage" class="level4">
-<h4 class="anchored" data-anchor-id="usage">Usage</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>calendar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="description" class="level4">
-<h4 class="anchored" data-anchor-id="description">Description</h4>
-<p>This dataset contains calendar-related information used for time-based analysis in the Contonso dataset. It includes various representations of date-related attributes, such as year, quarter, month, and day, along with indicators for working days. It is useful for time-series analysis and aggregating data by different time periods.</p>
-<hr>
-</section>
-</section>
-<section id="create_contoso_duckdb" class="level3">
-<h3 class="anchored" data-anchor-id="create_contoso_duckdb"><code>create_contoso_duckdb()</code></h3>
-<p>Creates DuckDB database with Contoso datasets</p>
-<section id="usage-1" class="level4">
-<h4 class="anchored" data-anchor-id="usage-1">Usage</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">create_contoso_duckdb</span>(<span class="at">size =</span> <span class="st">"small"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="arguments" class="level4">
-<h4 class="anchored" data-anchor-id="arguments">Arguments</h4>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Argument</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>size</code></td>
-<td>Dataset size: “small”, “medium”, “large”, or “mega”</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="value" class="level4">
-<h4 class="anchored" data-anchor-id="value">Value</h4>
-<p>A list containing:</p>
-<p>sales, product, customer, store, fx, calendar, orders, orderrows: lazy tbl objects con: the DuckDB connection (use DBI::dbDisconnect(db$con, shutdown = TRUE) when done)</p>
-</section>
-<section id="description-1" class="level4">
-<h4 class="anchored" data-anchor-id="description-1">Description</h4>
-<p>Creates a DuckDB connection with Contoso datasets loaded from cloud storage. The datasets are stored as Parquet files on Backblaze B2 and streamed directly into DuckDB.</p>
-</section>
-<section id="details" class="level4">
-<h4 class="anchored" data-anchor-id="details">Details</h4>
-<p>The create_contoso_duckdb() function creates views for the following Contoso datasets:</p>
-<p>sales: Contains sales transaction data. product: Contains details about products, including attributes like product name, manufacturer, and category. customer: Contains customer demographic and geographic information. store: Contains information about store locations and attributes. fx: Contains foreign exchange rate data for currency conversion. calendar: Contains various date-related information, including day, week, month, and year. orders: Contains order header information. orderrows: Contains order line items.</p>
-<p>Available sizes (approximate sales rows):</p>
-<p>small: ~8,000 rows medium: ~2.3 million rows large: ~47 million rows mega: ~237 million rows</p>
-</section>
-<section id="examples" class="level4">
-<h4 class="anchored" data-anchor-id="examples">Examples</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> <span class="fu">create_contoso_duckdb</span>(<span class="at">size =</span> <span class="st">"small"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  db<span class="sc">$</span>sales <span class="sc">|&gt;</span> <span class="fu">head</span>()</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(db<span class="sc">$</span>con, <span class="at">shutdown =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
-</section>
-</section>
-<section id="customer" class="level3">
-<h3 class="anchored" data-anchor-id="customer"><code>customer()</code></h3>
-<p>Customer Data from the Contonso Dataset</p>
-<section id="usage-2" class="level4">
-<h4 class="anchored" data-anchor-id="usage-2">Usage</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>customer</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="description-2" class="level4">
-<h4 class="anchored" data-anchor-id="description-2">Description</h4>
-<p>This dataset contains information about customers from the Contonso dataset, including demographic details, geographical information, contact information, and other personal attributes. It provides insights into customer profiles, including location, age, occupation, and more.</p>
-<hr>
-</section>
-</section>
-<section id="fx" class="level3">
-<h3 class="anchored" data-anchor-id="fx"><code>fx()</code></h3>
-<p>Foreign Exchange Data from the Contonso Dataset</p>
-<section id="usage-3" class="level4">
-<h4 class="anchored" data-anchor-id="usage-3">Usage</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fx</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="description-3" class="level4">
-<h4 class="anchored" data-anchor-id="description-3">Description</h4>
-<p>This dataset contains information about foreign exchange (FX) rates between different currencies. It includes details about the exchange rate for a given date, as well as the currencies involved. This dataset is useful for analyzing currency conversions and understanding the exchange rates between different currencies over time.</p>
-<hr>
-</section>
-</section>
-<section id="launch_ui" class="level3">
-<h3 class="anchored" data-anchor-id="launch_ui"><code>launch_ui()</code></h3>
-<p>Launch the DuckDB UI in your browser</p>
-<section id="usage-4" class="level4">
-<h4 class="anchored" data-anchor-id="usage-4">Usage</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">launch_ui</span>(.con)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="arguments-1" class="level4">
-<h4 class="anchored" data-anchor-id="arguments-1">Arguments</h4>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 43%">
-<col style="width: 56%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Argument</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>.con</code></td>
-<td>A valid DBIConnection object connected to a DuckDB database. The function will check that the connection is valid before proceeding.</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="value-1" class="level4">
-<h4 class="anchored" data-anchor-id="value-1">Value</h4>
-<p>The function is called for its side effects and does not return a value. It launches the DuckDB UI and opens it in your default web browser.</p>
-</section>
-<section id="description-4" class="level4">
-<h4 class="anchored" data-anchor-id="description-4">Description</h4>
-<p>The launch_ui() function installs and launches the DuckDB UI extension for an active DuckDB database connection. This allows users to interact with the database via a web-based graphical interface.</p>
-<p>Your connection from create_contoso_duckdb() is returned in the list.</p>
-</section>
-<section id="details-1" class="level4">
-<h4 class="anchored" data-anchor-id="details-1">Details</h4>
-<p>The function performs the following steps:</p>
-<p>Checks that the provided DuckDB connection is valid. If the connection is invalid, it aborts with a descriptive error message. Installs the ui extension into the connected DuckDB instance. Calls the start_ui() procedure to launch the DuckDB UI in your browser.</p>
-<p>This provides a convenient way to explore and manage DuckDB databases interactively without needing to leave the R environment.</p>
-</section>
-<section id="examples-1" class="level4">
-<h4 class="anchored" data-anchor-id="examples-1">Examples</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Connect to DuckDB</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> <span class="fu">create_contoso_duckdb</span>()</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Launch the DuckDB UI</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">launch_ui</span>(db<span class="sc">$</span>con)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean up</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(db<span class="sc">$</span>con, <span class="at">shutdown =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
-</section>
-</section>
-<section id="orderrows" class="level3">
-<h3 class="anchored" data-anchor-id="orderrows"><code>orderrows()</code></h3>
-<p>Order Rows Data from the Contonso Dataset</p>
-<section id="usage-5" class="level4">
-<h4 class="anchored" data-anchor-id="usage-5">Usage</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>orderrows</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="description-5" class="level4">
-<h4 class="anchored" data-anchor-id="description-5">Description</h4>
-<p>This dataset contains detailed information about the individual items (rows) within each order in the Contonso dataset. It includes details such as the product, quantity, pricing, and cost of each item in an order. This dataset is useful for analyzing the breakdown of order components and individual product sales.</p>
-<hr>
-</section>
-</section>
-<section id="orders" class="level3">
-<h3 class="anchored" data-anchor-id="orders"><code>orders()</code></h3>
-<p>Order Data from the Contonso Dataset</p>
-<section id="usage-6" class="level4">
-<h4 class="anchored" data-anchor-id="usage-6">Usage</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>orders</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="description-6" class="level4">
-<h4 class="anchored" data-anchor-id="description-6">Description</h4>
-<p>This dataset contains information about customer orders, including order dates, delivery dates, and store details.</p>
-<hr>
-</section>
-</section>
-<section id="product" class="level3">
-<h3 class="anchored" data-anchor-id="product"><code>product()</code></h3>
-<p>Product Data from the Contonso Dataset</p>
-<section id="usage-7" class="level4">
-<h4 class="anchored" data-anchor-id="usage-7">Usage</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>product</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="description-7" class="level4">
-<h4 class="anchored" data-anchor-id="description-7">Description</h4>
-<p>This dataset contains information about products in the Contonso dataset. It includes product details such as identifiers, descriptions, pricing, weight, and categorization. This dataset is useful for analyzing product characteristics, pricing, and product-related sales insights.</p>
-<hr>
-</section>
-</section>
-<section id="sales" class="level3">
-<h3 class="anchored" data-anchor-id="sales"><code>sales()</code></h3>
-<p>Sales Data from the Contonso Dataset</p>
-<section id="usage-8" class="level4">
-<h4 class="anchored" data-anchor-id="usage-8">Usage</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sales</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="description-8" class="level4">
-<h4 class="anchored" data-anchor-id="description-8">Description</h4>
-<p>This dataset contains information about sales orders, including order details, pricing, and customer data from the Contonso dataset. It provides insights into the transactions that have occurred, including order dates, delivery dates, customer and store information, as well as product details.</p>
-<hr>
-</section>
-</section>
-<section id="store" class="level3">
-<h3 class="anchored" data-anchor-id="store"><code>store()</code></h3>
-<p>Store Data from the Contonso Dataset</p>
-<section id="usage-9" class="level4">
-<h4 class="anchored" data-anchor-id="usage-9">Usage</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>store</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="description-9" class="level4">
-<h4 class="anchored" data-anchor-id="description-9">Description</h4>
-<p>This dataset contains information about stores within the Contonso dataset. It includes details about the store’s geographic location, operational status, and physical characteristics such as size and opening/closing dates. It provides insights into the store network of the company.</p>
-<hr>
 
 
-</section>
-</section>
 </section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
@@ -882,7 +803,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       &nbsp;
     </div>
     <div class="nav-footer-right">
-<p>contoso 2.0.0</p>
+<p>contoso 2.0.1</p>
 </div>
   </div>
 </footer>

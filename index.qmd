@@ -3,6 +3,27 @@ title: contoso
 toc: false
 ---
 
+::: {.column-margin}
+
+### Links
+
+- [Source Code](https://codeberg.org/usrbinr/contoso)
+- [Report a Bug](https://codeberg.org/usrbinr/contoso/issues)
+
+### License
+
+MIT + file LICENSE
+
+### Citation
+
+[Citing this package](citation.qmd)
+
+### Authors
+
+- Alejandro Hagan (author, maintainer)
+
+:::
+
 
 <!-- badges: start -->
 <a href="https://CRAN.R-project.org/package=contoso"><img src="https://www.r-pkg.org/badges/version/contoso" alt="CRAN status" /></a>
@@ -92,7 +113,7 @@ tibble::tibble(
     ,fx=c(NA,NA,NA,NA,"from_currency")
 ) |>
     tidyr::replace_na(list(sales="",customer="",product="",store="",order="",orderrows="",fx="")) |>
-    tinytable::tt()
+    gt::gt()
 
 ```
 
@@ -101,6 +122,7 @@ tibble::tibble(
 You can install the package from CRAN:
 
 ```{r}
+#| label: install
 #| eval: false
 
 install.packages("contoso")
@@ -109,6 +131,7 @@ install.packages("contoso")
 Or install the development version from [Codeberg](https://codeberg.org/usrbinr/contoso):
 
 ```{r}
+#| label: codeberg
 #| eval: false
 
 # install.packages("pak")

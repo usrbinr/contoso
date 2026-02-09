@@ -1,3 +1,6 @@
+# contoso 2.0.1
+* converted site docs from pkgdown to qrtdown
+
 # contoso 2.0.0
 * cran submission
 
