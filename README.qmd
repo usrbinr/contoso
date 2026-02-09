@@ -59,6 +59,16 @@ For larger datasets, use `create_contoso_duckdb()` with one of the following siz
 | large  | ~47 million       |
 | mega   | ~237 million      |
 
+## Data Storage
+
+The larger datasets are stored as Parquet files on Backblaze B2 cloud storage and streamed directly into DuckDB. The bucket uses read-only public credentials:
+
+| Setting | Value |
+|---------|-------|
+| Endpoint | `s3.us-east-005.backblazeb2.com` |
+| Key ID | `005b2c7eeac0b520000000002` |
+| Key Secret | `K005i8HhA1dzX3BNaPE2WnVevU7LBsk` |
+| Bucket | `contoso-datasets` |
 
 ## Source
 The data is originally sourced from the [sqlbi](https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data) github site

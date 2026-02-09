@@ -4,14 +4,14 @@
     "href": "cran-comments.html",
     "title": "contoso",
     "section": "",
-    "text": "added error validation to safely fail if user is using windows for create_contoso_database()"
+    "text": "converted site docs from pkgdown to qrtdown"
   },
   {
     "objectID": "cran-comments.html#r-cmd-check-results",
     "href": "cran-comments.html#r-cmd-check-results",
     "title": "contoso",
     "section": "",
-    "text": "added error validation to safely fail if user is using windows for create_contoso_database()"
+    "text": "converted site docs from pkgdown to qrtdown"
   },
   {
     "objectID": "LICENSE.html",
@@ -166,6 +166,13 @@
     "title": "contoso",
     "section": "",
     "text": "Source Code\nReport a Bug\n\n\n\n\nMIT + file LICENSE\n\n\n\nCiting this package\n\n\n\n\nAlejandro Hagan (author, maintainer)\nContoso is a synthetic dataset containing sample sales transaction data for the fictional “Contoso” company. It includes various supporting tables for business intelligence, such as customer, store, product, and currency exchange data.\nThis dataset is perfect for practicing time series analysis, joins, financial modeling, or any business intelligence-related tasks.\nIt comes with a built-in dataset as well as the ability to create an in-memory database with duckdb\nThe package comes with the following tables:\nBuilt into the package is the 10K row version of the dataset.\nUsing view(), you can see the columns’ label using the labelled package.\nFor larger datasets, use create_contoso_duckdb() with one of the following sizes:"
+  },
+  {
+    "objectID": "index.html#data-storage",
+    "href": "index.html#data-storage",
+    "title": "contoso",
+    "section": "Data Storage",
+    "text": "Data Storage\nThe larger datasets are stored as Parquet files on Backblaze B2 cloud storage and streamed directly into DuckDB. The bucket uses read-only public credentials:\n\n\n\nSetting\nValue\n\n\n\n\nEndpoint\ns3.us-east-005.backblazeb2.com\n\n\nKey ID\n005b2c7eeac0b520000000002\n\n\nKey Secret\nK005i8HhA1dzX3BNaPE2WnVevU7LBsk\n\n\nBucket\ncontoso-datasets"
   },
   {
     "objectID": "index.html#source",
