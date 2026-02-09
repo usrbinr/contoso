@@ -98,7 +98,7 @@ Or install the development version from
 
 ``` r
 # install.packages("pak")
-pak::pak("codeberg::usrbinr/contoso")
+pak::pak("git::https://codeberg.org/usrbinr/contoso")
 ```
 
 ### Example
