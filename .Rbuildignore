@@ -29,3 +29,8 @@
 
 # qrtdown
 ^reference$
+
+# Other
+^\.claude$
+^_brand\.yml$
+^_freeze$
