@@ -5,7 +5,6 @@
 altdoc/freeze.rds
 _quarto/*
 !_quarto/_freeze/
-README.qmd
 README.html
 /README_files/*
 renv.lock
@@ -22,3 +21,8 @@ _freeze/
 # parquet working files
 data-raw/output/
 data-raw/output_renamed/
+
+# qrtdown
+_qrtdown-styles.css
+_qrtdown/
+index.qmd

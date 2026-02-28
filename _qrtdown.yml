@@ -5,9 +5,9 @@ template:
 navbar:
   left:
   - text: Reference
-    href: reference.qmd
+    href: _qrtdown/reference.qmd
   - text: Citation
-    href: citation.qmd
+    href: _qrtdown/citation.qmd
   - text: Changelog
     href: NEWS.md
   right:

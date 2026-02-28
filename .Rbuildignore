@@ -34,3 +34,7 @@
 ^\.claude$
 ^_brand\.yml$
 ^_freeze$
+
+# qrtdown
+^_qrtdown-styles\.css$
+^_qrtdown$
