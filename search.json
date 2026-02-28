@@ -172,14 +172,14 @@
     "href": "index.html#data-storage",
     "title": "contoso",
     "section": "Data Storage",
-    "text": "Data Storage\nThe larger datasets are stored as Parquet files on Backblaze B2 cloud storage and streamed directly into DuckDB. The bucket uses read-only public credentials:\n\n\n\nSetting\nValue\n\n\n\n\nEndpoint\ns3.us-east-005.backblazeb2.com\n\n\nKey ID\n005b2c7eeac0b520000000002\n\n\nKey Secret\nK005i8HhA1dzX3BNaPE2WnVevU7LBsk\n\n\nBucket\ncontoso-datasets"
+    "text": "Data Storage\nThe larger datasets are stored as Parquet files on Cloudflare R2 cloud storage and streamed directly into DuckDB via the public URL:\nhttps://pub-6aa63519a4b945948cb8c88949b320ca.r2.dev"
   },
   {
     "objectID": "index.html#source",
     "href": "index.html#source",
     "title": "contoso",
     "section": "Source",
-    "text": "Source\nThe data is originally sourced from the sqlbi github site\n\nDataset overview\n\nThe relationship keys that join each of the tables are listed below.\n\n\n\n\n\n\n\n\nsales\ncustomer\nproduct\nstore\norder\norderrows\nfx\n\n\n\n\norder_key\n\n\n\norder_key\norder_key\n\n\n\ncustomer_key\ncustomer_key\n\n\ncustomer_key\n\n\n\n\nstore_key\n\n\nstore_key\nstore_key\n\n\n\n\nproduct_key\n\nproduct_key\n\n\nproduct_key\n\n\n\ncurrency_code\n\n\n\n\n\nfrom_currency\n\n\n\n\n\n\n\n\n\nInstallation\nYou can install the package from CRAN:\n\ninstall.packages(\"contoso\")\n\nOr install the development version from Codeberg:\n\n# install.packages(\"pak\")\npak::pak(\"codeberg::usrbinr/contoso\")\n\n\n\nExample\n\nlibrary(contoso)\n\n# Create a DuckDB connection to Contoso datasets\ndb &lt;- create_contoso_duckdb(size = \"medium\")\n\n# Access the sales dataset\ndb$sales |&gt; head()\n\n# Launch the DuckDB UI to explore all tables interactively\nlaunch_ui(db$con)\n\n# Clean up when done\nDBI::dbDisconnect(db$con, shutdown = TRUE)"
+    "text": "Source\nThe data is originally sourced from the sqlbi github site\n\nDataset overview\n\nThe relationship keys that join each of the tables are listed below.\n\n\n\n\n\n\n\n\nsales\ncustomer\nproduct\nstore\norder\norderrows\nfx\n\n\n\n\norder_key\n\n\n\norder_key\norder_key\n\n\n\ncustomer_key\ncustomer_key\n\n\ncustomer_key\n\n\n\n\nstore_key\n\n\nstore_key\nstore_key\n\n\n\n\nproduct_key\n\nproduct_key\n\n\nproduct_key\n\n\n\ncurrency_code\n\n\n\n\n\nfrom_currency\n\n\n\n\n\n\n\n\n\nInstallation\nYou can install the package from CRAN:\n\ninstall.packages(\"contoso\")\n\nOr install the development version from Codeberg:\n\n# install.packages(\"pak\")\npak::pak(\"git::https://codeberg.org/usrbinr/contoso\")\n\n\n\nExample\n\nlibrary(contoso)\n\n# Create a DuckDB connection to Contoso datasets\ndb &lt;- create_contoso_duckdb(size = \"medium\")\n\n# Access the sales dataset\ndb$sales |&gt; head()\n\n# Launch the DuckDB UI to explore all tables interactively\nlaunch_ui(db$con)\n\n# Clean up when done\nDBI::dbDisconnect(db$con, shutdown = TRUE)"
   },
   {
     "objectID": "citation.html",
@@ -207,7 +207,7 @@
     "href": "reference.html#functions",
     "title": "Function reference",
     "section": "Functions",
-    "text": "Functions\n\n\n\nFunction\nDescription\n\n\n\n\ncalendar()\nCalendar Dimension Data from the Contonso Dataset\n\n\ncreate_contoso_duckdb()\nCreates DuckDB database with Contoso datasets\n\n\ncustomer()\nCustomer Data from the Contonso Dataset\n\n\nfx()\nForeign Exchange Data from the Contonso Dataset\n\n\nlaunch_ui()\nLaunch the DuckDB UI in your browser\n\n\norderrows()\nOrder Rows Data from the Contonso Dataset\n\n\norders()\nOrder Data from the Contonso Dataset\n\n\nproduct()\nProduct Data from the Contonso Dataset\n\n\nsales()\nSales Data from the Contonso Dataset\n\n\nstore()\nStore Data from the Contonso Dataset"
+    "text": "Functions\n\n\n\nFunction\nDescription\n\n\n\n\ncalendar()\nCalendar Dimension Data from the Contoso Dataset\n\n\ncreate_contoso_duckdb()\nCreates DuckDB database with Contoso datasets\n\n\ncustomer()\nCustomer Data from the Contoso Dataset\n\n\nfx()\nForeign Exchange Data from the Contoso Dataset\n\n\nlaunch_ui()\nLaunch the DuckDB UI in your browser\n\n\norderrows()\nOrder Rows Data from the Contoso Dataset\n\n\norders()\nOrder Data from the Contoso Dataset\n\n\nproduct()\nProduct Data from the Contoso Dataset\n\n\nsales()\nSales Data from the Contoso Dataset\n\n\nstore()\nStore Data from the Contoso Dataset"
   },
   {
     "objectID": "reference/create_contoso_duckdb.html",
@@ -345,8 +345,8 @@
   {
     "objectID": "NEWS.html",
     "href": "NEWS.html",
-    "title": "contoso 2.0.1",
+    "title": "contoso 2.1.0",
     "section": "",
-    "text": "contoso 2.0.1\n\nconverted site docs from pkgdown to qrtdown\n\n\n\ncontoso 2.0.0\n\ncran submission\n\n\n\ncontoso 1.3.0\n\nSwitched from MotherDuck to Backblaze B2 cloud storage for dataset hosting\nNow works on all platforms including Windows\nChanged size parameter to use descriptive names: “small”, “medium”, “large”, “mega”\nRemoved db_dir parameter (no longer needed)\n\n\n\ncontoso 1.2.2\n\ncreate_contoso_duckdb() will not work if you are using windows due to lack of support from motherduck\nsee here for more information\n\n\n\ncontoso 1.2.1\n\nfixed create_contoso_duckdb() due to error created by table name changed\nupdated tests\n\n\n\ncontoso 1.2.0\n\nchanged ‘date’ table name to ‘calendar’ to avoid namespace conflicts with lubridate and base packages\n\n\n\ncontoso 1.1.1\n\nPatch to fixed launch_ui function\n\n\n\ncontoso 1.1.0\n\nlaunch_ui function added\npkgdown instead of altdocs\nnew logo\n\n\n\ncontoso 1.0.0\n\nSupport for 100M row database now supported\nunit tests added\n\n\n\ncontoso 0.1.0\n\nwebsite Replace pkgdown with altdocs\n100k+ contoso packages are attached from motherduck database\ncontoso database sizes increased to 10M rows"
+    "text": "contoso 2.1.0\n\nupdated storage from Blaze to CloudeFare\nfixed typos in documentation\n\n\n\ncontoso 2.0.1\n\nconverted site docs from pkgdown to qrtdown\n\n\n\ncontoso 2.0.0\n\ncran submission\n\n\n\ncontoso 1.3.0\n\nSwitched from MotherDuck to Cloudflare R2 cloud storage for dataset hosting\nNow works on all platforms including Windows\nChanged size parameter to use descriptive names: “small”, “medium”, “large”, “mega”\nRemoved db_dir parameter (no longer needed)\n\n\n\ncontoso 1.2.2\n\ncreate_contoso_duckdb() will not work if you are using windows due to lack of support from motherduck\nsee here for more information\n\n\n\ncontoso 1.2.1\n\nfixed create_contoso_duckdb() due to error created by table name changed\nupdated tests\n\n\n\ncontoso 1.2.0\n\nchanged ‘date’ table name to ‘calendar’ to avoid namespace conflicts with lubridate and base packages\n\n\n\ncontoso 1.1.1\n\nPatch to fixed launch_ui function\n\n\n\ncontoso 1.1.0\n\nlaunch_ui function added\npkgdown instead of altdocs\nnew logo\n\n\n\ncontoso 1.0.0\n\nSupport for 100M row database now supported\nunit tests added\n\n\n\ncontoso 0.1.0\n\nwebsite Replace pkgdown with altdocs\n100k+ contoso packages are attached from motherduck database\ncontoso database sizes increased to 10M rows"
   }
 ]

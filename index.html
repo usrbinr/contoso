@@ -448,33 +448,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <section id="data-storage" class="level2">
 <h2 class="anchored" data-anchor-id="data-storage">Data Storage</h2>
-<p>The larger datasets are stored as Parquet files on Backblaze B2 cloud storage and streamed directly into DuckDB. The bucket uses read-only public credentials:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Setting</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Endpoint</td>
-<td><code>s3.us-east-005.backblazeb2.com</code></td>
-</tr>
-<tr class="even">
-<td>Key ID</td>
-<td><code>005b2c7eeac0b520000000002</code></td>
-</tr>
-<tr class="odd">
-<td>Key Secret</td>
-<td><code>K005i8HhA1dzX3BNaPE2WnVevU7LBsk</code></td>
-</tr>
-<tr class="even">
-<td>Bucket</td>
-<td><code>contoso-datasets</code></td>
-</tr>
-</tbody>
-</table>
+<p>The larger datasets are stored as Parquet files on Cloudflare R2 cloud storage and streamed directly into DuckDB via the public URL:</p>
+<pre><code>https://pub-6aa63519a4b945948cb8c88949b320ca.r2.dev</code></pre>
 </section>
 <section id="source" class="level2">
 <h2 class="anchored" data-anchor-id="source">Source</h2>
@@ -485,23 +460,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The relationship keys that join each of the tables are listed below.</p>
 <div class="cell" width="8">
 <div class="cell-output-display">
-<div id="jdzuogaodr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#jdzuogaodr table {
+<div id="vdcuoduhgu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vdcuoduhgu table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#jdzuogaodr thead, #jdzuogaodr tbody, #jdzuogaodr tfoot, #jdzuogaodr tr, #jdzuogaodr td, #jdzuogaodr th {
+#vdcuoduhgu thead, #vdcuoduhgu tbody, #vdcuoduhgu tfoot, #vdcuoduhgu tr, #vdcuoduhgu td, #vdcuoduhgu th {
   border-style: none;
 }
 
-#jdzuogaodr p {
+#vdcuoduhgu p {
   margin: 0;
   padding: 0;
 }
 
-#jdzuogaodr .gt_table {
+#vdcuoduhgu .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -527,12 +502,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#jdzuogaodr .gt_caption {
+#vdcuoduhgu .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#jdzuogaodr .gt_title {
+#vdcuoduhgu .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -544,7 +519,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#jdzuogaodr .gt_subtitle {
+#vdcuoduhgu .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -556,7 +531,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#jdzuogaodr .gt_heading {
+#vdcuoduhgu .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -568,13 +543,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jdzuogaodr .gt_bottom_border {
+#vdcuoduhgu .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jdzuogaodr .gt_col_headings {
+#vdcuoduhgu .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -589,7 +564,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jdzuogaodr .gt_col_heading {
+#vdcuoduhgu .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -609,7 +584,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#jdzuogaodr .gt_column_spanner_outer {
+#vdcuoduhgu .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -621,15 +596,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#jdzuogaodr .gt_column_spanner_outer:first-child {
+#vdcuoduhgu .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jdzuogaodr .gt_column_spanner_outer:last-child {
+#vdcuoduhgu .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jdzuogaodr .gt_column_spanner {
+#vdcuoduhgu .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -641,11 +616,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#jdzuogaodr .gt_spanner_row {
+#vdcuoduhgu .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#jdzuogaodr .gt_group_heading {
+#vdcuoduhgu .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -671,7 +646,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#jdzuogaodr .gt_empty_group_heading {
+#vdcuoduhgu .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -686,15 +661,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#jdzuogaodr .gt_from_md > :first-child {
+#vdcuoduhgu .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jdzuogaodr .gt_from_md > :last-child {
+#vdcuoduhgu .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jdzuogaodr .gt_row {
+#vdcuoduhgu .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -713,7 +688,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#jdzuogaodr .gt_stub {
+#vdcuoduhgu .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -726,7 +701,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jdzuogaodr .gt_stub_row_group {
+#vdcuoduhgu .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -740,15 +715,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#jdzuogaodr .gt_row_group_first td {
+#vdcuoduhgu .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#jdzuogaodr .gt_row_group_first th {
+#vdcuoduhgu .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#jdzuogaodr .gt_summary_row {
+#vdcuoduhgu .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -758,16 +733,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jdzuogaodr .gt_first_summary_row {
+#vdcuoduhgu .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#jdzuogaodr .gt_first_summary_row.thick {
+#vdcuoduhgu .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#jdzuogaodr .gt_last_summary_row {
+#vdcuoduhgu .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -777,7 +752,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#jdzuogaodr .gt_grand_summary_row {
+#vdcuoduhgu .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -787,7 +762,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jdzuogaodr .gt_first_grand_summary_row {
+#vdcuoduhgu .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -797,7 +772,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#jdzuogaodr .gt_last_grand_summary_row_top {
+#vdcuoduhgu .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -807,11 +782,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#jdzuogaodr .gt_striped {
+#vdcuoduhgu .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jdzuogaodr .gt_table_body {
+#vdcuoduhgu .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -820,7 +795,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#jdzuogaodr .gt_footnotes {
+#vdcuoduhgu .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -834,7 +809,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jdzuogaodr .gt_footnote {
+#vdcuoduhgu .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -843,7 +818,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jdzuogaodr .gt_sourcenotes {
+#vdcuoduhgu .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -857,7 +832,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#jdzuogaodr .gt_sourcenote {
+#vdcuoduhgu .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -865,63 +840,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#jdzuogaodr .gt_left {
+#vdcuoduhgu .gt_left {
   text-align: left;
 }
 
-#jdzuogaodr .gt_center {
+#vdcuoduhgu .gt_center {
   text-align: center;
 }
 
-#jdzuogaodr .gt_right {
+#vdcuoduhgu .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jdzuogaodr .gt_font_normal {
+#vdcuoduhgu .gt_font_normal {
   font-weight: normal;
 }
 
-#jdzuogaodr .gt_font_bold {
+#vdcuoduhgu .gt_font_bold {
   font-weight: bold;
 }
 
-#jdzuogaodr .gt_font_italic {
+#vdcuoduhgu .gt_font_italic {
   font-style: italic;
 }
 
-#jdzuogaodr .gt_super {
+#vdcuoduhgu .gt_super {
   font-size: 65%;
 }
 
-#jdzuogaodr .gt_footnote_marks {
+#vdcuoduhgu .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#jdzuogaodr .gt_asterisk {
+#vdcuoduhgu .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#jdzuogaodr .gt_indent_1 {
+#vdcuoduhgu .gt_indent_1 {
   text-indent: 5px;
 }
 
-#jdzuogaodr .gt_indent_2 {
+#vdcuoduhgu .gt_indent_2 {
   text-indent: 10px;
 }
 
-#jdzuogaodr .gt_indent_3 {
+#vdcuoduhgu .gt_indent_3 {
   text-indent: 15px;
 }
 
-#jdzuogaodr .gt_indent_4 {
+#vdcuoduhgu .gt_indent_4 {
   text-indent: 20px;
 }
 
-#jdzuogaodr .gt_indent_5 {
+#vdcuoduhgu .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -995,30 +970,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
 <p>You can install the package from CRAN:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"contoso"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"contoso"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Or install the development version from <a href="https://codeberg.org/usrbinr/contoso">Codeberg</a>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("pak")</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"codeberg::usrbinr/contoso"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("pak")</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"git::https://codeberg.org/usrbinr/contoso"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="example" class="level3">
 <h3 class="anchored" data-anchor-id="example">Example</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(contoso)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DuckDB connection to Contoso datasets</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> <span class="fu">create_contoso_duckdb</span>(<span class="at">size =</span> <span class="st">"medium"</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the sales dataset</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>db<span class="sc">$</span>sales <span class="sc">|&gt;</span> <span class="fu">head</span>()</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Launch the DuckDB UI to explore all tables interactively</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">launch_ui</span>(db<span class="sc">$</span>con)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean up when done</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(db<span class="sc">$</span>con, <span class="at">shutdown =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(contoso)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DuckDB connection to Contoso datasets</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> <span class="fu">create_contoso_duckdb</span>(<span class="at">size =</span> <span class="st">"medium"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the sales dataset</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>db<span class="sc">$</span>sales <span class="sc">|&gt;</span> <span class="fu">head</span>()</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Launch the DuckDB UI to explore all tables interactively</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">launch_ui</span>(db<span class="sc">$</span>con)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean up when done</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(db<span class="sc">$</span>con, <span class="at">shutdown =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 
