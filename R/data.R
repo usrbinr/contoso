@@ -1,6 +1,6 @@
-#' Sales Data from the Contonso Dataset
+#' Sales Data from the Contoso Dataset
 #'
-#' This dataset contains information about sales orders, including order details, pricing, and customer data from the Contonso dataset.
+#' This dataset contains information about sales orders, including order details, pricing, and customer data from the Contoso dataset.
 #' It provides insights into the transactions that have occurred, including order dates, delivery dates, customer and store information,
 #' as well as product details.
 #'
@@ -21,29 +21,29 @@
 #'   \item{exchange_rate}{\code{double} The exchange rate applied to the currency, if applicable.}
 #'   \item{gross_revenue}{\code{double} A product's unit_price multiplied by quantity.}
 #'   \item{net_revenue}{\code{double} A product's net_price multiplied by quantity.}
-#'   \item{unit_discount}{\code{double} A product's unit_price minute net_price.}
+#'   \item{unit_discount}{\code{double} A product's unit_price minus net_price.}
 #'   \item{discounts}{\code{double} A product's unit_discount multiplied by quantity.}
-#'   \item{cogs}{\code{double} A product's unit_cost multiplied by quantity.}
-#'   \item{margin}{\code{double} A product's net_revenue minus cogs.}
-#'   \item{unit_margin}{\code{double} A product margin divided by quantity.}
+#'   \item{cogs}{\code{double} Cost of goods sold. A product's unit_cost multiplied by quantity.}
+#'   \item{gross_margin}{\code{double} A product's net_revenue minus cogs.}
+#'   \item{unit_margin}{\code{double} A product's gross_margin divided by quantity.}
 #' }
 #' @source https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data
 "sales"
 
 
 
-#' Customer Data from the Contonso Dataset
+#' Customer Data from the Contoso Dataset
 #'
-#' This dataset contains information about customers from the Contonso dataset, including demographic details, geographical information,
+#' This dataset contains information about customers from the Contoso dataset, including demographic details, geographical information,
 #' contact information, and other personal attributes. It provides insights into customer profiles, including location, age, occupation,
 #' and more.
 #'
-#' @format A data frame with 23 columns:
+#' @format A data frame with 24 columns:
 #' \describe{
 #'   \item{customer_key}{\code{double} Unique identifier for each customer.}
 #'   \item{geo_area_key}{\code{double} Unique identifier for the geographical area the customer resides in.}
-#'   \item{start_dt}{\code{Date} Date when the customer relationship began.}
-#'   \item{end_dt}{\code{Date} Date when the customer relationship ended, if applicable.}
+#'   \item{start_date}{\code{Date} Date when the customer relationship began.}
+#'   \item{end_date}{\code{Date} Date when the customer relationship ended, if applicable.}
 #'   \item{continent}{\code{character} The continent where the customer resides.}
 #'   \item{gender}{\code{character} The gender of the customer (e.g., 'Male', 'Female').}
 #'   \item{title}{\code{character} The title of the customer (e.g., 'Mr.', 'Ms.').}
@@ -68,9 +68,9 @@
 #' @source https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data
 "customer"
 
-#' Calendar Dimension Data from the Contonso Dataset
+#' Calendar Dimension Data from the Contoso Dataset
 #'
-#' This dataset contains calendar-related information used for time-based analysis in the Contonso dataset. It includes various representations
+#' This dataset contains calendar-related information used for time-based analysis in the Contoso dataset. It includes various representations
 #' of date-related attributes, such as year, quarter, month, and day, along with indicators for working days. It is useful for time-series
 #' analysis and aggregating data by different time periods.
 #'
@@ -88,18 +88,18 @@
 #'   \item{month}{\code{character} The month name (e.g., "March").}
 #'   \item{month_short}{\code{character} The abbreviated month name (e.g., "Mar").}
 #'   \item{month_number}{\code{double} The numerical representation of the month (e.g., 3 for March).}
-#'   \item{dayof_week}{\code{character} The full name of the day of the week (e.g., "Monday").}
-#'   \item{dayof_week_short}{\code{character} The abbreviated day of the week (e.g., "Mon").}
-#'   \item{dayof_week_number}{\code{double} The numerical representation of the day of the week (e.g., 1 for Monday).}
+#'   \item{day_of_week}{\code{character} The full name of the day of the week (e.g., "Monday").}
+#'   \item{day_of_week_short}{\code{character} The abbreviated day of the week (e.g., "Mon").}
+#'   \item{day_of_week_number}{\code{double} The numerical representation of the day of the week (e.g., 1 for Monday).}
 #'   \item{working_day}{\code{double} Indicator of whether the date is a working day (1 for working day, 0 for non-working day).}
 #'   \item{working_day_number}{\code{double} A numerical indicator for working day (e.g., 1 for working day, 0 for non-working day).}
 #' }
 #' @source https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data
 "calendar"
 
-#' Store Data from the Contonso Dataset
+#' Store Data from the Contoso Dataset
 #'
-#' This dataset contains information about stores within the Contonso dataset. It includes details about the store's geographic
+#' This dataset contains information about stores within the Contoso dataset. It includes details about the store's geographic
 #' location, operational status, and physical characteristics such as size and opening/closing dates. It provides insights into the
 #' store network of the company.
 #'
@@ -120,11 +120,11 @@
 #' @source https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data
 "store"
 
-#' Order Data from the Contonso Dataset
+#' Order Data from the Contoso Dataset
 #'
 #' This dataset contains information about customer orders, including order dates, delivery dates, and store details.
 #'
-#' @format A data frame with 5 columns:
+#' @format A data frame with 6 columns:
 #' \describe{
 #'   \item{order_key}{\code{double} Unique identifier for the order.}
 #'   \item{customer_key}{\code{double} Unique identifier for the customer who placed the order.}
@@ -138,9 +138,9 @@
 
 
 
-#' Order Rows Data from the Contonso Dataset
+#' Order Rows Data from the Contoso Dataset
 #'
-#' This dataset contains detailed information about the individual items (rows) within each order in the Contonso dataset. It includes
+#' This dataset contains detailed information about the individual items (rows) within each order in the Contoso dataset. It includes
 #' details such as the product, quantity, pricing, and cost of each item in an order. This dataset is useful for analyzing the breakdown
 #' of order components and individual product sales.
 #'
@@ -157,7 +157,7 @@
 #' @source https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data
 "orderrows"
 
-#' Foreign Exchange Data from the Contonso Dataset
+#' Foreign Exchange Data from the Contoso Dataset
 #'
 #' This dataset contains information about foreign exchange (FX) rates between different currencies. It includes details about the
 #' exchange rate for a given date, as well as the currencies involved. This dataset is useful for analyzing currency conversions
@@ -174,9 +174,9 @@
 "fx"
 
 
-#' Product Data from the Contonso Dataset
+#' Product Data from the Contoso Dataset
 #'
-#' This dataset contains information about products in the Contonso dataset. It includes product details such as identifiers,
+#' This dataset contains information about products in the Contoso dataset. It includes product details such as identifiers,
 #' descriptions, pricing, weight, and categorization. This dataset is useful for analyzing product characteristics, pricing, and
 #' product-related sales insights.
 #'

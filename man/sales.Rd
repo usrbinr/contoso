@@ -3,7 +3,7 @@
 \docType{data}
 \name{sales}
 \alias{sales}
-\title{Sales Data from the Contonso Dataset}
+\title{Sales Data from the Contoso Dataset}
 \format{
 A data frame with sales columns:
 \describe{
@@ -22,11 +22,11 @@ A data frame with sales columns:
 \item{exchange_rate}{\code{double} The exchange rate applied to the currency, if applicable.}
 \item{gross_revenue}{\code{double} A product's unit_price multiplied by quantity.}
 \item{net_revenue}{\code{double} A product's net_price multiplied by quantity.}
-\item{unit_discount}{\code{double} A product's unit_price minute net_price.}
+\item{unit_discount}{\code{double} A product's unit_price minus net_price.}
 \item{discounts}{\code{double} A product's unit_discount multiplied by quantity.}
-\item{cogs}{\code{double} A product's unit_cost multiplied by quantity.}
-\item{margin}{\code{double} A product's net_revenue minus cogs.}
-\item{unit_margin}{\code{double} A product margin divided by quantity.}
+\item{cogs}{\code{double} Cost of goods sold. A product's unit_cost multiplied by quantity.}
+\item{gross_margin}{\code{double} A product's net_revenue minus cogs.}
+\item{unit_margin}{\code{double} A product's gross_margin divided by quantity.}
 }
 }
 \source{
@@ -36,7 +36,7 @@ https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-u
 sales
 }
 \description{
-This dataset contains information about sales orders, including order details, pricing, and customer data from the Contonso dataset.
+This dataset contains information about sales orders, including order details, pricing, and customer data from the Contoso dataset.
 It provides insights into the transactions that have occurred, including order dates, delivery dates, customer and store information,
 as well as product details.
 }

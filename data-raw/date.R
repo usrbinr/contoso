@@ -18,9 +18,9 @@ date_labels <- list(
     month = "Month of the year (1-12)",
     month_short = "Short month name (e.g., Jan, Feb)",
     month_number = "Numeric month (1-12)",
-    dayof_week = "Day of the week (e.g., Monday, Tuesday)",
-    dayof_week_short = "Short form of the day of the week (e.g., Mon, Tue)",
-    dayof_week_number = "Numeric day of the week (1 = Sunday, 7 = Saturday)",
+    day_of_week = "Day of the week (e.g., Monday, Tuesday)",
+    day_of_week_short = "Short form of the day of the week (e.g., Mon, Tue)",
+    day_of_week_number = "Numeric day of the week (1 = Sunday, 7 = Saturday)",
     working_day = "Indicates if it's a working day (TRUE/FALSE)",
     working_day_number = "Numeric representation of the working day only (1 = Monday, 2=Tuesday, 0 = weekend)"
 )

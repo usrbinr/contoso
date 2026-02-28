@@ -3,7 +3,7 @@
 \docType{data}
 \name{product}
 \alias{product}
-\title{Product Data from the Contonso Dataset}
+\title{Product Data from the Contoso Dataset}
 \format{
 A data frame with 14 columns:
 \describe{
@@ -30,7 +30,7 @@ https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-u
 product
 }
 \description{
-This dataset contains information about products in the Contonso dataset. It includes product details such as identifiers,
+This dataset contains information about products in the Contoso dataset. It includes product details such as identifiers,
 descriptions, pricing, weight, and categorization. This dataset is useful for analyzing product characteristics, pricing, and
 product-related sales insights.
 }

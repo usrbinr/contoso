@@ -3,7 +3,7 @@
 \docType{data}
 \name{calendar}
 \alias{calendar}
-\title{Calendar Dimension Data from the Contonso Dataset}
+\title{Calendar Dimension Data from the Contoso Dataset}
 \format{
 A data frame with 17 columns:
 \describe{
@@ -19,9 +19,9 @@ A data frame with 17 columns:
 \item{month}{\code{character} The month name (e.g., "March").}
 \item{month_short}{\code{character} The abbreviated month name (e.g., "Mar").}
 \item{month_number}{\code{double} The numerical representation of the month (e.g., 3 for March).}
-\item{dayof_week}{\code{character} The full name of the day of the week (e.g., "Monday").}
-\item{dayof_week_short}{\code{character} The abbreviated day of the week (e.g., "Mon").}
-\item{dayof_week_number}{\code{double} The numerical representation of the day of the week (e.g., 1 for Monday).}
+\item{day_of_week}{\code{character} The full name of the day of the week (e.g., "Monday").}
+\item{day_of_week_short}{\code{character} The abbreviated day of the week (e.g., "Mon").}
+\item{day_of_week_number}{\code{double} The numerical representation of the day of the week (e.g., 1 for Monday).}
 \item{working_day}{\code{double} Indicator of whether the date is a working day (1 for working day, 0 for non-working day).}
 \item{working_day_number}{\code{double} A numerical indicator for working day (e.g., 1 for working day, 0 for non-working day).}
 }
@@ -33,7 +33,7 @@ https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-u
 calendar
 }
 \description{
-This dataset contains calendar-related information used for time-based analysis in the Contonso dataset. It includes various representations
+This dataset contains calendar-related information used for time-based analysis in the Contoso dataset. It includes various representations
 of date-related attributes, such as year, quarter, month, and day, along with indicators for working days. It is useful for time-series
 analysis and aggregating data by different time periods.
 }

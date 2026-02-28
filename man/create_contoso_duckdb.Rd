@@ -18,7 +18,7 @@ A list containing:
 }
 \description{
 Creates a DuckDB connection with Contoso datasets loaded from cloud storage.
-The datasets are stored as Parquet files on Backblaze B2 and streamed directly
+The datasets are stored as Parquet files on Cloudflare R2 and streamed directly
 into DuckDB.
 }
 \details{

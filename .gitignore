@@ -18,3 +18,7 @@ renv.lock
 _quarto.yml
 reference/
 _freeze/
+
+# parquet working files
+data-raw/output/
+data-raw/output_renamed/

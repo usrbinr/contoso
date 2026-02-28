@@ -3,9 +3,9 @@
 \docType{data}
 \name{orders}
 \alias{orders}
-\title{Order Data from the Contonso Dataset}
+\title{Order Data from the Contoso Dataset}
 \format{
-A data frame with 5 columns:
+A data frame with 6 columns:
 \describe{
 \item{order_key}{\code{double} Unique identifier for the order.}
 \item{customer_key}{\code{double} Unique identifier for the customer who placed the order.}

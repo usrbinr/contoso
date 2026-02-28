@@ -3,14 +3,14 @@
 \docType{data}
 \name{customer}
 \alias{customer}
-\title{Customer Data from the Contonso Dataset}
+\title{Customer Data from the Contoso Dataset}
 \format{
-A data frame with 23 columns:
+A data frame with 24 columns:
 \describe{
 \item{customer_key}{\code{double} Unique identifier for each customer.}
 \item{geo_area_key}{\code{double} Unique identifier for the geographical area the customer resides in.}
-\item{start_dt}{\code{Date} Date when the customer relationship began.}
-\item{end_dt}{\code{Date} Date when the customer relationship ended, if applicable.}
+\item{start_date}{\code{Date} Date when the customer relationship began.}
+\item{end_date}{\code{Date} Date when the customer relationship ended, if applicable.}
 \item{continent}{\code{character} The continent where the customer resides.}
 \item{gender}{\code{character} The gender of the customer (e.g., 'Male', 'Female').}
 \item{title}{\code{character} The title of the customer (e.g., 'Mr.', 'Ms.').}
@@ -40,7 +40,7 @@ https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-u
 customer
 }
 \description{
-This dataset contains information about customers from the Contonso dataset, including demographic details, geographical information,
+This dataset contains information about customers from the Contoso dataset, including demographic details, geographical information,
 contact information, and other personal attributes. It provides insights into customer profiles, including location, age, occupation,
 and more.
 }

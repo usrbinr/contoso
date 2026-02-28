@@ -3,7 +3,7 @@
 \docType{data}
 \name{store}
 \alias{store}
-\title{Store Data from the Contonso Dataset}
+\title{Store Data from the Contoso Dataset}
 \format{
 A data frame with 11 columns:
 \describe{
@@ -27,7 +27,7 @@ https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-u
 store
 }
 \description{
-This dataset contains information about stores within the Contonso dataset. It includes details about the store's geographic
+This dataset contains information about stores within the Contoso dataset. It includes details about the store's geographic
 location, operational status, and physical characteristics such as size and opening/closing dates. It provides insights into the
 store network of the company.
 }

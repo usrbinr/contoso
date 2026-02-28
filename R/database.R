@@ -5,7 +5,7 @@
 #'
 #' @description
 #' Creates a DuckDB connection with Contoso datasets loaded from cloud storage.
-#' The datasets are stored as Parquet files on Backblaze B2 and streamed directly
+#' The datasets are stored as Parquet files on Cloudflare R2 and streamed directly
 #' into DuckDB.
 #'
 #' @details
@@ -42,7 +42,7 @@ create_contoso_duckdb <- function(size = "small") {
   size <- tolower(size)
   size <- match.arg(size, choices = c("small", "medium", "large", "mega"), several.ok = FALSE)
 
-  # Map size names to B2 folder names
+  # Map size names to folder names
   size_to_folder <- c(
     "small" = "contoso_100k",
     "medium" = "contoso_1m",
@@ -51,45 +51,29 @@ create_contoso_duckdb <- function(size = "small") {
   )
   folder <- size_to_folder[[size]]
 
-  # B2 bucket configuration (read-only credentials)
-  b2_endpoint <- "s3.us-east-005.backblazeb2.com"
-  b2_key_id <- "005b2c7eeac0b520000000002"
-  b2_key_secret <- "K005i8HhA1dzX3BNaPE2WnVevU7LBsk"
-  b2_bucket <- "contoso-datasets"
+  # Cloudflare R2 public bucket URL
+  r2_base_url <- "https://pub-6aa63519a4b945948cb8c88949b320ca.r2.dev"
 
   # Create DuckDB connection
- con <- DBI::dbConnect(duckdb::duckdb())
+  con <- DBI::dbConnect(duckdb::duckdb())
 
   # Install and load httpfs extension
   DBI::dbExecute(con, "INSTALL httpfs; LOAD httpfs;")
 
-  # Configure S3 settings for B2
-  DBI::dbExecute(con, sprintf("SET s3_endpoint = '%s';", b2_endpoint))
-  DBI::dbExecute(con, sprintf("SET s3_access_key_id = '%s';", b2_key_id))
-  DBI::dbExecute(con, sprintf("SET s3_secret_access_key = '%s';", b2_key_secret))
-  DBI::dbExecute(con, "SET s3_url_style = 'path';")
-
   # Table names
   tables_vec <- c("sales", "product", "customer", "store", "orders", "orderrows", "fx", "calendar")
 
-  # Create views for each table pointing to B2 parquet files
-  for (tbl in tables_vec) {
-    parquet_url <- sprintf("s3://%s/%s/%s.parquet", b2_bucket, folder, tbl)
+  # Create views for each table pointing to R2 parquet files
+  purrr::walk(tables_vec, \(tbl) {
+    parquet_url <- sprintf("%s/%s/%s.parquet", r2_base_url, folder, tbl)
     DBI::dbExecute(con, sprintf("CREATE VIEW %s AS SELECT * FROM read_parquet('%s');", tbl, parquet_url))
-  }
+  })
 
   # Create lazy tbl references
-  out <- list(
-    sales = dplyr::tbl(con, "sales"),
-    product = dplyr::tbl(con, "product"),
-    customer = dplyr::tbl(con, "customer"),
-    store = dplyr::tbl(con, "store"),
-    fx = dplyr::tbl(con, "fx"),
-    calendar = dplyr::tbl(con, "calendar"),
-    orders = dplyr::tbl(con, "orders"),
-    orderrows = dplyr::tbl(con, "orderrows"),
-    con = con
-  )
+  out <- tables_vec |>
+    purrr::set_names() |>
+    purrr::map(\(tbl) dplyr::tbl(con, tbl)) |>
+    c(list(con = con))
 
   return(out)
 }
@@ -151,4 +135,5 @@ launch_ui <- function(.con){
 
   DBI::dbExecute(.con,"CALL start_ui()")
 
+  invisible(NULL)
 }

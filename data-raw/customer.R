@@ -17,8 +17,8 @@ rm(sales)
 customer_labels <- list(
     customer_key = "Unique customer identifier",
     geo_area_key = "Geographical area identifier",
-    start_dt = "Start date of customer record",
-    end_dt = "End date of customer record",
+    start_date = "Start date of customer record",
+    end_date = "End date of customer record",
     continent = "Continent of the customer",
     gender = "Gender of the customer",
     title = "Title of the customer (e.g., Mr., Mrs., Dr.)",

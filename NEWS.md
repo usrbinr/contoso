@@ -1,3 +1,7 @@
+# contoso 2.1.0
+* updated storage from Blaze to CloudeFare
+* fixed typos in documentation
+
 # contoso 2.0.1
 * converted site docs from pkgdown to qrtdown
 
@@ -5,7 +9,7 @@
 * cran submission
 
 # contoso 1.3.0
-* Switched from MotherDuck to Backblaze B2 cloud storage for dataset hosting
+* Switched from MotherDuck to Cloudflare R2 cloud storage for dataset hosting
 * Now works on all platforms including Windows
 * Changed size parameter to use descriptive names: "small", "medium", "large", "mega"
 * Removed `db_dir` parameter (no longer needed)

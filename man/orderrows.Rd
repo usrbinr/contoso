@@ -3,7 +3,7 @@
 \docType{data}
 \name{orderrows}
 \alias{orderrows}
-\title{Order Rows Data from the Contonso Dataset}
+\title{Order Rows Data from the Contoso Dataset}
 \format{
 A data frame with 7 columns:
 \describe{
@@ -23,7 +23,7 @@ https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-u
 orderrows
 }
 \description{
-This dataset contains detailed information about the individual items (rows) within each order in the Contonso dataset. It includes
+This dataset contains detailed information about the individual items (rows) within each order in the Contoso dataset. It includes
 details such as the product, quantity, pricing, and cost of each item in an order. This dataset is useful for analyzing the breakdown
 of order components and individual product sales.
 }

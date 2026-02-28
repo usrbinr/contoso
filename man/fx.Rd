@@ -3,7 +3,7 @@
 \docType{data}
 \name{fx}
 \alias{fx}
-\title{Foreign Exchange Data from the Contonso Dataset}
+\title{Foreign Exchange Data from the Contoso Dataset}
 \format{
 A data frame with 4 columns:
 \describe{
