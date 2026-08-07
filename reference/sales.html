@@ -305,7 +305,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li><a href="#usage" id="toc-usage" class="nav-link active" data-scroll-target="#usage">Usage</a></li>
+  <li><a href="#details" id="toc-details" class="nav-link" data-scroll-target="#details">Details</a></li>
   <li><a href="#format" id="toc-format" class="nav-link" data-scroll-target="#format">Format</a></li>
+  <li><a href="#currency" id="toc-currency" class="nav-link" data-scroll-target="#currency">Currency</a></li>
   <li><a href="#source" id="toc-source" class="nav-link" data-scroll-target="#source">Source</a></li>
   </ul></nav>
 </div>
@@ -336,9 +338,13 @@ This dataset contains information about sales orders, including order details, p
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sales</span></code></pre></div>
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
+</section><section id="details" class="level2"><h2 class="anchored" data-anchor-id="details">Details</h2>
+<p>
+Each row is one line item on one order — the same grain as <a href="../reference/orderrows.html">orderrows</a>. This is the denormalised fact table: it repeats every column of <a href="../reference/orders.html">orders</a> and <a href="../reference/orderrows.html">orderrows</a>, adds the day’s <code>exchange_rate</code>, and pre-computes seven revenue, cost and margin measures.
+</p>
 </section><section id="format" class="level2"><h2 class="anchored" data-anchor-id="format">Format</h2>
 <p>
-A data frame with sales columns:
+A data frame with 7,794 rows and 20 columns:
 </p>
 <dl>
 <dt>
@@ -418,7 +424,7 @@ net_price
 </dt>
 <dd>
 <p>
-<code>double</code> The total net price for the product, considering any discounts.
+<code>double</code> The price <em>per unit</em> after discount, in USD. Despite the name this is a unit figure, not a line total.
 </p>
 </dd>
 <dt>
@@ -434,7 +440,7 @@ currency_code
 </dt>
 <dd>
 <p>
-<code>character</code> The currency code used for the transaction (e.g., USD, EUR).
+<code>character</code> The currency the order was placed in (e.g., USD, EUR). Does <strong>not</strong> describe the money columns, which are all USD.
 </p>
 </dd>
 <dt>
@@ -442,7 +448,7 @@ exchange_rate
 </dt>
 <dd>
 <p>
-<code>double</code> The exchange rate applied to the currency, if applicable.
+<code>double</code> The USD-to-<code>currency_code</code> rate on <code>order_date</code>, from <a href="../reference/fx.html">fx</a>. 1.0 for USD orders. It has not been applied to the money columns — multiply if you want local currency.
 </p>
 </dd>
 <dt>
@@ -501,7 +507,11 @@ unit_margin
 <code>double</code> A product’s gross_margin divided by quantity.
 </p>
 </dd>
-</dl></section><section id="source" class="level2"><h2 class="anchored" data-anchor-id="source">Source</h2>
+</dl></section><section id="currency" class="level2"><h2 class="anchored" data-anchor-id="currency">Currency</h2>
+<p>
+Every money column is in <strong>USD</strong>, regardless of the order’s <code>currency_code</code>, so amounts sum directly across orders. Multiply by <code>exchange_rate</code> to express an amount in the currency the order was placed in.
+</p>
+</section><section id="source" class="level2"><h2 class="anchored" data-anchor-id="source">Source</h2>
 <p>
 https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data
 </p>

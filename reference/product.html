@@ -338,7 +338,7 @@ This dataset contains information about products in the Contoso dataset. It incl
 </div>
 </section><section id="format" class="level2"><h2 class="anchored" data-anchor-id="format">Format</h2>
 <p>
-A data frame with 14 columns:
+A data frame with 2,517 rows and 14 columns:
 </p>
 <dl>
 <dt>
@@ -394,7 +394,7 @@ weight_unit
 </dt>
 <dd>
 <p>
-<code>character</code> The unit of measurement for the product’s weight (e.g., “kg”, “lbs”).
+<code>character</code> The unit <code>weight</code> is expressed in: <code>“grams”</code>, <code>“ounces”</code> or <code>“pounds”</code> — never <code>“kg”</code>. Metric and imperial units are mixed, so <code>weight</code> is <strong>not comparable across rows</strong> without converting. Missing where the product has no weight.
 </p>
 </dd>
 <dt>
@@ -402,7 +402,7 @@ weight
 </dt>
 <dd>
 <p>
-<code>double</code> The weight of the product.
+<code>double</code> The weight of the product, in <code>weight_unit</code>. Not on a common scale — see that column.
 </p>
 </dd>
 <dt>

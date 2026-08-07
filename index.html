@@ -388,8 +388,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </li>
 </ul>
-<p>Built into the package is the 10K row version of the dataset.</p>
-<p>Using <code>view()</code>, you can see the columns’ label using the <a href="https://larmarange.github.io/labelled/index.html" class="external-link">labelled</a> package.</p>
+<p>Built into the package is the smallest version of the dataset: 7,794 sales lines across 3,242 orders and 3,165 customers.</p>
+<p>Every column is documented in a machine-readable data dictionary, which <a href="reference/contoso_dict_columns.html"><code>contoso_dict_columns()</code></a> returns as a tibble:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contoso_dict_columns</span>()</span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+</div>
+<p>Using <a href="https://larmarange.github.io/labelled/reference/look_for.html" class="external-link"><code>labelled::look_for()</code></a>, you can also see the columns’ labels from the <a href="https://larmarange.github.io/labelled/index.html" class="external-link">labelled</a> package.</p>
 <blockquote class="blockquote">
 <p>Inspiration to using <a href="https://larmarange.github.io/labelled/index.html" class="external-link">labelled</a> comes from <a href="https://cghlewis.com/blog/dict_clean/" class="external-link">Crystal Lewis</a> excellent blog post</p>
 </blockquote>
@@ -397,27 +404,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table">
 <thead><tr class="header">
 <th>Size</th>
-<th>Approx Sales Rows</th>
+<th>Sales Rows</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td>small</td>
-<td>~8,000</td>
+<td>7,794</td>
 </tr>
 <tr class="even">
 <td>medium</td>
-<td>~2.3 million</td>
+<td>2,349,091</td>
 </tr>
 <tr class="odd">
 <td>large</td>
-<td>~47 million</td>
+<td>23,719,935</td>
 </tr>
 <tr class="even">
 <td>mega</td>
-<td>~237 million</td>
+<td>237,245,485</td>
 </tr>
 </tbody>
 </table>
+<p>Column names and types are identical across all four sizes; only the row counts differ.</p>
 <section id="data-storage" class="level2"><h2 class="anchored" data-anchor-id="data-storage">Data Storage</h2>
 <p>The larger datasets are stored as Parquet files on Cloudflare R2 cloud storage and streamed directly into DuckDB via the public URL:</p>
 <pre><code>https://pub-6aa63519a4b945948cb8c88949b320ca.r2.dev</code></pre>
@@ -428,23 +436,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The relationship keys that join each of the tables are listed below.</p>
 <div class="cell" width="8">
 <div class="cell-output-display">
-<div id="rczlwdlmcx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rczlwdlmcx table {
+<div id="lzrhcpptex" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lzrhcpptex table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#rczlwdlmcx thead, #rczlwdlmcx tbody, #rczlwdlmcx tfoot, #rczlwdlmcx tr, #rczlwdlmcx td, #rczlwdlmcx th {
+#lzrhcpptex thead, #lzrhcpptex tbody, #lzrhcpptex tfoot, #lzrhcpptex tr, #lzrhcpptex td, #lzrhcpptex th {
   border-style: none;
 }
 
-#rczlwdlmcx p {
+#lzrhcpptex p {
   margin: 0;
   padding: 0;
 }
 
-#rczlwdlmcx .gt_table {
+#lzrhcpptex .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -470,12 +478,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#rczlwdlmcx .gt_caption {
+#lzrhcpptex .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#rczlwdlmcx .gt_title {
+#lzrhcpptex .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -487,7 +495,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#rczlwdlmcx .gt_subtitle {
+#lzrhcpptex .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -499,7 +507,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#rczlwdlmcx .gt_heading {
+#lzrhcpptex .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -511,13 +519,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#rczlwdlmcx .gt_bottom_border {
+#lzrhcpptex .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#rczlwdlmcx .gt_col_headings {
+#lzrhcpptex .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -532,7 +540,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#rczlwdlmcx .gt_col_heading {
+#lzrhcpptex .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -552,7 +560,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#rczlwdlmcx .gt_column_spanner_outer {
+#lzrhcpptex .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -564,15 +572,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#rczlwdlmcx .gt_column_spanner_outer:first-child {
+#lzrhcpptex .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#rczlwdlmcx .gt_column_spanner_outer:last-child {
+#lzrhcpptex .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#rczlwdlmcx .gt_column_spanner {
+#lzrhcpptex .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -584,11 +592,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#rczlwdlmcx .gt_spanner_row {
+#lzrhcpptex .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#rczlwdlmcx .gt_group_heading {
+#lzrhcpptex .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -614,7 +622,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#rczlwdlmcx .gt_empty_group_heading {
+#lzrhcpptex .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -629,15 +637,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#rczlwdlmcx .gt_from_md > :first-child {
+#lzrhcpptex .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#rczlwdlmcx .gt_from_md > :last-child {
+#lzrhcpptex .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#rczlwdlmcx .gt_row {
+#lzrhcpptex .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -656,7 +664,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#rczlwdlmcx .gt_stub {
+#lzrhcpptex .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -669,7 +677,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#rczlwdlmcx .gt_stub_row_group {
+#lzrhcpptex .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -683,15 +691,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#rczlwdlmcx .gt_row_group_first td {
+#lzrhcpptex .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#rczlwdlmcx .gt_row_group_first th {
+#lzrhcpptex .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#rczlwdlmcx .gt_summary_row {
+#lzrhcpptex .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -701,16 +709,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#rczlwdlmcx .gt_first_summary_row {
+#lzrhcpptex .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#rczlwdlmcx .gt_first_summary_row.thick {
+#lzrhcpptex .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#rczlwdlmcx .gt_last_summary_row {
+#lzrhcpptex .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -720,7 +728,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#rczlwdlmcx .gt_grand_summary_row {
+#lzrhcpptex .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -730,7 +738,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#rczlwdlmcx .gt_first_grand_summary_row {
+#lzrhcpptex .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -740,7 +748,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#rczlwdlmcx .gt_last_grand_summary_row_top {
+#lzrhcpptex .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -750,11 +758,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#rczlwdlmcx .gt_striped {
+#lzrhcpptex .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#rczlwdlmcx .gt_table_body {
+#lzrhcpptex .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -763,7 +771,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#rczlwdlmcx .gt_footnotes {
+#lzrhcpptex .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -777,7 +785,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#rczlwdlmcx .gt_footnote {
+#lzrhcpptex .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -786,7 +794,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#rczlwdlmcx .gt_sourcenotes {
+#lzrhcpptex .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -800,7 +808,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#rczlwdlmcx .gt_sourcenote {
+#lzrhcpptex .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -808,72 +816,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#rczlwdlmcx .gt_left {
+#lzrhcpptex .gt_left {
   text-align: left;
 }
 
-#rczlwdlmcx .gt_center {
+#lzrhcpptex .gt_center {
   text-align: center;
 }
 
-#rczlwdlmcx .gt_right {
+#lzrhcpptex .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#rczlwdlmcx .gt_font_normal {
+#lzrhcpptex .gt_font_normal {
   font-weight: normal;
 }
 
-#rczlwdlmcx .gt_font_bold {
+#lzrhcpptex .gt_font_bold {
   font-weight: bold;
 }
 
-#rczlwdlmcx .gt_font_italic {
+#lzrhcpptex .gt_font_italic {
   font-style: italic;
 }
 
-#rczlwdlmcx .gt_super {
+#lzrhcpptex .gt_super {
   font-size: 65%;
 }
 
-#rczlwdlmcx .gt_footnote_marks {
+#lzrhcpptex .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#rczlwdlmcx .gt_asterisk {
+#lzrhcpptex .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#rczlwdlmcx .gt_indent_1 {
+#lzrhcpptex .gt_indent_1 {
   text-indent: 5px;
 }
 
-#rczlwdlmcx .gt_indent_2 {
+#lzrhcpptex .gt_indent_2 {
   text-indent: 10px;
 }
 
-#rczlwdlmcx .gt_indent_3 {
+#lzrhcpptex .gt_indent_3 {
   text-indent: 15px;
 }
 
-#rczlwdlmcx .gt_indent_4 {
+#lzrhcpptex .gt_indent_4 {
   text-indent: 20px;
 }
 
-#rczlwdlmcx .gt_indent_5 {
+#lzrhcpptex .gt_indent_5 {
   text-indent: 25px;
 }
 
-#rczlwdlmcx .katex-display {
+#lzrhcpptex .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#rczlwdlmcx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#lzrhcpptex div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -942,34 +950,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>You can install the package from CRAN:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"contoso"</span>)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"contoso"</span>)</span></code></pre></div>
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 </div>
 <p>Or install the development version from <a href="https://codeberg.org/usrbinr/contoso">Codeberg</a>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("pak")</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"git::https://codeberg.org/usrbinr/contoso"</span>)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("pak")</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"git::https://codeberg.org/usrbinr/contoso"</span>)</span></code></pre></div>
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 </div>
 </section><section id="example" class="level3"><h3 class="anchored" data-anchor-id="example">Example</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(contoso)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DuckDB connection to Contoso datasets</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> <span class="fu">create_contoso_duckdb</span>(<span class="at">size =</span> <span class="st">"medium"</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the sales dataset</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>db<span class="sc">$</span>sales <span class="sc">|&gt;</span> <span class="fu">head</span>()</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Launch the DuckDB UI to explore all tables interactively</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">launch_ui</span>(db<span class="sc">$</span>con)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean up when done</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(db<span class="sc">$</span>con, <span class="at">shutdown =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(contoso)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DuckDB connection to Contoso datasets</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> <span class="fu">create_contoso_duckdb</span>(<span class="at">size =</span> <span class="st">"medium"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the sales dataset</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>db<span class="sc">$</span>sales <span class="sc">|&gt;</span> <span class="fu">head</span>()</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Launch the DuckDB UI to explore all tables interactively</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">launch_ui</span>(db<span class="sc">$</span>con)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean up when done</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(db<span class="sc">$</span>con, <span class="at">shutdown =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 </div>

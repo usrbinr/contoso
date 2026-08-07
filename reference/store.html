@@ -92,7 +92,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><link rel="stylesheet" href="../_qrtdown-styles.css">
+}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script><link rel="stylesheet" href="../_qrtdown-styles.css">
 </head>
 <body class="nav-fixed quarto-light">
 <script id="quarto-html-before-body" type="application/javascript">
@@ -306,6 +331,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
 <li><a href="#usage" id="toc-usage" class="nav-link active" data-scroll-target="#usage">Usage</a></li>
   <li><a href="#format" id="toc-format" class="nav-link" data-scroll-target="#format">Format</a></li>
+  <li><a href="#the-online-channel" id="toc-the-online-channel" class="nav-link" data-scroll-target="#the-online-channel">The online channel</a></li>
   <li><a href="#source" id="toc-source" class="nav-link" data-scroll-target="#source">Source</a></li>
   </ul></nav>
 </div>
@@ -338,7 +364,7 @@ This dataset contains information about stores within the Contoso dataset. It in
 </div>
 </section><section id="format" class="level2"><h2 class="anchored" data-anchor-id="format">Format</h2>
 <p>
-A data frame with 11 columns:
+A data frame with 74 rows (73 physical stores plus the online channel) and 11 columns:
 </p>
 <dl>
 <dt>
@@ -346,7 +372,7 @@ store_key
 </dt>
 <dd>
 <p>
-<code>double</code> Unique identifier for each store.
+<code>double</code> Unique identifier for each store. 999999 is the online channel sentinel.
 </p>
 </dd>
 <dt>
@@ -354,7 +380,7 @@ store_code
 </dt>
 <dd>
 <p>
-<code>double</code> A code that uniquely identifies the store.
+<code>double</code> A code identifying the <em>site</em>. <strong>Not unique</strong> — a site with successive premises shares one code across several <code>store_key</code> values. -1 on the online row.
 </p>
 </dd>
 <dt>
@@ -362,31 +388,23 @@ geo_area_key
 </dt>
 <dd>
 <p>
-<code>double</code> Unique identifier for the geographical area where the store is located.
-</p>
-</dd>
-<dt>
-country_code
-</dt>
-<dd>
-<p>
-<code>character</code> The country code where the store is located (e.g., “US”, “DE”).
-</p>
-</dd>
-<dt>
-country_name
-</dt>
-<dd>
-<p>
-<code>character</code> The full name of the country where the store is located.
-</p>
-</dd>
-<dt>
-state
-</dt>
-<dd>
-<p>
-<code>character</code> The state or province where the store is located.
+<code>double</code> The geographical area, on the same numbering as <code>customer<span class="math inline">\(geo_area_key&lt;/code&gt;. No geo-area table ships with
+the package, so this resolves to nothing on its own. -1 on the online row.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt&gt;country_code&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;&lt;code&gt;character&lt;/code&gt; The country code where the store is
+located (e.g., "US", "DE"), plus the placeholder &lt;code&gt;"--"&lt;/code&gt; on the online row.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt&gt;country_name&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;&lt;code&gt;character&lt;/code&gt; The full name of the country, plus the
+pseudo-country &lt;code&gt;"Online"&lt;/code&gt;.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt&gt;state&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;&lt;code&gt;character&lt;/code&gt; The state or region, always spelled out —
+unlike &lt;code&gt;customer\)</span>state</code>, which is often abbreviated. Literally <code>“Online”</code> on the online row.
 </p>
 </dd>
 <dt>
@@ -402,7 +420,7 @@ close_date
 </dt>
 <dd>
 <p>
-<code>Date</code> The date when the store was closed, if applicable.
+<code>Date</code> The date when the store was closed. Missing for stores still trading.
 </p>
 </dd>
 <dt>
@@ -410,7 +428,7 @@ description
 </dt>
 <dd>
 <p>
-<code>character</code> A description of the store (e.g., “Flagship store”, “Outlet store”).
+<code>character</code> Always <code>“Contoso Store &lt;state&gt;”</code> for physical stores, and <code>“Online store”</code> for the online row. Carries no store-format information.
 </p>
 </dd>
 <dt>
@@ -418,7 +436,7 @@ square_meters
 </dt>
 <dd>
 <p>
-<code>double</code> The physical size of the store in square meters.
+<code>double</code> The physical size of the store in square meters. Missing on the online row.
 </p>
 </dd>
 <dt>
@@ -426,10 +444,14 @@ status
 </dt>
 <dd>
 <p>
-<code>character</code> The operational status of the store (e.g., “Open”, “Closed”).
+<code>character</code> Exceptional status only: <code>“Closed”</code> or <code>“Restructured”</code>. <strong>Missing, never “Open”</strong>, for stores trading normally — test with <code>is.na()</code> rather than comparing to a string.
 </p>
 </dd>
-</dl></section><section id="source" class="level2"><h2 class="anchored" data-anchor-id="source">Source</h2>
+</dl></section><section id="the-online-channel" class="level2"><h2 class="anchored" data-anchor-id="the-online-channel">The online channel</h2>
+<p>
+<code>store_key</code> 999999 is the online channel, not a location. It carries sentinel values throughout: <code>store_code</code> and <code>geo_area_key</code> are -1, <code>country_code</code> is <code>“–”</code>, <code>country_name</code> and <code>state</code> are literally <code>“Online”</code>, and <code>square_meters</code> is missing. Filter it out before any geographic or floor-space aggregate. It accounts for a little over half of all sales lines.
+</p>
+</section><section id="source" class="level2"><h2 class="anchored" data-anchor-id="source">Source</h2>
 <p>
 https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data
 </p>
