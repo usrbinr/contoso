@@ -1,5 +1,5 @@
 ---
-format: html
+format: gfm
 ---
 
 <!-- badges: start -->
@@ -97,10 +97,9 @@ The relationship keys that join each of the tables are listed below.
 #| echo: false
 #| eval: true
 #| label: keys
-#| message: true
+#| message: false
 #| error: false
 #| warning: false
-#| width: 8
 
 tibble::tibble(
     sales=c("order_key", "customer_key","store_key","product_key","currency_code")
@@ -112,7 +111,7 @@ tibble::tibble(
     ,fx=c(NA,NA,NA,NA,"from_currency")
 ) |>
     tidyr::replace_na(list(sales="",customer="",product="",store="",order="",orderrows="",fx="")) |>
-    gt::gt()
+    knitr::kable()
 
 ```
 
