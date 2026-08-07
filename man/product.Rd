@@ -5,7 +5,7 @@
 \alias{product}
 \title{Product Data from the Contoso Dataset}
 \format{
-A data frame with 14 columns:
+A data frame with 2,517 rows and 14 columns:
 \describe{
 \item{product_key}{\code{double} Unique identifier for each product.}
 \item{product_code}{\code{character} A code that uniquely identifies the product.}
@@ -13,8 +13,13 @@ A data frame with 14 columns:
 \item{manufacturer}{\code{character} The name of the manufacturer of the product.}
 \item{brand}{\code{character} The brand of the product.}
 \item{color}{\code{character} The color of the product.}
-\item{weight_unit}{\code{character} The unit of measurement for the product's weight (e.g., "kg", "lbs").}
-\item{weight}{\code{double} The weight of the product.}
+\item{weight_unit}{\code{character} The unit \code{weight} is expressed in:
+\code{"grams"}, \code{"ounces"} or \code{"pounds"} --- never \code{"kg"}.
+Metric and imperial units are mixed, so \code{weight} is \strong{not
+comparable across rows} without converting. Missing where the product has
+no weight.}
+\item{weight}{\code{double} The weight of the product, in
+\code{weight_unit}. Not on a common scale --- see that column.}
 \item{cost}{\code{double} The cost price of the product.}
 \item{price}{\code{double} The selling price of the product.}
 \item{category_key}{\code{double} Unique identifier for the category to which the product belongs.}

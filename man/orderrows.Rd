@@ -5,14 +5,15 @@
 \alias{orderrows}
 \title{Order Rows Data from the Contoso Dataset}
 \format{
-A data frame with 7 columns:
+A data frame with 7,794 rows and 7 columns:
 \describe{
 \item{order_key}{\code{double} Unique identifier for the order to which the item belongs.}
 \item{line_number}{\code{double} Line number within the order, identifying each product line.}
 \item{product_key}{\code{double} Unique identifier for the product in the order row.}
 \item{quantity}{\code{double} The quantity of the product ordered.}
 \item{unit_price}{\code{double} The price per unit of the product.}
-\item{net_price}{\code{double} The total net price for the product, considering any applicable discounts.}
+\item{net_price}{\code{double} The price \emph{per unit} after discount,
+in USD. Despite the name this is a unit figure, not a line total.}
 \item{unit_cost}{\code{double} The cost per unit of the product.}
 }
 }

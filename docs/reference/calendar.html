@@ -305,6 +305,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li><a href="#usage" id="toc-usage" class="nav-link active" data-scroll-target="#usage">Usage</a></li>
+  <li><a href="#details" id="toc-details" class="nav-link" data-scroll-target="#details">Details</a></li>
   <li><a href="#format" id="toc-format" class="nav-link" data-scroll-target="#format">Format</a></li>
   <li><a href="#source" id="toc-source" class="nav-link" data-scroll-target="#source">Source</a></li>
   </ul></nav>
@@ -336,9 +337,13 @@ This dataset contains calendar-related information used for time-based analysis 
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>calendar</span></code></pre></div>
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
+</section><section id="details" class="level2"><h2 class="anchored" data-anchor-id="details">Details</h2>
+<p>
+Spans whole calendar years, so it extends past the trading period at both ends. Join from <code>calendar</code> when you need a dense series with explicit zeros.
+</p>
 </section><section id="format" class="level2"><h2 class="anchored" data-anchor-id="format">Format</h2>
 <p>
-A data frame with 17 columns:
+A data frame with 1,461 rows and 17 columns:
 </p>
 <dl>
 <dt>
@@ -354,7 +359,7 @@ date_key
 </dt>
 <dd>
 <p>
-<code>double</code> Unique identifier for the date (often in YYYYMMDD format).
+<code>double</code> The date as <code>YYYYMMDD</code>.
 </p>
 </dd>
 <dt>
@@ -370,7 +375,7 @@ year_quarter
 </dt>
 <dd>
 <p>
-<code>character</code> The year and quarter (e.g., “2025 Q1”).
+<code>character</code> Quarter and year, formatted <code>“Q1-2021”</code>.
 </p>
 </dd>
 <dt>
@@ -378,7 +383,7 @@ year_quarter_number
 </dt>
 <dd>
 <p>
-<code>double</code> The numerical representation of the quarter (e.g., 1, 2, 3, 4).
+<code>double</code> A continuous quarter counter, <code>year * 4 + quarter</code>, running from 8085. <strong>Not</strong> 1-4 — use <code>quarter</code> for the within-year number.
 </p>
 </dd>
 <dt>
@@ -386,7 +391,7 @@ quarter
 </dt>
 <dd>
 <p>
-<code>character</code> The quarter of the year (e.g., “Q1”, “Q2”).
+<code>character</code> The quarter within the year (e.g., “Q1”, “Q2”).
 </p>
 </dd>
 <dt>
@@ -394,7 +399,7 @@ year_month
 </dt>
 <dd>
 <p>
-<code>character</code> The year and month (e.g., “2025-03”).
+<code>character</code> Month and year, formatted <code>“January 2021”</code>.
 </p>
 </dd>
 <dt>
@@ -402,7 +407,7 @@ year_month_short
 </dt>
 <dd>
 <p>
-<code>character</code> A shortened version of year and month (e.g., “2025 Mar”).
+<code>character</code> Month and year, formatted <code>“Jan 2021”</code>.
 </p>
 </dd>
 <dt>
@@ -410,7 +415,7 @@ year_month_number
 </dt>
 <dd>
 <p>
-<code>double</code> The numerical representation of the year-month (e.g., 202503 for March 2025).
+<code>double</code> A continuous month counter, <code>year * 12 + month</code>, running from 24253. <strong>Not</strong> <code>YYYYMM</code>.
 </p>
 </dd>
 <dt>
@@ -434,7 +439,7 @@ month_number
 </dt>
 <dd>
 <p>
-<code>double</code> The numerical representation of the month (e.g., 3 for March).
+<code>double</code> The month within the year, 1-12.
 </p>
 </dd>
 <dt>
@@ -458,7 +463,7 @@ day_of_week_number
 </dt>
 <dd>
 <p>
-<code>double</code> The numerical representation of the day of the week (e.g., 1 for Monday).
+<code>double</code> The day within the week, starting <strong>Sunday = 1</strong>, not Monday.
 </p>
 </dd>
 <dt>
@@ -466,7 +471,7 @@ working_day
 </dt>
 <dd>
 <p>
-<code>double</code> Indicator of whether the date is a working day (1 for working day, 0 for non-working day).
+<code>double</code> Indicator of whether the date is a working day (1 for working day, 0 for non-working day). This is the flag.
 </p>
 </dd>
 <dt>
@@ -474,7 +479,7 @@ working_day_number
 </dt>
 <dd>
 <p>
-<code>double</code> A numerical indicator for working day (e.g., 1 for working day, 0 for non-working day).
+<code>double</code> A <strong>cumulative</strong> count of working days elapsed, running 0-1003. Not a flag: it increments on working days and repeats on non-working days.
 </p>
 </dd>
 </dl></section><section id="source" class="level2"><h2 class="anchored" data-anchor-id="source">Source</h2>

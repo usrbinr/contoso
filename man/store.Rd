@@ -5,19 +5,35 @@
 \alias{store}
 \title{Store Data from the Contoso Dataset}
 \format{
-A data frame with 11 columns:
+A data frame with 74 rows (73 physical stores plus the online
+channel) and 11 columns:
 \describe{
-\item{store_key}{\code{double} Unique identifier for each store.}
-\item{store_code}{\code{double} A code that uniquely identifies the store.}
-\item{geo_area_key}{\code{double} Unique identifier for the geographical area where the store is located.}
-\item{country_code}{\code{character} The country code where the store is located (e.g., "US", "DE").}
-\item{country_name}{\code{character} The full name of the country where the store is located.}
-\item{state}{\code{character} The state or province where the store is located.}
+\item{store_key}{\code{double} Unique identifier for each store. 999999 is
+the online channel sentinel.}
+\item{store_code}{\code{double} A code identifying the \emph{site}.
+\strong{Not unique} --- a site with successive premises shares one code
+across several \code{store_key} values. -1 on the online row.}
+\item{geo_area_key}{\code{double} The geographical area, on the same
+numbering as \code{customer$geo_area_key}. No geo-area table ships with
+the package, so this resolves to nothing on its own. -1 on the online row.}
+\item{country_code}{\code{character} The country code where the store is
+located (e.g., "US", "DE"), plus the placeholder \code{"--"} on the online row.}
+\item{country_name}{\code{character} The full name of the country, plus the
+pseudo-country \code{"Online"}.}
+\item{state}{\code{character} The state or region, always spelled out ---
+unlike \code{customer$state}, which is often abbreviated. Literally
+\code{"Online"} on the online row.}
 \item{open_date}{\code{Date} The date when the store was opened.}
-\item{close_date}{\code{Date} The date when the store was closed, if applicable.}
-\item{description}{\code{character} A description of the store (e.g., "Flagship store", "Outlet store").}
-\item{square_meters}{\code{double} The physical size of the store in square meters.}
-\item{status}{\code{character} The operational status of the store (e.g., "Open", "Closed").}
+\item{close_date}{\code{Date} The date when the store was closed. Missing
+for stores still trading.}
+\item{description}{\code{character} Always \code{"Contoso Store <state>"}
+for physical stores, and \code{"Online store"} for the online row. Carries
+no store-format information.}
+\item{square_meters}{\code{double} The physical size of the store in square
+meters. Missing on the online row.}
+\item{status}{\code{character} Exceptional status only: \code{"Closed"} or
+\code{"Restructured"}. \strong{Missing, never "Open"}, for stores trading
+normally --- test with \code{is.na()} rather than comparing to a string.}
 }
 }
 \source{
@@ -31,4 +47,13 @@ This dataset contains information about stores within the Contoso dataset. It in
 location, operational status, and physical characteristics such as size and opening/closing dates. It provides insights into the
 store network of the company.
 }
+\section{The online channel}{
+
+\code{store_key} 999999 is the online channel, not a location. It carries sentinel
+values throughout: \code{store_code} and \code{geo_area_key} are -1, \code{country_code} is
+\code{"--"}, \code{country_name} and \code{state} are literally \code{"Online"}, and
+\code{square_meters} is missing. Filter it out before any geographic or
+floor-space aggregate. It accounts for a little over half of all sales lines.
+}
+
 \keyword{datasets}

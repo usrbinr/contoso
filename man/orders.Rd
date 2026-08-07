@@ -5,7 +5,7 @@
 \alias{orders}
 \title{Order Data from the Contoso Dataset}
 \format{
-A data frame with 6 columns:
+A data frame with 3,242 rows and 6 columns:
 \describe{
 \item{order_key}{\code{double} Unique identifier for the order.}
 \item{customer_key}{\code{double} Unique identifier for the customer who placed the order.}

@@ -5,25 +5,32 @@
 \alias{calendar}
 \title{Calendar Dimension Data from the Contoso Dataset}
 \format{
-A data frame with 17 columns:
+A data frame with 1,461 rows and 17 columns:
 \describe{
 \item{date}{\code{Date} The actual date for the record.}
-\item{date_key}{\code{double} Unique identifier for the date (often in YYYYMMDD format).}
+\item{date_key}{\code{double} The date as \code{YYYYMMDD}.}
 \item{year}{\code{double} The year part of the date.}
-\item{year_quarter}{\code{character} The year and quarter (e.g., "2025 Q1").}
-\item{year_quarter_number}{\code{double} The numerical representation of the quarter (e.g., 1, 2, 3, 4).}
-\item{quarter}{\code{character} The quarter of the year (e.g., "Q1", "Q2").}
-\item{year_month}{\code{character} The year and month (e.g., "2025-03").}
-\item{year_month_short}{\code{character} A shortened version of year and month (e.g., "2025 Mar").}
-\item{year_month_number}{\code{double} The numerical representation of the year-month (e.g., 202503 for March 2025).}
+\item{year_quarter}{\code{character} Quarter and year, formatted \code{"Q1-2021"}.}
+\item{year_quarter_number}{\code{double} A continuous quarter counter,
+\code{year * 4 + quarter}, running from 8085. \strong{Not} 1-4 --- use
+\code{quarter} for the within-year number.}
+\item{quarter}{\code{character} The quarter within the year (e.g., "Q1", "Q2").}
+\item{year_month}{\code{character} Month and year, formatted \code{"January 2021"}.}
+\item{year_month_short}{\code{character} Month and year, formatted \code{"Jan 2021"}.}
+\item{year_month_number}{\code{double} A continuous month counter,
+\code{year * 12 + month}, running from 24253. \strong{Not} \code{YYYYMM}.}
 \item{month}{\code{character} The month name (e.g., "March").}
 \item{month_short}{\code{character} The abbreviated month name (e.g., "Mar").}
-\item{month_number}{\code{double} The numerical representation of the month (e.g., 3 for March).}
+\item{month_number}{\code{double} The month within the year, 1-12.}
 \item{day_of_week}{\code{character} The full name of the day of the week (e.g., "Monday").}
 \item{day_of_week_short}{\code{character} The abbreviated day of the week (e.g., "Mon").}
-\item{day_of_week_number}{\code{double} The numerical representation of the day of the week (e.g., 1 for Monday).}
-\item{working_day}{\code{double} Indicator of whether the date is a working day (1 for working day, 0 for non-working day).}
-\item{working_day_number}{\code{double} A numerical indicator for working day (e.g., 1 for working day, 0 for non-working day).}
+\item{day_of_week_number}{\code{double} The day within the week, starting
+\strong{Sunday = 1}, not Monday.}
+\item{working_day}{\code{double} Indicator of whether the date is a working day
+(1 for working day, 0 for non-working day). This is the flag.}
+\item{working_day_number}{\code{double} A \strong{cumulative} count of working
+days elapsed, running 0-1003. Not a flag: it increments on working days and
+repeats on non-working days.}
 }
 }
 \source{
@@ -36,5 +43,9 @@ calendar
 This dataset contains calendar-related information used for time-based analysis in the Contoso dataset. It includes various representations
 of date-related attributes, such as year, quarter, month, and day, along with indicators for working days. It is useful for time-series
 analysis and aggregating data by different time periods.
+}
+\details{
+Spans whole calendar years, so it extends past the trading period at both
+ends. Join from \code{calendar} when you need a dense series with explicit zeros.
 }
 \keyword{datasets}

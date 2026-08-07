@@ -5,7 +5,7 @@
 \alias{sales}
 \title{Sales Data from the Contoso Dataset}
 \format{
-A data frame with sales columns:
+A data frame with 7,794 rows and 20 columns:
 \describe{
 \item{order_key}{\code{double} Unique identifier for each order.}
 \item{line_number}{\code{double} Line number within the order (for multi-line orders).}
@@ -16,10 +16,15 @@ A data frame with sales columns:
 \item{product_key}{\code{double} Unique identifier for the product in the order.}
 \item{quantity}{\code{double} The quantity of the product ordered.}
 \item{unit_price}{\code{double} The price per unit of the product.}
-\item{net_price}{\code{double} The total net price for the product, considering any discounts.}
+\item{net_price}{\code{double} The price \emph{per unit} after discount,
+in USD. Despite the name this is a unit figure, not a line total.}
 \item{unit_cost}{\code{double} The cost per unit of the product.}
-\item{currency_code}{\code{character} The currency code used for the transaction (e.g., USD, EUR).}
-\item{exchange_rate}{\code{double} The exchange rate applied to the currency, if applicable.}
+\item{currency_code}{\code{character} The currency the order was placed in
+(e.g., USD, EUR). Does \strong{not} describe the money columns, which are
+all USD.}
+\item{exchange_rate}{\code{double} The USD-to-\code{currency_code} rate on
+\code{order_date}, from \link{fx}. 1.0 for USD orders. It has not been applied to
+the money columns --- multiply if you want local currency.}
 \item{gross_revenue}{\code{double} A product's unit_price multiplied by quantity.}
 \item{net_revenue}{\code{double} A product's net_price multiplied by quantity.}
 \item{unit_discount}{\code{double} A product's unit_price minus net_price.}
@@ -40,4 +45,17 @@ This dataset contains information about sales orders, including order details, p
 It provides insights into the transactions that have occurred, including order dates, delivery dates, customer and store information,
 as well as product details.
 }
+\details{
+Each row is one line item on one order --- the same grain as \link{orderrows}.
+This is the denormalised fact table: it repeats every column of \link{orders} and
+\link{orderrows}, adds the day's \code{exchange_rate}, and pre-computes seven revenue,
+cost and margin measures.
+}
+\section{Currency}{
+
+Every money column is in \strong{USD}, regardless of the order's
+\code{currency_code}, so amounts sum directly across orders. Multiply by
+\code{exchange_rate} to express an amount in the currency the order was placed in.
+}
+
 \keyword{datasets}

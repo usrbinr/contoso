@@ -35,11 +35,25 @@
     "text": "Usage\nsales"
   },
   {
+    "objectID": "reference/sales.html#details",
+    "href": "reference/sales.html#details",
+    "title": "Sales Data from the Contoso Dataset",
+    "section": "Details",
+    "text": "Details\n\nEach row is one line item on one order — the same grain as orderrows. This is the denormalised fact table: it repeats every column of orders and orderrows, adds the day’s exchange_rate, and pre-computes seven revenue, cost and margin measures."
+  },
+  {
     "objectID": "reference/sales.html#format",
     "href": "reference/sales.html#format",
     "title": "Sales Data from the Contoso Dataset",
     "section": "Format",
-    "text": "Format\n\nA data frame with sales columns:\n\n\n\norder_key\n\n\n\ndouble Unique identifier for each order.\n\n\n\nline_number\n\n\n\ndouble Line number within the order (for multi-line orders).\n\n\n\norder_date\n\n\n\nDate Date when the order was placed.\n\n\n\ndelivery_date\n\n\n\nDate Date when the order was delivered.\n\n\n\ncustomer_key\n\n\n\ndouble Unique identifier for the customer who placed the order.\n\n\n\nstore_key\n\n\n\ndouble Unique identifier for the store where the order was placed.\n\n\n\nproduct_key\n\n\n\ndouble Unique identifier for the product in the order.\n\n\n\nquantity\n\n\n\ndouble The quantity of the product ordered.\n\n\n\nunit_price\n\n\n\ndouble The price per unit of the product.\n\n\n\nnet_price\n\n\n\ndouble The total net price for the product, considering any discounts.\n\n\n\nunit_cost\n\n\n\ndouble The cost per unit of the product.\n\n\n\ncurrency_code\n\n\n\ncharacter The currency code used for the transaction (e.g., USD, EUR).\n\n\n\nexchange_rate\n\n\n\ndouble The exchange rate applied to the currency, if applicable.\n\n\n\ngross_revenue\n\n\n\ndouble A product’s unit_price multiplied by quantity.\n\n\n\nnet_revenue\n\n\n\ndouble A product’s net_price multiplied by quantity.\n\n\n\nunit_discount\n\n\n\ndouble A product’s unit_price minus net_price.\n\n\n\ndiscounts\n\n\n\ndouble A product’s unit_discount multiplied by quantity.\n\n\n\ncogs\n\n\n\ndouble Cost of goods sold. A product’s unit_cost multiplied by quantity.\n\n\n\ngross_margin\n\n\n\ndouble A product’s net_revenue minus cogs.\n\n\n\nunit_margin\n\n\n\ndouble A product’s gross_margin divided by quantity."
+    "text": "Format\n\nA data frame with 7,794 rows and 20 columns:\n\n\n\norder_key\n\n\n\ndouble Unique identifier for each order.\n\n\n\nline_number\n\n\n\ndouble Line number within the order (for multi-line orders).\n\n\n\norder_date\n\n\n\nDate Date when the order was placed.\n\n\n\ndelivery_date\n\n\n\nDate Date when the order was delivered.\n\n\n\ncustomer_key\n\n\n\ndouble Unique identifier for the customer who placed the order.\n\n\n\nstore_key\n\n\n\ndouble Unique identifier for the store where the order was placed.\n\n\n\nproduct_key\n\n\n\ndouble Unique identifier for the product in the order.\n\n\n\nquantity\n\n\n\ndouble The quantity of the product ordered.\n\n\n\nunit_price\n\n\n\ndouble The price per unit of the product.\n\n\n\nnet_price\n\n\n\ndouble The price per unit after discount, in USD. Despite the name this is a unit figure, not a line total.\n\n\n\nunit_cost\n\n\n\ndouble The cost per unit of the product.\n\n\n\ncurrency_code\n\n\n\ncharacter The currency the order was placed in (e.g., USD, EUR). Does not describe the money columns, which are all USD.\n\n\n\nexchange_rate\n\n\n\ndouble The USD-to-currency_code rate on order_date, from fx. 1.0 for USD orders. It has not been applied to the money columns — multiply if you want local currency.\n\n\n\ngross_revenue\n\n\n\ndouble A product’s unit_price multiplied by quantity.\n\n\n\nnet_revenue\n\n\n\ndouble A product’s net_price multiplied by quantity.\n\n\n\nunit_discount\n\n\n\ndouble A product’s unit_price minus net_price.\n\n\n\ndiscounts\n\n\n\ndouble A product’s unit_discount multiplied by quantity.\n\n\n\ncogs\n\n\n\ndouble Cost of goods sold. A product’s unit_cost multiplied by quantity.\n\n\n\ngross_margin\n\n\n\ndouble A product’s net_revenue minus cogs.\n\n\n\nunit_margin\n\n\n\ndouble A product’s gross_margin divided by quantity."
+  },
+  {
+    "objectID": "reference/sales.html#currency",
+    "href": "reference/sales.html#currency",
+    "title": "Sales Data from the Contoso Dataset",
+    "section": "Currency",
+    "text": "Currency\n\nEvery money column is in USD, regardless of the order’s currency_code, so amounts sum directly across orders. Multiply by exchange_rate to express an amount in the currency the order was placed in."
   },
   {
     "objectID": "reference/sales.html#source",
@@ -67,7 +81,7 @@
     "href": "reference/orders.html#format",
     "title": "Order Data from the Contoso Dataset",
     "section": "Format",
-    "text": "Format\n\nA data frame with 6 columns:\n\n\n\norder_key\n\n\n\ndouble Unique identifier for the order.\n\n\n\ncustomer_key\n\n\n\ndouble Unique identifier for the customer who placed the order.\n\n\n\nstore_key\n\n\n\ndouble Unique identifier for the store where the order was placed.\n\n\n\norder_date\n\n\n\nDate The date when the order was placed.\n\n\n\ndelivery_date\n\n\n\nDate The date when the order is expected to be delivered.\n\n\n\ncurrency_code\n\n\n\ncharacter The currency code used for the order (e.g., USD, EUR)."
+    "text": "Format\n\nA data frame with 3,242 rows and 6 columns:\n\n\n\norder_key\n\n\n\ndouble Unique identifier for the order.\n\n\n\ncustomer_key\n\n\n\ndouble Unique identifier for the customer who placed the order.\n\n\n\nstore_key\n\n\n\ndouble Unique identifier for the store where the order was placed.\n\n\n\norder_date\n\n\n\nDate The date when the order was placed.\n\n\n\ndelivery_date\n\n\n\nDate The date when the order is expected to be delivered.\n\n\n\ncurrency_code\n\n\n\ncharacter The currency code used for the order (e.g., USD, EUR)."
   },
   {
     "objectID": "reference/orders.html#source",
@@ -144,7 +158,7 @@
     "href": "reference/fx.html#format",
     "title": "Foreign Exchange Data from the Contoso Dataset",
     "section": "Format",
-    "text": "Format\n\nA data frame with 4 columns:\n\n\n\ndate\n\n\n\nDate The date of the exchange rate.\n\n\n\nfrom_currency\n\n\n\ncharacter The code of the source currency (e.g., “USD”, “EUR”).\n\n\n\nto_currency\n\n\n\ncharacter The code of the target currency (e.g., “GBP”, “JPY”).\n\n\n\nexchange\n\n\n\ndouble The exchange rate between the source and target currencies on the given date."
+    "text": "Format\n\nA data frame with 36,525 rows and 4 columns:\n\n\n\ndate\n\n\n\nDate The date of the exchange rate.\n\n\n\nfrom_currency\n\n\n\ncharacter The code of the source currency (e.g., “USD”, “EUR”).\n\n\n\nto_currency\n\n\n\ncharacter The code of the target currency (e.g., “GBP”, “JPY”).\n\n\n\nexchange\n\n\n\ndouble The exchange rate between the source and target currencies on the given date."
   },
   {
     "objectID": "reference/fx.html#source",
@@ -217,11 +231,18 @@
     "text": "Usage\ncalendar"
   },
   {
+    "objectID": "reference/calendar.html#details",
+    "href": "reference/calendar.html#details",
+    "title": "Calendar Dimension Data from the Contoso Dataset",
+    "section": "Details",
+    "text": "Details\n\nSpans whole calendar years, so it extends past the trading period at both ends. Join from calendar when you need a dense series with explicit zeros."
+  },
+  {
     "objectID": "reference/calendar.html#format",
     "href": "reference/calendar.html#format",
     "title": "Calendar Dimension Data from the Contoso Dataset",
     "section": "Format",
-    "text": "Format\n\nA data frame with 17 columns:\n\n\n\ndate\n\n\n\nDate The actual date for the record.\n\n\n\ndate_key\n\n\n\ndouble Unique identifier for the date (often in YYYYMMDD format).\n\n\n\nyear\n\n\n\ndouble The year part of the date.\n\n\n\nyear_quarter\n\n\n\ncharacter The year and quarter (e.g., “2025 Q1”).\n\n\n\nyear_quarter_number\n\n\n\ndouble The numerical representation of the quarter (e.g., 1, 2, 3, 4).\n\n\n\nquarter\n\n\n\ncharacter The quarter of the year (e.g., “Q1”, “Q2”).\n\n\n\nyear_month\n\n\n\ncharacter The year and month (e.g., “2025-03”).\n\n\n\nyear_month_short\n\n\n\ncharacter A shortened version of year and month (e.g., “2025 Mar”).\n\n\n\nyear_month_number\n\n\n\ndouble The numerical representation of the year-month (e.g., 202503 for March 2025).\n\n\n\nmonth\n\n\n\ncharacter The month name (e.g., “March”).\n\n\n\nmonth_short\n\n\n\ncharacter The abbreviated month name (e.g., “Mar”).\n\n\n\nmonth_number\n\n\n\ndouble The numerical representation of the month (e.g., 3 for March).\n\n\n\nday_of_week\n\n\n\ncharacter The full name of the day of the week (e.g., “Monday”).\n\n\n\nday_of_week_short\n\n\n\ncharacter The abbreviated day of the week (e.g., “Mon”).\n\n\n\nday_of_week_number\n\n\n\ndouble The numerical representation of the day of the week (e.g., 1 for Monday).\n\n\n\nworking_day\n\n\n\ndouble Indicator of whether the date is a working day (1 for working day, 0 for non-working day).\n\n\n\nworking_day_number\n\n\n\ndouble A numerical indicator for working day (e.g., 1 for working day, 0 for non-working day)."
+    "text": "Format\n\nA data frame with 1,461 rows and 17 columns:\n\n\n\ndate\n\n\n\nDate The actual date for the record.\n\n\n\ndate_key\n\n\n\ndouble The date as YYYYMMDD.\n\n\n\nyear\n\n\n\ndouble The year part of the date.\n\n\n\nyear_quarter\n\n\n\ncharacter Quarter and year, formatted “Q1-2021”.\n\n\n\nyear_quarter_number\n\n\n\ndouble A continuous quarter counter, year * 4 + quarter, running from 8085. Not 1-4 — use quarter for the within-year number.\n\n\n\nquarter\n\n\n\ncharacter The quarter within the year (e.g., “Q1”, “Q2”).\n\n\n\nyear_month\n\n\n\ncharacter Month and year, formatted “January 2021”.\n\n\n\nyear_month_short\n\n\n\ncharacter Month and year, formatted “Jan 2021”.\n\n\n\nyear_month_number\n\n\n\ndouble A continuous month counter, year * 12 + month, running from 24253. Not YYYYMM.\n\n\n\nmonth\n\n\n\ncharacter The month name (e.g., “March”).\n\n\n\nmonth_short\n\n\n\ncharacter The abbreviated month name (e.g., “Mar”).\n\n\n\nmonth_number\n\n\n\ndouble The month within the year, 1-12.\n\n\n\nday_of_week\n\n\n\ncharacter The full name of the day of the week (e.g., “Monday”).\n\n\n\nday_of_week_short\n\n\n\ncharacter The abbreviated day of the week (e.g., “Mon”).\n\n\n\nday_of_week_number\n\n\n\ndouble The day within the week, starting Sunday = 1, not Monday.\n\n\n\nworking_day\n\n\n\ndouble Indicator of whether the date is a working day (1 for working day, 0 for non-working day). This is the flag.\n\n\n\nworking_day_number\n\n\n\ndouble A cumulative count of working days elapsed, running 0-1003. Not a flag: it increments on working days and repeats on non-working days."
   },
   {
     "objectID": "reference/calendar.html#source",
@@ -235,7 +256,7 @@
     "href": "index.html",
     "title": "contoso",
     "section": "",
-    "text": "Source Code\nReport a Bug\n\n\n\n\nMIT + file LICENSE\n\n\n\nCiting this package\n\n\n\n\nAlejandro Hagan (author, maintainer)\nContoso is a synthetic dataset containing sample sales transaction data for the fictional “Contoso” company. It includes various supporting tables for business intelligence, such as customer, store, product, and currency exchange data.\nThis dataset is perfect for practicing time series analysis, joins, financial modeling, or any business intelligence-related tasks.\nIt comes with a built-in dataset as well as the ability to create an in-memory database with duckdb\nThe package comes with the following tables:\nBuilt into the package is the 10K row version of the dataset.\nUsing view(), you can see the columns’ label using the labelled package.\nFor larger datasets, use create_contoso_duckdb() with one of the following sizes:"
+    "text": "Source Code\nReport a Bug\n\n\n\n\nMIT + file LICENSE\n\n\n\nCiting this package\n\n\n\n\nAlejandro Hagan (author, maintainer)\nContoso is a synthetic dataset containing sample sales transaction data for the fictional “Contoso” company. It includes various supporting tables for business intelligence, such as customer, store, product, and currency exchange data.\nThis dataset is perfect for practicing time series analysis, joins, financial modeling, or any business intelligence-related tasks.\nIt comes with a built-in dataset as well as the ability to create an in-memory database with duckdb\nThe package comes with the following tables:\nBuilt into the package is the smallest version of the dataset: 7,794 sales lines across 3,242 orders and 3,165 customers.\nEvery column is documented in a machine-readable data dictionary, which contoso_dict_columns() returns as a tibble:\ncontoso_dict_columns()\nUsing labelled::look_for(), you can also see the columns’ labels from the labelled package.\nFor larger datasets, use create_contoso_duckdb() with one of the following sizes:\nColumn names and types are identical across all four sizes; only the row counts differ."
   },
   {
     "objectID": "index.html#data-storage",
@@ -368,7 +389,7 @@
     "href": "reference/orderrows.html#format",
     "title": "Order Rows Data from the Contoso Dataset",
     "section": "Format",
-    "text": "Format\n\nA data frame with 7 columns:\n\n\n\norder_key\n\n\n\ndouble Unique identifier for the order to which the item belongs.\n\n\n\nline_number\n\n\n\ndouble Line number within the order, identifying each product line.\n\n\n\nproduct_key\n\n\n\ndouble Unique identifier for the product in the order row.\n\n\n\nquantity\n\n\n\ndouble The quantity of the product ordered.\n\n\n\nunit_price\n\n\n\ndouble The price per unit of the product.\n\n\n\nnet_price\n\n\n\ndouble The total net price for the product, considering any applicable discounts.\n\n\n\nunit_cost\n\n\n\ndouble The cost per unit of the product."
+    "text": "Format\n\nA data frame with 7,794 rows and 7 columns:\n\n\n\norder_key\n\n\n\ndouble Unique identifier for the order to which the item belongs.\n\n\n\nline_number\n\n\n\ndouble Line number within the order, identifying each product line.\n\n\n\nproduct_key\n\n\n\ndouble Unique identifier for the product in the order row.\n\n\n\nquantity\n\n\n\ndouble The quantity of the product ordered.\n\n\n\nunit_price\n\n\n\ndouble The price per unit of the product.\n\n\n\nnet_price\n\n\n\ndouble The price per unit after discount, in USD. Despite the name this is a unit figure, not a line total.\n\n\n\nunit_cost\n\n\n\ndouble The cost per unit of the product."
   },
   {
     "objectID": "reference/orderrows.html#source",
@@ -396,7 +417,7 @@
     "href": "reference/product.html#format",
     "title": "Product Data from the Contoso Dataset",
     "section": "Format",
-    "text": "Format\n\nA data frame with 14 columns:\n\n\n\nproduct_key\n\n\n\ndouble Unique identifier for each product.\n\n\n\nproduct_code\n\n\n\ncharacter A code that uniquely identifies the product.\n\n\n\nproduct_name\n\n\n\ncharacter The name or description of the product.\n\n\n\nmanufacturer\n\n\n\ncharacter The name of the manufacturer of the product.\n\n\n\nbrand\n\n\n\ncharacter The brand of the product.\n\n\n\ncolor\n\n\n\ncharacter The color of the product.\n\n\n\nweight_unit\n\n\n\ncharacter The unit of measurement for the product’s weight (e.g., “kg”, “lbs”).\n\n\n\nweight\n\n\n\ndouble The weight of the product.\n\n\n\ncost\n\n\n\ndouble The cost price of the product.\n\n\n\nprice\n\n\n\ndouble The selling price of the product.\n\n\n\ncategory_key\n\n\n\ndouble Unique identifier for the category to which the product belongs.\n\n\n\ncategory_name\n\n\n\ncharacter The name of the category to which the product belongs.\n\n\n\nsub_category_key\n\n\n\ndouble Unique identifier for the subcategory to which the product belongs.\n\n\n\nsub_category_name\n\n\n\ncharacter The name of the subcategory to which the product belongs."
+    "text": "Format\n\nA data frame with 2,517 rows and 14 columns:\n\n\n\nproduct_key\n\n\n\ndouble Unique identifier for each product.\n\n\n\nproduct_code\n\n\n\ncharacter A code that uniquely identifies the product.\n\n\n\nproduct_name\n\n\n\ncharacter The name or description of the product.\n\n\n\nmanufacturer\n\n\n\ncharacter The name of the manufacturer of the product.\n\n\n\nbrand\n\n\n\ncharacter The brand of the product.\n\n\n\ncolor\n\n\n\ncharacter The color of the product.\n\n\n\nweight_unit\n\n\n\ncharacter The unit weight is expressed in: “grams”, “ounces” or “pounds” — never “kg”. Metric and imperial units are mixed, so weight is not comparable across rows without converting. Missing where the product has no weight.\n\n\n\nweight\n\n\n\ndouble The weight of the product, in weight_unit. Not on a common scale — see that column.\n\n\n\ncost\n\n\n\ndouble The cost price of the product.\n\n\n\nprice\n\n\n\ndouble The selling price of the product.\n\n\n\ncategory_key\n\n\n\ndouble Unique identifier for the category to which the product belongs.\n\n\n\ncategory_name\n\n\n\ncharacter The name of the category to which the product belongs.\n\n\n\nsub_category_key\n\n\n\ndouble Unique identifier for the subcategory to which the product belongs.\n\n\n\nsub_category_name\n\n\n\ncharacter The name of the subcategory to which the product belongs."
   },
   {
     "objectID": "reference/product.html#source",
@@ -424,7 +445,14 @@
     "href": "reference/store.html#format",
     "title": "Store Data from the Contoso Dataset",
     "section": "Format",
-    "text": "Format\n\nA data frame with 11 columns:\n\n\n\nstore_key\n\n\n\ndouble Unique identifier for each store.\n\n\n\nstore_code\n\n\n\ndouble A code that uniquely identifies the store.\n\n\n\ngeo_area_key\n\n\n\ndouble Unique identifier for the geographical area where the store is located.\n\n\n\ncountry_code\n\n\n\ncharacter The country code where the store is located (e.g., “US”, “DE”).\n\n\n\ncountry_name\n\n\n\ncharacter The full name of the country where the store is located.\n\n\n\nstate\n\n\n\ncharacter The state or province where the store is located.\n\n\n\nopen_date\n\n\n\nDate The date when the store was opened.\n\n\n\nclose_date\n\n\n\nDate The date when the store was closed, if applicable.\n\n\n\ndescription\n\n\n\ncharacter A description of the store (e.g., “Flagship store”, “Outlet store”).\n\n\n\nsquare_meters\n\n\n\ndouble The physical size of the store in square meters.\n\n\n\nstatus\n\n\n\ncharacter The operational status of the store (e.g., “Open”, “Closed”)."
+    "text": "Format\n\nA data frame with 74 rows (73 physical stores plus the online channel) and 11 columns:\n\n\n\nstore_key\n\n\n\ndouble Unique identifier for each store. 999999 is the online channel sentinel.\n\n\n\nstore_code\n\n\n\ndouble A code identifying the site. Not unique — a site with successive premises shares one code across several store_key values. -1 on the online row.\n\n\n\ngeo_area_key\n\n\n\ndouble The geographical area, on the same numbering as customer\\(geo_area_key&lt;/code&gt;. No geo-area table ships with\nthe package, so this resolves to nothing on its own. -1 on the online row.&lt;/p&gt;\n&lt;/dd&gt;\n&lt;dt&gt;country_code&lt;/dt&gt;\n&lt;dd&gt;\n&lt;p&gt;&lt;code&gt;character&lt;/code&gt; The country code where the store is\nlocated (e.g., \"US\", \"DE\"), plus the placeholder &lt;code&gt;\"--\"&lt;/code&gt; on the online row.&lt;/p&gt;\n&lt;/dd&gt;\n&lt;dt&gt;country_name&lt;/dt&gt;\n&lt;dd&gt;\n&lt;p&gt;&lt;code&gt;character&lt;/code&gt; The full name of the country, plus the\npseudo-country &lt;code&gt;\"Online\"&lt;/code&gt;.&lt;/p&gt;\n&lt;/dd&gt;\n&lt;dt&gt;state&lt;/dt&gt;\n&lt;dd&gt;\n&lt;p&gt;&lt;code&gt;character&lt;/code&gt; The state or region, always spelled out —\nunlike &lt;code&gt;customer\\)state, which is often abbreviated. Literally “Online” on the online row.\n\n\n\nopen_date\n\n\n\nDate The date when the store was opened.\n\n\n\nclose_date\n\n\n\nDate The date when the store was closed. Missing for stores still trading.\n\n\n\ndescription\n\n\n\ncharacter Always “Contoso Store &lt;state&gt;” for physical stores, and “Online store” for the online row. Carries no store-format information.\n\n\n\nsquare_meters\n\n\n\ndouble The physical size of the store in square meters. Missing on the online row.\n\n\n\nstatus\n\n\n\ncharacter Exceptional status only: “Closed” or “Restructured”. Missing, never “Open”, for stores trading normally — test with is.na() rather than comparing to a string."
+  },
+  {
+    "objectID": "reference/store.html#the-online-channel",
+    "href": "reference/store.html#the-online-channel",
+    "title": "Store Data from the Contoso Dataset",
+    "section": "The online channel",
+    "text": "The online channel\n\nstore_key 999999 is the online channel, not a location. It carries sentinel values throughout: store_code and geo_area_key are -1, country_code is “–”, country_name and state are literally “Online”, and square_meters is missing. Filter it out before any geographic or floor-space aggregate. It accounts for a little over half of all sales lines."
   },
   {
     "objectID": "reference/store.html#source",

@@ -5,7 +5,7 @@
 \alias{fx}
 \title{Foreign Exchange Data from the Contoso Dataset}
 \format{
-A data frame with 4 columns:
+A data frame with 36,525 rows and 4 columns:
 \describe{
 \item{date}{\code{Date} The date of the exchange rate.}
 \item{from_currency}{\code{character} The code of the source currency (e.g., "USD", "EUR").}

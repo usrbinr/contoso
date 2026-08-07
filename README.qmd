@@ -43,21 +43,36 @@ The package comes with the following tables:
   - Contains detailed line items for each order, including product key, quantity, and price for each item in the order.
 
 
-Built into the package is the 10K row version of the dataset.
+Built into the package is the smallest version of the dataset: 7,794 sales
+lines across 3,242 orders and 3,165 customers.
 
-Using `view()`, you can see the columns' label using the [labelled](https://larmarange.github.io/labelled/index.html) package.
+Every column is documented in a machine-readable data dictionary, which
+`contoso_dict_columns()` returns as a tibble:
+
+```{r}
+#| label: dict
+#| eval: false
+
+contoso_dict_columns()
+```
+
+Using `labelled::look_for()`, you can also see the columns' labels from the
+[labelled](https://larmarange.github.io/labelled/index.html) package.
 
 
 > Inspiration to using [labelled](https://larmarange.github.io/labelled/index.html) comes from [Crystal Lewis](https://cghlewis.com/blog/dict_clean/) excellent blog post
 
 For larger datasets, use `create_contoso_duckdb()` with one of the following sizes:
 
-| Size   | Approx Sales Rows |
-|--------|-------------------|
-| small  | ~8,000            |
-| medium | ~2.3 million      |
-| large  | ~47 million       |
-| mega   | ~237 million      |
+| Size   | Sales Rows  |
+|--------|-------------|
+| small  | 7,794       |
+| medium | 2,349,091   |
+| large  | 23,719,935  |
+| mega   | 237,245,485 |
+
+Column names and types are identical across all four sizes; only the row
+counts differ.
 
 ## Data Storage
 
