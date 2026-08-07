@@ -34,14 +34,26 @@ The \code{create_contoso_duckdb()} function creates views for the following Cont
 \item \code{orderrows}: Contains order line items.
 }
 
-Available sizes (approximate sales rows):
+Available sizes (sales rows):
 \itemize{
-\item \code{small}: ~8,000 rows
-\item \code{medium}: ~2.3 million rows
-\item \code{large}: ~47 million rows
-\item \code{mega}: ~237 million rows
+\item \code{small}: 7,794
+\item \code{medium}: 2,349,091
+\item \code{large}: 23,719,935
+\item \code{mega}: 237,245,485
 }
 }
+\section{Schemas}{
+
+Column names, order and types are identical across all four sizes: date
+columns are \code{DATE}, keys and counts are \code{BIGINT}, and measures are \code{DOUBLE}.
+Only the row counts differ.
+
+\code{size = "small"} serves the same data as the bundled \link{sales}, \link{customer} and
+friends. The larger sizes come from separate generator runs, so they cover a
+different date range and a much larger customer catalogue -- including
+customers who never place an order, which the bundled data excludes.
+}
+
 \examples{
 \dontrun{
   db <- create_contoso_duckdb(size = "small")

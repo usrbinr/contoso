@@ -14,15 +14,23 @@ renv.lock
 **/*.quarto_ipynb
 
 # qrtdown
-_quarto.yml
-reference/
-_freeze/
+# Anchored with a leading slash so these match only the package root. The
+# unanchored forms also matched docs/_qrtdown/ and docs/_qrtdown/reference/,
+# which silently kept the built Reference and Citation pages out of the
+# repository -- and so off both Codeberg Pages and GitHub Pages.
+/_quarto.yml
+/reference/
+/_freeze/
 
 # parquet working files
 data-raw/output/
 data-raw/output_renamed/
 
 # qrtdown
-_qrtdown-styles.css
-_qrtdown/
-index.qmd
+/_qrtdown-styles.css
+/_qrtdown/
+/index.qmd
+
+# qrtdown
+/articles/
+/citation.qmd

@@ -3,16 +3,28 @@
 
 dir <- "data-raw"
 
+# One row per customer. The source catalogue holds 104,990 customers, of which
+# only those that actually transact are shipped -- keeping the whole catalogue
+# would take the package well past the CRAN size limit.
+#
+# Note this is a semi_join, not a left_join onto sales: joining the dimension
+# onto the fact table fans it out to sales-line grain and destroys
+# customer_key's uniqueness, which is what happened up to 2.1.0.
+
 sales <- readr::read_csv(file.path(dir,"sales.csv"),name_repair = janitor::make_clean_names,show_col_types = FALSE) |>
     dplyr::select(customer_key)
 
-customer <- sales |>
-    dplyr::left_join(
-    readr::read_csv(file.path(dir,"customer.csv"),name_repair = janitor::make_clean_names,show_col_types = FALSE)
-    ,by=dplyr::join_by(customer_key)
-    )
+customer <- readr::read_csv(file.path(dir,"customer.csv"),name_repair = janitor::make_clean_names,show_col_types = FALSE) |>
+    dplyr::semi_join(sales, by = dplyr::join_by(customer_key)) |>
+    dplyr::rename(start_date = start_dt, end_date = end_dt) |>
+    dplyr::arrange(customer_key)
 
 rm(sales)
+
+stopifnot(
+    "customer_key must be unique" = !anyDuplicated(customer$customer_key),
+    "every customer must transact" = nrow(customer) == 3165L
+)
 
 customer_labels <- list(
     customer_key = "Unique customer identifier",

@@ -20,11 +20,21 @@
 #' - `orders`: Contains order header information.
 #' - `orderrows`: Contains order line items.
 #'
-#' Available sizes (approximate sales rows):
-#' - `small`: ~8,000 rows
-#' - `medium`: ~2.3 million rows
-#' - `large`: ~47 million rows
-#' - `mega`: ~237 million rows
+#' Available sizes (sales rows):
+#' - `small`: 7,794
+#' - `medium`: 2,349,091
+#' - `large`: 23,719,935
+#' - `mega`: 237,245,485
+#'
+#' @section Schemas:
+#' Column names, order and types are identical across all four sizes: date
+#' columns are `DATE`, keys and counts are `BIGINT`, and measures are `DOUBLE`.
+#' Only the row counts differ.
+#'
+#' `size = "small"` serves the same data as the bundled [sales], [customer] and
+#' friends. The larger sizes come from separate generator runs, so they cover a
+#' different date range and a much larger customer catalogue -- including
+#' customers who never place an order, which the bundled data excludes.
 #'
 #' @return A list containing:
 #' - `sales`, `product`, `customer`, `store`, `fx`, `calendar`, `orders`, `orderrows`: lazy `tbl` objects

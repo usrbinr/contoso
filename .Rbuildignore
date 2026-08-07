@@ -38,3 +38,7 @@
 # qrtdown
 ^_qrtdown-styles\.css$
 ^_qrtdown$
+
+# qrtdown
+^articles$
+^README\.Rmd$

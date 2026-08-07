@@ -1,3 +1,41 @@
+# contoso 2.2.0
+
+## Breaking changes
+
+* `customer` now has one row per customer (3,165 rows, down from 7,794).
+  Previous versions built it by joining the customer catalogue onto `sales`,
+  which repeated each customer once per sales line they appeared on. This made
+  `customer_key` non-unique, so joining `customer` to `sales`, `orders` or any
+  other table silently multiplied rows. No attribute varied within a customer,
+  so the deduplication loses no data, but any code that relied on the old row
+  count — or that worked around the fan-out with `distinct()` — should be
+  reviewed. Thanks to [Hadley Wickham](https://github.com/hadley/contoso) for
+  reporting.
+
+* The cloud dataset behind `create_contoso_duckdb(size = "small")` carried the
+  same fan-out and has been corrected, so it again matches the bundled
+  `customer`. The `medium`, `large` and `mega` sizes were never affected.
+
+## Cloud dataset fixes
+
+* Column types are now consistent across all four sizes. Previously date
+  columns were stored as strings in `medium` and `large` — so comparisons on
+  `order_date` and friends were string comparisons, and date arithmetic failed
+  — while `small` and `mega` used real dates. Integer widths also varied
+  (`DOUBLE`, `INTEGER`, `BIGINT`) between sizes, and in `medium`
+  `sales.order_date` was a date while `orders.order_date` was a string. Dates
+  are now `DATE`, keys and counts `BIGINT`, and measures `DOUBLE`, everywhere.
+
+* Fixed `size = "large"`, where every row of `sales` was present twice
+  (47,439,870 rows over 23,719,935 order lines, exact duplicates). Any revenue,
+  cost, margin or quantity total taken from that size was doubled. The
+  documented row count for `large` was the inflated figure and is now
+  23,719,935. Other sizes were unaffected.
+
+* Fixed `product_code` in `medium` and `large`, which was stored as an integer
+  and had lost its leading zero (`101001` rather than `0101001`), so it did not
+  match the same product's code in `small` and `mega`.
+
 # contoso 2.1.0
 * updated storage from Blaze to CloudeFare
 * fixed typos in documentation

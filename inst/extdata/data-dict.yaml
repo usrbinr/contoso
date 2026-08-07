@@ -1,0 +1,859 @@
+$version: 0.1.0
+$learn_more: https://data-dict.tidyverse.org/
+
+name: Contoso
+description: >
+  Synthetic retail sales for the fictional Contoso company, arranged as a star
+  schema: one denormalised fact table (`sales`), its normalised equivalents
+  (`orders` + `orderrows`), and five dimension tables (`product`, `customer`,
+  `store`, `calendar`, `fx`). Shipped as the data frames of the R package
+  `contoso`.
+
+details: |
+  This dataset is **synthetic**. Names, addresses, birthdays, occupations,
+  employers, vehicles and coordinates are filler describing no real person,
+  and nothing derives from real trading. Distributions, seasonality and
+  margins are artefacts of the generator's configuration, not realistic retail
+  behaviour.
+
+  ## Money is USD
+
+  Every money column is USD regardless of the order's `currency_code`, so
+  amounts sum directly across orders. Multiply by `sales.exchange_rate` for
+  the currency the order was placed in. The schema invites the opposite
+  reading; resist it.
+
+  ## One trap
+
+  `store_key` 999999 is the online channel, a sentinel row carrying -1 and
+  `--` placeholders that pollute geographic aggregates unless filtered.
+
+version:
+  number: 2.2.0
+
+tables:
+  - name: sales
+    description: >
+      Fully denormalised fact table: one row per line item, the same grain as
+      `orderrows`. Repeats every column of `orders` and `orderrows`, adds the
+      day's `exchange_rate`, and pre-computes seven revenue, cost and margin
+      measures.
+    details: >
+      Redundant with `orders` + `orderrows`; the join reproduces it. Money
+      columns are USD regardless of `currency_code` -- multiply by
+      `exchange_rate` for the order's local currency.
+    source:
+      r: contoso::sales
+    rows: 7794
+    columns:
+      - name: order_key
+        type: number(id)
+        constraints: [required]
+        description: >
+          Order this line belongs to. Not unique here -- unique with
+          `line_number`.
+        examples: [233000, 268803, 287802, 311300, 339801]
+      - name: line_number
+        type: number(ordinal)
+        constraints: [required]
+        description: >
+          Position of this line within its order, from 1.
+        examples: [0, 1, 3, 5, 6]
+      - name: order_date
+        type: date
+        constraints: [required]
+        description: >
+          Date the order was placed.
+        examples: [2021-05-18, 2022-02-04, 2022-10-29, 2023-07-25, 2024-04-20]
+      - name: delivery_date
+        type: date
+        constraints: [required]
+        description: >
+          Date the order was delivered. Never before `order_date`.
+        examples: [2021-05-18, 2022-02-25, 2022-11-10, 2023-08-05, 2024-04-23]
+      - name: customer_key
+        type: number(id)
+        constraints: [required, foreign_key]
+        description: >
+          Customer who placed the order.
+        examples: [1401, 533076, 1233391, 1692034, 2099336]
+      - name: store_key
+        type: number(id)
+        constraints: [required, foreign_key]
+        description: >
+          Where the order was placed. 999999 is the online channel.
+        examples: [10, 170, 340, 510, 999999]
+      - name: product_key
+        type: number(id)
+        constraints: [required, foreign_key]
+        description: >
+          Product on this line.
+        examples: [1, 551, 1183, 1724, 2517]
+      - name: quantity
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          Units of the product on this line.
+        examples: [1, 3, 6, 8, 10]
+      - name: unit_price
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          Transacted price per unit, in USD. Equals `product.price` scaled by
+          a category-and-date price index, not by any currency conversion.
+        units: USD
+        examples: [0.95, 56.99, 209, 459, 3748.5]
+      - name: net_price
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          Price per unit after discount, in USD. Despite the name this is a
+          *unit* figure, not a line total.
+        units: USD
+        examples: [0.855, 50.9344, 197.9505, 374.946, 3748.5]
+      - name: unit_cost
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          Cost per unit, in USD.
+        units: USD
+        examples: [0.48, 28.55, 91.97, 193.788, 1241.955]
+      - name: currency_code
+        type: enum
+        values: [AUD, CAD, EUR, GBP, USD]
+        constraints: [required]
+        description: >
+          Currency the order was placed in. Does **not** describe the money
+          columns, which are all USD.
+      - name: exchange_rate
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          USD to `currency_code` rate on `order_date`, from `fx`. 1.0 for USD
+          orders.
+        examples: [0.70564, 0.88145, 0.95868, 1.34478, 1.60802]
+      - name: gross_revenue
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          `unit_price * quantity`, USD.
+        units: USD
+        examples: [1.9, 140.97, 570, 1636, 29988]
+      - name: net_revenue
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          `net_price * quantity`, USD. The revenue measure to sum.
+        units: USD
+        examples: [1.71, 115.98, 431.2, 1194, 25789.68]
+      - name: unit_discount
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          `unit_price - net_price`, USD.
+        units: USD
+        examples: [0, 3.7389, 16.197, 38.4945, 524.79]
+      - name: discounts
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          `unit_discount * quantity`, USD.
+        units: USD
+        examples: [0, 9.3216, 39.591, 118.14, 4198.32]
+      - name: cogs
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          Cost of goods sold, `unit_cost * quantity`, USD.
+        units: USD
+        examples: [0.96, 73.12, 264.4, 693.3195, 9935.64]
+      - name: gross_margin
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          `net_revenue - cogs`, USD.
+        units: USD
+        examples: [0.7213, 60.86, 219.33, 631.08, 16218.12]
+      - name: unit_margin
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          `gross_margin / quantity`, USD.
+        units: USD
+        examples: [0.375, 24.948, 97.76, 186.417, 2506.545]
+
+  - name: orders
+    description: >
+      Order headers: one row per customer order. The normalised counterpart to
+      `sales`, joined to `orderrows` on `order_key`.
+    source:
+      r: contoso::orders
+    rows: 3242
+    columns:
+      - name: order_key
+        type: number(id)
+        constraints: [primary_key]
+        description: >
+          Unique identifier for the order.
+        examples: [233000, 268803, 287802, 311300, 339801]
+      - name: customer_key
+        type: number(id)
+        constraints: [required, foreign_key]
+        description: >
+          Customer who placed it.
+        examples: [1401, 533076, 1233391, 1692034, 2099336]
+      - name: store_key
+        type: number(id)
+        constraints: [required, foreign_key]
+        description: >
+          Where it was placed. 999999 is the online channel.
+        examples: [10, 170, 340, 510, 999999]
+      - name: order_date
+        type: date
+        constraints: [required]
+        description: >
+          Date the order was placed.
+        examples: [2021-05-18, 2022-02-04, 2022-10-29, 2023-07-25, 2024-04-20]
+      - name: delivery_date
+        type: date
+        constraints: [required]
+        description: >
+          Date it was delivered.
+        examples: [2021-05-18, 2022-02-25, 2022-11-10, 2023-08-05, 2024-04-23]
+      - name: currency_code
+        type: enum
+        values: [AUD, CAD, EUR, GBP, USD]
+        constraints: [required]
+        description: >
+          Currency the order was placed in.
+
+  - name: orderrows
+    description: >
+      Order lines: one row per product on an order. Carries no dates or
+      customer -- join to `orders` for those.
+    source:
+      r: contoso::orderrows
+    rows: 7794
+    columns:
+      - name: order_key
+        type: number(id)
+        constraints: [required, foreign_key]
+        description: >
+          Order this line belongs to.
+        examples: [233000, 268803, 287802, 311300, 339801]
+      - name: line_number
+        type: number(ordinal)
+        constraints: [required]
+        description: >
+          Position within the order, from 1.
+        examples: [0, 1, 3, 5, 6]
+      - name: product_key
+        type: number(id)
+        constraints: [required, foreign_key]
+        description: >
+          Product on this line.
+        examples: [1, 551, 1183, 1724, 2517]
+      - name: quantity
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          Units ordered.
+        examples: [1, 3, 6, 8, 10]
+      - name: unit_price
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          Transacted price per unit, USD.
+        units: USD
+        examples: [0.95, 56.99, 209, 459, 3748.5]
+      - name: net_price
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          Price per unit after discount, USD. A unit figure, not a line total.
+        units: USD
+        examples: [0.855, 50.9344, 197.9505, 374.946, 3748.5]
+      - name: unit_cost
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          Cost per unit, USD.
+        units: USD
+        examples: [0.48, 28.55, 91.97, 193.788, 1241.955]
+
+  - name: product
+    description: >
+      Product catalogue: one row per sellable product, with brand, category
+      and list pricing.
+    source:
+      r: contoso::product
+    rows: 2517
+    columns:
+      - name: product_key
+        type: number(id)
+        constraints: [primary_key]
+        description: >
+          Unique identifier for the product.
+        examples: [1, 630, 1259, 1888, 2517]
+      - name: product_code
+        type: string
+        constraints: [required]
+        description: >
+          Business code for the product.
+        examples: ['0101001', '0305092', '0406013', '0801032', '0808078']
+      - name: product_name
+        type: string
+        constraints: [required]
+        description: >
+          Full product name, including brand and variant.
+        examples: [A. Datum Advanced Digital Camera M300 Azure, Contoso Home Theater System 2.1 Channel M1230 Silver, Fabrikam SLR Camera X149 Pink, Proseware Laser Fax Printer M250 White, WWI Wireless Transmitter and Bluetooth Headphones X250 White]
+      - name: manufacturer
+        type: enum
+        values: [A. Datum Corporation, Adventure Works, 'Contoso, Ltd', 'Fabrikam, Inc.', 'Litware, Inc.', Northwind Traders, 'Proseware, Inc.', Southridge Video, Tailspin Toys, The Phone Company, Wide World Importers]
+        constraints: [required]
+        description: >
+          Manufacturer.
+      - name: brand
+        type: enum
+        values: [A. Datum, Adventure Works, Contoso, Fabrikam, Litware, Northwind Traders, Proseware, Southridge Video, Tailspin Toys, The Phone Company, Wide World Importers]
+        constraints: [required]
+        description: >
+          Brand. `Contoso` is the house brand.
+      - name: color
+        type: string
+        constraints: [required]
+        description: >
+          Product colour.
+        examples: [Azure, Brown, Orange, Silver, Yellow]
+      - name: weight_unit
+        type: enum
+        values: [grams, ounces, pounds]
+        description: >
+          Unit `weight` is expressed in. Metric and imperial units are mixed,
+          so `weight` is **not comparable across rows** without converting.
+          Missing where the product has no weight.
+        missing: 222
+      - name: weight
+        type: number(quantity)
+        description: >
+          Product weight in `weight_unit`. Not on a common scale -- see that
+          column.
+        examples: [0.17, 7.2, 19.7, 52, 239]
+        missing: 284
+      - name: cost
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          Catalogue unit cost, USD.
+        units: USD
+        examples: [0.48, 26.67, 86.68, 196.23, 1060.22]
+      - name: price
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          Catalogue unit price, USD. The price level from July 2022 onward;
+          earlier transacted prices differ by a category index.
+        units: USD
+        examples: [0.95, 50.99, 208, 460, 3199.99]
+      - name: category_key
+        type: number(id)
+        constraints: [required]
+        description: >
+          Category the product sits in.
+        examples: [1, 3, 4, 6, 8]
+      - name: category_name
+        type: enum
+        values: [Audio, Cameras and camcorders, Cell phones, Computers, Games and Toys, Home Appliances, 'Music, Movies and Audio Books', TV and Video]
+        constraints: [required]
+        description: >
+          Category label.
+      - name: sub_category_key
+        type: number(id)
+        constraints: [required]
+        description: >
+          Subcategory the product sits in.
+        examples: [101, 303, 405, 702, 808]
+      - name: sub_category_name
+        type: string
+        constraints: [required]
+        description: >
+          Subcategory label.
+        examples: [Air Conditioners, Computers Accessories, Home Theater System, 'Projectors & Screens', Water Heaters]
+
+  - name: customer
+    description: >
+      One row per customer, covering only customers that placed at least one
+      order.
+    details: >
+      Covers only customers that transact. The source catalogue holds 104,990
+      customers; the 3,165 with at least one order are shipped. Up to package
+      version 2.1.0 this table was fanned out to sales-line grain and
+      `customer_key` was not unique; it is now a genuine primary key.
+    source:
+      r: contoso::customer
+    rows: 3165
+    columns:
+      - name: customer_key
+        type: number(id)
+        constraints: [primary_key]
+        description: >
+          Unique identifier for the customer.
+        examples: [1401, 533076, 1233391, 1692034, 2099336]
+      - name: geo_area_key
+        type: number(id)
+        constraints: [required]
+        description: >
+          Geographic area, on the same numbering as `store.geo_area_key`. No
+          geo-area table ships with the package, so this resolves to nothing
+          on its own.
+        examples: [1, 109, 308, 525, 616]
+      - name: start_date
+        type: date
+        constraints: [required]
+        description: >
+          Undocumented upstream and not interpretable as a relationship start:
+          it predates the customer's own `birthday` for a sixth of customers.
+        examples: [1980-01-02, 1986-01-10, 1991-07-28, 1999-10-14, 2010-12-22]
+      - name: end_date
+        type: date
+        constraints: [required]
+        description: >
+          Undocumented upstream. Always populated, and mostly falls in the
+          future.
+        examples: [2021-07-17, 2030-11-10, 2036-11-07, 2041-09-24, 2045-12-28]
+      - name: continent
+        type: enum
+        values: [Australia, Europe, North America]
+        constraints: [required]
+        description: >
+          Continent the customer lives on.
+      - name: gender
+        type: enum
+        values: [female, male]
+        constraints: [required]
+        description: >
+          Customer gender.
+      - name: title
+        type: enum
+        values: [Dr., Mr., Mrs., Ms.]
+        constraints: [required]
+        description: >
+          Honorific.
+      - name: given_name
+        type: string
+        constraints: [required]
+        description: >
+          First name. Synthetic.
+        examples: [Aaron, Douglas, Jovianne, Oren, Zuzana]
+      - name: middle_initial
+        type: string
+        constraints: [required]
+        description: >
+          Middle initial. Synthetic.
+        examples: [A, G, M, S, Z]
+      - name: surname
+        type: string
+        constraints: [required]
+        description: >
+          Last name. Synthetic.
+        examples: [Aaron, Dresdner, Kralj, Quintana, Zuidgeest]
+      - name: street_address
+        type: string
+        constraints: [required]
+        description: >
+          Street address. Synthetic.
+        examples: ['1 Armstrong Street', '2547 Jarvis Street', '4056 Wallace Street', '81 Bette McNee Street', Zwartbroekstraat 180]
+      - name: city
+        type: string
+        constraints: [required]
+        description: >
+          City.
+        examples: [Aalen Aalen, Dilton Marsh, Le Havre, Rockford, Zwolle]
+      - name: state
+        type: string
+        constraints: [required]
+        description: >
+          State or region, often abbreviated -- unlike `store.state`, which is
+          always spelled out.
+        examples: [AB, DR, MN, Rutland, ZH]
+      - name: state_full
+        type: string
+        constraints: [required]
+        description: >
+          State or region, spelled out.
+        examples: [Aberdeenshire, Dumfriesshire, Michigan, Roma, Zuid-Holland]
+      - name: zip_code
+        type: string
+        constraints: [required]
+        description: >
+          Postal code.
+        examples: ['00040', '3232 SE', '60640', '94542', ZE2 4LT]
+      - name: country
+        type: enum
+        values: [AU, CA, DE, FR, GB, IT, NL, US]
+        constraints: [required]
+        description: >
+          ISO 3166-1 alpha-2 country code.
+      - name: country_full
+        type: enum
+        values: [Australia, Canada, France, Germany, Italy, Netherlands, United Kingdom, United States]
+        constraints: [required]
+        description: >
+          Country name.
+      - name: birthday
+        type: date
+        constraints: [required]
+        description: >
+          Date of birth. Synthetic.
+        examples: [1935-02-18, 1952-03-27, 1968-10-14, 1984-11-23, 2002-02-20]
+      - name: age
+        type: number(ordinal)
+        constraints: [required]
+        description: >
+          Age in whole years, fixed as at the generator's snapshot date rather
+          than as at any order date.
+        examples: [19, 36, 52, 68, 85]
+      - name: occupation
+        type: string
+        constraints: [required]
+        description: >
+          Free-text job title.
+        examples: ['A & P mechanic', Deck officer, Junior high school teacher, Probation officer, Zoologist]
+      - name: company
+        type: string
+        description: >
+          Employer. Synthetic.
+        examples: ['10,000 Auto Parts', Endicott Shoes, Licorice Pizza, Reliable Investments, Zephyr Investments]
+        missing: 1
+      - name: vehicle
+        type: string
+        constraints: [required]
+        description: >
+          Vehicle. Synthetic.
+        examples: ['1992 Alfa Romeo 33', '1999 Chrysler 300', '2004 Lotus Elise', '2009 BMW 318', '2015 Volvo XC70']
+      - name: latitude
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          Latitude of the address.
+        examples: [-43.22282, 36.44288, 42.2763, 49.55003, 68.35464]
+      - name: longitude
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          Longitude of the address.
+        examples: [-165.1375, -90.37741, -77.44246, 4.690152, 153.5661]
+
+  - name: store
+    description: >
+      Sales locations: physical stores plus one synthetic row for the online
+      channel.
+    details: >
+      `store_key` 999999 is the online channel, not a location. It carries
+      sentinel values throughout -- `store_code` and `geo_area_key` are -1,
+      `country_code` is `--`, `country_name` and `state` are literally
+      `Online`, and `square_meters` is missing. Filter it out before any
+      geographic or floor-space aggregate. `store_code` is also not unique: it
+      identifies a site, and a site can hold successive premises.
+    source:
+      r: contoso::store
+    rows: 74
+    columns:
+      - name: store_key
+        type: number(id)
+        constraints: [primary_key]
+        description: >
+          Unique identifier for the store. 999999 is the online channel
+          sentinel.
+        examples: [10, 160, 340, 510, 999999]
+      - name: store_code
+        type: number(id)
+        constraints: [required]
+        description: >
+          Business code for the *site*. **Not unique** -- a site with
+          successive premises shares one code across several `store_key`s. -1
+          on the online row.
+        examples: [-1, 17, 33, 49, 67]
+      - name: geo_area_key
+        type: number(id)
+        constraints: [required]
+        description: >
+          Geographic area, same numbering as `customer.geo_area_key`. No
+          geo-area table ships with the package. -1 on the online row.
+        examples: [-1, 29, 193, 578, 616]
+      - name: country_code
+        type: enum
+        values: ['--', AU, CA, DE, FR, GB, IT, NL, US]
+        constraints: [required]
+        description: >
+          ISO 3166-1 alpha-2 code, plus the placeholder `--` on the online
+          row.
+      - name: country_name
+        type: enum
+        values: [Australia, Canada, France, Germany, Italy, Netherlands, Online, United Kingdom, United States]
+        constraints: [required]
+        description: >
+          Country name, plus the pseudo-country `Online`.
+      - name: state
+        type: string
+        constraints: [required]
+        description: >
+          State or region, always spelled out. Literally `Online` on the
+          online row.
+        examples: [Alaska, Fermanagh, Martinique, Online, Zeeland]
+      - name: open_date
+        type: date
+        constraints: [required]
+        description: >
+          Date the store opened.
+        examples: [2005-03-04, 2009-06-03, 2012-08-08, 2015-04-04, 2019-03-05]
+      - name: close_date
+        type: date
+        description: >
+          Date the store closed. Missing for stores still trading.
+        examples: [2013-12-05, 2015-04-04, 2015-08-08, 2018-09-09, 2019-11-03]
+        missing: 58
+      - name: description
+        type: string
+        constraints: [required]
+        description: >
+          Always `Contoso Store <state>` for physical stores, and `Online
+          store` for the online row. Carries no store-format information.
+        examples: [Contoso Store Alaska, Contoso Store Fermanagh, Contoso Store Martinique, Contoso Store Oregon, Online store]
+      - name: square_meters
+        type: number(quantity)
+        description: >
+          Floor area. Missing on the online row.
+        examples: [245, 910, 1260, 1785, 3500]
+        missing: 1
+      - name: status
+        type: enum
+        values: [Closed, Restructured]
+        description: >
+          Exceptional status only: `Closed` or `Restructured`. **Missing,
+          never `Open`, for stores trading normally**, so test with `is.na()`
+          rather than comparing to a string.
+        missing: 59
+
+  - name: calendar
+    description: >
+      Date dimension covering a complete span of calendar days, including days
+      with no trading.
+    details: >
+      Spans whole calendar years, so it extends past the trading period at
+      both ends. Join from `calendar` when you need a dense series with
+      explicit zeros.
+    source:
+      r: contoso::calendar
+    rows: 1461
+    columns:
+      - name: date
+        type: date
+        constraints: [primary_key]
+        description: >
+          The calendar date.
+        examples: [2021-01-01, 2022-01-01, 2023-01-01, 2024-01-01, 2024-12-31]
+      - name: date_key
+        type: number(id)
+        constraints: [required]
+        description: >
+          Date as `YYYYMMDD`.
+        examples: [20210101, 20220101, 20230101, 20240101, 20241231]
+      - name: year
+        type: number(ordinal)
+        constraints: [required]
+        description: >
+          Calendar year.
+        examples: [2021, 2022, 2023, 2024]
+      - name: year_quarter
+        type: string
+        constraints: [required]
+        description: >
+          Quarter and year, formatted `Q1-2021`.
+        examples: [Q1-2021, Q2-2021, Q2-2024, Q3-2024, Q4-2024]
+      - name: year_quarter_number
+        type: number(ordinal)
+        constraints: [required]
+        description: >
+          Continuous quarter counter, `year * 4 + quarter`. **Not** 1-4; use
+          `quarter` for the within-year number.
+        examples: [8085, 8089, 8092, 8096, 8100]
+      - name: quarter
+        type: enum
+        values: [Q1, Q2, Q3, Q4]
+        constraints: [required]
+        description: >
+          Quarter within the year, `Q1` to `Q4`.
+      - name: year_month
+        type: string
+        constraints: [required]
+        description: >
+          Month and year, formatted `January 2021`.
+        examples: [April 2021, February 2021, July 2024, May 2024, September 2024]
+      - name: year_month_short
+        type: string
+        constraints: [required]
+        description: >
+          Month and year, formatted `Jan 2021`.
+        examples: [Apr 2021, Feb 2021, Jul 2024, May 2024, Sep 2024]
+      - name: year_month_number
+        type: number(ordinal)
+        constraints: [required]
+        description: >
+          Continuous month counter, `year * 12 + month`. **Not** `YYYYMM`.
+        examples: [24253, 24265, 24276, 24288, 24300]
+      - name: month
+        type: enum
+        values: [April, August, December, February, January, July, June, March, May, November, October, September]
+        constraints: [required]
+        description: >
+          Month name.
+      - name: month_short
+        type: enum
+        values: [Apr, Aug, Dec, Feb, Jan, Jul, Jun, Mar, May, Nov, Oct, Sep]
+        constraints: [required]
+        description: >
+          Abbreviated month name.
+      - name: month_number
+        type: number(ordinal)
+        constraints: [required]
+        description: >
+          Month within the year, 1-12.
+        examples: [1, 4, 6, 9, 12]
+      - name: day_of_week
+        type: enum
+        values: [Friday, Monday, Saturday, Sunday, Thursday, Tuesday, Wednesday]
+        constraints: [required]
+        description: >
+          Day name.
+      - name: day_of_week_short
+        type: enum
+        values: [Fri, Mon, Sat, Sun, Thu, Tue, Wed]
+        constraints: [required]
+        description: >
+          Abbreviated day name.
+      - name: day_of_week_number
+        type: number(ordinal)
+        constraints: [required]
+        description: >
+          Day within the week, **starting Sunday = 1**, not Monday.
+        examples: [1, 2, 4, 6, 7]
+      - name: working_day
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          1 on working days, 0 otherwise. This is the flag.
+        examples: [0, 1]
+      - name: working_day_number
+        type: number(ordinal)
+        constraints: [required]
+        description: >
+          **Cumulative** count of working days elapsed, not a flag. Increments
+          on working days and repeats on non-working days.
+        examples: [0, 251, 501, 752, 1003]
+
+  - name: fx
+    description: >
+      Daily exchange rates between every ordered pair of the five currencies.
+    source:
+      r: contoso::fx
+    rows: 36525
+    columns:
+      - name: date
+        type: date
+        constraints: [required]
+        description: >
+          Date the rate applies to.
+        examples: [2021-01-01, 2022-01-01, 2023-01-01, 2024-01-01, 2024-12-31]
+      - name: from_currency
+        type: enum
+        values: [AUD, CAD, EUR, GBP, USD]
+        constraints: [required]
+        description: >
+          Base currency. Filter to one value or joins fan out five-to-one.
+      - name: to_currency
+        type: enum
+        values: [AUD, CAD, EUR, GBP, USD]
+        constraints: [required]
+        description: >
+          Quote currency.
+      - name: exchange
+        type: number(quantity)
+        constraints: [required]
+        description: >
+          Units of `to_currency` per unit of `from_currency`.
+        examples: [0.50293, 0.73784, 1.03012, 1.36569, 1.98835]
+
+relationships:
+  - join: orderrows.order_key = orders.order_key
+    cardinality: many-to-one
+    description: >
+      The header-to-line join. Performing it and adding the derived measures
+      reproduces `sales`.
+
+  - join: sales.customer_key = customer.customer_key
+    cardinality: many-to-one
+    description: >
+      Every customer in `customer` has at least one sales line, so an inner
+      join loses no customers.
+
+  - join: orders.customer_key = customer.customer_key
+    cardinality: many-to-one
+
+  - join: sales.product_key = product.product_key
+    cardinality: many-to-one
+    description: >
+      Join from `product` if you need the full catalogue including products
+      that never sold.
+
+  - join: orderrows.product_key = product.product_key
+    cardinality: many-to-one
+
+  - join: sales.store_key = store.store_key
+    cardinality: many-to-one
+    description: >
+      `store_key` 999999 resolves to the online channel row rather than a
+      physical location.
+
+  - join: orders.store_key = store.store_key
+    cardinality: many-to-one
+
+  - join: sales.order_date = calendar.date
+    cardinality: many-to-one
+    description: >
+      Standard date-dimension join. Join from `calendar` for a dense series
+      with explicit zeros.
+
+  - join: sales.delivery_date = calendar.date
+    cardinality: many-to-one
+    description: >
+      The second date role. Alias `calendar` to group by order and delivery
+      date at once.
+
+  - join: sales.order_date = fx.date AND sales.currency_code = fx.to_currency
+    cardinality: many-to-one
+    description: >
+      Recovers the rate already in `sales.exchange_rate`. Filter to
+      `from_currency = 'USD'` or the join fans out.
+
+glossary:
+  Contoso: >
+    A fictional consumer-electronics and appliance retailer used in
+    Microsoft's sample datasets. Also the house brand, so `Contoso` may mean
+    the company or one of its brands.
+
+  "online channel": >
+    Orders placed without a physical store, recorded against the sentinel
+    `store_key` 999999. Not a location: it has no floor area, country or
+    region.
+
+  "sales-line grain": >
+    One row per product line on an order. `sales` and `orderrows` are at this
+    grain.
+
+  sentinel: >
+    An in-band value standing in for 'not applicable' rather than a real
+    measurement: -1 for `store_code` and `geo_area_key`, `--` for
+    `country_code`, 999999 for `store_key`. They are ordinary numbers and
+    strings, so they pollute aggregates silently unless filtered.
+

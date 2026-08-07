@@ -38,9 +38,20 @@
 #' contact information, and other personal attributes. It provides insights into customer profiles, including location, age, occupation,
 #' and more.
 #'
-#' @format A data frame with 24 columns:
+#' Each row is one customer. Only customers that placed at least one order are
+#' included, so every `customer_key` here appears in [sales].
+#'
+#' @section Changed in 2.2.0:
+#' Up to version 2.1.0 this table was built by joining the customer catalogue
+#' onto `sales`, which repeated each customer once per sales line they appeared
+#' on: 7,794 rows for 3,165 customers. `customer_key` was therefore not unique
+#' and any join to this table silently multiplied rows. The duplicates have
+#' been collapsed. No attribute varied within a customer, so nothing was lost.
+#'
+#' @format A data frame with 3,165 rows and 24 columns:
 #' \describe{
-#'   \item{customer_key}{\code{double} Unique identifier for each customer.}
+#'   \item{customer_key}{\code{double} Unique identifier for each customer. A
+#'     primary key: unique and never missing.}
 #'   \item{geo_area_key}{\code{double} Unique identifier for the geographical area the customer resides in.}
 #'   \item{start_date}{\code{Date} Date when the customer relationship began.}
 #'   \item{end_date}{\code{Date} Date when the customer relationship ended, if applicable.}
