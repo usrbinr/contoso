@@ -2,23 +2,100 @@
   {
     "objectID": "NEWS.html",
     "href": "NEWS.html",
-    "title": "contoso 2.2.0",
+    "title": "contoso 2.3.0",
     "section": "",
-    "text": "customer now has one row per customer (3,165 rows, down from 7,794). Previous versions built it by joining the customer catalogue onto sales, which repeated each customer once per sales line they appeared on. This made customer_key non-unique, so joining customer to sales, orders or any other table silently multiplied rows. No attribute varied within a customer, so the deduplication loses no data, but any code that relied on the old row count — or that worked around the fan-out with distinct() — should be reviewed. Thanks to Hadley Wickham for reporting.\nThe cloud dataset behind create_contoso_duckdb(size = \"small\") carried the same fan-out and has been corrected, so it again matches the bundled customer. The medium, large and mega sizes were never affected.\n\n\n\n\n\nColumn types are now consistent across all four sizes. Previously date columns were stored as strings in medium and large — so comparisons on order_date and friends were string comparisons, and date arithmetic failed — while small and mega used real dates. Integer widths also varied (DOUBLE, INTEGER, BIGINT) between sizes, and in medium sales.order_date was a date while orders.order_date was a string. Dates are now DATE, keys and counts BIGINT, and measures DOUBLE, everywhere.\nFixed size = \"large\", where every row of sales was present twice (47,439,870 rows over 23,719,935 order lines, exact duplicates). Any revenue, cost, margin or quantity total taken from that size was doubled. The documented row count for large was the inflated figure and is now 23,719,935. Other sizes were unaffected.\nFixed product_code in medium and large, which was stored as an integer and had lost its leading zero (101001 rather than 0101001), so it did not match the same product’s code in small and mega."
+    "text": "read_reports() returns 118 fictional internal business reports about Contoso’s 2025 trading (weekly sales flashes, monthly e-commerce, supply chain and plant reviews, quarterly regional reviews, pricing committee minutes, operations notices, industry notes and the Annual Operating Plan). The figures come from the “mega” cloud dataset. Some reports carry deliberate errors, for testing financial planning and analysis assistants. The reports ship compressed in inst/extdata/reports.rds (about 90 KB).\nexport_reports() writes the reports as one YAML file each, the layout document stores and retrieval tools expect. This adds ‘yaml12’ to Imports.\nNew vignette, vignette(\"business-reports\"), describing the reports. New articles on the website: “Getting started” and “Searching the reports with ragnar”.\n\n\n\n\n\nRemoved contoso_dict_columns(). The data dictionary is a standard data-dict file, so the data-dict CLI already reads, validates and renders it, and yaml::read_yaml() reads it in R. Use system.file(\"extdata\", \"small\", \"data-dict.yaml\", package = \"contoso\") to find it.\n\n\n\n\n\nyaml has moved from Imports to Suggests; it was only needed by the function removed above.\nDepends is now R (&gt;= 4.1.0), which the package code has in fact required for some time – it uses the native pipe |&gt; and the \\(x) function shorthand.\n\n\n\n\n\nFixed size = \"large\", where every row of fx was present twice (200,900 rows over 100,450 distinct rates, exact duplicates). Joining sales to fx doubled the row count and any revenue converted through it. medium and mega were unaffected, and contoso_10m/fx.parquet is now byte-identical to the file the other sizes already shared. This is the same duplication fixed for sales in 2.2.0; fx was missed at the time.\n\n\n\n\n\nThe bundled data dictionary now validates against the data-dict spec at all three levels (validate-spec, validate-meta, validate-data). Removed the non-spec rows and missing keys, added the required range to every ordered column, and recorded the composite primary keys on sales and orderrows (order_key + line_number) and on fx (date + from_currency + to_currency).\nCorrected the dictionary where it contradicted the data: line_number is zero-based, not 1-based, and the sales-to-fx join was documented as many-to-one when it fans out five-to-one unless from_currency is filtered.\nThe derived measures in sales are now written as checkable assertions rather than prose, so data-dict validate-data verifies that gross_revenue, net_revenue, unit_discount, discounts, cogs, gross_margin and unit_margin still follow their documented formulas.\nThe dictionary for the cloud datasets ships as inst/extdata/cloud/data-dict.yaml, covering size = \"medium\", \"large\" and \"mega\". It carries the same types, constraints, assertions, relationships and glossary as the small dictionary; only the observed range, examples and the descriptions that are genuinely different differ.\nThe reports returned by read_reports() have their own data dictionary, inst/extdata/reports/data-dict.yaml, describing each column and noting that some reports are deliberately wrong."
+  },
+  {
+    "objectID": "NEWS.html#new-features",
+    "href": "NEWS.html#new-features",
+    "title": "contoso 2.3.0",
+    "section": "",
+    "text": "read_reports() returns 118 fictional internal business reports about Contoso’s 2025 trading (weekly sales flashes, monthly e-commerce, supply chain and plant reviews, quarterly regional reviews, pricing committee minutes, operations notices, industry notes and the Annual Operating Plan). The figures come from the “mega” cloud dataset. Some reports carry deliberate errors, for testing financial planning and analysis assistants. The reports ship compressed in inst/extdata/reports.rds (about 90 KB).\nexport_reports() writes the reports as one YAML file each, the layout document stores and retrieval tools expect. This adds ‘yaml12’ to Imports.\nNew vignette, vignette(\"business-reports\"), describing the reports. New articles on the website: “Getting started” and “Searching the reports with ragnar”."
   },
   {
     "objectID": "NEWS.html#breaking-changes",
     "href": "NEWS.html#breaking-changes",
-    "title": "contoso 2.2.0",
+    "title": "contoso 2.3.0",
     "section": "",
-    "text": "customer now has one row per customer (3,165 rows, down from 7,794). Previous versions built it by joining the customer catalogue onto sales, which repeated each customer once per sales line they appeared on. This made customer_key non-unique, so joining customer to sales, orders or any other table silently multiplied rows. No attribute varied within a customer, so the deduplication loses no data, but any code that relied on the old row count — or that worked around the fan-out with distinct() — should be reviewed. Thanks to Hadley Wickham for reporting.\nThe cloud dataset behind create_contoso_duckdb(size = \"small\") carried the same fan-out and has been corrected, so it again matches the bundled customer. The medium, large and mega sizes were never affected."
+    "text": "Removed contoso_dict_columns(). The data dictionary is a standard data-dict file, so the data-dict CLI already reads, validates and renders it, and yaml::read_yaml() reads it in R. Use system.file(\"extdata\", \"small\", \"data-dict.yaml\", package = \"contoso\") to find it."
+  },
+  {
+    "objectID": "NEWS.html#dependencies",
+    "href": "NEWS.html#dependencies",
+    "title": "contoso 2.3.0",
+    "section": "",
+    "text": "yaml has moved from Imports to Suggests; it was only needed by the function removed above.\nDepends is now R (&gt;= 4.1.0), which the package code has in fact required for some time – it uses the native pipe |&gt; and the \\(x) function shorthand."
   },
   {
     "objectID": "NEWS.html#cloud-dataset-fixes",
     "href": "NEWS.html#cloud-dataset-fixes",
-    "title": "contoso 2.2.0",
+    "title": "contoso 2.3.0",
     "section": "",
-    "text": "Column types are now consistent across all four sizes. Previously date columns were stored as strings in medium and large — so comparisons on order_date and friends were string comparisons, and date arithmetic failed — while small and mega used real dates. Integer widths also varied (DOUBLE, INTEGER, BIGINT) between sizes, and in medium sales.order_date was a date while orders.order_date was a string. Dates are now DATE, keys and counts BIGINT, and measures DOUBLE, everywhere.\nFixed size = \"large\", where every row of sales was present twice (47,439,870 rows over 23,719,935 order lines, exact duplicates). Any revenue, cost, margin or quantity total taken from that size was doubled. The documented row count for large was the inflated figure and is now 23,719,935. Other sizes were unaffected.\nFixed product_code in medium and large, which was stored as an integer and had lost its leading zero (101001 rather than 0101001), so it did not match the same product’s code in small and mega."
+    "text": "Fixed size = \"large\", where every row of fx was present twice (200,900 rows over 100,450 distinct rates, exact duplicates). Joining sales to fx doubled the row count and any revenue converted through it. medium and mega were unaffected, and contoso_10m/fx.parquet is now byte-identical to the file the other sizes already shared. This is the same duplication fixed for sales in 2.2.0; fx was missed at the time."
+  },
+  {
+    "objectID": "NEWS.html#documentation",
+    "href": "NEWS.html#documentation",
+    "title": "contoso 2.3.0",
+    "section": "",
+    "text": "The bundled data dictionary now validates against the data-dict spec at all three levels (validate-spec, validate-meta, validate-data). Removed the non-spec rows and missing keys, added the required range to every ordered column, and recorded the composite primary keys on sales and orderrows (order_key + line_number) and on fx (date + from_currency + to_currency).\nCorrected the dictionary where it contradicted the data: line_number is zero-based, not 1-based, and the sales-to-fx join was documented as many-to-one when it fans out five-to-one unless from_currency is filtered.\nThe derived measures in sales are now written as checkable assertions rather than prose, so data-dict validate-data verifies that gross_revenue, net_revenue, unit_discount, discounts, cogs, gross_margin and unit_margin still follow their documented formulas.\nThe dictionary for the cloud datasets ships as inst/extdata/cloud/data-dict.yaml, covering size = \"medium\", \"large\" and \"mega\". It carries the same types, constraints, assertions, relationships and glossary as the small dictionary; only the observed range, examples and the descriptions that are genuinely different differ.\nThe reports returned by read_reports() have their own data dictionary, inst/extdata/reports/data-dict.yaml, describing each column and noting that some reports are deliberately wrong."
+  },
+  {
+    "objectID": "NEWS.html#breaking-changes-1",
+    "href": "NEWS.html#breaking-changes-1",
+    "title": "contoso 2.3.0",
+    "section": "Breaking changes",
+    "text": "Breaking changes\n\ncustomer now has one row per customer (3,165 rows, down from 7,794). Previous versions built it by joining the customer catalogue onto sales, which repeated each customer once per sales line they appeared on. This made customer_key non-unique, so joining customer to sales, orders or any other table silently multiplied rows. No attribute varied within a customer, so the deduplication loses no data, but any code that relied on the old row count — or that worked around the fan-out with distinct() — should be reviewed. Thanks to Hadley Wickham for reporting.\nThe cloud dataset behind create_contoso_duckdb(size = \"small\") carried the same fan-out and has been corrected, so it again matches the bundled customer. The medium, large and mega sizes were never affected."
+  },
+  {
+    "objectID": "NEWS.html#cloud-dataset-fixes-1",
+    "href": "NEWS.html#cloud-dataset-fixes-1",
+    "title": "contoso 2.3.0",
+    "section": "Cloud dataset fixes",
+    "text": "Cloud dataset fixes\n\nColumn types are now consistent across all four sizes. Previously date columns were stored as strings in medium and large — so comparisons on order_date and friends were string comparisons, and date arithmetic failed — while small and mega used real dates. Integer widths also varied (DOUBLE, INTEGER, BIGINT) between sizes, and in medium sales.order_date was a date while orders.order_date was a string. Dates are now DATE, keys and counts BIGINT, and measures DOUBLE, everywhere.\nFixed size = \"large\", where every row of sales was present twice (47,439,870 rows over 23,719,935 order lines, exact duplicates). Any revenue, cost, margin or quantity total taken from that size was doubled. The documented row count for large was the inflated figure and is now 23,719,935. Other sizes were unaffected.\nFixed product_code in medium and large, which was stored as an integer and had lost its leading zero (101001 rather than 0101001), so it did not match the same product’s code in small and mega."
+  },
+  {
+    "objectID": "articles/index.html",
+    "href": "articles/index.html",
+    "title": "Articles",
+    "section": "",
+    "text": "contoso Articles\nIn-depth guides and tutorials for using the package.\n\nThe business reports\nGetting started\nSearching the reports with ragnar"
+  },
+  {
+    "objectID": "articles/business-reports.html",
+    "href": "articles/business-reports.html",
+    "title": "The business reports",
+    "section": "",
+    "text": "contoso includes 118 fictional internal business reports about Contoso’s 2025 trading. They are the documents a finance team reads alongside its sales data: weekly flashes, monthly reviews, quarterly country reports, committee minutes and plan memos. Each is written by a named person in a named business unit, published on a realistic date, and based on the “mega” dataset from create_contoso_duckdb(\"mega\").\nreports &lt;- read_reports()"
+  },
+  {
+    "objectID": "articles/business-reports.html#types-of-report",
+    "href": "articles/business-reports.html#types-of-report",
+    "title": "The business reports",
+    "section": "Types of report",
+    "text": "Types of report\n\n\n\n\n\n\n\n\n\n\n\nBusiness area\nReport type\nAuthor\nHow often\nCount\nTypical length\n\n\n\n\nSales\nsales_flash: Weekly Sales Flash\nPriya Raman, Sales Operations\nWeekly, every Monday\n52\n450 words\n\n\nSales\nregional: Quarterly Business Review\nCountry managers for the US, Germany, UK and Canada\nQuarterly\n16\n730 words\n\n\nE-commerce and marketing\necommerce: E-commerce Performance Review\nMarcus Lindqvist, Digital Commerce\nMonthly\n12\n650 words\n\n\nSupply chain\nsupply_chain: Vendor & Supply Review\nHannah Okafor, Supply Chain & Procurement\nMonthly\n12\n710 words\n\n\nManufacturing\nmanufacturing: Contoso, Ltd Plant Report\nTomasz Wisniewski, private-label plant\nMonthly\n12\n600 words\n\n\nPricing\npricing: Pricing & Promotions Committee Minutes\nOlivia Grant (chair)\n5 meetings a year\n5\n710 words\n\n\nPlanning and finance\naop: Annual Operating Plan memo\nDaniel Okoye, Corporate Planning\nOnce, before the year\n1\n1,060 words\n\n\nOperations\nalert: Supply alerts and operations notices\nSupply Chain, Retail Operations\nWhen something happens\n4\n320 words\n\n\nExternal market\nindustry: Sector Review\nNorthbridge Retail Insights, an outside analyst\nQuarterly\n4\n730 words\n\n\n\n\nreports |&gt;\n  dplyr::count(report_type, unit, sort = TRUE)\n#&gt; # A tibble: 13 × 3\n#&gt;    report_type   unit                                       n\n#&gt;    &lt;chr&gt;         &lt;chr&gt;                                  &lt;int&gt;\n#&gt;  1 sales_flash   Sales Operations                          52\n#&gt;  2 ecommerce     Digital Commerce                          12\n#&gt;  3 manufacturing Contoso Manufacturing (Private Label)     12\n#&gt;  4 supply_chain  Supply Chain & Procurement                12\n#&gt;  5 pricing       Pricing & Promotions Committee             5\n#&gt;  6 industry      Northbridge Retail Insights (external)     4\n#&gt;  7 regional      Regional Sales - Canada                    4\n#&gt;  8 regional      Regional Sales - Germany                   4\n#&gt;  9 regional      Regional Sales - United Kingdom            4\n#&gt; 10 regional      Regional Sales - United States             4\n#&gt; 11 alert         Retail Operations                          2\n#&gt; 12 alert         Supply Chain & Procurement                 2\n#&gt; 13 aop           Corporate Planning                         1\n\nEach type follows its own template:\n\n\n\n\n\n\n\nReport type\nSections\n\n\n\n\nsales_flash\nHeadline, key numbers table, Channel, Country, Category, Watch list\n\n\nregional\nExecutive summary, Performance vs last year and budget, Category highlights, Store operations, Customers and competitors, Priorities next quarter, Asks of HQ\n\n\necommerce\nHeadline, Channel mix, Online performance vs last year and budget, Online category performance, Site and marketing notes, Priorities for next month\n\n\nsupply_chain\nSummary, Vendor scorecard (red/amber/green by manufacturer), Issues and mitigations, Outlook\n\n\nmanufacturing\nSummary, Sell-through by category and product line, Cost and yield, Capacity and launches, Risks\n\n\npricing\nAttendees, Review of recent performance, Discussion, Decisions, Action items\n\n\naop\nSummary of targets, Key assumptions, Phasing through the year, Risks to the plan, Accountabilities by unit\n\n\nalert\nWhat happened, Impact, Actions, Next update\n\n\nindustry\nKey takeaways, Demand by category, Channels, Pricing and promotions, Outlook"
+  },
+  {
+    "objectID": "articles/business-reports.html#a-sample-report",
+    "href": "articles/business-reports.html#a-sample-report",
+    "title": "The business reports",
+    "section": "A sample report",
+    "text": "A sample report\nThe Weekly Sales Flash for week 20, in full:\n\nsample &lt;- dplyr::filter(reports, id == \"sales-flash-2025-w20\")\ncat(sample$body)\n#&gt; # Weekly Sales Flash - Week 20 (12 May 2025 to 18 May 2025)\n#&gt; Priya Raman, Director of Sales Operations, Sales Operations | 19 May 2025\n#&gt; \n#&gt; **Headline**\n#&gt; - Net revenue **$590M**, flat on Wk 19 (-0.6%) and **down 9% YoY**. Third clean week since stocktake ended, so the run-rate is settling at about $590M a week.\n#&gt; - Stores **up 2.5% YoY** (+0.3% WoW). Online is still the whole problem at **down 17% YoY**.\n#&gt; - GM steady at **56.0%** and discount at 5.9%, so we are not buying volume.\n#&gt; \n#&gt; | | Wk 20 | WoW | YoY |\n#&gt; |---|---|---|---|\n#&gt; | Net revenue | $590M | -0.6% | -9.3% |\n#&gt; | Online | $334M | -1.2% | -16.6% |\n#&gt; | Stores | $257M | +0.3% | +2.5% |\n#&gt; | GM % | 56.0% | | |\n#&gt; | Discount % | 5.9% | | |\n#&gt; | Units | 2.39M | | |\n#&gt; \n#&gt; **Channel**\n#&gt; - **Online:** The marketplace hole hasn't closed. Migration to contoso.com is still well below what the AOP assumed, and the lower paid-search spend isn't helping. Online is down another 1.2% WoW.\n#&gt; - **Stores:** Holding up, and the gains come from the Store Next countries.\n#&gt; \n#&gt; **Country**\n#&gt; - **Wave 1 countries are strong:** Italy +28% YoY, Netherlands +27%, Germany +25% and France +11%. All four were up WoW except Italy, which was -1%.\n#&gt; - **Wave 2:** Canada +13% YoY, +1% WoW. Australia +9% YoY but **-4.7% WoW**, the weakest country this week.\n#&gt; - **UK:** +3% YoY and +2.7% WoW as conversions start.\n#&gt; - **US:** -11% YoY and -0.5% WoW. There are no converted stores until the July pilot.\n#&gt; \n#&gt; **Category**\n#&gt; - **Cameras:** +28% YoY. The A. Datum creator line and the experience zones are still working.\n#&gt; - **Audio** +23% and **Games and Toys** +16%. Both are getting the freed-up floor space.\n#&gt; - **TV and Video:** **-36% YoY** and -4.3% WoW, which is far deeper than the ~8% decline the range reset planned for.\n#&gt; - **Home Appliances:** -17% YoY. The Litware stop-sell is still leaving gaps on the microwave and coffee-machine shelves.\n#&gt; - **Computers:** -10% YoY at $209M. We should be in the peak of the Win10 refresh, and it isn't showing up.\n#&gt; - **Cell phones:** Flat, -2% YoY.\n#&gt; \n#&gt; **Watch list**\n#&gt; - **Run-rate vs plan:** ~$590M/week annualises to roughly $31B against the $35B AOP. H2 has to do more work.\n#&gt; - **Computers:** If the refresh isn't landing in H1, find out where the demand went.\n#&gt; - **TV and Video:** Check whether the decline is still sliding WoW or has found a floor.\n#&gt; - **Australia:** Check whether the WoW dip is a one-off or a sign that the wave 2 benefit is fading.\n#&gt; - **UK:** Track the converted-store lift as the May to July wave rolls out."
+  },
+  {
+    "objectID": "articles/business-reports.html#dimensions-of-a-report",
+    "href": "articles/business-reports.html#dimensions-of-a-report",
+    "title": "The business reports",
+    "section": "Dimensions of a report",
+    "text": "Dimensions of a report\n\nMetadata\nEvery report carries the same eight metadata fields, plus its text:\n\n\n\n\n\n\n\n\nField\nType\nExample\n\n\n\n\nid\ntext\nsales-flash-2025-w20\n\n\ntitle\ntext\nWeekly Sales Flash - Week 20 (12 May 2025 to 18 May 2025)\n\n\nunit\ntext\nSales Operations\n\n\nauthor\ntext\nPriya Raman, Director of Sales Operations\n\n\nreport_type\ntext\nsales_flash\n\n\nperiod_start\ndate\n2025-05-12\n\n\nperiod_end\ndate\n2025-05-18\n\n\npublished\ndate\n2025-05-19\n\n\nbody\nMarkdown text\nthe report itself\n\n\n\nperiod_start and period_end give the period a report covers, and published gives the date it was released. The gap between them varies by type: a weekly flash comes out the day after its week ends, a regional review about 12 days after its quarter. The plan memo is negative: it is published in December 2024, before the year it covers.\n\n\nBusiness dimensions\nThe figures in each report are cut by the same dimensions as the contoso data. Which cuts a report uses depends on its type:\n\n\n\n\n\n\n\n\n\nReport type\nPeriod\nBreakdowns\nCompared with\n\n\n\n\nsales_flash\nWeek\nTotal, channel (online / stores), country, category\nPrior week, same week last year\n\n\nregional\nQuarter\nOne country: total and category\nPrior quarter, last year, budget\n\n\necommerce\nMonth\nChannel mix, online total, online by category\nPrior month, last year, budget\n\n\nsupply_chain\nMonth\nTotal, manufacturer, category\nPrior month, last year, budget\n\n\nmanufacturing\nMonth\nContoso, Ltd products: total, category, product line\nPrior month, last year\n\n\npricing\nThe 8 weeks before the meeting\nTotal, category, channel\nPrior 8 weeks, last year\n\n\naop\nFull year 2025\nBudget by channel, country, category and month\n2024 actuals\n\n\nalert\nOne event\nVendors, categories and regions affected\nNone\n\n\nindustry\nQuarter\nMarket-level demand by category and channel (no Contoso figures)\nMarket last year\n\n\n\nThe values those breakdowns take:\n\n\n\n\n\n\n\nDimension\nValues\n\n\n\n\nChannel\nOnline, Stores\n\n\nCountry\nUnited States, Canada, United Kingdom, Germany, France, Italy, Netherlands, Australia, plus Online\n\n\nCategory\nComputers, Cell phones, Home Appliances, TV and Video, Cameras and camcorders, Audio, Games and Toys, Music, Movies and Audio Books\n\n\nManufacturer\n11, including Contoso, Ltd, the company’s own private label\n\n\n\n\n\nMeasures\nThe numbers quoted in the reports are these measures:\n\n\n\nMeasure\nMeaning\n\n\n\n\nNet revenue\nSales after discounts, in USD\n\n\nChange vs prior period\nAgainst the previous week, month or quarter\n\n\nChange vs last year\nAgainst the same period a year earlier\n\n\nVariance to budget\nAgainst the 2025 Annual Operating Plan\n\n\nGross margin %\nGross margin as a share of net revenue\n\n\nDiscount %\nDiscounts as a share of gross revenue\n\n\nCost ratio\nCost of goods as a share of gross revenue\n\n\nUnits\nUnits sold"
+  },
+  {
+    "objectID": "articles/business-reports.html#the-year-in-the-reports",
+    "href": "articles/business-reports.html#the-year-in-the-reports",
+    "title": "The business reports",
+    "section": "The year in the reports",
+    "text": "The year in the reports\nReports run from the plan memo in December 2024 to the last reviews of 2025, published in January 2026:\n\nreports |&gt;\n  dplyr::count(month = format(published, \"%Y-%m\"), name = \"reports\")\n#&gt; # A tibble: 14 × 2\n#&gt;    month   reports\n#&gt;    &lt;chr&gt;     &lt;int&gt;\n#&gt;  1 2024-12       1\n#&gt;  2 2025-01       6\n#&gt;  3 2025-02       7\n#&gt;  4 2025-03      10\n#&gt;  5 2025-04      13\n#&gt;  6 2025-05       7\n#&gt;  7 2025-06       8\n#&gt;  8 2025-07      14\n#&gt;  9 2025-08       7\n#&gt; 10 2025-09       9\n#&gt; 11 2025-10      12\n#&gt; 12 2025-11       8\n#&gt; 13 2025-12       8\n#&gt; 14 2026-01       8\n\nTogether they tell one story about 2025: an exit from third-party marketplaces, a TV range reset, a store refit programme (“Store Next”), a product recall, a PC refresh, and the usual stocktake, summer shutdown and holiday season. Each author only knows what their unit would know on the publication date.\nSome reports are deliberately wrong. A few authors misread the data or credit the wrong cause, as real business writing does. The package does not say which, so an FP&A assistant has to find them by checking the reports against the data."
   },
   {
     "objectID": "reference/sales.html",
@@ -63,30 +140,296 @@
     "text": "Source\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data"
   },
   {
-    "objectID": "reference/orders.html",
-    "href": "reference/orders.html",
-    "title": "Order Data from the Contoso Dataset",
+    "objectID": "reference/product.html",
+    "href": "reference/product.html",
+    "title": "Product Data from the Contoso Dataset",
     "section": "",
-    "text": "Source: R/data.R\nThis dataset contains information about customer orders, including order dates, delivery dates, and store details."
+    "text": "Source: R/data.R\nThis dataset contains information about products in the Contoso dataset. It includes product details such as identifiers, descriptions, pricing, weight, and categorization. This dataset is useful for analyzing product characteristics, pricing, and product-related sales insights."
   },
   {
-    "objectID": "reference/orders.html#usage",
-    "href": "reference/orders.html#usage",
-    "title": "Order Data from the Contoso Dataset",
+    "objectID": "reference/product.html#usage",
+    "href": "reference/product.html#usage",
+    "title": "Product Data from the Contoso Dataset",
     "section": "Usage",
-    "text": "Usage\norders"
+    "text": "Usage\nproduct"
   },
   {
-    "objectID": "reference/orders.html#format",
-    "href": "reference/orders.html#format",
-    "title": "Order Data from the Contoso Dataset",
+    "objectID": "reference/product.html#format",
+    "href": "reference/product.html#format",
+    "title": "Product Data from the Contoso Dataset",
     "section": "Format",
-    "text": "Format\n\nA data frame with 3,242 rows and 6 columns:\n\n\n\norder_key\n\n\n\ndouble Unique identifier for the order.\n\n\n\ncustomer_key\n\n\n\ndouble Unique identifier for the customer who placed the order.\n\n\n\nstore_key\n\n\n\ndouble Unique identifier for the store where the order was placed.\n\n\n\norder_date\n\n\n\nDate The date when the order was placed.\n\n\n\ndelivery_date\n\n\n\nDate The date when the order is expected to be delivered.\n\n\n\ncurrency_code\n\n\n\ncharacter The currency code used for the order (e.g., USD, EUR)."
+    "text": "Format\n\nA data frame with 2,517 rows and 14 columns:\n\n\n\nproduct_key\n\n\n\ndouble Unique identifier for each product.\n\n\n\nproduct_code\n\n\n\ncharacter A code that uniquely identifies the product.\n\n\n\nproduct_name\n\n\n\ncharacter The name or description of the product.\n\n\n\nmanufacturer\n\n\n\ncharacter The name of the manufacturer of the product.\n\n\n\nbrand\n\n\n\ncharacter The brand of the product.\n\n\n\ncolor\n\n\n\ncharacter The color of the product.\n\n\n\nweight_unit\n\n\n\ncharacter The unit weight is expressed in: “grams”, “ounces” or “pounds” — never “kg”. Metric and imperial units are mixed, so weight is not comparable across rows without converting. Missing where the product has no weight.\n\n\n\nweight\n\n\n\ndouble The weight of the product, in weight_unit. Not on a common scale — see that column.\n\n\n\ncost\n\n\n\ndouble The cost price of the product.\n\n\n\nprice\n\n\n\ndouble The selling price of the product.\n\n\n\ncategory_key\n\n\n\ndouble Unique identifier for the category to which the product belongs.\n\n\n\ncategory_name\n\n\n\ncharacter The name of the category to which the product belongs.\n\n\n\nsub_category_key\n\n\n\ndouble Unique identifier for the subcategory to which the product belongs.\n\n\n\nsub_category_name\n\n\n\ncharacter The name of the subcategory to which the product belongs."
   },
   {
-    "objectID": "reference/orders.html#source",
-    "href": "reference/orders.html#source",
-    "title": "Order Data from the Contoso Dataset",
+    "objectID": "reference/product.html#source",
+    "href": "reference/product.html#source",
+    "title": "Product Data from the Contoso Dataset",
+    "section": "Source",
+    "text": "Source\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data"
+  },
+  {
+    "objectID": "reference/orderrows.html",
+    "href": "reference/orderrows.html",
+    "title": "Order Rows Data from the Contoso Dataset",
+    "section": "",
+    "text": "Source: R/data.R\nThis dataset contains detailed information about the individual items (rows) within each order in the Contoso dataset. It includes details such as the product, quantity, pricing, and cost of each item in an order. This dataset is useful for analyzing the breakdown of order components and individual product sales."
+  },
+  {
+    "objectID": "reference/orderrows.html#usage",
+    "href": "reference/orderrows.html#usage",
+    "title": "Order Rows Data from the Contoso Dataset",
+    "section": "Usage",
+    "text": "Usage\norderrows"
+  },
+  {
+    "objectID": "reference/orderrows.html#format",
+    "href": "reference/orderrows.html#format",
+    "title": "Order Rows Data from the Contoso Dataset",
+    "section": "Format",
+    "text": "Format\n\nA data frame with 7,794 rows and 7 columns:\n\n\n\norder_key\n\n\n\ndouble Unique identifier for the order to which the item belongs.\n\n\n\nline_number\n\n\n\ndouble Line number within the order, identifying each product line.\n\n\n\nproduct_key\n\n\n\ndouble Unique identifier for the product in the order row.\n\n\n\nquantity\n\n\n\ndouble The quantity of the product ordered.\n\n\n\nunit_price\n\n\n\ndouble The price per unit of the product.\n\n\n\nnet_price\n\n\n\ndouble The price per unit after discount, in USD. Despite the name this is a unit figure, not a line total.\n\n\n\nunit_cost\n\n\n\ndouble The cost per unit of the product."
+  },
+  {
+    "objectID": "reference/orderrows.html#source",
+    "href": "reference/orderrows.html#source",
+    "title": "Order Rows Data from the Contoso Dataset",
+    "section": "Source",
+    "text": "Source\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data"
+  },
+  {
+    "objectID": "reference/index.html",
+    "href": "reference/index.html",
+    "title": "Function reference",
+    "section": "",
+    "text": "All functions and classes exported by contoso."
+  },
+  {
+    "objectID": "reference/index.html#all-functions",
+    "href": "reference/index.html#all-functions",
+    "title": "Function reference",
+    "section": "All functions",
+    "text": "All functions\n\n\ncalendar\n\n\nCalendar Dimension Data from the Contoso Dataset\n\n\ncreate_contoso_duckdb()\n\n\nCreates DuckDB database with Contoso datasets\n\n\ncustomer\n\n\nCustomer Data from the Contoso Dataset\n\n\nexport_reports()\n\n\nWrite the Contoso business reports to files\n\n\nfx\n\n\nForeign Exchange Data from the Contoso Dataset\n\n\nlaunch_ui()\n\n\nLaunch the DuckDB UI in your browser\n\n\norderrows\n\n\nOrder Rows Data from the Contoso Dataset\n\n\norders\n\n\nOrder Data from the Contoso Dataset\n\n\nproduct\n\n\nProduct Data from the Contoso Dataset\n\n\nread_reports()\n\n\nRead the Contoso business reports\n\n\nsales\n\n\nSales Data from the Contoso Dataset\n\n\nstore\n\n\nStore Data from the Contoso Dataset"
+  },
+  {
+    "objectID": "reference/export_reports.html",
+    "href": "reference/export_reports.html",
+    "title": "Write the Contoso business reports to files",
+    "section": "",
+    "text": "Source: R/reports.R\nWrites each report from read_reports() as a YAML file named ⁠&lt;id&gt;.yaml⁠, holding the metadata fields and the Markdown text in body. yaml12::read_yaml() reads a file back in one call."
+  },
+  {
+    "objectID": "reference/export_reports.html#usage",
+    "href": "reference/export_reports.html#usage",
+    "title": "Write the Contoso business reports to files",
+    "section": "Usage",
+    "text": "Usage\nexport_reports(dir, overwrite = FALSE)"
+  },
+  {
+    "objectID": "reference/export_reports.html#arguments",
+    "href": "reference/export_reports.html#arguments",
+    "title": "Write the Contoso business reports to files",
+    "section": "Arguments",
+    "text": "Arguments\n\n\ndir\n\n\n\nDirectory to write to. Created if it does not exist.\n\n\n\noverwrite\n\n\n\nReplace files that already exist?"
+  },
+  {
+    "objectID": "reference/export_reports.html#value",
+    "href": "reference/export_reports.html#value",
+    "title": "Write the Contoso business reports to files",
+    "section": "Value",
+    "text": "Value\n\nThe paths of the written files, invisibly."
+  },
+  {
+    "objectID": "reference/export_reports.html#examples",
+    "href": "reference/export_reports.html#examples",
+    "title": "Write the Contoso business reports to files",
+    "section": "Examples",
+    "text": "Examples\n\ndir &lt;- file.path(tempdir(), \"contoso-reports\")\npaths &lt;- export_reports(dir)\n#&gt; Writing 118 report files to '/tmp/RtmpoBKTOx/contoso-reports'.\n#&gt; ✔ Wrote 118 files.\nyaml12::read_yaml(paths[1])$title\n#&gt; [1] \"2025 Annual Operating Plan - Summary\"\nunlink(dir, recursive = TRUE)"
+  },
+  {
+    "objectID": "reference/create_contoso_duckdb.html",
+    "href": "reference/create_contoso_duckdb.html",
+    "title": "Creates DuckDB database with Contoso datasets",
+    "section": "",
+    "text": "Source: R/database.R\nCreates a DuckDB connection with Contoso datasets loaded from cloud storage. The datasets are stored as Parquet files on Cloudflare R2 and streamed directly into DuckDB."
+  },
+  {
+    "objectID": "reference/create_contoso_duckdb.html#usage",
+    "href": "reference/create_contoso_duckdb.html#usage",
+    "title": "Creates DuckDB database with Contoso datasets",
+    "section": "Usage",
+    "text": "Usage\ncreate_contoso_duckdb(size = \"small\")"
+  },
+  {
+    "objectID": "reference/create_contoso_duckdb.html#arguments",
+    "href": "reference/create_contoso_duckdb.html#arguments",
+    "title": "Creates DuckDB database with Contoso datasets",
+    "section": "Arguments",
+    "text": "Arguments\n\n\nsize\n\n\n\nDataset size: “small”, “medium”, “large”, or “mega”"
+  },
+  {
+    "objectID": "reference/create_contoso_duckdb.html#value",
+    "href": "reference/create_contoso_duckdb.html#value",
+    "title": "Creates DuckDB database with Contoso datasets",
+    "section": "Value",
+    "text": "Value\n\nA list containing:\n\n\n\n\nsales, product, customer, store, fx, calendar, orders, orderrows: lazy tbl objects\n\n\n\n\ncon: the DuckDB connection (use DBI::dbDisconnect(db$con, shutdown = TRUE) when done)"
+  },
+  {
+    "objectID": "reference/create_contoso_duckdb.html#details",
+    "href": "reference/create_contoso_duckdb.html#details",
+    "title": "Creates DuckDB database with Contoso datasets",
+    "section": "Details",
+    "text": "Details\n\nThe create_contoso_duckdb() function creates views for the following Contoso datasets:\n\n\n\n\nsales: Contains sales transaction data.\n\n\n\n\nproduct: Contains details about products, including attributes like product name, manufacturer, and category.\n\n\n\n\ncustomer: Contains customer demographic and geographic information.\n\n\n\n\nstore: Contains information about store locations and attributes.\n\n\n\n\nfx: Contains foreign exchange rate data for currency conversion.\n\n\n\n\ncalendar: Contains various date-related information, including day, week, month, and year.\n\n\n\n\norders: Contains order header information.\n\n\n\n\norderrows: Contains order line items.\n\n\n\n\nAvailable sizes (sales rows):\n\n\n\n\nsmall: 7,794\n\n\n\n\nmedium: 2,349,091\n\n\n\n\nlarge: 23,719,935\n\n\n\n\nmega: 237,245,485"
+  },
+  {
+    "objectID": "reference/create_contoso_duckdb.html#schemas",
+    "href": "reference/create_contoso_duckdb.html#schemas",
+    "title": "Creates DuckDB database with Contoso datasets",
+    "section": "Schemas",
+    "text": "Schemas\n\nColumn names, order and types are identical across all four sizes: date columns are DATE, keys and counts are BIGINT, and measures are DOUBLE. Only the row counts differ.\n\n\nsize = “small” serves the same data as the bundled sales, customer and friends. The larger sizes come from separate generator runs, so they cover a different date range and a much larger customer catalogue – including customers who never place an order, which the bundled data excludes."
+  },
+  {
+    "objectID": "reference/create_contoso_duckdb.html#examples",
+    "href": "reference/create_contoso_duckdb.html#examples",
+    "title": "Creates DuckDB database with Contoso datasets",
+    "section": "Examples",
+    "text": "Examples\n\n  db &lt;- create_contoso_duckdb(size = \"small\")\n  db$sales |&gt; head()\n  DBI::dbDisconnect(db$con, shutdown = TRUE)"
+  },
+  {
+    "objectID": "citation.html",
+    "href": "citation.html",
+    "title": "Citation",
+    "section": "",
+    "text": "To cite this package in publications, use:\n\nHagan A (2026). contoso: Dataset of the ‘Contoso’ Company. R package version 2.3.0, https://codeberg.org/usrbinr/contoso.\n\n\n\n@Manual{,\n  title = {contoso: Dataset of the 'Contoso' Company},\n  author = {Alejandro Hagan},\n  year = {2026},\n  note = {R package version 2.3.0},\n  url = {https://codeberg.org/usrbinr/contoso},\n}"
+  },
+  {
+    "objectID": "citation.html#bibtex-entry",
+    "href": "citation.html#bibtex-entry",
+    "title": "Citation",
+    "section": "",
+    "text": "@Manual{,\n  title = {contoso: Dataset of the 'Contoso' Company},\n  author = {Alejandro Hagan},\n  year = {2026},\n  note = {R package version 2.3.0},\n  url = {https://codeberg.org/usrbinr/contoso},\n}"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "contoso",
+    "section": "",
+    "text": "Source Code\nReport a Bug\n\n\n\n\nMIT + file LICENSE\n\n\n\nCiting this package\n\n\n\n\nAlejandro Hagan (author, maintainer)\nContoso is a synthetic dataset containing sample sales transaction data for the fictional “Contoso” company. It includes various supporting tables for business intelligence, such as customer, store, product, and currency exchange data.\nThis dataset is perfect for practicing time series analysis, joins, financial modeling, or any business intelligence-related tasks.\nIt comes with a built-in dataset as well as the ability to create an in-memory database with duckdb\nThe package comes with the following tables:\nBuilt into the package is the smallest version of the dataset: 7,794 sales lines across 3,242 orders and 3,165 customers.\nEvery column is documented in a machine-readable data-dict dictionary, shipped with the package. There is one per dataset, each in its own directory: extdata/small/ describes the bundled tables (and size = \"small\"), extdata/cloud/ describes the medium, large and mega sizes.\nBoth validate against the spec, so the data-dict CLI can check either against its data, or render it as a browsable page. Point it at the directory:\nUsing labelled::look_for(), you can also see the columns’ labels from the labelled package.\nFor larger datasets, use create_contoso_duckdb() with one of the following sizes:\nColumn names and types are identical across all four sizes; only the row counts differ."
+  },
+  {
+    "objectID": "index.html#data-storage",
+    "href": "index.html#data-storage",
+    "title": "contoso",
+    "section": "Data Storage",
+    "text": "Data Storage\nThe larger datasets are stored as Parquet files on Cloudflare R2 cloud storage and streamed directly into DuckDB via the public URL:\nhttps://pub-6aa63519a4b945948cb8c88949b320ca.r2.dev"
+  },
+  {
+    "objectID": "index.html#source",
+    "href": "index.html#source",
+    "title": "contoso",
+    "section": "Source",
+    "text": "Source\nThe data is originally sourced from the sqlbi github site\n\nDataset overview\n\nThe relationship keys that join each of the tables are listed below.\n\n\n\nsales\ncustomer\nproduct\nstore\norder\norderrows\nfx\n\n\n\n\norder_key\n\n\n\norder_key\norder_key\n\n\n\ncustomer_key\ncustomer_key\n\n\ncustomer_key\n\n\n\n\nstore_key\n\n\nstore_key\nstore_key\n\n\n\n\nproduct_key\n\nproduct_key\n\n\nproduct_key\n\n\n\ncurrency_code\n\n\n\n\n\nfrom_currency\n\n\n\n\n\nInstallation\nYou can install the package from CRAN:\ninstall.packages(\"contoso\")\nOr install the development version from Codeberg:\n# install.packages(\"remotes\")\nremotes::install_git(\"https://codeberg.org/usrbinr/contoso\")\n\n\nExample\nlibrary(contoso)\n\n# Create a DuckDB connection to Contoso datasets\ndb &lt;- create_contoso_duckdb(size = \"medium\")\n\n# Access the sales dataset\ndb$sales |&gt; head()\n\n# Launch the DuckDB UI to explore all tables interactively\nlaunch_ui(db$con)\n\n# Clean up when done\nDBI::dbDisconnect(db$con, shutdown = TRUE)\n\n\nBusiness reports\nThe package also ships 118 fictional internal business reports about Contoso’s 2025 trading: weekly sales flashes, monthly e-commerce, supply chain and plant reviews, quarterly regional reviews, pricing committee minutes, operations notices, industry notes and the Annual Operating Plan. Their figures come from the “mega” dataset, and a few contain deliberate errors, for testing document search and FP&A assistants.\nreports &lt;- read_reports()            # one row per report, Markdown text in `body`\nexport_reports(\"contoso-reports\")    # or write them as one YAML file each\nSee the “Business reports” and “Searching the reports with ragnar” articles on the package website."
+  },
+  {
+    "objectID": "reference/calendar.html",
+    "href": "reference/calendar.html",
+    "title": "Calendar Dimension Data from the Contoso Dataset",
+    "section": "",
+    "text": "Source: R/data.R\nThis dataset contains calendar-related information used for time-based analysis in the Contoso dataset. It includes various representations of date-related attributes, such as year, quarter, month, and day, along with indicators for working days. It is useful for time-series analysis and aggregating data by different time periods."
+  },
+  {
+    "objectID": "reference/calendar.html#usage",
+    "href": "reference/calendar.html#usage",
+    "title": "Calendar Dimension Data from the Contoso Dataset",
+    "section": "Usage",
+    "text": "Usage\ncalendar"
+  },
+  {
+    "objectID": "reference/calendar.html#details",
+    "href": "reference/calendar.html#details",
+    "title": "Calendar Dimension Data from the Contoso Dataset",
+    "section": "Details",
+    "text": "Details\n\nSpans whole calendar years, so it extends past the trading period at both ends. Join from calendar when you need a dense series with explicit zeros."
+  },
+  {
+    "objectID": "reference/calendar.html#format",
+    "href": "reference/calendar.html#format",
+    "title": "Calendar Dimension Data from the Contoso Dataset",
+    "section": "Format",
+    "text": "Format\n\nA data frame with 1,461 rows and 17 columns:\n\n\n\ndate\n\n\n\nDate The actual date for the record.\n\n\n\ndate_key\n\n\n\ndouble The date as YYYYMMDD.\n\n\n\nyear\n\n\n\ndouble The year part of the date.\n\n\n\nyear_quarter\n\n\n\ncharacter Quarter and year, formatted “Q1-2021”.\n\n\n\nyear_quarter_number\n\n\n\ndouble A continuous quarter counter, year * 4 + quarter, running from 8085. Not 1-4 — use quarter for the within-year number.\n\n\n\nquarter\n\n\n\ncharacter The quarter within the year (e.g., “Q1”, “Q2”).\n\n\n\nyear_month\n\n\n\ncharacter Month and year, formatted “January 2021”.\n\n\n\nyear_month_short\n\n\n\ncharacter Month and year, formatted “Jan 2021”.\n\n\n\nyear_month_number\n\n\n\ndouble A continuous month counter, year * 12 + month, running from 24253. Not YYYYMM.\n\n\n\nmonth\n\n\n\ncharacter The month name (e.g., “March”).\n\n\n\nmonth_short\n\n\n\ncharacter The abbreviated month name (e.g., “Mar”).\n\n\n\nmonth_number\n\n\n\ndouble The month within the year, 1-12.\n\n\n\nday_of_week\n\n\n\ncharacter The full name of the day of the week (e.g., “Monday”).\n\n\n\nday_of_week_short\n\n\n\ncharacter The abbreviated day of the week (e.g., “Mon”).\n\n\n\nday_of_week_number\n\n\n\ndouble The day within the week, starting Sunday = 1, not Monday.\n\n\n\nworking_day\n\n\n\ndouble Indicator of whether the date is a working day (1 for working day, 0 for non-working day). This is the flag.\n\n\n\nworking_day_number\n\n\n\ndouble A cumulative count of working days elapsed, running 0-1003. Not a flag: it increments on working days and repeats on non-working days."
+  },
+  {
+    "objectID": "reference/calendar.html#source",
+    "href": "reference/calendar.html#source",
+    "title": "Calendar Dimension Data from the Contoso Dataset",
+    "section": "Source",
+    "text": "Source\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data"
+  },
+  {
+    "objectID": "reference/customer.html",
+    "href": "reference/customer.html",
+    "title": "Customer Data from the Contoso Dataset",
+    "section": "",
+    "text": "Source: R/data.R\nThis dataset contains information about customers from the Contoso dataset, including demographic details, geographical information, contact information, and other personal attributes. It provides insights into customer profiles, including location, age, occupation, and more."
+  },
+  {
+    "objectID": "reference/customer.html#usage",
+    "href": "reference/customer.html#usage",
+    "title": "Customer Data from the Contoso Dataset",
+    "section": "Usage",
+    "text": "Usage\ncustomer"
+  },
+  {
+    "objectID": "reference/customer.html#details",
+    "href": "reference/customer.html#details",
+    "title": "Customer Data from the Contoso Dataset",
+    "section": "Details",
+    "text": "Details\n\nEach row is one customer. Only customers that placed at least one order are included, so every customer_key here appears in sales."
+  },
+  {
+    "objectID": "reference/customer.html#format",
+    "href": "reference/customer.html#format",
+    "title": "Customer Data from the Contoso Dataset",
+    "section": "Format",
+    "text": "Format\n\nA data frame with 3,165 rows and 24 columns:\n\n\n\ncustomer_key\n\n\n\ndouble Unique identifier for each customer. A primary key: unique and never missing.\n\n\n\ngeo_area_key\n\n\n\ndouble Unique identifier for the geographical area the customer resides in.\n\n\n\nstart_date\n\n\n\nDate Date when the customer relationship began.\n\n\n\nend_date\n\n\n\nDate Date when the customer relationship ended, if applicable.\n\n\n\ncontinent\n\n\n\ncharacter The continent where the customer resides.\n\n\n\ngender\n\n\n\ncharacter The gender of the customer (e.g., ‘Male’, ‘Female’).\n\n\n\ntitle\n\n\n\ncharacter The title of the customer (e.g., ‘Mr.’, ‘Ms.’).\n\n\n\ngiven_name\n\n\n\ncharacter The given (first) name of the customer.\n\n\n\nmiddle_initial\n\n\n\ncharacter The middle initial of the customer, if applicable.\n\n\n\nsurname\n\n\n\ncharacter The surname (last name) of the customer.\n\n\n\nstreet_address\n\n\n\ncharacter The street address of the customer.\n\n\n\ncity\n\n\n\ncharacter The city where the customer resides.\n\n\n\nstate\n\n\n\ncharacter The state or province where the customer resides.\n\n\n\nstate_full\n\n\n\ncharacter The full name of the state or province.\n\n\n\nzip_code\n\n\n\ncharacter The postal (ZIP) code of the customer’s address.\n\n\n\ncountry\n\n\n\ncharacter The country where the customer resides, using the country code.\n\n\n\ncountry_full\n\n\n\ncharacter The full name of the country where the customer resides.\n\n\n\nbirthday\n\n\n\nDate The date of birth of the customer.\n\n\n\nage\n\n\n\ndouble The age of the customer.\n\n\n\noccupation\n\n\n\ncharacter The customer’s occupation or profession.\n\n\n\ncompany\n\n\n\ncharacter The company the customer is associated with, if applicable.\n\n\n\nvehicle\n\n\n\ncharacter The type or make of vehicle the customer owns or drives.\n\n\n\nlatitude\n\n\n\ndouble The latitude of the customer’s address.\n\n\n\nlongitude\n\n\n\ndouble The longitude of the customer’s address."
+  },
+  {
+    "objectID": "reference/customer.html#changed-in-2.2.0",
+    "href": "reference/customer.html#changed-in-2.2.0",
+    "title": "Customer Data from the Contoso Dataset",
+    "section": "Changed in 2.2.0",
+    "text": "Changed in 2.2.0\n\nUp to version 2.1.0 this table was built by joining the customer catalogue onto sales, which repeated each customer once per sales line they appeared on: 7,794 rows for 3,165 customers. customer_key was therefore not unique and any join to this table silently multiplied rows. The duplicates have been collapsed. No attribute varied within a customer, so nothing was lost."
+  },
+  {
+    "objectID": "reference/customer.html#source",
+    "href": "reference/customer.html#source",
+    "title": "Customer Data from the Contoso Dataset",
+    "section": "Source",
+    "text": "Source\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data"
+  },
+  {
+    "objectID": "reference/fx.html",
+    "href": "reference/fx.html",
+    "title": "Foreign Exchange Data from the Contoso Dataset",
+    "section": "",
+    "text": "Source: R/data.R\nThis dataset contains information about foreign exchange (FX) rates between different currencies. It includes details about the exchange rate for a given date, as well as the currencies involved. This dataset is useful for analyzing currency conversions and understanding the exchange rates between different currencies over time."
+  },
+  {
+    "objectID": "reference/fx.html#usage",
+    "href": "reference/fx.html#usage",
+    "title": "Foreign Exchange Data from the Contoso Dataset",
+    "section": "Usage",
+    "text": "Usage\nfx"
+  },
+  {
+    "objectID": "reference/fx.html#format",
+    "href": "reference/fx.html#format",
+    "title": "Foreign Exchange Data from the Contoso Dataset",
+    "section": "Format",
+    "text": "Format\n\nA data frame with 36,525 rows and 4 columns:\n\n\n\ndate\n\n\n\nDate The date of the exchange rate.\n\n\n\nfrom_currency\n\n\n\ncharacter The code of the source currency (e.g., “USD”, “EUR”).\n\n\n\nto_currency\n\n\n\ncharacter The code of the target currency (e.g., “GBP”, “JPY”).\n\n\n\nexchange\n\n\n\ndouble The exchange rate between the source and target currencies on the given date."
+  },
+  {
+    "objectID": "reference/fx.html#source",
+    "href": "reference/fx.html#source",
+    "title": "Foreign Exchange Data from the Contoso Dataset",
     "section": "Source",
     "text": "Source\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data"
   },
@@ -140,291 +483,60 @@
     "text": "Examples\n\n# Connect to DuckDB\ndb &lt;- create_contoso_duckdb()\n\n# Launch the DuckDB UI\nlaunch_ui(db$con)\n\n# Clean up\nDBI::dbDisconnect(db$con, shutdown = TRUE)"
   },
   {
-    "objectID": "reference/fx.html",
-    "href": "reference/fx.html",
-    "title": "Foreign Exchange Data from the Contoso Dataset",
+    "objectID": "reference/orders.html",
+    "href": "reference/orders.html",
+    "title": "Order Data from the Contoso Dataset",
     "section": "",
-    "text": "Source: R/data.R\nThis dataset contains information about foreign exchange (FX) rates between different currencies. It includes details about the exchange rate for a given date, as well as the currencies involved. This dataset is useful for analyzing currency conversions and understanding the exchange rates between different currencies over time."
+    "text": "Source: R/data.R\nThis dataset contains information about customer orders, including order dates, delivery dates, and store details."
   },
   {
-    "objectID": "reference/fx.html#usage",
-    "href": "reference/fx.html#usage",
-    "title": "Foreign Exchange Data from the Contoso Dataset",
+    "objectID": "reference/orders.html#usage",
+    "href": "reference/orders.html#usage",
+    "title": "Order Data from the Contoso Dataset",
     "section": "Usage",
-    "text": "Usage\nfx"
+    "text": "Usage\norders"
   },
   {
-    "objectID": "reference/fx.html#format",
-    "href": "reference/fx.html#format",
-    "title": "Foreign Exchange Data from the Contoso Dataset",
+    "objectID": "reference/orders.html#format",
+    "href": "reference/orders.html#format",
+    "title": "Order Data from the Contoso Dataset",
     "section": "Format",
-    "text": "Format\n\nA data frame with 36,525 rows and 4 columns:\n\n\n\ndate\n\n\n\nDate The date of the exchange rate.\n\n\n\nfrom_currency\n\n\n\ncharacter The code of the source currency (e.g., “USD”, “EUR”).\n\n\n\nto_currency\n\n\n\ncharacter The code of the target currency (e.g., “GBP”, “JPY”).\n\n\n\nexchange\n\n\n\ndouble The exchange rate between the source and target currencies on the given date."
+    "text": "Format\n\nA data frame with 3,242 rows and 6 columns:\n\n\n\norder_key\n\n\n\ndouble Unique identifier for the order.\n\n\n\ncustomer_key\n\n\n\ndouble Unique identifier for the customer who placed the order.\n\n\n\nstore_key\n\n\n\ndouble Unique identifier for the store where the order was placed.\n\n\n\norder_date\n\n\n\nDate The date when the order was placed.\n\n\n\ndelivery_date\n\n\n\nDate The date when the order is expected to be delivered.\n\n\n\ncurrency_code\n\n\n\ncharacter The currency code used for the order (e.g., USD, EUR)."
   },
   {
-    "objectID": "reference/fx.html#source",
-    "href": "reference/fx.html#source",
-    "title": "Foreign Exchange Data from the Contoso Dataset",
+    "objectID": "reference/orders.html#source",
+    "href": "reference/orders.html#source",
+    "title": "Order Data from the Contoso Dataset",
     "section": "Source",
     "text": "Source\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data"
   },
   {
-    "objectID": "reference/create_contoso_duckdb.html",
-    "href": "reference/create_contoso_duckdb.html",
-    "title": "Creates DuckDB database with Contoso datasets",
+    "objectID": "reference/read_reports.html",
+    "href": "reference/read_reports.html",
+    "title": "Read the Contoso business reports",
     "section": "",
-    "text": "Source: R/database.R\nCreates a DuckDB connection with Contoso datasets loaded from cloud storage. The datasets are stored as Parquet files on Cloudflare R2 and streamed directly into DuckDB."
+    "text": "Source: R/reports.R\nReturns 118 fictional internal business documents written about Contoso’s 2025 trading, one row per report: the metadata a document system would record, plus the Markdown text in body. The figures in the reports come from the “mega” dataset (create_contoso_duckdb(“mega”)), not the bundled tables, which end in 2024. Use export_reports() to get them as files."
   },
   {
-    "objectID": "reference/create_contoso_duckdb.html#usage",
-    "href": "reference/create_contoso_duckdb.html#usage",
-    "title": "Creates DuckDB database with Contoso datasets",
+    "objectID": "reference/read_reports.html#usage",
+    "href": "reference/read_reports.html#usage",
+    "title": "Read the Contoso business reports",
     "section": "Usage",
-    "text": "Usage\ncreate_contoso_duckdb(size = \"small\")"
+    "text": "Usage\nread_reports()"
   },
   {
-    "objectID": "reference/create_contoso_duckdb.html#arguments",
-    "href": "reference/create_contoso_duckdb.html#arguments",
-    "title": "Creates DuckDB database with Contoso datasets",
-    "section": "Arguments",
-    "text": "Arguments\n\n\nsize\n\n\n\nDataset size: “small”, “medium”, “large”, or “mega”"
-  },
-  {
-    "objectID": "reference/create_contoso_duckdb.html#value",
-    "href": "reference/create_contoso_duckdb.html#value",
-    "title": "Creates DuckDB database with Contoso datasets",
+    "objectID": "reference/read_reports.html#value",
+    "href": "reference/read_reports.html#value",
+    "title": "Read the Contoso business reports",
     "section": "Value",
-    "text": "Value\n\nA list containing:\n\n\n\n\nsales, product, customer, store, fx, calendar, orders, orderrows: lazy tbl objects\n\n\n\n\ncon: the DuckDB connection (use DBI::dbDisconnect(db$con, shutdown = TRUE) when done)"
+    "text": "Value\n\nA tibble with columns id, title, unit, author, report_type, period_start, period_end, published (the last three are Date) and body."
   },
   {
-    "objectID": "reference/create_contoso_duckdb.html#details",
-    "href": "reference/create_contoso_duckdb.html#details",
-    "title": "Creates DuckDB database with Contoso datasets",
-    "section": "Details",
-    "text": "Details\n\nThe create_contoso_duckdb() function creates views for the following Contoso datasets:\n\n\n\n\nsales: Contains sales transaction data.\n\n\n\n\nproduct: Contains details about products, including attributes like product name, manufacturer, and category.\n\n\n\n\ncustomer: Contains customer demographic and geographic information.\n\n\n\n\nstore: Contains information about store locations and attributes.\n\n\n\n\nfx: Contains foreign exchange rate data for currency conversion.\n\n\n\n\ncalendar: Contains various date-related information, including day, week, month, and year.\n\n\n\n\norders: Contains order header information.\n\n\n\n\norderrows: Contains order line items.\n\n\n\n\nAvailable sizes (sales rows):\n\n\n\n\nsmall: 7,794\n\n\n\n\nmedium: 2,349,091\n\n\n\n\nlarge: 23,719,935\n\n\n\n\nmega: 237,245,485"
-  },
-  {
-    "objectID": "reference/create_contoso_duckdb.html#schemas",
-    "href": "reference/create_contoso_duckdb.html#schemas",
-    "title": "Creates DuckDB database with Contoso datasets",
-    "section": "Schemas",
-    "text": "Schemas\n\nColumn names, order and types are identical across all four sizes: date columns are DATE, keys and counts are BIGINT, and measures are DOUBLE. Only the row counts differ.\n\n\nsize = “small” serves the same data as the bundled sales, customer and friends. The larger sizes come from separate generator runs, so they cover a different date range and a much larger customer catalogue – including customers who never place an order, which the bundled data excludes."
-  },
-  {
-    "objectID": "reference/create_contoso_duckdb.html#examples",
-    "href": "reference/create_contoso_duckdb.html#examples",
-    "title": "Creates DuckDB database with Contoso datasets",
+    "objectID": "reference/read_reports.html#examples",
+    "href": "reference/read_reports.html#examples",
+    "title": "Read the Contoso business reports",
     "section": "Examples",
-    "text": "Examples\n\n  db &lt;- create_contoso_duckdb(size = \"small\")\n  db$sales |&gt; head()\n  DBI::dbDisconnect(db$con, shutdown = TRUE)"
-  },
-  {
-    "objectID": "reference/calendar.html",
-    "href": "reference/calendar.html",
-    "title": "Calendar Dimension Data from the Contoso Dataset",
-    "section": "",
-    "text": "Source: R/data.R\nThis dataset contains calendar-related information used for time-based analysis in the Contoso dataset. It includes various representations of date-related attributes, such as year, quarter, month, and day, along with indicators for working days. It is useful for time-series analysis and aggregating data by different time periods."
-  },
-  {
-    "objectID": "reference/calendar.html#usage",
-    "href": "reference/calendar.html#usage",
-    "title": "Calendar Dimension Data from the Contoso Dataset",
-    "section": "Usage",
-    "text": "Usage\ncalendar"
-  },
-  {
-    "objectID": "reference/calendar.html#details",
-    "href": "reference/calendar.html#details",
-    "title": "Calendar Dimension Data from the Contoso Dataset",
-    "section": "Details",
-    "text": "Details\n\nSpans whole calendar years, so it extends past the trading period at both ends. Join from calendar when you need a dense series with explicit zeros."
-  },
-  {
-    "objectID": "reference/calendar.html#format",
-    "href": "reference/calendar.html#format",
-    "title": "Calendar Dimension Data from the Contoso Dataset",
-    "section": "Format",
-    "text": "Format\n\nA data frame with 1,461 rows and 17 columns:\n\n\n\ndate\n\n\n\nDate The actual date for the record.\n\n\n\ndate_key\n\n\n\ndouble The date as YYYYMMDD.\n\n\n\nyear\n\n\n\ndouble The year part of the date.\n\n\n\nyear_quarter\n\n\n\ncharacter Quarter and year, formatted “Q1-2021”.\n\n\n\nyear_quarter_number\n\n\n\ndouble A continuous quarter counter, year * 4 + quarter, running from 8085. Not 1-4 — use quarter for the within-year number.\n\n\n\nquarter\n\n\n\ncharacter The quarter within the year (e.g., “Q1”, “Q2”).\n\n\n\nyear_month\n\n\n\ncharacter Month and year, formatted “January 2021”.\n\n\n\nyear_month_short\n\n\n\ncharacter Month and year, formatted “Jan 2021”.\n\n\n\nyear_month_number\n\n\n\ndouble A continuous month counter, year * 12 + month, running from 24253. Not YYYYMM.\n\n\n\nmonth\n\n\n\ncharacter The month name (e.g., “March”).\n\n\n\nmonth_short\n\n\n\ncharacter The abbreviated month name (e.g., “Mar”).\n\n\n\nmonth_number\n\n\n\ndouble The month within the year, 1-12.\n\n\n\nday_of_week\n\n\n\ncharacter The full name of the day of the week (e.g., “Monday”).\n\n\n\nday_of_week_short\n\n\n\ncharacter The abbreviated day of the week (e.g., “Mon”).\n\n\n\nday_of_week_number\n\n\n\ndouble The day within the week, starting Sunday = 1, not Monday.\n\n\n\nworking_day\n\n\n\ndouble Indicator of whether the date is a working day (1 for working day, 0 for non-working day). This is the flag.\n\n\n\nworking_day_number\n\n\n\ndouble A cumulative count of working days elapsed, running 0-1003. Not a flag: it increments on working days and repeats on non-working days."
-  },
-  {
-    "objectID": "reference/calendar.html#source",
-    "href": "reference/calendar.html#source",
-    "title": "Calendar Dimension Data from the Contoso Dataset",
-    "section": "Source",
-    "text": "Source\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "contoso",
-    "section": "",
-    "text": "Source Code\nReport a Bug\n\n\n\n\nMIT + file LICENSE\n\n\n\nCiting this package\n\n\n\n\nAlejandro Hagan (author, maintainer)\nContoso is a synthetic dataset containing sample sales transaction data for the fictional “Contoso” company. It includes various supporting tables for business intelligence, such as customer, store, product, and currency exchange data.\nThis dataset is perfect for practicing time series analysis, joins, financial modeling, or any business intelligence-related tasks.\nIt comes with a built-in dataset as well as the ability to create an in-memory database with duckdb\nThe package comes with the following tables:\nBuilt into the package is the smallest version of the dataset: 7,794 sales lines across 3,242 orders and 3,165 customers.\nEvery column is documented in a machine-readable data dictionary, which contoso_dict_columns() returns as a tibble:\ncontoso_dict_columns()\nUsing labelled::look_for(), you can also see the columns’ labels from the labelled package.\nFor larger datasets, use create_contoso_duckdb() with one of the following sizes:\nColumn names and types are identical across all four sizes; only the row counts differ."
-  },
-  {
-    "objectID": "index.html#data-storage",
-    "href": "index.html#data-storage",
-    "title": "contoso",
-    "section": "Data Storage",
-    "text": "Data Storage\nThe larger datasets are stored as Parquet files on Cloudflare R2 cloud storage and streamed directly into DuckDB via the public URL:\nhttps://pub-6aa63519a4b945948cb8c88949b320ca.r2.dev"
-  },
-  {
-    "objectID": "index.html#source",
-    "href": "index.html#source",
-    "title": "contoso",
-    "section": "Source",
-    "text": "Source\nThe data is originally sourced from the sqlbi github site\n\nDataset overview\n\nThe relationship keys that join each of the tables are listed below.\n\n\n\n\n\n\n\n\nsales\ncustomer\nproduct\nstore\norder\norderrows\nfx\n\n\n\n\norder_key\n\n\n\norder_key\norder_key\n\n\n\ncustomer_key\ncustomer_key\n\n\ncustomer_key\n\n\n\n\nstore_key\n\n\nstore_key\nstore_key\n\n\n\n\nproduct_key\n\nproduct_key\n\n\nproduct_key\n\n\n\ncurrency_code\n\n\n\n\n\nfrom_currency\n\n\n\n\n\n\n\n\n\nInstallation\nYou can install the package from CRAN:\n\ninstall.packages(\"contoso\")\n\nOr install the development version from Codeberg:\n\n# install.packages(\"pak\")\npak::pak(\"git::https://codeberg.org/usrbinr/contoso\")\n\n\n\nExample\n\nlibrary(contoso)\n\n# Create a DuckDB connection to Contoso datasets\ndb &lt;- create_contoso_duckdb(size = \"medium\")\n\n# Access the sales dataset\ndb$sales |&gt; head()\n\n# Launch the DuckDB UI to explore all tables interactively\nlaunch_ui(db$con)\n\n# Clean up when done\nDBI::dbDisconnect(db$con, shutdown = TRUE)"
-  },
-  {
-    "objectID": "citation.html",
-    "href": "citation.html",
-    "title": "Citation",
-    "section": "",
-    "text": "To cite this package in publications, use:\n\nHagan A (2026). contoso: Dataset of the ‘Contoso’ Company. https://codeberg.org/usrbinr/contoso.\n\n\n\n@Manual{,\n  title = {contoso: Dataset of the 'Contoso' Company},\n  author = {Alejandro Hagan},\n  year = {2026},\n  url = {https://codeberg.org/usrbinr/contoso},\n}"
-  },
-  {
-    "objectID": "citation.html#bibtex-entry",
-    "href": "citation.html#bibtex-entry",
-    "title": "Citation",
-    "section": "",
-    "text": "@Manual{,\n  title = {contoso: Dataset of the 'Contoso' Company},\n  author = {Alejandro Hagan},\n  year = {2026},\n  url = {https://codeberg.org/usrbinr/contoso},\n}"
-  },
-  {
-    "objectID": "reference/contoso_dict_columns.html",
-    "href": "reference/contoso_dict_columns.html",
-    "title": "Data dictionary for the Contoso dataset",
-    "section": "",
-    "text": "Source: R/dict.R\nReads the machine-readable data dictionary shipped with the package and returns it as a tibble with one row per column of every table. The dictionary follows the data-dict schema and documents the traps – notably that store_key 999999 is a sentinel for the online channel rather than a real location, and that store.status is missing (never “Open”) for stores trading normally."
-  },
-  {
-    "objectID": "reference/contoso_dict_columns.html#usage",
-    "href": "reference/contoso_dict_columns.html#usage",
-    "title": "Data dictionary for the Contoso dataset",
-    "section": "Usage",
-    "text": "Usage\ncontoso_dict_columns()"
-  },
-  {
-    "objectID": "reference/contoso_dict_columns.html#value",
-    "href": "reference/contoso_dict_columns.html#value",
-    "title": "Data dictionary for the Contoso dataset",
-    "section": "Value",
-    "text": "Value\n\nA tibble with columns table, rows (row count of the whole table), column, type, constraints, units, missing, values (a list column of permitted values for enums) and description."
-  },
-  {
-    "objectID": "reference/contoso_dict_columns.html#examples",
-    "href": "reference/contoso_dict_columns.html#examples",
-    "title": "Data dictionary for the Contoso dataset",
-    "section": "Examples",
-    "text": "Examples\n\ncontoso_dict_columns()\n#&gt; # A tibble: 103 × 9\n#&gt;    table  rows column        type   constraints units missing values description\n#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;   &lt;int&gt; &lt;list&gt; &lt;chr&gt;      \n#&gt;  1 sales  7794 order_key     numbe… required    &lt;NA&gt;        0 &lt;NULL&gt; Order this…\n#&gt;  2 sales  7794 line_number   numbe… required    &lt;NA&gt;        0 &lt;NULL&gt; Position o…\n#&gt;  3 sales  7794 order_date    date   required    &lt;NA&gt;        0 &lt;NULL&gt; Date the o…\n#&gt;  4 sales  7794 delivery_date date   required    &lt;NA&gt;        0 &lt;NULL&gt; Date the o…\n#&gt;  5 sales  7794 customer_key  numbe… required, … &lt;NA&gt;        0 &lt;NULL&gt; Customer w…\n#&gt;  6 sales  7794 store_key     numbe… required, … &lt;NA&gt;        0 &lt;NULL&gt; Where the …\n#&gt;  7 sales  7794 product_key   numbe… required, … &lt;NA&gt;        0 &lt;NULL&gt; Product on…\n#&gt;  8 sales  7794 quantity      numbe… required    &lt;NA&gt;        0 &lt;NULL&gt; Units of t…\n#&gt;  9 sales  7794 unit_price    numbe… required    USD         0 &lt;NULL&gt; Transacted…\n#&gt; 10 sales  7794 net_price     numbe… required    USD         0 &lt;NULL&gt; Price per …\n#&gt; # ℹ 93 more rows\n\n# one table\nsubset(contoso_dict_columns(), table == \"store\")\n#&gt; # A tibble: 11 × 9\n#&gt;    table  rows column        type   constraints units missing values description\n#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;   &lt;int&gt; &lt;list&gt; &lt;chr&gt;      \n#&gt;  1 store    74 store_key     numbe… \"primary_k… &lt;NA&gt;        0 &lt;NULL&gt; Unique ide…\n#&gt;  2 store    74 store_code    numbe… \"required\"  &lt;NA&gt;        0 &lt;NULL&gt; Business c…\n#&gt;  3 store    74 geo_area_key  numbe… \"required\"  &lt;NA&gt;        0 &lt;NULL&gt; Geographic…\n#&gt;  4 store    74 country_code  enum   \"required\"  &lt;NA&gt;        0 &lt;chr&gt;  ISO 3166-1…\n#&gt;  5 store    74 country_name  enum   \"required\"  &lt;NA&gt;        0 &lt;chr&gt;  Country na…\n#&gt;  6 store    74 state         string \"required\"  &lt;NA&gt;        0 &lt;NULL&gt; State or r…\n#&gt;  7 store    74 open_date     date   \"required\"  &lt;NA&gt;        0 &lt;NULL&gt; Date the s…\n#&gt;  8 store    74 close_date    date   \"\"          &lt;NA&gt;       58 &lt;NULL&gt; Date the s…\n#&gt;  9 store    74 description   string \"required\"  &lt;NA&gt;        0 &lt;NULL&gt; Always `Co…\n#&gt; 10 store    74 square_meters numbe… \"\"          &lt;NA&gt;        1 &lt;NULL&gt; Floor area…\n#&gt; 11 store    74 status        enum   \"\"          &lt;NA&gt;       59 &lt;chr&gt;  Exceptiona…\n\n# which columns can be missing?\nsubset(contoso_dict_columns(), missing &gt; 0, c(table, column, missing))\n#&gt; # A tibble: 6 × 3\n#&gt;   table    column        missing\n#&gt;   &lt;chr&gt;    &lt;chr&gt;           &lt;int&gt;\n#&gt; 1 product  weight_unit       222\n#&gt; 2 product  weight            284\n#&gt; 3 customer company             1\n#&gt; 4 store    close_date         58\n#&gt; 5 store    square_meters       1\n#&gt; 6 store    status             59"
-  },
-  {
-    "objectID": "reference/customer.html",
-    "href": "reference/customer.html",
-    "title": "Customer Data from the Contoso Dataset",
-    "section": "",
-    "text": "Source: R/data.R\nThis dataset contains information about customers from the Contoso dataset, including demographic details, geographical information, contact information, and other personal attributes. It provides insights into customer profiles, including location, age, occupation, and more."
-  },
-  {
-    "objectID": "reference/customer.html#usage",
-    "href": "reference/customer.html#usage",
-    "title": "Customer Data from the Contoso Dataset",
-    "section": "Usage",
-    "text": "Usage\ncustomer"
-  },
-  {
-    "objectID": "reference/customer.html#details",
-    "href": "reference/customer.html#details",
-    "title": "Customer Data from the Contoso Dataset",
-    "section": "Details",
-    "text": "Details\n\nEach row is one customer. Only customers that placed at least one order are included, so every customer_key here appears in sales."
-  },
-  {
-    "objectID": "reference/customer.html#format",
-    "href": "reference/customer.html#format",
-    "title": "Customer Data from the Contoso Dataset",
-    "section": "Format",
-    "text": "Format\n\nA data frame with 3,165 rows and 24 columns:\n\n\n\ncustomer_key\n\n\n\ndouble Unique identifier for each customer. A primary key: unique and never missing.\n\n\n\ngeo_area_key\n\n\n\ndouble Unique identifier for the geographical area the customer resides in.\n\n\n\nstart_date\n\n\n\nDate Date when the customer relationship began.\n\n\n\nend_date\n\n\n\nDate Date when the customer relationship ended, if applicable.\n\n\n\ncontinent\n\n\n\ncharacter The continent where the customer resides.\n\n\n\ngender\n\n\n\ncharacter The gender of the customer (e.g., ‘Male’, ‘Female’).\n\n\n\ntitle\n\n\n\ncharacter The title of the customer (e.g., ‘Mr.’, ‘Ms.’).\n\n\n\ngiven_name\n\n\n\ncharacter The given (first) name of the customer.\n\n\n\nmiddle_initial\n\n\n\ncharacter The middle initial of the customer, if applicable.\n\n\n\nsurname\n\n\n\ncharacter The surname (last name) of the customer.\n\n\n\nstreet_address\n\n\n\ncharacter The street address of the customer.\n\n\n\ncity\n\n\n\ncharacter The city where the customer resides.\n\n\n\nstate\n\n\n\ncharacter The state or province where the customer resides.\n\n\n\nstate_full\n\n\n\ncharacter The full name of the state or province.\n\n\n\nzip_code\n\n\n\ncharacter The postal (ZIP) code of the customer’s address.\n\n\n\ncountry\n\n\n\ncharacter The country where the customer resides, using the country code.\n\n\n\ncountry_full\n\n\n\ncharacter The full name of the country where the customer resides.\n\n\n\nbirthday\n\n\n\nDate The date of birth of the customer.\n\n\n\nage\n\n\n\ndouble The age of the customer.\n\n\n\noccupation\n\n\n\ncharacter The customer’s occupation or profession.\n\n\n\ncompany\n\n\n\ncharacter The company the customer is associated with, if applicable.\n\n\n\nvehicle\n\n\n\ncharacter The type or make of vehicle the customer owns or drives.\n\n\n\nlatitude\n\n\n\ndouble The latitude of the customer’s address.\n\n\n\nlongitude\n\n\n\ndouble The longitude of the customer’s address."
-  },
-  {
-    "objectID": "reference/customer.html#changed-in-2.2.0",
-    "href": "reference/customer.html#changed-in-2.2.0",
-    "title": "Customer Data from the Contoso Dataset",
-    "section": "Changed in 2.2.0",
-    "text": "Changed in 2.2.0\n\nUp to version 2.1.0 this table was built by joining the customer catalogue onto sales, which repeated each customer once per sales line they appeared on: 7,794 rows for 3,165 customers. customer_key was therefore not unique and any join to this table silently multiplied rows. The duplicates have been collapsed. No attribute varied within a customer, so nothing was lost."
-  },
-  {
-    "objectID": "reference/customer.html#source",
-    "href": "reference/customer.html#source",
-    "title": "Customer Data from the Contoso Dataset",
-    "section": "Source",
-    "text": "Source\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data"
-  },
-  {
-    "objectID": "reference/index.html",
-    "href": "reference/index.html",
-    "title": "Function reference",
-    "section": "",
-    "text": "All functions and classes exported by contoso."
-  },
-  {
-    "objectID": "reference/index.html#all-functions",
-    "href": "reference/index.html#all-functions",
-    "title": "Function reference",
-    "section": "All functions",
-    "text": "All functions\n\n\ncalendar\n\n\nCalendar Dimension Data from the Contoso Dataset\n\n\ncontoso_dict_columns()\n\n\nData dictionary for the Contoso dataset\n\n\ncreate_contoso_duckdb()\n\n\nCreates DuckDB database with Contoso datasets\n\n\ncustomer\n\n\nCustomer Data from the Contoso Dataset\n\n\nfx\n\n\nForeign Exchange Data from the Contoso Dataset\n\n\nlaunch_ui()\n\n\nLaunch the DuckDB UI in your browser\n\n\norderrows\n\n\nOrder Rows Data from the Contoso Dataset\n\n\norders\n\n\nOrder Data from the Contoso Dataset\n\n\nproduct\n\n\nProduct Data from the Contoso Dataset\n\n\nsales\n\n\nSales Data from the Contoso Dataset\n\n\nstore\n\n\nStore Data from the Contoso Dataset"
-  },
-  {
-    "objectID": "reference/orderrows.html",
-    "href": "reference/orderrows.html",
-    "title": "Order Rows Data from the Contoso Dataset",
-    "section": "",
-    "text": "Source: R/data.R\nThis dataset contains detailed information about the individual items (rows) within each order in the Contoso dataset. It includes details such as the product, quantity, pricing, and cost of each item in an order. This dataset is useful for analyzing the breakdown of order components and individual product sales."
-  },
-  {
-    "objectID": "reference/orderrows.html#usage",
-    "href": "reference/orderrows.html#usage",
-    "title": "Order Rows Data from the Contoso Dataset",
-    "section": "Usage",
-    "text": "Usage\norderrows"
-  },
-  {
-    "objectID": "reference/orderrows.html#format",
-    "href": "reference/orderrows.html#format",
-    "title": "Order Rows Data from the Contoso Dataset",
-    "section": "Format",
-    "text": "Format\n\nA data frame with 7,794 rows and 7 columns:\n\n\n\norder_key\n\n\n\ndouble Unique identifier for the order to which the item belongs.\n\n\n\nline_number\n\n\n\ndouble Line number within the order, identifying each product line.\n\n\n\nproduct_key\n\n\n\ndouble Unique identifier for the product in the order row.\n\n\n\nquantity\n\n\n\ndouble The quantity of the product ordered.\n\n\n\nunit_price\n\n\n\ndouble The price per unit of the product.\n\n\n\nnet_price\n\n\n\ndouble The price per unit after discount, in USD. Despite the name this is a unit figure, not a line total.\n\n\n\nunit_cost\n\n\n\ndouble The cost per unit of the product."
-  },
-  {
-    "objectID": "reference/orderrows.html#source",
-    "href": "reference/orderrows.html#source",
-    "title": "Order Rows Data from the Contoso Dataset",
-    "section": "Source",
-    "text": "Source\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data"
-  },
-  {
-    "objectID": "reference/product.html",
-    "href": "reference/product.html",
-    "title": "Product Data from the Contoso Dataset",
-    "section": "",
-    "text": "Source: R/data.R\nThis dataset contains information about products in the Contoso dataset. It includes product details such as identifiers, descriptions, pricing, weight, and categorization. This dataset is useful for analyzing product characteristics, pricing, and product-related sales insights."
-  },
-  {
-    "objectID": "reference/product.html#usage",
-    "href": "reference/product.html#usage",
-    "title": "Product Data from the Contoso Dataset",
-    "section": "Usage",
-    "text": "Usage\nproduct"
-  },
-  {
-    "objectID": "reference/product.html#format",
-    "href": "reference/product.html#format",
-    "title": "Product Data from the Contoso Dataset",
-    "section": "Format",
-    "text": "Format\n\nA data frame with 2,517 rows and 14 columns:\n\n\n\nproduct_key\n\n\n\ndouble Unique identifier for each product.\n\n\n\nproduct_code\n\n\n\ncharacter A code that uniquely identifies the product.\n\n\n\nproduct_name\n\n\n\ncharacter The name or description of the product.\n\n\n\nmanufacturer\n\n\n\ncharacter The name of the manufacturer of the product.\n\n\n\nbrand\n\n\n\ncharacter The brand of the product.\n\n\n\ncolor\n\n\n\ncharacter The color of the product.\n\n\n\nweight_unit\n\n\n\ncharacter The unit weight is expressed in: “grams”, “ounces” or “pounds” — never “kg”. Metric and imperial units are mixed, so weight is not comparable across rows without converting. Missing where the product has no weight.\n\n\n\nweight\n\n\n\ndouble The weight of the product, in weight_unit. Not on a common scale — see that column.\n\n\n\ncost\n\n\n\ndouble The cost price of the product.\n\n\n\nprice\n\n\n\ndouble The selling price of the product.\n\n\n\ncategory_key\n\n\n\ndouble Unique identifier for the category to which the product belongs.\n\n\n\ncategory_name\n\n\n\ncharacter The name of the category to which the product belongs.\n\n\n\nsub_category_key\n\n\n\ndouble Unique identifier for the subcategory to which the product belongs.\n\n\n\nsub_category_name\n\n\n\ncharacter The name of the subcategory to which the product belongs."
-  },
-  {
-    "objectID": "reference/product.html#source",
-    "href": "reference/product.html#source",
-    "title": "Product Data from the Contoso Dataset",
-    "section": "Source",
-    "text": "Source\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data"
+    "text": "Examples\n\nreports &lt;- read_reports()\nreports[, c(\"id\", \"published\")]\n#&gt; # A tibble: 118 × 2\n#&gt;    id                      published \n#&gt;    &lt;chr&gt;                   &lt;date&gt;    \n#&gt;  1 aop-2025                2024-12-16\n#&gt;  2 sales-flash-2025-w01    2025-01-06\n#&gt;  3 sales-flash-2025-w02    2025-01-13\n#&gt;  4 supply-alert-2025-01-15 2025-01-15\n#&gt;  5 sales-flash-2025-w03    2025-01-20\n#&gt;  6 sales-flash-2025-w04    2025-01-27\n#&gt;  7 pricing-2025-01         2025-01-29\n#&gt;  8 sales-flash-2025-w05    2025-02-03\n#&gt;  9 ecommerce-2025-01       2025-02-04\n#&gt; 10 manufacturing-2025-01   2025-02-05\n#&gt; # ℹ 108 more rows"
   },
   {
     "objectID": "reference/store.html",
@@ -460,5 +572,117 @@
     "title": "Store Data from the Contoso Dataset",
     "section": "Source",
     "text": "Source\n\nhttps://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data"
+  },
+  {
+    "objectID": "articles/getting-started.html",
+    "href": "articles/getting-started.html",
+    "title": "Getting started",
+    "section": "",
+    "text": "contoso gives you the same retail dataset in two ways: as tables bundled with the package, and as larger cloud versions you query through ‘DuckDB’."
+  },
+  {
+    "objectID": "articles/getting-started.html#bundled-tables",
+    "href": "articles/getting-started.html#bundled-tables",
+    "title": "Getting started",
+    "section": "Bundled tables",
+    "text": "Bundled tables\nLoading the package makes eight tables available: sales, orders, orderrows, customer, product, store, fx and calendar. They need no download or connection.\n\nlibrary(contoso)\n\ndplyr::glimpse(sales)\n#&gt; Rows: 7,794\n#&gt; Columns: 20\n#&gt; $ order_key     &lt;dbl&gt; 233000, 233100, 233100, 233100, 233200, 233200, 233200, …\n#&gt; $ line_number   &lt;dbl&gt; 0, 0, 1, 2, 0, 1, 2, 3, 0, 1, 2, 0, 1, 2, 3, 0, 0, 1, 0,…\n#&gt; $ order_date    &lt;date&gt; 2021-05-18, 2021-05-19, 2021-05-19, 2021-05-19, 2021-05…\n#&gt; $ delivery_date &lt;date&gt; 2021-05-18, 2021-05-19, 2021-05-19, 2021-05-19, 2021-05…\n#&gt; $ customer_key  &lt;dbl&gt; 1855811, 1345436, 1345436, 1345436, 926315, 926315, 9263…\n#&gt; $ store_key     &lt;dbl&gt; 585, 550, 550, 550, 370, 370, 370, 370, 60, 60, 60, 9999…\n#&gt; $ product_key   &lt;dbl&gt; 1483, 499, 1512, 1490, 2512, 424, 1548, 312, 665, 623, 1…\n#&gt; $ quantity      &lt;dbl&gt; 2, 1, 3, 3, 3, 2, 3, 2, 3, 5, 7, 1, 3, 1, 2, 3, 3, 2, 2,…\n#&gt; $ unit_price    &lt;dbl&gt; 376.600, 148.500, 334.600, 180.600, 181.986, 404.925, 37…\n#&gt; $ net_price     &lt;dbl&gt; 376.60000, 130.68000, 287.75600, 176.98800, 172.88670, 3…\n#&gt; $ unit_cost     &lt;dbl&gt; 173.1800, 75.7050, 153.8740, 92.0780, 60.2980, 206.4450,…\n#&gt; $ currency_code &lt;chr&gt; \"USD\", \"USD\", \"USD\", \"USD\", \"GBP\", \"GBP\", \"GBP\", \"GBP\", …\n#&gt; $ exchange_rate &lt;dbl&gt; 1.00000, 1.00000, 1.00000, 1.00000, 0.70802, 0.70802, 0.…\n#&gt; $ gross_revenue &lt;dbl&gt; 753.200, 148.500, 1003.800, 541.800, 545.958, 809.850, 1…\n#&gt; $ net_revenue   &lt;dbl&gt; 753.20000, 130.68000, 863.26800, 530.96400, 518.66010, 7…\n#&gt; $ unit_discount &lt;dbl&gt; 0.00000, 17.82000, 46.84400, 3.61200, 9.09930, 16.19700,…\n#&gt; $ discounts     &lt;dbl&gt; 0.00000, 17.82000, 140.53200, 10.83600, 27.29790, 32.394…\n#&gt; $ cogs          &lt;dbl&gt; 346.3600, 75.7050, 461.6220, 276.2340, 180.8940, 412.890…\n#&gt; $ gross_margin  &lt;dbl&gt; 406.84000, 54.97500, 401.64600, 254.73000, 337.76610, 36…\n#&gt; $ unit_margin   &lt;dbl&gt; 203.42000, 54.97500, 133.88200, 84.91000, 112.58870, 182…\n\nJoin them on their _key columns:\n\nsales |&gt;\n  dplyr::left_join(store, by = \"store_key\") |&gt;\n  dplyr::summarise(net_revenue = sum(net_revenue), .by = country_name) |&gt;\n  dplyr::arrange(dplyr::desc(net_revenue))\n#&gt; # A tibble: 9 × 2\n#&gt;   country_name   net_revenue\n#&gt;   &lt;chr&gt;                &lt;dbl&gt;\n#&gt; 1 Online            3919178.\n#&gt; 2 United States     1808404.\n#&gt; 3 Germany            431675.\n#&gt; 4 Canada             333493.\n#&gt; 5 United Kingdom     302591.\n#&gt; 6 Australia          221227.\n#&gt; 7 Netherlands        129077.\n#&gt; 8 France              88228.\n#&gt; 9 Italy               72067."
+  },
+  {
+    "objectID": "articles/getting-started.html#larger-datasets-in-duckdb",
+    "href": "articles/getting-started.html#larger-datasets-in-duckdb",
+    "title": "Getting started",
+    "section": "Larger datasets in ‘DuckDB’",
+    "text": "Larger datasets in ‘DuckDB’\ncreate_contoso_duckdb() streams the Parquet files from cloud storage into an in-memory ‘DuckDB’ database. Pick a size by the number of sales rows:\n\n\n\nsize\nsales rows\n\n\n\n\n\"small\"\n7,794\n\n\n\"medium\"\n2,349,091\n\n\n\"large\"\n23,719,935\n\n\n\"mega\"\n237,245,485\n\n\n\n\"small\" is the same data as the bundled tables. The other sizes cover a different date range and a much larger customer catalogue.\n\ndb &lt;- create_contoso_duckdb(size = \"medium\")\n\nThe result is a list with one lazy table per dataset and the connection, db$con. Write dplyr as usual; it runs in ‘DuckDB’ until you collect():\n\ndb$sales |&gt;\n  dplyr::summarise(net_revenue = sum(net_revenue), .by = currency_code) |&gt;\n  dplyr::collect()\n\nUse launch_ui() to browse every table in the ‘DuckDB’ UI, and disconnect when you are done:\n\nlaunch_ui(db$con)\n\nDBI::dbDisconnect(db$con, shutdown = TRUE)"
+  },
+  {
+    "objectID": "articles/getting-started.html#data-dictionary",
+    "href": "articles/getting-started.html#data-dictionary",
+    "title": "Getting started",
+    "section": "Data dictionary",
+    "text": "Data dictionary\nEvery table and column is described in a data-dict file, with keys, joins and the formulas behind each measure:\n\nsystem.file(\"extdata\", \"small\", \"data-dict.yaml\", package = \"contoso\")\n\nUse \"cloud\" in place of \"small\" for the dictionary of the larger sizes."
+  },
+  {
+    "objectID": "articles/getting-started.html#next-steps",
+    "href": "articles/getting-started.html#next-steps",
+    "title": "Getting started",
+    "section": "Next steps",
+    "text": "Next steps\nThe package also includes 118 fictional business reports about Contoso’s 2025 trading. See The business reports to read them, and Searching the reports with ragnar to search them."
+  },
+  {
+    "objectID": "articles/reports-ragnar.html",
+    "href": "articles/reports-ragnar.html",
+    "title": "Searching the reports with ragnar",
+    "section": "",
+    "text": "This article loads the business reports into a ragnar store: a single ‘DuckDB’ file you can search by keyword, filter by report metadata, query with SQL, and hand to an LLM as context.\nThe store uses BM25 keyword search only. There are no embeddings, so you need no embedding model, provider or API key to build or search it.\nThe one design rule: every chunk carries all of its report’s metadata as typed columns. That is what lets you filter by publication date, unit or report type inside the database, and cite the source of every hit.\nYou need these packages:\n\ninstall.packages(c(\"ragnar\", \"dplyr\", \"purrr\", \"DBI\"))"
+  },
+  {
+    "objectID": "articles/reports-ragnar.html#introduction",
+    "href": "articles/reports-ragnar.html#introduction",
+    "title": "Searching the reports with ragnar",
+    "section": "",
+    "text": "This article loads the business reports into a ragnar store: a single ‘DuckDB’ file you can search by keyword, filter by report metadata, query with SQL, and hand to an LLM as context.\nThe store uses BM25 keyword search only. There are no embeddings, so you need no embedding model, provider or API key to build or search it.\nThe one design rule: every chunk carries all of its report’s metadata as typed columns. That is what lets you filter by publication date, unit or report type inside the database, and cite the source of every hit.\nYou need these packages:\n\ninstall.packages(c(\"ragnar\", \"dplyr\", \"purrr\", \"DBI\"))"
+  },
+  {
+    "objectID": "articles/reports-ragnar.html#step-1-read-the-reports",
+    "href": "articles/reports-ragnar.html#step-1-read-the-reports",
+    "title": "Searching the reports with ragnar",
+    "section": "Step 1: read the reports",
+    "text": "Step 1: read the reports\nread_reports() returns one row per report: eight metadata columns (the dates already as Date) and a body column with the Markdown text.\n\nreports &lt;- read_reports()\n\n\ndplyr::glimpse(reports |&gt; select(-body))\n#&gt; Rows: 118\n#&gt; Columns: 8\n#&gt; $ id           &lt;chr&gt; \"aop-2025\", \"sales-flash-2025-w01\", \"sales-flash-2025-w02…\n#&gt; $ title        &lt;chr&gt; \"2025 Annual Operating Plan - Summary\", \"Weekly Sales Fla…\n#&gt; $ unit         &lt;chr&gt; \"Corporate Planning\", \"Sales Operations\", \"Sales Operatio…\n#&gt; $ author       &lt;chr&gt; \"Daniel Okoye, Head of Corporate Planning\", \"Priya Raman,…\n#&gt; $ report_type  &lt;chr&gt; \"aop\", \"sales_flash\", \"sales_flash\", \"alert\", \"sales_flas…\n#&gt; $ period_start &lt;date&gt; 2025-01-01, 2024-12-30, 2025-01-06, 2025-01-15, 2025-01-…\n#&gt; $ period_end   &lt;date&gt; 2025-12-31, 2025-01-05, 2025-01-12, 2025-01-15, 2025-01-…\n#&gt; $ published    &lt;date&gt; 2024-12-16, 2025-01-06, 2025-01-13, 2025-01-15, 2025-01-…"
+  },
+  {
+    "objectID": "articles/reports-ragnar.html#step-2-create-an-empty-store",
+    "href": "articles/reports-ragnar.html#step-2-create-an-empty-store",
+    "title": "Searching the reports with ragnar",
+    "section": "Step 2: create an empty store",
+    "text": "Step 2: create an empty store\nembed = NULL turns off embeddings. extra_cols declares the metadata columns that every chunk will carry, with their types. Passing zero rows of the reports table declares exactly the columns and types above.\n\nstore_path &lt;- tempfile(fileext = \".duckdb\")\n\nmeta_cols &lt;- c(\n  \"id\",\n  \"title\",\n  \"unit\",\n  \"author\",\n  \"report_type\",\n  \"period_start\",\n  \"period_end\",\n  \"published\"\n)\nreport_store &lt;- ragnar::ragnar_store_create(\n  store_path,\n  embed = NULL,\n  extra_cols = reports[0, meta_cols]\n)\n\nUse a real path such as \"reports.duckdb\" instead of tempfile() to keep the store between sessions."
+  },
+  {
+    "objectID": "articles/reports-ragnar.html#step-3-chunk-one-report-and-attach-its-metadata",
+    "href": "articles/reports-ragnar.html#step-3-chunk-one-report-and-attach-its-metadata",
+    "title": "Searching the reports with ragnar",
+    "section": "Step 3: chunk one report and attach its metadata",
+    "text": "Step 3: chunk one report and attach its metadata\nragnar splits a document into overlapping chunks of about 1,600 characters. Each chunk records where it starts and ends in the body, and the headings above it (context). Chunk the body text, and set origin to the report id so every chunk links back to its report.\n\nreport &lt;- reports |&gt;\n  dplyr::filter(id == \"ecommerce-2025-06\")\n\nchunks &lt;-\n  report$body |&gt;\n  ragnar::MarkdownDocument(origin = report$id) |&gt;\n  ragnar::markdown_chunk()\n\nTo browse the chunks with each one rendered as Markdown, open ragnar’s viewer. It is a Shiny app, so run it in your own session:\n\nchunks |&gt;\n  ragnar::ragnar_chunks_view()\n\nThe chunks know nothing about the report yet. Pulling in the metadata is one mutate(): every metadata value is a single value, so it is repeated on each chunk.\n\nchunks &lt;-\n  chunks |&gt;\n  cross_join(report |&gt; select(-body))\n\nchunks |&gt;\n  dplyr::select(start, end, id, unit, report_type, published)\n#&gt; # @document@origin: ecommerce-2025-06\n#&gt; # A tibble:         4 × 6\n#&gt;   start   end id                unit             report_type published \n#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;            &lt;chr&gt;       &lt;date&gt;    \n#&gt; 1     1  1603 ecommerce-2025-06 Digital Commerce ecommerce   2025-07-04\n#&gt; 2   772  2343 ecommerce-2025-06 Digital Commerce ecommerce   2025-07-04\n#&gt; 3  1604  3212 ecommerce-2025-06 Digital Commerce ecommerce   2025-07-04\n#&gt; 4  2344  3908 ecommerce-2025-06 Digital Commerce ecommerce   2025-07-04"
+  },
+  {
+    "objectID": "articles/reports-ragnar.html#step-4-insert-every-report",
+    "href": "articles/reports-ragnar.html#step-4-insert-every-report",
+    "title": "Searching the reports with ragnar",
+    "section": "Step 4: insert every report",
+    "text": "Step 4: insert every report\nRepeat step 3 for each report and insert the chunks into the store. pwalk() passes body by name and the eight metadata columns through ....\n\ninsert_report &lt;- function(report) {\n  ragnar::MarkdownDocument(report$body, origin = report$id) |&gt;\n    ragnar::markdown_chunk() |&gt;\n    dplyr::cross_join(dplyr::select(report, -body)) |&gt;\n    ragnar::ragnar_store_insert(report_store, chunks = _)\n}\n\n\nreports |&gt;\n  dplyr::group_split(id) |&gt;\n  purrr::walk(insert_report, .progress = TRUE)\n#&gt;  ■■■■■■■■■■■■■■                    44% |  ETA:  4s\n#&gt;  ■■■■■■■■■■■■■■■■■■■■■■■■■■■       86% |  ETA:  1s\n\n\nOr: start from exported files\nIf you work from the files written by export_reports(), read each YAML file with yaml12::read_yaml(). It returns the metadata and the body together, so the rest is the same. Convert the dates back to Date, because YAML stores them as text. Do not point ragnar::read_as_markdown() at the YAML files: it would chunk the raw YAML, keys and all.\n\npaths &lt;- export_reports(\"contoso-reports\")\n\nreports &lt;- paths |&gt;\n  purrr::map(\\(path) tibble::as_tibble(yaml12::read_yaml(path))) |&gt;\n  purrr::list_rbind() |&gt;\n  dplyr::mutate(dplyr::across(c(period_start, period_end, published), as.Date))"
+  },
+  {
+    "objectID": "articles/reports-ragnar.html#step-5-build-the-search-index",
+    "href": "articles/reports-ragnar.html#step-5-build-the-search-index",
+    "title": "Searching the reports with ragnar",
+    "section": "Step 5: build the search index",
+    "text": "Step 5: build the search index\nThis builds the ‘DuckDB’ full-text (BM25) index over the chunk text and headings. Run it after every insert.\n\nragnar::ragnar_store_build_index(report_store)\n\nCheck the result: every report has chunks and no metadata is missing.\n\nDBI::dbGetQuery(\n  report_store@con,\n  \"\n  select count(distinct id) as reports,\n         count(*) as n\n  from chunks\"\n)\n#&gt;   reports   n\n#&gt; 1     118 396"
+  },
+  {
+    "objectID": "articles/reports-ragnar.html#step-6-search",
+    "href": "articles/reports-ragnar.html#step-6-search",
+    "title": "Searching the reports with ragnar",
+    "section": "Step 6: search",
+    "text": "Step 6: search\nragnar_retrieve_bm25() returns one row per matching chunk, with all of the metadata columns attached.\n\nhits &lt;- ragnar::ragnar_retrieve_bm25(\n  report_store,\n  \"ShopSphere marketplace\",\n  top_k = 5\n)\n\nhits |&gt;\n  dplyr::select(id, unit, published, chunk_id, metric_value)\n#&gt; # A tibble: 5 × 5\n#&gt;   id                   unit                     published  chunk_id metric_value\n#&gt;   &lt;chr&gt;                &lt;chr&gt;                    &lt;date&gt;        &lt;int&gt;        &lt;dbl&gt;\n#&gt; 1 aop-2025             Corporate Planning       2024-12-16        1         1.87\n#&gt; 2 aop-2025             Corporate Planning       2024-12-16        2         1.84\n#&gt; 3 ecommerce-2025-01    Digital Commerce         2025-02-04        8         1.81\n#&gt; 4 pricing-2025-01      Pricing & Promotions Co… 2025-01-29      125         1.79\n#&gt; 5 sales-flash-2025-w02 Sales Operations         2025-01-13      218         1.76\n\nHow to read a row:\n\n\n\n\n\n\n\nColumn\nMeaning\n\n\n\n\ntext\nThe excerpt itself, about 1,600 characters\n\n\nid, title, unit, author, report_type\nWhich report it came from\n\n\nperiod_start, period_end\nThe period the report covers\n\n\npublished\nWhen the report was released\n\n\nchunk_id, start, end\nWhich excerpt of the report, and where it sits in the body\n\n\ncontext\nThe headings above the excerpt\n\n\nmetric_value\nBM25 score. Higher is a better match. Only comparable within one search\n\n\n\nChunks overlap by about half, so two neighbouring chunks of the same report can both appear. Treat them as one source."
+  },
+  {
+    "objectID": "articles/reports-ragnar.html#step-7-use-the-store-from-an-llm",
+    "href": "articles/reports-ragnar.html#step-7-use-the-store-from-an-llm",
+    "title": "Searching the reports with ragnar",
+    "section": "Step 7: use the store from an LLM",
+    "text": "Step 7: use the store from an LLM\nWrap the search in a function that always applies the as_of filter, and register it as an ‘ellmer’ tool. Return JSON from the tool rather than a data frame. This needs an API key, so it is not run here.\n\nsearch_reports &lt;- function(query, as_of, top_k = 6) {\n  ragnar::ragnar_retrieve_bm25(\n    report_store,\n    query,\n    top_k = top_k,\n    filter = published &lt;= as.Date(as_of)\n  ) |&gt;\n    dplyr::select(id, title, unit, author, published, context, text) |&gt;\n    jsonlite::toJSON(Date = \"ISO8601\")\n}\n\n\nchat &lt;- ellmer::chat_anthropic(\n  system_prompt = \"Answer using the search_reports tool. Today is 2025-06-30;\n    always pass as_of = '2025-06-30'. Cite report ids.\"\n)\n\nchat$register_tool(ellmer::tool(\n  search_reports,\n  description = \"Keyword (BM25) search over Contoso business-unit reports.\n    Not semantic: try two or three phrasings using the reports' own terms.\",\n  arguments = list(\n    query = ellmer::type_string(\"Keywords.\"),\n    as_of = ellmer::type_string(\n      \"YYYY-MM-DD. Only reports published on or before this date.\"\n    ),\n    top_k = ellmer::type_integer(\"Maximum number of hits.\", required = FALSE)\n  ),\n  name = \"search_reports\"\n))\n\nchat$chat(\"Why is online revenue below plan this year?\")\n\nragnar::ragnar_register_tool_retrieve() and ragnar::mcp_serve_store() do this in one line, but they cannot apply an as_of filter, so the model can read later reports."
+  },
+  {
+    "objectID": "articles/reports-ragnar.html#use-the-reports-from-an-assistant",
+    "href": "articles/reports-ragnar.html#use-the-reports-from-an-assistant",
+    "title": "Searching the reports with ragnar",
+    "section": "Use the reports from an assistant",
+    "text": "Use the reports from an assistant\nThese examples need an API key or an assistant, so they are not run here.\n\nPosit Assistant, with a date filter\nSave the store to a fixed path, such as ~/ragnar/contoso-reports.duckdb, then save this script as ~/ragnar/serve_reports.R. It serves one search tool over MCP. as_of is required and from is optional, so the assistant can narrow a search to a period but can never read reports published after as_of.\n\nreport_store &lt;- ragnar::ragnar_store_connect(\n  Sys.getenv(\"REPORTS_STORE\"),\n  read_only = TRUE\n)\n\nsearch_reports &lt;- function(\n  query,\n  to_date,\n  from_date = \"1900-01-01\",\n  top_k = 6\n) {\n  ragnar::ragnar_retrieve_bm25(\n    report_store,\n    query,\n    top_k = top_k,\n    filter = published &gt;= as.Date(from_date) & published &lt;= as.Date(to_date)\n  ) |&gt;\n    dplyr::select(id, title, unit, author, published, text) |&gt;\n    jsonlite::toJSON(Date = \"ISO8601\")\n}\n\nsearch_tool &lt;- ellmer::tool(\n  search_reports,\n  name = \"search_reports\",\n  description = \"Keyword (BM25) search over Contoso's 2025 internal business reports.\n    Only reports published on or before `as_of` are searched.\",\n  arguments = list(\n    query = ellmer::type_string(\"Keywords to search for.\"),\n    to_date = ellmer::type_string(\n      \"Date as YYYY-MM-DD. Only reports published on or before this date are searched.\"\n    ),\n    from_date = ellmer::type_string(\n      \"Optional start date, YYYY-MM-DD. Only reports published on or after this date are searched.\",\n      required = FALSE\n    ),\n    top_k = ellmer::type_integer(\n      \"Number of excerpts to return. Default 6.\",\n      required = FALSE\n    )\n  )\n)\n\nmcptools::mcp_server(list(search_tool), session_tools = FALSE)\n\nThen add the server to ~/.posit/assistant/settings.json and reload:\n\"mcpServers\": {\n  \"contoso-reports\": {\n    \"type\": \"local\",\n    \"command\": [\"Rscript\", \"/home/you/ragnar/serve_reports.R\"],\n    \"environment\": {\n      \"REPORTS_STORE\": \"/home/you/ragnar/contoso-reports.duckdb\"\n    },\n    \"timeout\": 60000\n  }\n}\n\n\ncommons\ncommons builds an agent that labels each answer by where it came from. Give it the same date-filtered search as a measure, a trusted function the agent calls with arguments, so its answers come from the ragnar store and are labelled Trusted. commons also needs a data source; the report metadata (no text) works, so the agent can answer questions such as “which reports came out in June?” with SQL.\nLeave out commons’ context_layer(): its own search over the report text cannot filter by date, so it would give the agent a way around as_of.\ncommons does not list measures in its prompt; the agent has to look them up first. Without instructions pointing it to search_reports, it tends to query the metadata table, find no text, and give up.\n\nreport_store &lt;- ragnar::ragnar_store_connect(\n  Sys.getenv(\"REPORTS_STORE\"),\n  read_only = TRUE\n)\n\nsearch_reports &lt;- function(query, as_of, from = \"1900-01-01\", top_k = 6) {\n  ragnar::ragnar_retrieve_bm25(\n    report_store,\n    query,\n    top_k = top_k,\n    filter = published &gt;= !!as.Date(from) & published &lt;= !!as.Date(as_of)\n  ) |&gt;\n    dplyr::select(id, title, unit, author, published, text) |&gt;\n    jsonlite::toJSON(Date = \"ISO8601\")\n}\n\nsearch_measure &lt;- commons::measure(\n  \"search_reports\",\n  \"Search the text of Contoso 2025 business reports (what business units wrote and said). Only reports published on or before as_of are searched.\",\n  fn = search_reports,\n  arguments = list(\n    query = ellmer::type_string(\"Keywords to search for.\"),\n    as_of = ellmer::type_string(\"Date as YYYY-MM-DD.\"),\n    from = ellmer::type_string(\n      \"Optional start date, YYYY-MM-DD.\",\n      required = FALSE\n    ),\n    top_k = ellmer::type_integer(\n      \"Number of excerpts. Default 6.\",\n      required = FALSE\n    )\n  )\n)\n\ncon &lt;- DBI::dbConnect(duckdb::duckdb())\nDBI::dbWriteTable(con, \"reports\", dplyr::select(read_reports(), -body))\n\nagent &lt;- commons::commons(\n  client = ellmer::chat_anthropic(),\n  data_sources = list(reports = commons::data_source(con)),\n  semantic_layer = commons::semantic_layer(search_measure),\n  instructions = \"The reports table holds report metadata only. The text of\n    the reports is available only through the search_reports measure: for any\n    question about what a report or business unit said, call search_reports\n    with call_measure, passing the as_of date from the question.\"\n)\n\nagent$chat(\n  \"As of 2025-06-30, what did the business units say about the PC refresh?\"\n)\ncommons::commons_app(agent)"
+  },
+  {
+    "objectID": "articles/reports-ragnar.html#conclusion",
+    "href": "articles/reports-ragnar.html#conclusion",
+    "title": "Searching the reports with ragnar",
+    "section": "Conclusion",
+    "text": "Conclusion\n\nChunk each report’s body, and attach all of its metadata to every chunk with one mutate(). Declare the metadata columns up front with extra_cols = reports[0, meta_cols].\nFrom exported files, yaml12::read_yaml() gives the metadata and body together; convert the dates back to Date.\nembed = NULL gives a BM25-only store with no embedding model.\nSearch with ragnar_retrieve_bm25(). Use conjunctive = TRUE to know when nothing really matched, and filter to restrict by date, unit or type.\nUse SQL on the chunks table for questions about dates and counts.\nWhen an LLM uses the store, give it a search tool that enforces as_of."
   }
 ]
