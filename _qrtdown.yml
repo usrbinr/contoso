@@ -8,12 +8,13 @@ navbar:
     href: _qrtdown/reference.qmd
   - text: Citation
     href: _qrtdown/citation.qmd
+  - text: Articles
   - text: Changelog
     href: NEWS.md
   right:
   - icon: git
     href: https://codeberg.org/usrbinr/contoso
     aria-label: Source code
-  title: contoso 2.2.0
+  title: contoso 2.3.0
 reference: []
 articles: []

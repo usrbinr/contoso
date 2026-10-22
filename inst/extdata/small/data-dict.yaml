@@ -28,6 +28,8 @@ details: |
   `store_key` 999999 is the online channel, a sentinel row carrying -1 and
   `--` placeholders that pollute geographic aggregates unless filtered.
 
+origin: https://codeberg.org/usrbinr/contoso/src/branch/main/data-raw
+
 version:
   number: 2.2.0
 
@@ -43,30 +45,48 @@ tables:
       columns are USD regardless of `currency_code` -- multiply by
       `exchange_rate` for the order's local currency.
     source:
-      r: contoso::sales
-    rows: 7794
+      parquet: ../../../data-raw/sales.parquet
+    origin: https://codeberg.org/usrbinr/contoso/src/branch/main/data-raw/sales.R
+    constraints:
+      - assert: delivery_date >= order_date
+        description: An order cannot be delivered before it is placed.
+      - assert: net_price <= unit_price
+        description: A discount never raises the price.
+      - assert: gross_revenue = unit_price * quantity
+      - assert: net_revenue = net_price * quantity
+      - assert: unit_discount = unit_price - net_price
+      - assert: discounts = unit_discount * quantity
+      - assert: cogs = unit_cost * quantity
+      - assert: gross_margin = net_revenue - cogs
+      - assert: unit_margin = gross_margin / quantity
+      - assert: NOT(currency_code = 'USD') OR exchange_rate = 1
+        description: USD orders carry the identity rate.
     columns:
       - name: order_key
         type: number(id)
-        constraints: [required]
+        constraints: [primary_key]
         description: >
-          Order this line belongs to. Not unique here -- unique with
-          `line_number`.
+          Order this line belongs to. Not unique on its own -- it keys a row
+          only together with `line_number`.
         examples: [233000, 268803, 287802, 311300, 339801]
       - name: line_number
         type: number(ordinal)
-        constraints: [required]
+        range: [0, 6]
+        constraints: [primary_key]
         description: >
-          Position of this line within its order, from 1.
+          Position of this line within its order. **Zero-based**: the first
+          line of an order is 0, not 1.
         examples: [0, 1, 3, 5, 6]
       - name: order_date
         type: date
+        range: [2021-05-18, 2024-04-20]
         constraints: [required]
         description: >
           Date the order was placed.
         examples: [2021-05-18, 2022-02-04, 2022-10-29, 2023-07-25, 2024-04-20]
       - name: delivery_date
         type: date
+        range: [2021-05-18, 2024-04-23]
         constraints: [required]
         description: >
           Date the order was delivered. Never before `order_date`.
@@ -91,12 +111,14 @@ tables:
         examples: [1, 551, 1183, 1724, 2517]
       - name: quantity
         type: number(quantity)
+        range: [1, 10]
         constraints: [required]
         description: >
           Units of the product on this line.
         examples: [1, 3, 6, 8, 10]
       - name: unit_price
         type: number(quantity)
+        range: [0.95, 3748.5]
         constraints: [required]
         description: >
           Transacted price per unit, in USD. Equals `product.price` scaled by
@@ -105,6 +127,7 @@ tables:
         examples: [0.95, 56.99, 209, 459, 3748.5]
       - name: net_price
         type: number(quantity)
+        range: [0.855, 3748.5]
         constraints: [required]
         description: >
           Price per unit after discount, in USD. Despite the name this is a
@@ -113,6 +136,7 @@ tables:
         examples: [0.855, 50.9344, 197.9505, 374.946, 3748.5]
       - name: unit_cost
         type: number(quantity)
+        range: [0.48, 1241.955]
         constraints: [required]
         description: >
           Cost per unit, in USD.
@@ -127,6 +151,7 @@ tables:
           columns, which are all USD.
       - name: exchange_rate
         type: number(quantity)
+        range: [0.70564, 1.60802]
         constraints: [required]
         description: >
           USD to `currency_code` rate on `order_date`, from `fx`. 1.0 for USD
@@ -134,6 +159,7 @@ tables:
         examples: [0.70564, 0.88145, 0.95868, 1.34478, 1.60802]
       - name: gross_revenue
         type: number(quantity)
+        range: [1.9, 29988]
         constraints: [required]
         description: >
           `unit_price * quantity`, USD.
@@ -141,6 +167,7 @@ tables:
         examples: [1.9, 140.97, 570, 1636, 29988]
       - name: net_revenue
         type: number(quantity)
+        range: [1.71, 25789.68]
         constraints: [required]
         description: >
           `net_price * quantity`, USD. The revenue measure to sum.
@@ -148,6 +175,7 @@ tables:
         examples: [1.71, 115.98, 431.2, 1194, 25789.68]
       - name: unit_discount
         type: number(quantity)
+        range: [0, 524.79]
         constraints: [required]
         description: >
           `unit_price - net_price`, USD.
@@ -155,6 +183,7 @@ tables:
         examples: [0, 3.7389, 16.197, 38.4945, 524.79]
       - name: discounts
         type: number(quantity)
+        range: [0, 4198.32]
         constraints: [required]
         description: >
           `unit_discount * quantity`, USD.
@@ -162,6 +191,7 @@ tables:
         examples: [0, 9.3216, 39.591, 118.14, 4198.32]
       - name: cogs
         type: number(quantity)
+        range: [0.96, 9935.64]
         constraints: [required]
         description: >
           Cost of goods sold, `unit_cost * quantity`, USD.
@@ -169,6 +199,7 @@ tables:
         examples: [0.96, 73.12, 264.4, 693.3195, 9935.64]
       - name: gross_margin
         type: number(quantity)
+        range: [0.7213, 16218.122600000002]
         constraints: [required]
         description: >
           `net_revenue - cogs`, USD.
@@ -176,6 +207,7 @@ tables:
         examples: [0.7213, 60.86, 219.33, 631.08, 16218.12]
       - name: unit_margin
         type: number(quantity)
+        range: [0.375, 2506.545]
         constraints: [required]
         description: >
           `gross_margin / quantity`, USD.
@@ -187,8 +219,11 @@ tables:
       Order headers: one row per customer order. The normalised counterpart to
       `sales`, joined to `orderrows` on `order_key`.
     source:
-      r: contoso::orders
-    rows: 3242
+      parquet: ../../../data-raw/orders.parquet
+    origin: https://codeberg.org/usrbinr/contoso/src/branch/main/data-raw/orders.R
+    constraints:
+      - assert: delivery_date >= order_date
+        description: An order cannot be delivered before it is placed.
     columns:
       - name: order_key
         type: number(id)
@@ -210,12 +245,14 @@ tables:
         examples: [10, 170, 340, 510, 999999]
       - name: order_date
         type: date
+        range: [2021-05-18, 2024-04-20]
         constraints: [required]
         description: >
           Date the order was placed.
         examples: [2021-05-18, 2022-02-04, 2022-10-29, 2023-07-25, 2024-04-20]
       - name: delivery_date
         type: date
+        range: [2021-05-18, 2024-04-23]
         constraints: [required]
         description: >
           Date it was delivered.
@@ -232,20 +269,26 @@ tables:
       Order lines: one row per product on an order. Carries no dates or
       customer -- join to `orders` for those.
     source:
-      r: contoso::orderrows
-    rows: 7794
+      parquet: ../../../data-raw/orderrows.parquet
+    origin: https://codeberg.org/usrbinr/contoso/src/branch/main/data-raw/orderrows.R
+    constraints:
+      - assert: net_price <= unit_price
+        description: A discount never raises the price.
     columns:
       - name: order_key
         type: number(id)
-        constraints: [required, foreign_key]
+        constraints: [primary_key, foreign_key]
         description: >
-          Order this line belongs to.
+          Order this line belongs to. Keys a row only together with
+          `line_number`.
         examples: [233000, 268803, 287802, 311300, 339801]
       - name: line_number
         type: number(ordinal)
-        constraints: [required]
+        range: [0, 6]
+        constraints: [primary_key]
         description: >
-          Position within the order, from 1.
+          Position within the order. **Zero-based**: the first line of an
+          order is 0, not 1.
         examples: [0, 1, 3, 5, 6]
       - name: product_key
         type: number(id)
@@ -255,12 +298,14 @@ tables:
         examples: [1, 551, 1183, 1724, 2517]
       - name: quantity
         type: number(quantity)
+        range: [1, 10]
         constraints: [required]
         description: >
           Units ordered.
         examples: [1, 3, 6, 8, 10]
       - name: unit_price
         type: number(quantity)
+        range: [0.95, 3748.5]
         constraints: [required]
         description: >
           Transacted price per unit, USD.
@@ -268,6 +313,7 @@ tables:
         examples: [0.95, 56.99, 209, 459, 3748.5]
       - name: net_price
         type: number(quantity)
+        range: [0.855, 3748.5]
         constraints: [required]
         description: >
           Price per unit after discount, USD. A unit figure, not a line total.
@@ -275,6 +321,7 @@ tables:
         examples: [0.855, 50.9344, 197.9505, 374.946, 3748.5]
       - name: unit_cost
         type: number(quantity)
+        range: [0.48, 1241.955]
         constraints: [required]
         description: >
           Cost per unit, USD.
@@ -286,8 +333,8 @@ tables:
       Product catalogue: one row per sellable product, with brand, category
       and list pricing.
     source:
-      r: contoso::product
-    rows: 2517
+      parquet: ../../../data-raw/product.parquet
+    origin: https://codeberg.org/usrbinr/contoso/src/branch/main/data-raw/product.R
     columns:
       - name: product_key
         type: number(id)
@@ -332,16 +379,16 @@ tables:
           Unit `weight` is expressed in. Metric and imperial units are mixed,
           so `weight` is **not comparable across rows** without converting.
           Missing where the product has no weight.
-        missing: 222
       - name: weight
         type: number(quantity)
+        range: [0.17, 239]
         description: >
           Product weight in `weight_unit`. Not on a common scale -- see that
           column.
         examples: [0.17, 7.2, 19.7, 52, 239]
-        missing: 284
       - name: cost
         type: number(quantity)
+        range: [0.48, 1060.22]
         constraints: [required]
         description: >
           Catalogue unit cost, USD.
@@ -349,10 +396,13 @@ tables:
         examples: [0.48, 26.67, 86.68, 196.23, 1060.22]
       - name: price
         type: number(quantity)
+        range: [0.95, 3199.99]
         constraints: [required]
         description: >
-          Catalogue unit price, USD. The price level from July 2022 onward;
-          earlier transacted prices differ by a category index.
+          Catalogue unit price, USD. From 2022-07-03 onward every
+          `sales.unit_price` equals this exactly; every earlier line differs,
+          scaled by a category-and-date price index. (2022-07-01 and
+          2022-07-02 are the last 25 indexed lines.)
         units: USD
         examples: [0.95, 50.99, 208, 460, 3199.99]
       - name: category_key
@@ -390,8 +440,8 @@ tables:
       version 2.1.0 this table was fanned out to sales-line grain and
       `customer_key` was not unique; it is now a genuine primary key.
     source:
-      r: contoso::customer
-    rows: 3165
+      parquet: ../../../data-raw/customer.parquet
+    origin: https://codeberg.org/usrbinr/contoso/src/branch/main/data-raw/customer.R
     columns:
       - name: customer_key
         type: number(id)
@@ -409,6 +459,7 @@ tables:
         examples: [1, 109, 308, 525, 616]
       - name: start_date
         type: date
+        range: [1980-01-02, 2010-12-22]
         constraints: [required]
         description: >
           Undocumented upstream and not interpretable as a relationship start:
@@ -416,6 +467,7 @@ tables:
         examples: [1980-01-02, 1986-01-10, 1991-07-28, 1999-10-14, 2010-12-22]
       - name: end_date
         type: date
+        range: [2021-07-17, 2045-12-28]
         constraints: [required]
         description: >
           Undocumented upstream. Always populated, and mostly falls in the
@@ -502,12 +554,14 @@ tables:
           Country name.
       - name: birthday
         type: date
+        range: [1935-02-18, 2002-02-20]
         constraints: [required]
         description: >
           Date of birth. Synthetic.
         examples: [1935-02-18, 1952-03-27, 1968-10-14, 1984-11-23, 2002-02-20]
       - name: age
         type: number(ordinal)
+        range: [19, 85]
         constraints: [required]
         description: >
           Age in whole years, fixed as at the generator's snapshot date rather
@@ -524,7 +578,6 @@ tables:
         description: >
           Employer. Synthetic.
         examples: ['10,000 Auto Parts', Endicott Shoes, Licorice Pizza, Reliable Investments, Zephyr Investments]
-        missing: 1
       - name: vehicle
         type: string
         constraints: [required]
@@ -533,12 +586,14 @@ tables:
         examples: ['1992 Alfa Romeo 33', '1999 Chrysler 300', '2004 Lotus Elise', '2009 BMW 318', '2015 Volvo XC70']
       - name: latitude
         type: number(quantity)
+        range: [-43.22282, 68.354644]
         constraints: [required]
         description: >
           Latitude of the address.
         examples: [-43.22282, 36.44288, 42.2763, 49.55003, 68.35464]
       - name: longitude
         type: number(quantity)
+        range: [-165.137461, 153.566113]
         constraints: [required]
         description: >
           Longitude of the address.
@@ -556,8 +611,16 @@ tables:
       geographic or floor-space aggregate. `store_code` is also not unique: it
       identifies a site, and a site can hold successive premises.
     source:
-      r: contoso::store
-    rows: 74
+      parquet: ../../../data-raw/store.parquet
+    origin: https://codeberg.org/usrbinr/contoso/src/branch/main/data-raw/store.R
+    constraints:
+      - assert: description = 'Online store' OR STARTS_WITH(description, 'Contoso Store ')
+        description: >
+          `description` is generated as `Contoso Store <state>` (or `Online
+          store` for the online row); it carries no store-format information
+          of its own.
+      - assert: close_date IS NULL OR close_date >= open_date
+        description: A store cannot close before it opens.
     columns:
       - name: store_key
         type: number(id)
@@ -603,16 +666,17 @@ tables:
         examples: [Alaska, Fermanagh, Martinique, Online, Zeeland]
       - name: open_date
         type: date
+        range: [2005-03-04, 2019-03-05]
         constraints: [required]
         description: >
           Date the store opened.
         examples: [2005-03-04, 2009-06-03, 2012-08-08, 2015-04-04, 2019-03-05]
       - name: close_date
         type: date
+        range: [2013-12-05, 2019-11-03]
         description: >
           Date the store closed. Missing for stores still trading.
         examples: [2013-12-05, 2015-04-04, 2015-08-08, 2018-09-09, 2019-11-03]
-        missing: 58
       - name: description
         type: string
         constraints: [required]
@@ -622,10 +686,10 @@ tables:
         examples: [Contoso Store Alaska, Contoso Store Fermanagh, Contoso Store Martinique, Contoso Store Oregon, Online store]
       - name: square_meters
         type: number(quantity)
+        range: [245, 3500]
         description: >
           Floor area. Missing on the online row.
         examples: [245, 910, 1260, 1785, 3500]
-        missing: 1
       - name: status
         type: enum
         values: [Closed, Restructured]
@@ -633,7 +697,6 @@ tables:
           Exceptional status only: `Closed` or `Restructured`. **Missing,
           never `Open`, for stores trading normally**, so test with `is.na()`
           rather than comparing to a string.
-        missing: 59
 
   - name: calendar
     description: >
@@ -644,11 +707,12 @@ tables:
       both ends. Join from `calendar` when you need a dense series with
       explicit zeros.
     source:
-      r: contoso::calendar
-    rows: 1461
+      parquet: ../../../data-raw/calendar.parquet
+    origin: https://codeberg.org/usrbinr/contoso/src/branch/main/data-raw/date.R
     columns:
       - name: date
         type: date
+        range: [2021-01-01, 2024-12-31]
         constraints: [primary_key]
         description: >
           The calendar date.
@@ -661,6 +725,7 @@ tables:
         examples: [20210101, 20220101, 20230101, 20240101, 20241231]
       - name: year
         type: number(ordinal)
+        range: [2021, 2024]
         constraints: [required]
         description: >
           Calendar year.
@@ -673,6 +738,7 @@ tables:
         examples: [Q1-2021, Q2-2021, Q2-2024, Q3-2024, Q4-2024]
       - name: year_quarter_number
         type: number(ordinal)
+        range: [8085, 8100]
         constraints: [required]
         description: >
           Continuous quarter counter, `year * 4 + quarter`. **Not** 1-4; use
@@ -698,6 +764,7 @@ tables:
         examples: [Apr 2021, Feb 2021, Jul 2024, May 2024, Sep 2024]
       - name: year_month_number
         type: number(ordinal)
+        range: [24253, 24300]
         constraints: [required]
         description: >
           Continuous month counter, `year * 12 + month`. **Not** `YYYYMM`.
@@ -716,6 +783,7 @@ tables:
           Abbreviated month name.
       - name: month_number
         type: number(ordinal)
+        range: [1, 12]
         constraints: [required]
         description: >
           Month within the year, 1-12.
@@ -734,18 +802,21 @@ tables:
           Abbreviated day name.
       - name: day_of_week_number
         type: number(ordinal)
+        range: [1, 7]
         constraints: [required]
         description: >
           Day within the week, **starting Sunday = 1**, not Monday.
         examples: [1, 2, 4, 6, 7]
       - name: working_day
         type: number(quantity)
+        range: [0, 1]
         constraints: [required]
         description: >
           1 on working days, 0 otherwise. This is the flag.
         examples: [0, 1]
       - name: working_day_number
         type: number(ordinal)
+        range: [0, 1003]
         constraints: [required]
         description: >
           **Cumulative** count of working days elapsed, not a flag. Increments
@@ -754,31 +825,41 @@ tables:
 
   - name: fx
     description: >
-      Daily exchange rates between every ordered pair of the five currencies.
+      Daily exchange rates: one row per date and ordered currency pair, for
+      every combination of the five currencies -- 1,461 dates x 25 pairs.
+    details: >
+      The grain is `(date, from_currency, to_currency)`; all three columns
+      together form the key. Joining on a date and one currency alone matches
+      five rows, so filter `from_currency` (usually to `USD`) before joining.
+      Spans whole calendar years, so it extends past the trading period at
+      both ends.
     source:
-      r: contoso::fx
-    rows: 36525
+      parquet: ../../../data-raw/fx.parquet
+    origin: https://codeberg.org/usrbinr/contoso/src/branch/main/data-raw/fx.R
     columns:
       - name: date
         type: date
-        constraints: [required]
+        range: [2021-01-01, 2024-12-31]
+        constraints: [primary_key]
         description: >
           Date the rate applies to.
         examples: [2021-01-01, 2022-01-01, 2023-01-01, 2024-01-01, 2024-12-31]
       - name: from_currency
         type: enum
         values: [AUD, CAD, EUR, GBP, USD]
-        constraints: [required]
+        constraints: [primary_key]
         description: >
-          Base currency. Filter to one value or joins fan out five-to-one.
+          Base currency. Part of the key; filter to one value or joins fan out
+          five-to-one.
       - name: to_currency
         type: enum
         values: [AUD, CAD, EUR, GBP, USD]
-        constraints: [required]
+        constraints: [primary_key]
         description: >
-          Quote currency.
+          Quote currency. Part of the key.
       - name: exchange
         type: number(quantity)
+        range: [0.50293, 1.98835]
         constraints: [required]
         description: >
           Units of `to_currency` per unit of `from_currency`.
@@ -829,12 +910,6 @@ relationships:
     description: >
       The second date role. Alias `calendar` to group by order and delivery
       date at once.
-
-  - join: sales.order_date = fx.date AND sales.currency_code = fx.to_currency
-    cardinality: many-to-one
-    description: >
-      Recovers the rate already in `sales.exchange_rate`. Filter to
-      `from_currency = 'USD'` or the join fans out.
 
 glossary:
   Contoso: >

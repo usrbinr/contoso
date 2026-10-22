@@ -34,3 +34,13 @@ data-raw/output_renamed/
 # qrtdown
 /articles/
 /citation.qmd
+
+# dev notes (local only)
+AI_TOOLING_PLAN.md
+
+# cloud parquet cache for data-dict-cloud.yaml (re-fetch with data-raw/data-dict-cloud.R)
+data-raw/cloud/
+
+# vignette build output
+/doc/
+/Meta/

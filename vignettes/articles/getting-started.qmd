@@ -1,0 +1,99 @@
+---
+title: "Getting started"
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(contoso)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+contoso gives you the same retail dataset in two ways: as tables bundled
+with the package, and as larger cloud versions you query through 'DuckDB'.
+
+## Bundled tables
+
+Loading the package makes eight tables available: `sales`, `orders`,
+`orderrows`, `customer`, `product`, `store`, `fx` and `calendar`. They need no
+download or connection.
+
+```{r}
+#| label: bundled
+library(contoso)
+
+dplyr::glimpse(sales)
+```
+
+Join them on their `_key` columns:
+
+```{r}
+#| label: join
+sales |>
+  dplyr::left_join(store, by = "store_key") |>
+  dplyr::summarise(net_revenue = sum(net_revenue), .by = country_name) |>
+  dplyr::arrange(dplyr::desc(net_revenue))
+```
+
+## Larger datasets in 'DuckDB'
+
+`create_contoso_duckdb()` streams the Parquet files from cloud storage into an
+in-memory 'DuckDB' database. Pick a size by the number of `sales` rows:
+
+| `size`     | `sales` rows |
+|------------|-------------:|
+| `"small"`  | 7,794        |
+| `"medium"` | 2,349,091    |
+| `"large"`  | 23,719,935   |
+| `"mega"`   | 237,245,485  |
+
+`"small"` is the same data as the bundled tables. The other sizes cover a
+different date range and a much larger customer catalogue.
+
+```{r}
+#| label: duckdb
+#| eval: false
+db <- create_contoso_duckdb(size = "medium")
+```
+
+The result is a list with one lazy table per dataset and the connection,
+`db$con`. Write dplyr as usual; it runs in 'DuckDB' until you `collect()`:
+
+```{r}
+#| label: duckdb-query
+#| eval: false
+db$sales |>
+  dplyr::summarise(net_revenue = sum(net_revenue), .by = currency_code) |>
+  dplyr::collect()
+```
+
+Use `launch_ui()` to browse every table in the 'DuckDB' UI, and disconnect
+when you are done:
+
+```{r}
+#| label: duckdb-close
+#| eval: false
+launch_ui(db$con)
+
+DBI::dbDisconnect(db$con, shutdown = TRUE)
+```
+
+## Data dictionary
+
+Every table and column is described in a
+[data-dict](https://data-dict.tidyverse.org/) file, with keys, joins and
+the formulas behind each measure:
+
+```{r}
+#| label: dict
+#| eval: false
+system.file("extdata", "small", "data-dict.yaml", package = "contoso")
+```
+
+Use `"cloud"` in place of `"small"` for the dictionary of the larger sizes.
+
+## Next steps
+
+The package also includes 118 fictional business reports about Contoso's
+2025 trading. See [The business reports](business-reports.qmd) to read them,
+and [Searching the reports with ragnar](reports-ragnar.qmd) to search them.

@@ -46,15 +46,22 @@ The package comes with the following tables:
 Built into the package is the smallest version of the dataset: 7,794 sales
 lines across 3,242 orders and 3,165 customers.
 
-Every column is documented in a machine-readable data dictionary, which
-`contoso_dict_columns()` returns as a tibble:
+Every column is documented in a machine-readable
+[data-dict](https://data-dict.tidyverse.org/) dictionary, shipped with the
+package. There is one per dataset, each in its own directory:
+`extdata/small/` describes the bundled tables (and `size = "small"`),
+`extdata/cloud/` describes the `medium`, `large` and `mega` sizes.
 
 ```{r}
 #| label: dict
 #| eval: false
 
-contoso_dict_columns()
+system.file("extdata", "small", "data-dict.yaml", package = "contoso")
 ```
+
+Both validate against the spec, so the [`data-dict`
+CLI](https://data-dict.tidyverse.org/) can check either against its data, or
+render it as a browsable page. Point it at the directory:
 
 Using `labelled::look_for()`, you can also see the columns' labels from the
 [labelled](https://larmarange.github.io/labelled/index.html) package.
@@ -102,17 +109,30 @@ The relationship keys that join each of the tables are listed below.
 #| warning: false
 
 tibble::tibble(
-    sales=c("order_key", "customer_key","store_key","product_key","currency_code")
-    ,customer=c(NA,"customer_key",NA,NA,NA)
-    ,product=c(NA,NA,NA,"product_key",NA)
-    ,store=c(NA,NA,"store_key",NA,NA)
-    ,order=c("order_key","customer_key","store_key" ,NA,NA)
-    ,orderrows=c("order_key",NA,NA,"product_key",NA)
-    ,fx=c(NA,NA,NA,NA,"from_currency")
+  sales = c(
+    "order_key",
+    "customer_key",
+    "store_key",
+    "product_key",
+    "currency_code"
+  ),
+  customer = c(NA, "customer_key", NA, NA, NA),
+  product = c(NA, NA, NA, "product_key", NA),
+  store = c(NA, NA, "store_key", NA, NA),
+  order = c("order_key", "customer_key", "store_key", NA, NA),
+  orderrows = c("order_key", NA, NA, "product_key", NA),
+  fx = c(NA, NA, NA, NA, "from_currency")
 ) |>
-    tidyr::replace_na(list(sales="",customer="",product="",store="",order="",orderrows="",fx="")) |>
-    knitr::kable()
-
+  tidyr::replace_na(list(
+    sales = "",
+    customer = "",
+    product = "",
+    store = "",
+    order = "",
+    orderrows = "",
+    fx = ""
+  )) |>
+  knitr::kable()
 ```
 
 ### Installation
@@ -132,8 +152,8 @@ Or install the development version from [Codeberg](https://codeberg.org/usrbinr/
 #| label: codeberg
 #| eval: false
 
-# install.packages("pak")
-pak::pak("git::https://codeberg.org/usrbinr/contoso")
+# install.packages("remotes")
+remotes::install_git("https://codeberg.org/usrbinr/contoso")
 ```
 
 ### Example
@@ -155,7 +175,24 @@ launch_ui(db$con)
 
 # Clean up when done
 DBI::dbDisconnect(db$con, shutdown = TRUE)
-
 ```
 
+### Business reports
 
+The package also ships 118 fictional internal business reports about
+Contoso's 2025 trading: weekly sales flashes, monthly e-commerce, supply
+chain and plant reviews, quarterly regional reviews, pricing committee
+minutes, operations notices, industry notes and the Annual Operating Plan.
+Their figures come from the "mega" dataset, and a few contain deliberate
+errors, for testing document search and FP&A assistants.
+
+```{r}
+#| eval: false
+#| label: reports
+
+reports <- read_reports() # one row per report, Markdown text in `body`
+export_reports("contoso-reports") # or write them as one YAML file each
+```
+
+See the "Business reports" and "Searching the reports with ragnar" articles
+on the [package website](https://usrbinr.codeberg.page/contoso/).

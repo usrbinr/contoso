@@ -1,0 +1,432 @@
+---
+title: "Searching the reports with ragnar"
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(contoso)
+library(tidyverse)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+## Introduction
+
+This article loads the [business reports](business-reports.qmd) into a
+[ragnar](https://ragnar.tidyverse.org) store: a single 'DuckDB' file you can
+search by keyword, filter by report metadata, query with SQL, and hand to an
+LLM as context.
+
+The store uses BM25 keyword search only. There are no embeddings, so you need
+no embedding model, provider or API key to build or search it.
+
+The one design rule: **every chunk carries all of its report's metadata as
+typed columns.** That is what lets you filter by publication date, unit or
+report type inside the database, and cite the source of every hit.
+
+You need these packages:
+
+```{r}
+#| label: install
+#| eval: false
+install.packages(c("ragnar", "dplyr", "purrr", "DBI"))
+```
+
+## Step 1: read the reports
+
+`read_reports()` returns one row per report: eight metadata columns (the
+dates already as `Date`) and a `body` column with the Markdown text.
+
+```{r}
+#| label: read-reports
+reports <- read_reports()
+
+
+dplyr::glimpse(reports |> select(-body))
+```
+
+## Step 2: create an empty store
+
+`embed = NULL` turns off embeddings. `extra_cols` declares the metadata
+columns that every chunk will carry, with their types. Passing zero rows of
+the reports table declares exactly the columns and types above.
+
+```{r}
+#| label: create-store
+#| message: false
+store_path <- tempfile(fileext = ".duckdb")
+
+meta_cols <- c(
+  "id",
+  "title",
+  "unit",
+  "author",
+  "report_type",
+  "period_start",
+  "period_end",
+  "published"
+)
+report_store <- ragnar::ragnar_store_create(
+  store_path,
+  embed = NULL,
+  extra_cols = reports[0, meta_cols]
+)
+```
+
+Use a real path such as `"reports.duckdb"` instead of `tempfile()` to keep the
+store between sessions.
+
+## Step 3: chunk one report and attach its metadata
+
+ragnar splits a document into overlapping chunks of about 1,600 characters.
+Each chunk records where it starts and ends in the body, and the headings
+above it (`context`). Chunk the `body` text, and set `origin` to the report
+`id` so every chunk links back to its report.
+
+```{r}
+#| label: chunk-one-report
+
+report <- reports |>
+  dplyr::filter(id == "ecommerce-2025-06")
+
+chunks <-
+  report$body |>
+  ragnar::MarkdownDocument(origin = report$id) |>
+  ragnar::markdown_chunk()
+```
+
+To browse the chunks with each one rendered as Markdown, open ragnar's
+viewer. It is a Shiny app, so run it in your own session:
+
+```{r}
+#| label: view-chunks
+#| eval: false
+chunks |>
+  ragnar::ragnar_chunks_view()
+```
+
+The chunks know nothing about the report yet. Pulling in the metadata is one
+`mutate()`: every metadata value is a single value, so it is repeated on each
+chunk.
+
+```{r}
+#| label: attach-metadata
+
+chunks <-
+  chunks |>
+  cross_join(report |> select(-body))
+
+chunks |>
+  dplyr::select(start, end, id, unit, report_type, published)
+```
+
+## Step 4: insert every report
+
+Repeat step 3 for each report and insert the chunks into the store.
+`pwalk()` passes `body` by name and the eight metadata columns through
+`...`.
+
+```{r}
+#| label: insert-reports
+
+insert_report <- function(report) {
+  ragnar::MarkdownDocument(report$body, origin = report$id) |>
+    ragnar::markdown_chunk() |>
+    dplyr::cross_join(dplyr::select(report, -body)) |>
+    ragnar::ragnar_store_insert(report_store, chunks = _)
+}
+
+
+reports |>
+  dplyr::group_split(id) |>
+  purrr::walk(insert_report, .progress = TRUE)
+```
+
+### Or: start from exported files
+
+If you work from the files written by `export_reports()`, read each YAML file
+with `yaml12::read_yaml()`. It returns the metadata and the body together, so
+the rest is the same. Convert the dates back to `Date`, because YAML stores
+them as text. Do not point `ragnar::read_as_markdown()` at the YAML files:
+it would chunk the raw YAML, keys and all.
+
+```{r}
+#| label: insert-from-files
+#| eval: false
+paths <- export_reports("contoso-reports")
+
+reports <- paths |>
+  purrr::map(\(path) tibble::as_tibble(yaml12::read_yaml(path))) |>
+  purrr::list_rbind() |>
+  dplyr::mutate(dplyr::across(c(period_start, period_end, published), as.Date))
+```
+
+## Step 5: build the search index
+
+This builds the 'DuckDB' full-text (BM25) index over the chunk text and
+headings. Run it after every insert.
+
+```{r}
+#| label: build-index
+ragnar::ragnar_store_build_index(report_store)
+```
+
+Check the result: every report has chunks and no metadata is missing.
+
+```{r}
+#| label: check-store
+DBI::dbGetQuery(
+  report_store@con,
+  "
+  select count(distinct id) as reports,
+         count(*) as n
+  from chunks"
+)
+```
+
+## Step 6: search
+
+`ragnar_retrieve_bm25()` returns one row per matching chunk, with all of the
+metadata columns attached.
+
+```{r}
+#| label: search
+hits <- ragnar::ragnar_retrieve_bm25(
+  report_store,
+  "ShopSphere marketplace",
+  top_k = 5
+)
+
+hits |>
+  dplyr::select(id, unit, published, chunk_id, metric_value)
+```
+
+How to read a row:
+
+| Column | Meaning |
+|---|---|
+| `text` | The excerpt itself, about 1,600 characters |
+| `id`, `title`, `unit`, `author`, `report_type` | Which report it came from |
+| `period_start`, `period_end` | The period the report covers |
+| `published` | When the report was released |
+| `chunk_id`, `start`, `end` | Which excerpt of the report, and where it sits in the body |
+| `context` | The headings above the excerpt |
+| `metric_value` | BM25 score. Higher is a better match. Only comparable within one search |
+
+Chunks overlap by about half, so two neighbouring chunks of the same report
+can both appear. Treat them as one source.
+
+## Step 7: use the store from an LLM
+
+Wrap the search in a function that always applies the `as_of` filter, and
+register it as an 'ellmer' tool. Return JSON from the tool rather than a data
+frame. This needs an API key, so it is not run here.
+
+```{r}
+#| label: llm-tool
+#| eval: false
+search_reports <- function(query, as_of, top_k = 6) {
+  ragnar::ragnar_retrieve_bm25(
+    report_store,
+    query,
+    top_k = top_k,
+    filter = published <= as.Date(as_of)
+  ) |>
+    dplyr::select(id, title, unit, author, published, context, text) |>
+    jsonlite::toJSON(Date = "ISO8601")
+}
+
+
+chat <- ellmer::chat_anthropic(
+  system_prompt = "Answer using the search_reports tool. Today is 2025-06-30;
+    always pass as_of = '2025-06-30'. Cite report ids."
+)
+
+chat$register_tool(ellmer::tool(
+  search_reports,
+  description = "Keyword (BM25) search over Contoso business-unit reports.
+    Not semantic: try two or three phrasings using the reports' own terms.",
+  arguments = list(
+    query = ellmer::type_string("Keywords."),
+    as_of = ellmer::type_string(
+      "YYYY-MM-DD. Only reports published on or before this date."
+    ),
+    top_k = ellmer::type_integer("Maximum number of hits.", required = FALSE)
+  ),
+  name = "search_reports"
+))
+
+chat$chat("Why is online revenue below plan this year?")
+```
+
+`ragnar::ragnar_register_tool_retrieve()` and `ragnar::mcp_serve_store()` do
+this in one line, but they cannot apply an `as_of` filter, so the model can
+read later reports.
+
+```{r}
+#| label: cleanup
+#| include: false
+DBI::dbDisconnect(report_store@con)
+unlink(store_path)
+```
+
+## Use the reports from an assistant
+
+These examples need an API key or an assistant, so they are not run here.
+
+### Posit Assistant, with a date filter
+
+Save the store to a fixed path, such as `~/ragnar/contoso-reports.duckdb`,
+then save this script as `~/ragnar/serve_reports.R`. It serves one search
+tool over MCP. `as_of` is required and `from` is optional, so the assistant
+can narrow a search to a period but can never read reports published after
+`as_of`.
+
+```{r}
+#| label: serve-reports
+#| eval: false
+report_store <- ragnar::ragnar_store_connect(
+  Sys.getenv("REPORTS_STORE"),
+  read_only = TRUE
+)
+
+search_reports <- function(
+  query,
+  to_date,
+  from_date = "1900-01-01",
+  top_k = 6
+) {
+  ragnar::ragnar_retrieve_bm25(
+    report_store,
+    query,
+    top_k = top_k,
+    filter = published >= as.Date(from_date) & published <= as.Date(to_date)
+  ) |>
+    dplyr::select(id, title, unit, author, published, text) |>
+    jsonlite::toJSON(Date = "ISO8601")
+}
+
+search_tool <- ellmer::tool(
+  search_reports,
+  name = "search_reports",
+  description = "Keyword (BM25) search over Contoso's 2025 internal business reports.
+    Only reports published on or before `as_of` are searched.",
+  arguments = list(
+    query = ellmer::type_string("Keywords to search for."),
+    to_date = ellmer::type_string(
+      "Date as YYYY-MM-DD. Only reports published on or before this date are searched."
+    ),
+    from_date = ellmer::type_string(
+      "Optional start date, YYYY-MM-DD. Only reports published on or after this date are searched.",
+      required = FALSE
+    ),
+    top_k = ellmer::type_integer(
+      "Number of excerpts to return. Default 6.",
+      required = FALSE
+    )
+  )
+)
+
+mcptools::mcp_server(list(search_tool), session_tools = FALSE)
+```
+
+Then add the server to `~/.posit/assistant/settings.json` and reload:
+
+```json
+"mcpServers": {
+  "contoso-reports": {
+    "type": "local",
+    "command": ["Rscript", "/home/you/ragnar/serve_reports.R"],
+    "environment": {
+      "REPORTS_STORE": "/home/you/ragnar/contoso-reports.duckdb"
+    },
+    "timeout": 60000
+  }
+}
+```
+
+### commons
+
+[commons](https://posit-dev.github.io/commons/) builds an agent that labels
+each answer by where it came from. Give it the same date-filtered search as a
+**measure**, a trusted function the agent calls with arguments, so its
+answers come from the ragnar store and are labelled Trusted. commons also
+needs a data source; the report metadata (no text) works, so the agent can
+answer questions such as "which reports came out in June?" with SQL.
+
+Leave out commons' `context_layer()`: its own search over the report text
+cannot filter by date, so it would give the agent a way around `as_of`.
+
+commons does not list measures in its prompt; the agent has to look them up
+first. Without `instructions` pointing it to `search_reports`, it tends to
+query the metadata table, find no text, and give up.
+
+```{r}
+#| label: commons-agent
+#| eval: false
+
+report_store <- ragnar::ragnar_store_connect(
+  Sys.getenv("REPORTS_STORE"),
+  read_only = TRUE
+)
+
+search_reports <- function(query, as_of, from = "1900-01-01", top_k = 6) {
+  ragnar::ragnar_retrieve_bm25(
+    report_store,
+    query,
+    top_k = top_k,
+    filter = published >= !!as.Date(from) & published <= !!as.Date(as_of)
+  ) |>
+    dplyr::select(id, title, unit, author, published, text) |>
+    jsonlite::toJSON(Date = "ISO8601")
+}
+
+search_measure <- commons::measure(
+  "search_reports",
+  "Search the text of Contoso 2025 business reports (what business units wrote and said). Only reports published on or before as_of are searched.",
+  fn = search_reports,
+  arguments = list(
+    query = ellmer::type_string("Keywords to search for."),
+    as_of = ellmer::type_string("Date as YYYY-MM-DD."),
+    from = ellmer::type_string(
+      "Optional start date, YYYY-MM-DD.",
+      required = FALSE
+    ),
+    top_k = ellmer::type_integer(
+      "Number of excerpts. Default 6.",
+      required = FALSE
+    )
+  )
+)
+
+con <- DBI::dbConnect(duckdb::duckdb())
+DBI::dbWriteTable(con, "reports", dplyr::select(read_reports(), -body))
+
+agent <- commons::commons(
+  client = ellmer::chat_anthropic(),
+  data_sources = list(reports = commons::data_source(con)),
+  semantic_layer = commons::semantic_layer(search_measure),
+  instructions = "The reports table holds report metadata only. The text of
+    the reports is available only through the search_reports measure: for any
+    question about what a report or business unit said, call search_reports
+    with call_measure, passing the as_of date from the question."
+)
+
+agent$chat(
+  "As of 2025-06-30, what did the business units say about the PC refresh?"
+)
+commons::commons_app(agent)
+```
+
+## Conclusion
+
+- Chunk each report's `body`, and attach all of its metadata to every chunk
+  with one `mutate()`. Declare the metadata columns up front with
+  `extra_cols = reports[0, meta_cols]`.
+- From exported files, `yaml12::read_yaml()` gives the metadata and body
+  together; convert the dates back to `Date`.
+- `embed = NULL` gives a BM25-only store with no embedding model.
+- Search with `ragnar_retrieve_bm25()`. Use `conjunctive = TRUE` to know when
+  nothing really matched, and `filter` to restrict by date, unit or type.
+- Use SQL on the `chunks` table for questions about dates and counts.
+- When an LLM uses the store, give it a search tool that enforces `as_of`.

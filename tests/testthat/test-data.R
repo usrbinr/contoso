@@ -15,47 +15,66 @@ test_that("every customer transacts and every sale has a customer", {
   expect_setequal(customer$customer_key, unique(sales$customer_key))
 })
 
-test_that("data dictionary matches the shipped data", {
-  cols <- contoso_dict_columns()
+# The data dictionary is validated properly by `data-dict validate-data`, which
+# needs the CLI. These tests are the part that can run anywhere: they check the
+# shipped YAML still describes the shipped data frames.
 
-  for (tbl in unique(cols$table)) {
-    d <- get(tbl, envir = asNamespace("contoso"))
-    documented <- cols$column[cols$table == tbl]
+dict_tables <- function() {
+  path <- system.file("extdata", "small", "data-dict.yaml", package = "contoso")
+  skip_if(path == "", "data-dict.yaml not installed")
+  yaml::read_yaml(path)$tables
+}
 
-    expect_equal(documented, names(d), info = tbl)
-    expect_equal(
-      unique(cols$rows[cols$table == tbl]), nrow(d),
-      info = paste(tbl, "row count")
-    )
-  }
+test_that("data dictionary documents exactly the shipped tables and columns", {
+  tables <- dict_tables()
+
+  expect_setequal(
+    purrr::map_chr(tables, "name"),
+    c("sales", "orders", "orderrows", "product", "customer", "store",
+      "calendar", "fx")
+  )
+
+  tables |> purrr::walk(\(tbl) {
+    d <- get(tbl$name, envir = asNamespace("contoso"))
+    expect_equal(purrr::map_chr(tbl$columns, "name"), names(d), info = tbl$name)
+  })
 })
 
-test_that("documented missing counts and enum values match the data", {
-  cols <- contoso_dict_columns()
+test_that("documented enum values match the data", {
+  dict_tables() |> purrr::walk(\(tbl) {
+    d <- get(tbl$name, envir = asNamespace("contoso"))
+    tbl$columns |>
+      purrr::keep(\(col) identical(col$type, "enum")) |>
+      purrr::walk(\(col) {
+        x <- d[[col$name]]
+        expect_setequal(unlist(col$values), sort(unique(x[!is.na(x)])))
+      })
+  })
+})
 
-  for (i in seq_len(nrow(cols))) {
-    x <- get(cols$table[i], envir = asNamespace("contoso"))[[cols$column[i]]]
-
-    expect_equal(
-      cols$missing[i], sum(is.na(x)),
-      info = paste0(cols$table[i], ".", cols$column[i], " missing count")
-    )
-
-    if (!is.null(cols$values[[i]])) {
-      expect_setequal(cols$values[[i]], sort(unique(x[!is.na(x)])))
-    }
-  }
+test_that("documented required columns have no missing values", {
+  dict_tables() |> purrr::walk(\(tbl) {
+    d <- get(tbl$name, envir = asNamespace("contoso"))
+    tbl$columns |>
+      purrr::keep(\(col) any(c("required", "primary_key") %in% unlist(col$constraints))) |>
+      purrr::walk(\(col) {
+        expect_false(anyNA(d[[col$name]]),
+                     info = paste0(tbl$name, ".", col$name))
+      })
+  })
 })
 
 test_that("documented primary keys really are unique", {
-  cols <- contoso_dict_columns()
-  pks <- cols[grepl("primary_key", cols$constraints), ]
+  # `sales` and `orderrows` are keyed on (order_key, line_number), so the key
+  # has to be tested as a whole rather than column by column.
+  dict_tables() |> purrr::walk(\(tbl) {
+    key <- tbl$columns |>
+      purrr::keep(\(col) "primary_key" %in% unlist(col$constraints)) |>
+      purrr::map_chr("name")
+    if (length(key) == 0) return(invisible())
 
-  for (i in seq_len(nrow(pks))) {
-    x <- get(pks$table[i], envir = asNamespace("contoso"))[[pks$column[i]]]
-    expect_false(
-      anyDuplicated(x) > 0,
-      info = paste0(pks$table[i], ".", pks$column[i])
-    )
-  }
+    d <- get(tbl$name, envir = asNamespace("contoso"))[key]
+    expect_equal(nrow(unique(d)), nrow(d),
+                 info = paste0(tbl$name, ": ", paste(key, collapse = " + ")))
+  })
 })

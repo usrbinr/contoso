@@ -48,11 +48,23 @@ The package comes with the following tables:
 Built into the package is the smallest version of the dataset: 7,794
 sales lines across 3,242 orders and 3,165 customers.
 
-Every column is documented in a machine-readable data dictionary, which
-`contoso_dict_columns()` returns as a tibble:
+Every column is documented in a machine-readable
+[data-dict](https://data-dict.tidyverse.org/) dictionary, shipped with
+the package. There is one per dataset, each in its own directory:
+`extdata/small/` describes the bundled tables (and `size = "small"`),
+`extdata/cloud/` describes the `medium`, `large` and `mega` sizes.
 
 ``` r
-contoso_dict_columns()
+system.file("extdata", "small", "data-dict.yaml", package = "contoso")
+```
+
+Both validate against the spec, so the [`data-dict`
+CLI](https://data-dict.tidyverse.org/) can check either against its
+data, or render it as a browsable page. Point it at the directory:
+
+``` bash
+data-dict validate-data "$(Rscript -e 'cat(system.file("extdata/small", package = "contoso"))')"
+data-dict render        "$(Rscript -e 'cat(system.file("extdata/cloud", package = "contoso"))')" -o dict.html
 ```
 
 Using `labelled::look_for()`, you can also see the columns’ labels from
@@ -116,8 +128,8 @@ Or install the development version from
 [Codeberg](https://codeberg.org/usrbinr/contoso):
 
 ``` r
-# install.packages("pak")
-pak::pak("git::https://codeberg.org/usrbinr/contoso")
+# install.packages("remotes")
+remotes::install_git("https://codeberg.org/usrbinr/contoso")
 ```
 
 ### Example
@@ -137,3 +149,20 @@ launch_ui(db$con)
 # Clean up when done
 DBI::dbDisconnect(db$con, shutdown = TRUE)
 ```
+
+### Business reports
+
+The package also ships 118 fictional internal business reports about
+Contoso's 2025 trading: weekly sales flashes, monthly e-commerce, supply
+chain and plant reviews, quarterly regional reviews, pricing committee
+minutes, operations notices, industry notes and the Annual Operating Plan.
+Their figures come from the "mega" dataset, and a few contain deliberate
+errors, for testing document search and FP&A assistants.
+
+``` r
+reports <- read_reports()            # one row per report, Markdown text in `body`
+export_reports("contoso-reports")    # or write them as one YAML file each
+```
+
+See the "Business reports" and "Searching the reports with ragnar" articles
+on the [package website](https://usrbinr.codeberg.page/contoso/).

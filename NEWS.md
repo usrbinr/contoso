@@ -1,3 +1,78 @@
+# contoso 2.3.0
+
+## New features
+
+* `read_reports()` returns 118 fictional internal business reports about
+  Contoso's 2025 trading (weekly sales flashes, monthly e-commerce, supply
+  chain and plant reviews, quarterly regional reviews, pricing committee
+  minutes, operations notices, industry notes and the Annual Operating Plan).
+  The figures come from the "mega" cloud dataset. Some reports carry
+  deliberate errors, for testing financial planning and analysis assistants.
+  The reports ship compressed in `inst/extdata/reports.rds` (about 90 KB).
+
+* `export_reports()` writes the reports as one YAML file each, the layout
+  document stores and retrieval tools expect. This adds 'yaml12' to Imports.
+
+* New vignette, `vignette("business-reports")`, describing the reports. New
+  articles on the website: "Getting started" and "Searching the reports with
+  ragnar".
+
+## Breaking changes
+
+* Removed `contoso_dict_columns()`. The data dictionary is a standard
+  [data-dict](https://data-dict.tidyverse.org/) file, so the `data-dict` CLI
+  already reads, validates and renders it, and `yaml::read_yaml()` reads it in
+  R. Use `system.file("extdata", "small", "data-dict.yaml", package = "contoso")`
+  to find it.
+
+## Dependencies
+
+* `yaml` has moved from Imports to Suggests; it was only needed by the
+  function removed above.
+
+* `Depends` is now R (>= 4.1.0), which the package code has in fact required
+  for some time -- it uses the native pipe `|>` and the `\(x)` function
+  shorthand.
+
+## Cloud dataset fixes
+
+* Fixed `size = "large"`, where every row of `fx` was present twice (200,900
+  rows over 100,450 distinct rates, exact duplicates). Joining `sales` to `fx`
+  doubled the row count and any revenue converted through it. `medium` and
+  `mega` were unaffected, and `contoso_10m/fx.parquet` is now byte-identical
+  to the file the other sizes already shared. This is the same duplication
+  fixed for `sales` in 2.2.0; `fx` was missed at the time.
+
+## Documentation
+
+* The bundled data dictionary now validates against the
+  [data-dict](https://data-dict.tidyverse.org/) spec at all three levels
+  (`validate-spec`, `validate-meta`, `validate-data`). Removed the
+  non-spec `rows` and `missing` keys, added the required `range` to every
+  ordered column, and recorded the composite primary keys on `sales` and
+  `orderrows` (`order_key` + `line_number`) and on `fx` (`date` +
+  `from_currency` + `to_currency`).
+
+* Corrected the dictionary where it contradicted the data: `line_number` is
+  zero-based, not 1-based, and the `sales`-to-`fx` join was documented as
+  `many-to-one` when it fans out five-to-one unless `from_currency` is
+  filtered.
+
+* The derived measures in `sales` are now written as checkable assertions
+  rather than prose, so `data-dict validate-data` verifies that
+  `gross_revenue`, `net_revenue`, `unit_discount`, `discounts`, `cogs`,
+  `gross_margin` and `unit_margin` still follow their documented formulas.
+
+* The dictionary for the cloud datasets ships as
+  `inst/extdata/cloud/data-dict.yaml`, covering `size = "medium"`, `"large"`
+  and `"mega"`. It carries the same types, constraints, assertions,
+  relationships and glossary as the small dictionary; only the observed `range`,
+  `examples` and the descriptions that are genuinely different differ.
+
+* The reports returned by `read_reports()` have their own data dictionary,
+  `inst/extdata/reports/data-dict.yaml`, describing each column and noting
+  that some reports are deliberately wrong.
+
 # contoso 2.2.0
 
 ## Breaking changes

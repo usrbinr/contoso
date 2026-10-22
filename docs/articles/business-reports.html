@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.9.38">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Data dictionary for the Contoso dataset — contoso_dict_columns – contoso</title>
+<title>The business reports – contoso</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -263,7 +263,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../man/figures/logo.png" alt="" class="navbar-logo light-content"><img src="../man/figures/logo.png" alt="" class="navbar-logo dark-content"></a>
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">contoso 2.2.0</span>
+    <span class="navbar-title">contoso 2.3.0</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -273,6 +273,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
 <li class="nav-item">
+    <a class="nav-link" href="../articles/getting-started.html"> 
+<span class="menu-text">Get started</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../reference/index.html"> 
 <span class="menu-text">Reference</span></a>
   </li>  
@@ -280,6 +284,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../citation.html"> 
 <span class="menu-text">Citation</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-articles" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Articles</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-articles">
+<li>
+    <a class="dropdown-item" href="../articles/business-reports.html">
+ <span class="dropdown-text">The business reports</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../articles/reports-ragnar.html">
+ <span class="dropdown-text">Searching the reports with ragnar</span></a>
+  </li>  
+    </ul>
+</li>
   <li class="nav-item">
     <a class="nav-link" href="../NEWS.html"> 
 <span class="menu-text">Changelog</span></a>
@@ -304,14 +323,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#usage" id="toc-usage" class="nav-link active" data-scroll-target="#usage">Usage</a></li>
-  <li><a href="#value" id="toc-value" class="nav-link" data-scroll-target="#value">Value</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+<li><a href="#types-of-report" id="toc-types-of-report" class="nav-link active" data-scroll-target="#types-of-report">Types of report</a></li>
+  <li><a href="#a-sample-report" id="toc-a-sample-report" class="nav-link" data-scroll-target="#a-sample-report">A sample report</a></li>
+  <li>
+<a href="#dimensions-of-a-report" id="toc-dimensions-of-a-report" class="nav-link" data-scroll-target="#dimensions-of-a-report">Dimensions of a report</a>
+  <ul class="collapse">
+<li><a href="#metadata" id="toc-metadata" class="nav-link" data-scroll-target="#metadata">Metadata</a></li>
+  <li><a href="#business-dimensions" id="toc-business-dimensions" class="nav-link" data-scroll-target="#business-dimensions">Business dimensions</a></li>
+  <li><a href="#measures" id="toc-measures" class="nav-link" data-scroll-target="#measures">Measures</a></li>
+  </ul>
+</li>
+  <li><a href="#the-year-in-the-reports" id="toc-the-year-in-the-reports" class="nav-link" data-scroll-target="#the-year-in-the-reports">The year in the reports</a></li>
   </ul></nav>
 </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Data dictionary for the Contoso dataset</h1>
+<h1 class="title">The business reports</h1>
 </div>
 
 
@@ -325,71 +352,468 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><div class="qrtdown-source dont-index">
-<p>Source: <a href="https://codeberg.org/usrbinr/contoso/src/branch/main/R/dict.R"><code>R/dict.R</code></a></p>
-</div>
-<p>
-Reads the machine-readable data dictionary shipped with the package and returns it as a tibble with one row per column of every table. The dictionary follows the <a href="https://data-dict.tidyverse.org/" class="external-link">data-dict</a> schema and documents the traps – notably that <code>store_key</code> 999999 is a sentinel for the online channel rather than a real location, and that <code>store.status</code> is missing (never <code>“Open”</code>) for stores trading normally.
-</p>
-<section id="usage" class="level2"><h2 class="anchored" data-anchor-id="usage">Usage</h2>
-<div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contoso_dict_columns</span>()</span></code></pre></div>
-<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
-</div>
-</section><section id="value" class="level2"><h2 class="anchored" data-anchor-id="value">Value</h2>
-<p>
-A tibble with columns <code>table</code>, <code>rows</code> (row count of the whole table), <code>column</code>, <code>type</code>, <code>constraints</code>, <code>units</code>, <code>missing</code>, <code>values</code> (a list column of permitted values for enums) and <code>description</code>.
-</p>
-</section><section id="examples" class="level2"><h2 class="anchored" data-anchor-id="examples">Examples</h2>
+</header><p>contoso includes 118 fictional internal business reports about Contoso’s 2025 trading. They are the documents a finance team reads alongside its sales data: weekly flashes, monthly reviews, quarterly country reports, committee minutes and plan memos. Each is written by a named person in a named business unit, published on a realistic date, and based on the “mega” dataset from <code>create_contoso_duckdb("mega")</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contoso_dict_columns</span>()</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 103 × 9</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    table  rows column        type   constraints units missing values description</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;   &lt;int&gt; &lt;list&gt; &lt;chr&gt;      </span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 sales  7794 order_key     numbe… required    &lt;NA&gt;        0 &lt;NULL&gt; Order this…</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 sales  7794 line_number   numbe… required    &lt;NA&gt;        0 &lt;NULL&gt; Position o…</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 sales  7794 order_date    date   required    &lt;NA&gt;        0 &lt;NULL&gt; Date the o…</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 sales  7794 delivery_date date   required    &lt;NA&gt;        0 &lt;NULL&gt; Date the o…</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 sales  7794 customer_key  numbe… required, … &lt;NA&gt;        0 &lt;NULL&gt; Customer w…</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 sales  7794 store_key     numbe… required, … &lt;NA&gt;        0 &lt;NULL&gt; Where the …</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 sales  7794 product_key   numbe… required, … &lt;NA&gt;        0 &lt;NULL&gt; Product on…</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 sales  7794 quantity      numbe… required    &lt;NA&gt;        0 &lt;NULL&gt; Units of t…</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 sales  7794 unit_price    numbe… required    USD         0 &lt;NULL&gt; Transacted…</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 sales  7794 net_price     numbe… required    USD         0 &lt;NULL&gt; Price per …</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 93 more rows</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># one table</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(<span class="fu">contoso_dict_columns</span>(), table <span class="sc">==</span> <span class="st">"store"</span>)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 11 × 9</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    table  rows column        type   constraints units missing values description</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;   &lt;int&gt; &lt;list&gt; &lt;chr&gt;      </span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 store    74 store_key     numbe… "primary_k… &lt;NA&gt;        0 &lt;NULL&gt; Unique ide…</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 store    74 store_code    numbe… "required"  &lt;NA&gt;        0 &lt;NULL&gt; Business c…</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 store    74 geo_area_key  numbe… "required"  &lt;NA&gt;        0 &lt;NULL&gt; Geographic…</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 store    74 country_code  enum   "required"  &lt;NA&gt;        0 &lt;chr&gt;  ISO 3166-1…</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 store    74 country_name  enum   "required"  &lt;NA&gt;        0 &lt;chr&gt;  Country na…</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 store    74 state         string "required"  &lt;NA&gt;        0 &lt;NULL&gt; State or r…</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 store    74 open_date     date   "required"  &lt;NA&gt;        0 &lt;NULL&gt; Date the s…</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 store    74 close_date    date   ""          &lt;NA&gt;       58 &lt;NULL&gt; Date the s…</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 store    74 description   string "required"  &lt;NA&gt;        0 &lt;NULL&gt; Always `Co…</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 store    74 square_meters numbe… ""          &lt;NA&gt;        1 &lt;NULL&gt; Floor area…</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 store    74 status        enum   ""          &lt;NA&gt;       59 &lt;chr&gt;  Exceptiona…</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co"># which columns can be missing?</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(<span class="fu">contoso_dict_columns</span>(), missing <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="fu">c</span>(table, column, missing))</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 3</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   table    column        missing</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;           &lt;int&gt;</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 product  weight_unit       222</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 product  weight            284</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 customer company             1</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 store    close_date         58</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 store    square_meters       1</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 store    status             59</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>reports <span class="ot">&lt;-</span> <span class="fu">read_reports</span>()</span></code></pre></div>
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 </div>
+<section id="types-of-report" class="level2"><h2 class="anchored" data-anchor-id="types-of-report">Types of report</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead><tr class="header">
+<th>Business area</th>
+<th>Report type</th>
+<th>Author</th>
+<th>How often</th>
+<th>Count</th>
+<th>Typical length</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Sales</td>
+<td>
+<code>sales_flash</code>: Weekly Sales Flash</td>
+<td>Priya Raman, Sales Operations</td>
+<td>Weekly, every Monday</td>
+<td>52</td>
+<td>450 words</td>
+</tr>
+<tr class="even">
+<td>Sales</td>
+<td>
+<code>regional</code>: Quarterly Business Review</td>
+<td>Country managers for the US, Germany, UK and Canada</td>
+<td>Quarterly</td>
+<td>16</td>
+<td>730 words</td>
+</tr>
+<tr class="odd">
+<td>E-commerce and marketing</td>
+<td>
+<code>ecommerce</code>: E-commerce Performance Review</td>
+<td>Marcus Lindqvist, Digital Commerce</td>
+<td>Monthly</td>
+<td>12</td>
+<td>650 words</td>
+</tr>
+<tr class="even">
+<td>Supply chain</td>
+<td>
+<code>supply_chain</code>: Vendor &amp; Supply Review</td>
+<td>Hannah Okafor, Supply Chain &amp; Procurement</td>
+<td>Monthly</td>
+<td>12</td>
+<td>710 words</td>
+</tr>
+<tr class="odd">
+<td>Manufacturing</td>
+<td>
+<code>manufacturing</code>: Contoso, Ltd Plant Report</td>
+<td>Tomasz Wisniewski, private-label plant</td>
+<td>Monthly</td>
+<td>12</td>
+<td>600 words</td>
+</tr>
+<tr class="even">
+<td>Pricing</td>
+<td>
+<code>pricing</code>: Pricing &amp; Promotions Committee Minutes</td>
+<td>Olivia Grant (chair)</td>
+<td>5 meetings a year</td>
+<td>5</td>
+<td>710 words</td>
+</tr>
+<tr class="odd">
+<td>Planning and finance</td>
+<td>
+<code>aop</code>: Annual Operating Plan memo</td>
+<td>Daniel Okoye, Corporate Planning</td>
+<td>Once, before the year</td>
+<td>1</td>
+<td>1,060 words</td>
+</tr>
+<tr class="even">
+<td>Operations</td>
+<td>
+<code>alert</code>: Supply alerts and operations notices</td>
+<td>Supply Chain, Retail Operations</td>
+<td>When something happens</td>
+<td>4</td>
+<td>320 words</td>
+</tr>
+<tr class="odd">
+<td>External market</td>
+<td>
+<code>industry</code>: Sector Review</td>
+<td>Northbridge Retail Insights, an outside analyst</td>
+<td>Quarterly</td>
+<td>4</td>
+<td>730 words</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>reports <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(report_type, unit, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 13 × 3</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    report_type   unit                                       n</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;                                  &lt;int&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 sales_flash   Sales Operations                          52</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 ecommerce     Digital Commerce                          12</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 manufacturing Contoso Manufacturing (Private Label)     12</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 supply_chain  Supply Chain &amp; Procurement                12</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 pricing       Pricing &amp; Promotions Committee             5</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 industry      Northbridge Retail Insights (external)     4</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 regional      Regional Sales - Canada                    4</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 regional      Regional Sales - Germany                   4</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 regional      Regional Sales - United Kingdom            4</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 regional      Regional Sales - United States             4</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 alert         Retail Operations                          2</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 alert         Supply Chain &amp; Procurement                 2</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13 aop           Corporate Planning                         1</span></span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+</div>
+<p>Each type follows its own template:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead><tr class="header">
+<th>Report type</th>
+<th>Sections</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>sales_flash</code></td>
+<td>Headline, key numbers table, Channel, Country, Category, Watch list</td>
+</tr>
+<tr class="even">
+<td><code>regional</code></td>
+<td>Executive summary, Performance vs last year and budget, Category highlights, Store operations, Customers and competitors, Priorities next quarter, Asks of HQ</td>
+</tr>
+<tr class="odd">
+<td><code>ecommerce</code></td>
+<td>Headline, Channel mix, Online performance vs last year and budget, Online category performance, Site and marketing notes, Priorities for next month</td>
+</tr>
+<tr class="even">
+<td><code>supply_chain</code></td>
+<td>Summary, Vendor scorecard (red/amber/green by manufacturer), Issues and mitigations, Outlook</td>
+</tr>
+<tr class="odd">
+<td><code>manufacturing</code></td>
+<td>Summary, Sell-through by category and product line, Cost and yield, Capacity and launches, Risks</td>
+</tr>
+<tr class="even">
+<td><code>pricing</code></td>
+<td>Attendees, Review of recent performance, Discussion, Decisions, Action items</td>
+</tr>
+<tr class="odd">
+<td><code>aop</code></td>
+<td>Summary of targets, Key assumptions, Phasing through the year, Risks to the plan, Accountabilities by unit</td>
+</tr>
+<tr class="even">
+<td><code>alert</code></td>
+<td>What happened, Impact, Actions, Next update</td>
+</tr>
+<tr class="odd">
+<td><code>industry</code></td>
+<td>Key takeaways, Demand by category, Channels, Pricing and promotions, Outlook</td>
+</tr>
+</tbody>
+</table></section><section id="a-sample-report" class="level2"><h2 class="anchored" data-anchor-id="a-sample-report">A sample report</h2>
+<p>The Weekly Sales Flash for week 20, in full:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sample <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(reports, id <span class="sc">==</span> <span class="st">"sales-flash-2025-w20"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(sample<span class="sc">$</span>body)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Weekly Sales Flash - Week 20 (12 May 2025 to 18 May 2025)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Priya Raman, Director of Sales Operations, Sales Operations | 19 May 2025</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; **Headline**</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Net revenue **$590M**, flat on Wk 19 (-0.6%) and **down 9% YoY**. Third clean week since stocktake ended, so the run-rate is settling at about $590M a week.</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Stores **up 2.5% YoY** (+0.3% WoW). Online is still the whole problem at **down 17% YoY**.</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - GM steady at **56.0%** and discount at 5.9%, so we are not buying volume.</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; | | Wk 20 | WoW | YoY |</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |---|---|---|---|</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; | Net revenue | $590M | -0.6% | -9.3% |</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; | Online | $334M | -1.2% | -16.6% |</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; | Stores | $257M | +0.3% | +2.5% |</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; | GM % | 56.0% | | |</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; | Discount % | 5.9% | | |</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; | Units | 2.39M | | |</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; **Channel**</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - **Online:** The marketplace hole hasn't closed. Migration to contoso.com is still well below what the AOP assumed, and the lower paid-search spend isn't helping. Online is down another 1.2% WoW.</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - **Stores:** Holding up, and the gains come from the Store Next countries.</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; **Country**</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - **Wave 1 countries are strong:** Italy +28% YoY, Netherlands +27%, Germany +25% and France +11%. All four were up WoW except Italy, which was -1%.</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - **Wave 2:** Canada +13% YoY, +1% WoW. Australia +9% YoY but **-4.7% WoW**, the weakest country this week.</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - **UK:** +3% YoY and +2.7% WoW as conversions start.</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - **US:** -11% YoY and -0.5% WoW. There are no converted stores until the July pilot.</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; **Category**</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - **Cameras:** +28% YoY. The A. Datum creator line and the experience zones are still working.</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - **Audio** +23% and **Games and Toys** +16%. Both are getting the freed-up floor space.</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - **TV and Video:** **-36% YoY** and -4.3% WoW, which is far deeper than the ~8% decline the range reset planned for.</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - **Home Appliances:** -17% YoY. The Litware stop-sell is still leaving gaps on the microwave and coffee-machine shelves.</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - **Computers:** -10% YoY at $209M. We should be in the peak of the Win10 refresh, and it isn't showing up.</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - **Cell phones:** Flat, -2% YoY.</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; **Watch list**</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - **Run-rate vs plan:** ~$590M/week annualises to roughly $31B against the $35B AOP. H2 has to do more work.</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - **Computers:** If the refresh isn't landing in H1, find out where the demand went.</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - **TV and Video:** Check whether the decline is still sliding WoW or has found a floor.</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - **Australia:** Check whether the WoW dip is a one-off or a sign that the wave 2 benefit is fading.</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - **UK:** Track the converted-store lift as the May to July wave rolls out.</span></span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+</div>
+</section><section id="dimensions-of-a-report" class="level2"><h2 class="anchored" data-anchor-id="dimensions-of-a-report">Dimensions of a report</h2>
+<section id="metadata" class="level3"><h3 class="anchored" data-anchor-id="metadata">Metadata</h3>
+<p>Every report carries the same eight metadata fields, plus its text:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead><tr class="header">
+<th>Field</th>
+<th>Type</th>
+<th>Example</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>id</code></td>
+<td>text</td>
+<td><code>sales-flash-2025-w20</code></td>
+</tr>
+<tr class="even">
+<td><code>title</code></td>
+<td>text</td>
+<td>Weekly Sales Flash - Week 20 (12 May 2025 to 18 May 2025)</td>
+</tr>
+<tr class="odd">
+<td><code>unit</code></td>
+<td>text</td>
+<td>Sales Operations</td>
+</tr>
+<tr class="even">
+<td><code>author</code></td>
+<td>text</td>
+<td>Priya Raman, Director of Sales Operations</td>
+</tr>
+<tr class="odd">
+<td><code>report_type</code></td>
+<td>text</td>
+<td>sales_flash</td>
+</tr>
+<tr class="even">
+<td><code>period_start</code></td>
+<td>date</td>
+<td>2025-05-12</td>
+</tr>
+<tr class="odd">
+<td><code>period_end</code></td>
+<td>date</td>
+<td>2025-05-18</td>
+</tr>
+<tr class="even">
+<td><code>published</code></td>
+<td>date</td>
+<td>2025-05-19</td>
+</tr>
+<tr class="odd">
+<td><code>body</code></td>
+<td>Markdown text</td>
+<td>the report itself</td>
+</tr>
+</tbody>
+</table>
+<p><code>period_start</code> and <code>period_end</code> give the period a report covers, and <code>published</code> gives the date it was released. The gap between them varies by type: a weekly flash comes out the day after its week ends, a regional review about 12 days after its quarter. The plan memo is negative: it is published in December 2024, before the year it covers.</p>
+</section><section id="business-dimensions" class="level3"><h3 class="anchored" data-anchor-id="business-dimensions">Business dimensions</h3>
+<p>The figures in each report are cut by the same dimensions as the contoso data. Which cuts a report uses depends on its type:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead><tr class="header">
+<th>Report type</th>
+<th>Period</th>
+<th>Breakdowns</th>
+<th>Compared with</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>sales_flash</code></td>
+<td>Week</td>
+<td>Total, channel (online / stores), country, category</td>
+<td>Prior week, same week last year</td>
+</tr>
+<tr class="even">
+<td><code>regional</code></td>
+<td>Quarter</td>
+<td>One country: total and category</td>
+<td>Prior quarter, last year, budget</td>
+</tr>
+<tr class="odd">
+<td><code>ecommerce</code></td>
+<td>Month</td>
+<td>Channel mix, online total, online by category</td>
+<td>Prior month, last year, budget</td>
+</tr>
+<tr class="even">
+<td><code>supply_chain</code></td>
+<td>Month</td>
+<td>Total, manufacturer, category</td>
+<td>Prior month, last year, budget</td>
+</tr>
+<tr class="odd">
+<td><code>manufacturing</code></td>
+<td>Month</td>
+<td>Contoso, Ltd products: total, category, product line</td>
+<td>Prior month, last year</td>
+</tr>
+<tr class="even">
+<td><code>pricing</code></td>
+<td>The 8 weeks before the meeting</td>
+<td>Total, category, channel</td>
+<td>Prior 8 weeks, last year</td>
+</tr>
+<tr class="odd">
+<td><code>aop</code></td>
+<td>Full year 2025</td>
+<td>Budget by channel, country, category and month</td>
+<td>2024 actuals</td>
+</tr>
+<tr class="even">
+<td><code>alert</code></td>
+<td>One event</td>
+<td>Vendors, categories and regions affected</td>
+<td>None</td>
+</tr>
+<tr class="odd">
+<td><code>industry</code></td>
+<td>Quarter</td>
+<td>Market-level demand by category and channel (no Contoso figures)</td>
+<td>Market last year</td>
+</tr>
+</tbody>
+</table>
+<p>The values those breakdowns take:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead><tr class="header">
+<th>Dimension</th>
+<th>Values</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Channel</td>
+<td>Online, Stores</td>
+</tr>
+<tr class="even">
+<td>Country</td>
+<td>United States, Canada, United Kingdom, Germany, France, Italy, Netherlands, Australia, plus Online</td>
+</tr>
+<tr class="odd">
+<td>Category</td>
+<td>Computers, Cell phones, Home Appliances, TV and Video, Cameras and camcorders, Audio, Games and Toys, Music, Movies and Audio Books</td>
+</tr>
+<tr class="even">
+<td>Manufacturer</td>
+<td>11, including Contoso, Ltd, the company’s own private label</td>
+</tr>
+</tbody>
+</table></section><section id="measures" class="level3"><h3 class="anchored" data-anchor-id="measures">Measures</h3>
+<p>The numbers quoted in the reports are these measures:</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>Measure</th>
+<th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Net revenue</td>
+<td>Sales after discounts, in USD</td>
+</tr>
+<tr class="even">
+<td>Change vs prior period</td>
+<td>Against the previous week, month or quarter</td>
+</tr>
+<tr class="odd">
+<td>Change vs last year</td>
+<td>Against the same period a year earlier</td>
+</tr>
+<tr class="even">
+<td>Variance to budget</td>
+<td>Against the 2025 Annual Operating Plan</td>
+</tr>
+<tr class="odd">
+<td>Gross margin %</td>
+<td>Gross margin as a share of net revenue</td>
+</tr>
+<tr class="even">
+<td>Discount %</td>
+<td>Discounts as a share of gross revenue</td>
+</tr>
+<tr class="odd">
+<td>Cost ratio</td>
+<td>Cost of goods as a share of gross revenue</td>
+</tr>
+<tr class="even">
+<td>Units</td>
+<td>Units sold</td>
+</tr>
+</tbody>
+</table></section></section><section id="the-year-in-the-reports" class="level2"><h2 class="anchored" data-anchor-id="the-year-in-the-reports">The year in the reports</h2>
+<p>Reports run from the plan memo in December 2024 to the last reviews of 2025, published in January 2026:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>reports <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(<span class="at">month =</span> <span class="fu">format</span>(published, <span class="st">"%Y-%m"</span>), <span class="at">name =</span> <span class="st">"reports"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 14 × 2</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    month   reports</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;int&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2024-12       1</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 2025-01       6</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 2025-02       7</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 2025-03      10</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 2025-04      13</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 2025-05       7</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 2025-06       8</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 2025-07      14</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 2025-08       7</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 2025-09       9</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 2025-10      12</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 2025-11       8</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13 2025-12       8</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14 2026-01       8</span></span></code></pre></div>
+<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
+</div>
+</div>
+<p>Together they tell one story about 2025: an exit from third-party marketplaces, a TV range reset, a store refit programme (“Store Next”), a product recall, a PC refresh, and the usual stocktake, summer shutdown and holiday season. Each author only knows what their unit would know on the publication date.</p>
+<p>Some reports are deliberately wrong. A few authors misread the data or credit the wrong cause, as real business writing does. The package does not say which, so an FP&amp;A assistant has to find them by checking the reports against the data.</p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
@@ -808,13 +1232,13 @@ A tibble with columns <code>table</code>, <code>rows</code> (row count of the wh
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Built with <a href="https://quarto.org/" class="external-link">Quarto</a> and <a href="https://codeberg.org/usrbinr/qrtdown" class="external-link">qrtdown</a></p>
+<p>Built with <a href="https://quarto.org/" class="external-link external-link external-link external-link external-link external-link">Quarto</a> and <a href="https://codeberg.org/usrbinr/qrtdown" class="external-link external-link external-link external-link external-link external-link">qrtdown</a></p>
 </div>   
     <div class="nav-footer-center">
        
     </div>
     <div class="nav-footer-right">
-<p>contoso 2.2.0</p>
+<p>contoso 2.3.0</p>
 </div>
   </div>
 </footer>

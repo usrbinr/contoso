@@ -1,0 +1,159 @@
+---
+title: "The business reports"
+vignette: >
+  %\VignetteIndexEntry{The business reports}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(contoso)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+contoso includes 118 fictional internal business reports about Contoso's
+2025 trading. They are the documents a finance team reads alongside its
+sales data: weekly flashes, monthly reviews, quarterly country reports,
+committee minutes and plan memos. Each is written by a named person in a
+named business unit, published on a realistic date, and based on the
+"mega" dataset from `create_contoso_duckdb("mega")`.
+
+```{r}
+#| label: read-reports
+reports <- read_reports()
+```
+
+## Types of report
+
+| Business area | Report type | Author | How often | Count | Typical length |
+|---|---|---|---|---|---|
+| Sales | `sales_flash`: Weekly Sales Flash | Priya Raman, Sales Operations | Weekly, every Monday | 52 | 450 words |
+| Sales | `regional`: Quarterly Business Review | Country managers for the US, Germany, UK and Canada | Quarterly | 16 | 730 words |
+| E-commerce and marketing | `ecommerce`: E-commerce Performance Review | Marcus Lindqvist, Digital Commerce | Monthly | 12 | 650 words |
+| Supply chain | `supply_chain`: Vendor & Supply Review | Hannah Okafor, Supply Chain & Procurement | Monthly | 12 | 710 words |
+| Manufacturing | `manufacturing`: Contoso, Ltd Plant Report | Tomasz Wisniewski, private-label plant | Monthly | 12 | 600 words |
+| Pricing | `pricing`: Pricing & Promotions Committee Minutes | Olivia Grant (chair) | 5 meetings a year | 5 | 710 words |
+| Planning and finance | `aop`: Annual Operating Plan memo | Daniel Okoye, Corporate Planning | Once, before the year | 1 | 1,060 words |
+| Operations | `alert`: Supply alerts and operations notices | Supply Chain, Retail Operations | When something happens | 4 | 320 words |
+| External market | `industry`: Sector Review | Northbridge Retail Insights, an outside analyst | Quarterly | 4 | 730 words |
+
+```{r}
+#| label: count-by-type
+reports |>
+  dplyr::count(report_type, unit, sort = TRUE)
+```
+
+Each type follows its own template:
+
+| Report type | Sections |
+|---|---|
+| `sales_flash` | Headline, key numbers table, Channel, Country, Category, Watch list |
+| `regional` | Executive summary, Performance vs last year and budget, Category highlights, Store operations, Customers and competitors, Priorities next quarter, Asks of HQ |
+| `ecommerce` | Headline, Channel mix, Online performance vs last year and budget, Online category performance, Site and marketing notes, Priorities for next month |
+| `supply_chain` | Summary, Vendor scorecard (red/amber/green by manufacturer), Issues and mitigations, Outlook |
+| `manufacturing` | Summary, Sell-through by category and product line, Cost and yield, Capacity and launches, Risks |
+| `pricing` | Attendees, Review of recent performance, Discussion, Decisions, Action items |
+| `aop` | Summary of targets, Key assumptions, Phasing through the year, Risks to the plan, Accountabilities by unit |
+| `alert` | What happened, Impact, Actions, Next update |
+| `industry` | Key takeaways, Demand by category, Channels, Pricing and promotions, Outlook |
+
+## A sample report
+
+The Weekly Sales Flash for week 20, in full:
+
+```{r}
+#| label: sample-report
+sample <- dplyr::filter(reports, id == "sales-flash-2025-w20")
+cat(sample$body)
+```
+
+## Dimensions of a report
+
+### Metadata
+
+Every report carries the same eight metadata fields, plus its text:
+
+| Field | Type | Example |
+|---|---|---|
+| `id` | text | `sales-flash-2025-w20` |
+| `title` | text | `r sample$title` |
+| `unit` | text | `r sample$unit` |
+| `author` | text | `r sample$author` |
+| `report_type` | text | `r sample$report_type` |
+| `period_start` | date | `r sample$period_start` |
+| `period_end` | date | `r sample$period_end` |
+| `published` | date | `r sample$published` |
+| `body` | Markdown text | the report itself |
+
+`period_start` and `period_end` give the period a report covers, and
+`published` gives the date it was released. The gap between them varies by
+type: a weekly flash comes out the day after its week ends, a regional
+review about 12 days after its quarter. The plan memo is negative: it is
+published in December 2024, before the year it covers.
+
+
+
+### Business dimensions
+
+The figures in each report are cut by the same dimensions as the contoso
+data. Which cuts a report uses depends on its type:
+
+| Report type | Period | Breakdowns | Compared with |
+|---|---|---|---|
+| `sales_flash` | Week | Total, channel (online / stores), country, category | Prior week, same week last year |
+| `regional` | Quarter | One country: total and category | Prior quarter, last year, budget |
+| `ecommerce` | Month | Channel mix, online total, online by category | Prior month, last year, budget |
+| `supply_chain` | Month | Total, manufacturer, category | Prior month, last year, budget |
+| `manufacturing` | Month | Contoso, Ltd products: total, category, product line | Prior month, last year |
+| `pricing` | The 8 weeks before the meeting | Total, category, channel | Prior 8 weeks, last year |
+| `aop` | Full year 2025 | Budget by channel, country, category and month | 2024 actuals |
+| `alert` | One event | Vendors, categories and regions affected | None |
+| `industry` | Quarter | Market-level demand by category and channel (no Contoso figures) | Market last year |
+
+The values those breakdowns take:
+
+| Dimension | Values |
+|---|---|
+| Channel | Online, Stores |
+| Country | United States, Canada, United Kingdom, Germany, France, Italy, Netherlands, Australia, plus Online |
+| Category | Computers, Cell phones, Home Appliances, TV and Video, Cameras and camcorders, Audio, Games and Toys, Music, Movies and Audio Books |
+| Manufacturer | 11, including Contoso, Ltd, the company's own private label |
+
+### Measures
+
+The numbers quoted in the reports are these measures:
+
+| Measure | Meaning |
+|---|---|
+| Net revenue | Sales after discounts, in USD |
+| Change vs prior period | Against the previous week, month or quarter |
+| Change vs last year | Against the same period a year earlier |
+| Variance to budget | Against the 2025 Annual Operating Plan |
+| Gross margin % | Gross margin as a share of net revenue |
+| Discount % | Discounts as a share of gross revenue |
+| Cost ratio | Cost of goods as a share of gross revenue |
+| Units | Units sold |
+
+## The year in the reports
+
+Reports run from the plan memo in December 2024 to the last reviews of
+2025, published in January 2026:
+
+```{r}
+#| label: reports-by-month
+reports |>
+  dplyr::count(month = format(published, "%Y-%m"), name = "reports")
+```
+
+Together they tell one story about 2025: an exit from third-party
+marketplaces, a TV range reset, a store refit programme ("Store Next"), a
+product recall, a PC refresh, and the usual stocktake, summer shutdown and
+holiday season. Each author only knows what their unit would know on the
+publication date.
+
+Some reports are deliberately wrong. A few authors misread the data or
+credit the wrong cause, as real business writing does. The package does not
+say which, so an FP&A assistant has to find them by checking the reports
+against the data.
