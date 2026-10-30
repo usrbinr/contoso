@@ -4,12 +4,13 @@ $learn_more: https://data-dict.tidyverse.org/
 name: contoso_reports
 label: Contoso business reports
 description: >
-  118 fictional internal business documents about Contoso's 2025 trading:
-  weekly sales flashes, monthly e-commerce, supply chain and plant reviews,
-  quarterly regional reviews, pricing committee minutes, operations notices,
-  external industry notes and the 2025 Annual Operating Plan. Returned by
-  `contoso::read_reports()`. Each row is one report, published between 16
-  December 2024 and 21 January 2026.
+  1,127 fictional internal business documents about Contoso's trading from
+  18 May 2016 (when the data starts) to the end of 2025: weekly sales
+  flashes, monthly e-commerce, supply chain and plant reviews, quarterly
+  regional reviews, pricing committee minutes, operations notices, external
+  industry notes and each year's Annual Operating Plan (from 2017). Returned
+  by `contoso::read_reports()`. Each row is one report, published between 30
+  May 2016 and 21 January 2026.
 
 details: |
   This dataset is **synthetic**. The companies, people and events are
@@ -30,10 +31,22 @@ details: |
   Each author only knows what had happened by the publication date. To see
   what was known on a date, filter on `published`, not on the period dates.
 
+  ## One story across ten years
+
+  The years form one continuous, fictional history: a new sales system in
+  2016, store openings and closures in 2016-2019, a loyalty programme in 2019,
+  a component shortage in 2020-2021, marketplaces in 2022-2024, the record
+  2023 and the difficult 2024, then the 2025 programmes. People change roles
+  over time, so a unit's author depends on the publication date.
+
+  The glossary in `system.file("extdata", "reports", "glossary.yaml",
+  package = "contoso")` defines the terms the reports use, with the
+  phrasings to search for.
+
 origin: https://codeberg.org/usrbinr/contoso
 
 version:
-  date: 2026-10-16
+  date: 2026-10-27
 
 tables:
   - name: reports
@@ -53,6 +66,8 @@ tables:
           - ecommerce-2025-06
           - regional-us-2025-q2
           - supply-alert-2025-03-10
+          - sales-flash-2020-w08
+          - ops-notice-2018-08-13
 
       - name: title
         type: string
@@ -87,39 +102,53 @@ tables:
         type: enum
         constraints: [required]
         description: >
-          The named author and their job title. Each unit has one author all
-          year, except Supply Chain & Procurement, whose VP also writes the
-          supply alerts. All names are fictional.
+          The named author and their job title: whoever held the role on the
+          publication date. Most roles change hands once between 2016 and
+          2025 (Manufacturing, Canada and the industry analyst never do), and
+          the VP Supply Chain & Procurement also writes the supply alerts. All
+          names are fictional.
         values:
-          - "Daniel Okoye, Head of Corporate Planning"
-          - "Priya Raman, Director of Sales Operations"
-          - "Marcus Lindqvist, Head of E-commerce"
-          - "Hannah Okafor, VP Supply Chain & Procurement"
-          - "Tomasz Wisniewski, Plant Director, Contoso, Ltd"
-          - "Olivia Grant, Chief Commercial Officer (Chair)"
+          - "Benjamin Castellanos, Director of Sales Operations"
+          - "Carl Mendes, VP Sales, United States"
           - "Dana Whitfield, VP Sales, United States"
-          - "Lukas Brandt, Country Manager, Germany"
-          - "Fiona Gallagher, Country Manager, United Kingdom"
+          - "Daniel Okoye, Head of Corporate Planning"
           - "Etienne Roy, Country Manager, Canada"
-          - "Sam Achterberg, VP Retail Operations"
+          - "Fiona Gallagher, Country Manager, United Kingdom"
+          - "Hannah Okafor, VP Supply Chain & Procurement"
+          - "Inès Duarte, Head of Online"
+          - "Lukas Brandt, Country Manager, Germany"
+          - "Marcus Lindqvist, Head of E-commerce"
+          - "Margaret Holloway, Head of Corporate Planning"
           - "Northbridge Retail Insights, Consumer Electronics Practice"
+          - "Oliver Pennington, Country Manager, United Kingdom"
+          - "Olivia Grant, Chief Commercial Officer (Chair)"
+          - "Priya Raman, Director of Sales Operations"
+          - "Robert Ashdown, Chief Commercial Officer (Chair)"
+          - "Ruth Nakamura, VP Retail Operations"
+          - "Sabine Kröger, Country Manager, Germany"
+          - "Sam Achterberg, VP Retail Operations"
+          - "Tomasz Wisniewski, Plant Director, Contoso, Ltd"
+          - "Victor Adeyemi, VP Supply Chain & Procurement"
 
       - name: report_type
         type: enum
         constraints: [required]
         description: The kind of report, which sets its template, period and timing.
         details: |
-          | Type | Report | Period | Count |
-          |---|---|---|---|
-          | `sales_flash` | Weekly Sales Flash | Week (Monday to Sunday) | 52 |
-          | `ecommerce` | E-commerce Performance Review | Month | 12 |
-          | `supply_chain` | Vendor & Supply Review | Month | 12 |
-          | `manufacturing` | Contoso, Ltd Plant Report | Month | 12 |
-          | `regional` | Quarterly Business Review, one per country | Quarter | 16 |
-          | `pricing` | Pricing & Promotions Committee Minutes | The 8 weeks before the meeting | 5 |
-          | `industry` | External sector review | Quarter | 4 |
-          | `alert` | Supply alert or operations notice | One day | 4 |
-          | `aop` | Annual Operating Plan memo | Full year 2025 | 1 |
+          | Type | Report | Period | A full year | 2016-2025 |
+          |---|---|---|---|---|
+          | `sales_flash` | Weekly Sales Flash | ISO week (Monday to Sunday) | 52 (53 in 2020) | 501 |
+          | `ecommerce` | E-commerce Performance Review | Month | 12 | 115 |
+          | `supply_chain` | Vendor & Supply Review | Month | 12 | 115 |
+          | `manufacturing` | Contoso, Ltd Plant Report | Month | 12 | 115 |
+          | `regional` | Quarterly Business Review, one per country | Quarter | 16 | 152 |
+          | `pricing` | Pricing & Promotions Committee Minutes | The 8 weeks before the meeting | 5 | 48 |
+          | `industry` | External sector review | Quarter | 4 | 38 |
+          | `alert` | Supply alert or operations notice | One day | 2-5 | 34 |
+          | `aop` | Annual Operating Plan memo | Full year, from 2017 | 1 | 9 |
+
+          2016 is a partial year: weekly flashes from ISO week 21, monthly
+          reports from June, quarterly reports for Q3 and Q4, and no plan.
         values:
           - sales_flash
           - ecommerce
@@ -135,23 +164,23 @@ tables:
         type: date
         constraints: [required]
         description: First day of the period the report covers.
-        range: [2024-12-04, 2025-12-22]
+        range: [2016-05-23, 2025-12-22]
 
       - name: period_end
         type: date
         constraints: [required]
         description: Last day of the period the report covers.
-        range: [2025-01-05, 2025-12-31]
+        range: [2016-05-29, 2025-12-31]
 
       - name: published
         type: date
         constraints: [required]
         description: >
           The date the report was released. The author knows only what had
-          happened by this date. Usually after `period_end`; the plan memo is
-          published in December 2024, before the year it covers, and alerts
-          on the day of the event.
-        range: [2024-12-16, 2026-01-21]
+          happened by this date. Usually after `period_end`; each plan memo is
+          published in December of the year before the one it covers, and
+          alerts on the day of the event.
+        range: [2016-05-30, 2026-01-21]
 
       - name: body
         type: string
@@ -165,14 +194,16 @@ tables:
 
 glossary:
   AOP: >
-    Annual Operating Plan: the 2025 budget, set by month, country and
-    category. "vs budget" and "vs plan" in the reports mean against the AOP.
+    Annual Operating Plan: each year's budget from 2017, set by month,
+    country and category. "vs budget" and "vs plan" in the reports mean
+    against the AOP.
   "FP&A": >
     Financial planning and analysis: the finance function that explains
     actual results against budget and last year.
   "Store Next": >
-    A fictional 2025 programme that refits Contoso stores with experience
-    zones, rolled out by country in waves through the year.
+    A fictional programme, announced in December 2024, that refits Contoso
+    stores with experience zones, rolled out by country in waves through
+    2025.
   "Contoso, Ltd": >
     Contoso's own private-label manufacturing arm, which makes some of the
     products it sells. Also listed as a manufacturer in the data.

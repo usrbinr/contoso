@@ -62,11 +62,6 @@ Both validate against the spec, so the [`data-dict`
 CLI](https://data-dict.tidyverse.org/) can check either against its
 data, or render it as a browsable page. Point it at the directory:
 
-``` bash
-data-dict validate-data "$(Rscript -e 'cat(system.file("extdata/small", package = "contoso"))')"
-data-dict render        "$(Rscript -e 'cat(system.file("extdata/cloud", package = "contoso"))')" -o dict.html
-```
-
 Using `labelled::look_for()`, you can also see the columns’ labels from
 the [labelled](https://larmarange.github.io/labelled/index.html)
 package.
@@ -152,17 +147,20 @@ DBI::dbDisconnect(db$con, shutdown = TRUE)
 
 ### Business reports
 
-The package also ships 118 fictional internal business reports about
-Contoso's 2025 trading: weekly sales flashes, monthly e-commerce, supply
-chain and plant reviews, quarterly regional reviews, pricing committee
-minutes, operations notices, industry notes and the Annual Operating Plan.
-Their figures come from the "mega" dataset, and a few contain deliberate
-errors, for testing document search and FP&A assistants.
+The package also ships 1,127 fictional internal business reports about
+Contoso’s trading from May 2016 to the end of 2025: weekly sales
+flashes, monthly e-commerce, supply chain and plant reviews, quarterly
+regional reviews, pricing committee minutes, operations notices,
+industry notes and each year’s Annual Operating Plan, with a glossary of
+the terms they use. Their figures come from the “mega” dataset, and a
+few contain deliberate errors, for testing document search and FP&A
+assistants.
 
 ``` r
-reports <- read_reports()            # one row per report, Markdown text in `body`
-export_reports("contoso-reports")    # or write them as one YAML file each
+reports <- read_reports() # one row per report, Markdown text in `body`
+export_reports("contoso-reports") # or write them as one YAML file each
 ```
 
-See the "Business reports" and "Searching the reports with ragnar" articles
-on the [package website](https://usrbinr.codeberg.page/contoso/).
+See the “Business reports” and “Searching the reports with ragnar”
+articles on the [package
+website](https://usrbinr.codeberg.page/contoso/).

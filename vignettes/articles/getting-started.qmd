@@ -94,6 +94,6 @@ Use `"cloud"` in place of `"small"` for the dictionary of the larger sizes.
 
 ## Next steps
 
-The package also includes 118 fictional business reports about Contoso's
-2025 trading. See [The business reports](business-reports.qmd) to read them,
+The package also includes 1,127 fictional business reports about Contoso's
+trading from May 2016 to the end of 2025. See [The business reports](business-reports.qmd) to read them,
 and [Searching the reports with ragnar](reports-ragnar.qmd) to search them.

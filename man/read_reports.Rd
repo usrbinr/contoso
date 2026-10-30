@@ -12,11 +12,13 @@ A tibble with columns \code{id}, \code{title}, \code{unit}, \code{author},
 are \code{Date}) and \code{body}.
 }
 \description{
-Returns 118 fictional internal business documents written about Contoso's
-2025 trading, one row per report: the metadata a document system would
-record, plus the Markdown text in \code{body}. The figures in the reports come
-from the "mega" dataset (\code{create_contoso_duckdb("mega")}), not the bundled
-tables, which end in 2024. Use \code{\link[=export_reports]{export_reports()}} to get them as files.
+Returns 1,127 fictional internal business documents written about
+Contoso's trading from May 2016 to the end of 2025, one row per report: the
+metadata a document system would record, plus the Markdown text in \code{body}.
+The figures in the reports come from the "mega" dataset
+(\code{create_contoso_duckdb("mega")}), not the bundled tables, which end in
+2024. Use \code{\link[=export_reports]{export_reports()}} to get them as files. The terms the reports
+use are defined in \code{system.file("extdata", "reports", "glossary.yaml", package = "contoso")}.
 }
 \examples{
 reports <- read_reports()

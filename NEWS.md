@@ -1,3 +1,22 @@
+# contoso 2.4.0
+
+* `read_reports()` now returns 1,127 reports covering May 2016 to the end of
+  2025, up from 118 covering 2025. The 2016-2024 reports tell one continuous
+  fictional story that leads into the 2025 reports. Authors change roles
+  over the years, and each year from 2017 has its own Annual Operating Plan
+  memo. The figures still come from the "mega" dataset, and some reports in
+  every year carry deliberate errors. `inst/extdata/reports.rds` grows from
+  about 90 KB to about 730 KB.
+
+* About 100 of the 2025 reports were rewritten so the world is fully
+  fictional: the PC refresh is now driven by the end of support for Lumen 10
+  (a fictional operating system) instead of Windows 10, and no real
+  retailers or events are named. The Litware recall now matches the data:
+  it is a safety inspection, and the affected models were never off sale.
+
+* New glossary of the terms the reports use, with the phrasings to search for:
+  `system.file("extdata", "reports", "glossary.yaml", package = "contoso")`.
+
 # contoso 2.3.0
 
 ## New features

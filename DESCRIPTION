@@ -1,7 +1,7 @@
 Package: contoso
 Type: Package
 Title: Dataset of the 'Contoso' Company
-Version: 2.3.0
+Version: 2.4.0
 Authors@R: c(
     person(
       "Alejandro", "Hagan",
@@ -16,7 +16,7 @@ Description: A collection of synthetic datasets simulating sales transactions fr
   - "orders": Contains details about customer orders, including order and delivery dates, store, and customer data.
   - "product": Contains data on products, including attributes such as product name, category, price, cost, and weight.
   - "calendar": A time-based table that includes date-related attributes like year, month, quarter, day, and working day indicators.
-  The package also includes 118 fictional internal business reports (weekly sales flashes, monthly reviews, regional reviews, pricing committee minutes and industry notes) written about the 2025 trading in the larger cloud dataset, for building and testing document search and financial planning and analysis workflows with large language models.
+  The package also includes 1,127 fictional internal business reports (weekly sales flashes, monthly reviews, regional reviews, pricing committee minutes, annual operating plans and industry notes) written about the trading from 2016 to 2025 in the larger cloud dataset, with a glossary of the terms they use, for building and testing document search and financial planning and analysis workflows with large language models.
   This dataset is ideal for practicing data analysis, performing time-series analysis, creating reports, or simulating business intelligence scenarios.
 License: MIT + file LICENSE
 Imports:
@@ -34,7 +34,6 @@ Suggests:
     yaml,
     knitr,
     quarto
-VignetteBuilder: quarto
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

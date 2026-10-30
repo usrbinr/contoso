@@ -1,10 +1,13 @@
 #' Read the Contoso business reports
 #'
-#' Returns 118 fictional internal business documents written about Contoso's
-#' 2025 trading, one row per report: the metadata a document system would
-#' record, plus the Markdown text in `body`. The figures in the reports come
-#' from the "mega" dataset (`create_contoso_duckdb("mega")`), not the bundled
-#' tables, which end in 2024. Use [export_reports()] to get them as files.
+#' Returns 1,127 fictional internal business documents written about
+#' Contoso's trading from May 2016 to the end of 2025, one row per report: the
+#' metadata a document system would record, plus the Markdown text in `body`.
+#' The figures in the reports come from the "mega" dataset
+#' (`create_contoso_duckdb("mega")`), not the bundled tables, which end in
+#' 2024. Use [export_reports()] to get them as files. The terms the reports
+#' use are defined in `system.file("extdata", "reports", "glossary.yaml",
+#' package = "contoso")`.
 #'
 #' @return A tibble with columns `id`, `title`, `unit`, `author`,
 #'   `report_type`, `period_start`, `period_end`, `published` (the last three

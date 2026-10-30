@@ -179,10 +179,11 @@ DBI::dbDisconnect(db$con, shutdown = TRUE)
 
 ### Business reports
 
-The package also ships 118 fictional internal business reports about
-Contoso's 2025 trading: weekly sales flashes, monthly e-commerce, supply
-chain and plant reviews, quarterly regional reviews, pricing committee
-minutes, operations notices, industry notes and the Annual Operating Plan.
+The package also ships 1,127 fictional internal business reports about
+Contoso's trading from May 2016 to the end of 2025: weekly sales flashes,
+monthly e-commerce, supply chain and plant reviews, quarterly regional
+reviews, pricing committee minutes, operations notices, industry notes and
+each year's Annual Operating Plan, with a glossary of the terms they use.
 Their figures come from the "mega" dataset, and a few contain deliberate
 errors, for testing document search and FP&A assistants.
 

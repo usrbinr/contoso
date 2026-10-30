@@ -1,6 +1,6 @@
 test_that("read_reports returns every report with its metadata", {
   reports <- read_reports()
-  expect_equal(nrow(reports), 118L)
+  expect_equal(nrow(reports), 1127L)
   expect_named(reports, c("id", "title", "unit", "author", "report_type",
                           "period_start", "period_end", "published", "body"))
   expect_false(anyDuplicated(reports$id) > 0)
@@ -10,7 +10,7 @@ test_that("read_reports returns every report with its metadata", {
 test_that("export_reports writes one YAML file per report and will not overwrite", {
   dir <- withr::local_tempdir()
   paths <- suppressMessages(export_reports(dir))
-  expect_length(paths, 118L)
+  expect_length(paths, 1127L)
   expect_true(all(file.exists(paths)))
 
   r <- yaml12::read_yaml(file.path(dir, "aop-2025.yaml"))

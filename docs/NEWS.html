@@ -228,7 +228,7 @@ ul.task-list li input[type="checkbox"] {
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
     <img src="./man/figures/logo.png" alt="" class="navbar-logo light-content"><img src="./man/figures/logo.png" alt="" class="navbar-logo dark-content"></a>
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">contoso 2.3.0</span>
+    <span class="navbar-title">contoso 2.4.0</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -288,8 +288,9 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li>
-<a href="#contoso-2.3.0" id="toc-contoso-2.3.0" class="nav-link active" data-scroll-target="#contoso-2.3.0">contoso 2.3.0</a>
+<li><a href="#contoso-2.4.0" id="toc-contoso-2.4.0" class="nav-link active" data-scroll-target="#contoso-2.4.0">contoso 2.4.0</a></li>
+  <li>
+<a href="#contoso-2.3.0" id="toc-contoso-2.3.0" class="nav-link" data-scroll-target="#contoso-2.3.0">contoso 2.3.0</a>
   <ul class="collapse">
 <li><a href="#new-features" id="toc-new-features" class="nav-link" data-scroll-target="#new-features">New features</a></li>
   <li><a href="#breaking-changes" id="toc-breaking-changes" class="nav-link" data-scroll-target="#breaking-changes">Breaking changes</a></li>
@@ -319,7 +320,12 @@ ul.task-list li input[type="checkbox"] {
   </ul></nav>
 </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header><section id="contoso-2.3.0" class="level1"><h1>contoso 2.3.0</h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header><section id="contoso-2.4.0" class="level1"><h1>contoso 2.4.0</h1>
+<ul>
+<li><p><a href="reference/read_reports.html"><code>read_reports()</code></a> now returns 1,127 reports covering May 2016 to the end of 2025, up from 118 covering 2025. The 2016-2024 reports tell one continuous fictional story that leads into the 2025 reports. Authors change roles over the years, and each year from 2017 has its own Annual Operating Plan memo. The figures still come from the “mega” dataset, and some reports in every year carry deliberate errors. <code>inst/extdata/reports.rds</code> grows from about 90 KB to about 730 KB.</p></li>
+<li><p>About 100 of the 2025 reports were rewritten so the world is fully fictional: the PC refresh is now driven by the end of support for Lumen 10 (a fictional operating system) instead of Windows 10, and no real retailers or events are named. The Litware recall now matches the data: it is a safety inspection, and the affected models were never off sale.</p></li>
+<li><p>New glossary of the terms the reports use, with the phrasings to search for: <code>system.file("extdata", "reports", "glossary.yaml", package = "contoso")</code>.</p></li>
+</ul></section><section id="contoso-2.3.0" class="level1"><h1>contoso 2.3.0</h1>
 <section id="new-features" class="level2"><h2 class="anchored" data-anchor-id="new-features">New features</h2>
 <ul>
 <li><p><a href="reference/read_reports.html"><code>read_reports()</code></a> returns 118 fictional internal business reports about Contoso’s 2025 trading (weekly sales flashes, monthly e-commerce, supply chain and plant reviews, quarterly regional reviews, pricing committee minutes, operations notices, industry notes and the Annual Operating Plan). The figures come from the “mega” cloud dataset. Some reports carry deliberate errors, for testing financial planning and analysis assistants. The reports ship compressed in <code>inst/extdata/reports.rds</code> (about 90 KB).</p></li>
@@ -327,7 +333,7 @@ ul.task-list li input[type="checkbox"] {
 <li><p>New vignette, <code>vignette("business-reports")</code>, describing the reports. New articles on the website: “Getting started” and “Searching the reports with ragnar”.</p></li>
 </ul></section><section id="breaking-changes" class="level2"><h2 class="anchored" data-anchor-id="breaking-changes">Breaking changes</h2>
 <ul>
-<li>Removed <code>contoso_dict_columns()</code>. The data dictionary is a standard <a href="https://data-dict.tidyverse.org/" class="external-link external-link external-link external-link external-link external-link">data-dict</a> file, so the <code>data-dict</code> CLI already reads, validates and renders it, and <a href="https://yaml.r-lib.org/reference/read_yaml.html" class="external-link external-link external-link external-link external-link external-link"><code>yaml::read_yaml()</code></a> reads it in R. Use <code>system.file("extdata", "small", "data-dict.yaml", package = "contoso")</code> to find it.</li>
+<li>Removed <code>contoso_dict_columns()</code>. The data dictionary is a standard <a href="https://data-dict.tidyverse.org/" class="external-link">data-dict</a> file, so the <code>data-dict</code> CLI already reads, validates and renders it, and <a href="https://yaml.r-lib.org/reference/read_yaml.html" class="external-link"><code>yaml::read_yaml()</code></a> reads it in R. Use <code>system.file("extdata", "small", "data-dict.yaml", package = "contoso")</code> to find it.</li>
 </ul></section><section id="dependencies" class="level2"><h2 class="anchored" data-anchor-id="dependencies">Dependencies</h2>
 <ul>
 <li><p><code>yaml</code> has moved from Imports to Suggests; it was only needed by the function removed above.</p></li>
@@ -337,7 +343,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Fixed <code>size = "large"</code>, where every row of <code>fx</code> was present twice (200,900 rows over 100,450 distinct rates, exact duplicates). Joining <code>sales</code> to <code>fx</code> doubled the row count and any revenue converted through it. <code>medium</code> and <code>mega</code> were unaffected, and <code>contoso_10m/fx.parquet</code> is now byte-identical to the file the other sizes already shared. This is the same duplication fixed for <code>sales</code> in 2.2.0; <code>fx</code> was missed at the time.</li>
 </ul></section><section id="documentation" class="level2"><h2 class="anchored" data-anchor-id="documentation">Documentation</h2>
 <ul>
-<li><p>The bundled data dictionary now validates against the <a href="https://data-dict.tidyverse.org/" class="external-link external-link external-link external-link external-link external-link">data-dict</a> spec at all three levels (<code>validate-spec</code>, <code>validate-meta</code>, <code>validate-data</code>). Removed the non-spec <code>rows</code> and <code>missing</code> keys, added the required <code>range</code> to every ordered column, and recorded the composite primary keys on <code>sales</code> and <code>orderrows</code> (<code>order_key</code> + <code>line_number</code>) and on <code>fx</code> (<code>date</code> + <code>from_currency</code> + <code>to_currency</code>).</p></li>
+<li><p>The bundled data dictionary now validates against the <a href="https://data-dict.tidyverse.org/" class="external-link">data-dict</a> spec at all three levels (<code>validate-spec</code>, <code>validate-meta</code>, <code>validate-data</code>). Removed the non-spec <code>rows</code> and <code>missing</code> keys, added the required <code>range</code> to every ordered column, and recorded the composite primary keys on <code>sales</code> and <code>orderrows</code> (<code>order_key</code> + <code>line_number</code>) and on <code>fx</code> (<code>date</code> + <code>from_currency</code> + <code>to_currency</code>).</p></li>
 <li><p>Corrected the dictionary where it contradicted the data: <code>line_number</code> is zero-based, not 1-based, and the <code>sales</code>-to-<code>fx</code> join was documented as <code>many-to-one</code> when it fans out five-to-one unless <code>from_currency</code> is filtered.</p></li>
 <li><p>The derived measures in <code>sales</code> are now written as checkable assertions rather than prose, so <code>data-dict validate-data</code> verifies that <code>gross_revenue</code>, <code>net_revenue</code>, <code>unit_discount</code>, <code>discounts</code>, <code>cogs</code>, <code>gross_margin</code> and <code>unit_margin</code> still follow their documented formulas.</p></li>
 <li><p>The dictionary for the cloud datasets ships as <code>inst/extdata/cloud/data-dict.yaml</code>, covering <code>size = "medium"</code>, <code>"large"</code> and <code>"mega"</code>. It carries the same types, constraints, assertions, relationships and glossary as the small dictionary; only the observed <code>range</code>, <code>examples</code> and the descriptions that are genuinely different differ.</p></li>
@@ -345,7 +351,7 @@ ul.task-list li input[type="checkbox"] {
 </ul></section></section><section id="contoso-2.2.0" class="level1"><h1>contoso 2.2.0</h1>
 <section id="breaking-changes-1" class="level2"><h2 class="anchored" data-anchor-id="breaking-changes-1">Breaking changes</h2>
 <ul>
-<li><p><code>customer</code> now has one row per customer (3,165 rows, down from 7,794). Previous versions built it by joining the customer catalogue onto <code>sales</code>, which repeated each customer once per sales line they appeared on. This made <code>customer_key</code> non-unique, so joining <code>customer</code> to <code>sales</code>, <code>orders</code> or any other table silently multiplied rows. No attribute varied within a customer, so the deduplication loses no data, but any code that relied on the old row count — or that worked around the fan-out with <code>distinct()</code> — should be reviewed. Thanks to <a href="https://github.com/hadley/contoso" class="external-link external-link external-link external-link external-link external-link">Hadley Wickham</a> for reporting.</p></li>
+<li><p><code>customer</code> now has one row per customer (3,165 rows, down from 7,794). Previous versions built it by joining the customer catalogue onto <code>sales</code>, which repeated each customer once per sales line they appeared on. This made <code>customer_key</code> non-unique, so joining <code>customer</code> to <code>sales</code>, <code>orders</code> or any other table silently multiplied rows. No attribute varied within a customer, so the deduplication loses no data, but any code that relied on the old row count — or that worked around the fan-out with <code>distinct()</code> — should be reviewed. Thanks to <a href="https://github.com/hadley/contoso" class="external-link">Hadley Wickham</a> for reporting.</p></li>
 <li><p>The cloud dataset behind <code>create_contoso_duckdb(size = "small")</code> carried the same fan-out and has been corrected, so it again matches the bundled <code>customer</code>. The <code>medium</code>, <code>large</code> and <code>mega</code> sizes were never affected.</p></li>
 </ul></section><section id="cloud-dataset-fixes-1" class="level2"><h2 class="anchored" data-anchor-id="cloud-dataset-fixes-1">Cloud dataset fixes</h2>
 <ul>
@@ -371,7 +377,7 @@ ul.task-list li input[type="checkbox"] {
 </ul></section><section id="contoso-1.2.2" class="level1"><h1>contoso 1.2.2</h1>
 <ul>
 <li>create_contoso_duckdb() will not work if you are using windows due to lack of support from motherduck</li>
-<li><a href="https://motherduck.com/docs/integrations/language-apis-and-drivers/r/#considerations-and-limitations" class="external-link external-link external-link external-link external-link external-link">see here for more information</a></li>
+<li><a href="https://motherduck.com/docs/integrations/language-apis-and-drivers/r/#considerations-and-limitations" class="external-link">see here for more information</a></li>
 </ul></section><section id="contoso-1.2.1" class="level1"><h1>contoso 1.2.1</h1>
 <ul>
 <li>fixed create_contoso_duckdb() due to error created by table name changed</li>
@@ -812,13 +818,13 @@ ul.task-list li input[type="checkbox"] {
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Built with <a href="https://quarto.org/" class="external-link external-link external-link external-link external-link external-link">Quarto</a> and <a href="https://codeberg.org/usrbinr/qrtdown" class="external-link external-link external-link external-link external-link external-link">qrtdown</a></p>
+<p>Built with <a href="https://quarto.org/" class="external-link">Quarto</a> and <a href="https://codeberg.org/usrbinr/qrtdown" class="external-link">qrtdown</a></p>
 </div>   
     <div class="nav-footer-center">
        
     </div>
     <div class="nav-footer-right">
-<p>contoso 2.3.0</p>
+<p>contoso 2.4.0</p>
 </div>
   </div>
 </footer>

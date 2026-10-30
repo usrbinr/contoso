@@ -9,8 +9,9 @@ library(contoso)
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-contoso includes 118 fictional internal business reports about Contoso's
-2025 trading. They are the documents a finance team reads alongside its
+contoso includes 1,127 fictional internal business reports about Contoso's
+trading from May 2016 to the end of 2025. They are the documents a finance
+team reads alongside its
 sales data: weekly flashes, monthly reviews, quarterly country reports,
 committee minutes and plan memos. Each is written by a named person in a
 named business unit, published on a realistic date, and based on the
@@ -23,17 +24,21 @@ reports <- read_reports()
 
 ## Types of report
 
-| Business area | Report type | Author | How often | Count | Typical length |
-|---|---|---|---|---|---|
-| Sales | `sales_flash`: Weekly Sales Flash | Priya Raman, Sales Operations | Weekly, every Monday | 52 | 450 words |
-| Sales | `regional`: Quarterly Business Review | Country managers for the US, Germany, UK and Canada | Quarterly | 16 | 730 words |
-| E-commerce and marketing | `ecommerce`: E-commerce Performance Review | Marcus Lindqvist, Digital Commerce | Monthly | 12 | 650 words |
-| Supply chain | `supply_chain`: Vendor & Supply Review | Hannah Okafor, Supply Chain & Procurement | Monthly | 12 | 710 words |
-| Manufacturing | `manufacturing`: Contoso, Ltd Plant Report | Tomasz Wisniewski, private-label plant | Monthly | 12 | 600 words |
-| Pricing | `pricing`: Pricing & Promotions Committee Minutes | Olivia Grant (chair) | 5 meetings a year | 5 | 710 words |
-| Planning and finance | `aop`: Annual Operating Plan memo | Daniel Okoye, Corporate Planning | Once, before the year | 1 | 1,060 words |
-| Operations | `alert`: Supply alerts and operations notices | Supply Chain, Retail Operations | When something happens | 4 | 320 words |
-| External market | `industry`: Sector Review | Northbridge Retail Insights, an outside analyst | Quarterly | 4 | 730 words |
+| Business area | Report type | Authors (in post on the publication date) | How often | A full year | 2016-2025 | Typical length |
+|---|---|---|---|---|---|---|
+| Sales | `sales_flash`: Weekly Sales Flash | Sales Operations: Benjamin Castellanos to 2019, Priya Raman from 2020 | Weekly, every Monday | 52 (53 in 2020) | 501 | 430 words |
+| Sales | `regional`: Quarterly Business Review | Country managers for the US, Germany, UK and Canada | Quarterly | 16 | 152 | 720 words |
+| E-commerce and marketing | `ecommerce`: E-commerce Performance Review | Digital Commerce: Inès Duarte to 2021, Marcus Lindqvist from 2022 | Monthly | 12 | 115 | 640 words |
+| Supply chain | `supply_chain`: Vendor & Supply Review | Supply Chain & Procurement: Victor Adeyemi to September 2020, Hannah Okafor from October 2020 | Monthly | 12 | 115 | 680 words |
+| Manufacturing | `manufacturing`: Contoso, Ltd Plant Report | Tomasz Wisniewski, private-label plant | Monthly | 12 | 115 | 580 words |
+| Pricing | `pricing`: Pricing & Promotions Committee Minutes | Chair: Robert Ashdown to 2022, Olivia Grant from 2023 | 5 meetings a year | 5 | 48 | 690 words |
+| Planning and finance | `aop`: Annual Operating Plan memo | Corporate Planning: Margaret Holloway to June 2020, Daniel Okoye from July 2020 | Once, before each year from 2017 | 1 | 9 | 1,040 words |
+| Operations | `alert`: Supply alerts and operations notices | Supply Chain, Retail Operations | When something happens | 2-5 | 34 | 310 words |
+| External market | `industry`: Sector Review | Northbridge Retail Insights, an outside analyst | Quarterly | 4 | 38 | 690 words |
+
+2016 is a partial year, because the data starts on 18 May 2016: weekly
+flashes run from week 21, monthly reports from June, quarterly reports
+cover Q3 and Q4 only, and there is no plan or budget.
 
 ```{r}
 #| label: count-by-type
@@ -86,8 +91,8 @@ Every report carries the same eight metadata fields, plus its text:
 `period_start` and `period_end` give the period a report covers, and
 `published` gives the date it was released. The gap between them varies by
 type: a weekly flash comes out the day after its week ends, a regional
-review about 12 days after its quarter. The plan memo is negative: it is
-published in December 2024, before the year it covers.
+review about 12 days after its quarter. The plan memo is negative: each one
+is published in December of the year before the one it covers.
 
 
 
@@ -104,7 +109,7 @@ data. Which cuts a report uses depends on its type:
 | `supply_chain` | Month | Total, manufacturer, category | Prior month, last year, budget |
 | `manufacturing` | Month | Contoso, Ltd products: total, category, product line | Prior month, last year |
 | `pricing` | The 8 weeks before the meeting | Total, category, channel | Prior 8 weeks, last year |
-| `aop` | Full year 2025 | Budget by channel, country, category and month | 2024 actuals |
+| `aop` | Full year, 2017-2025 | Budget by channel, country, category and month | The previous year's actuals |
 | `alert` | One event | Vendors, categories and regions affected | None |
 | `industry` | Quarter | Market-level demand by category and channel (no Contoso figures) | Market last year |
 
@@ -126,28 +131,55 @@ The numbers quoted in the reports are these measures:
 | Net revenue | Sales after discounts, in USD |
 | Change vs prior period | Against the previous week, month or quarter |
 | Change vs last year | Against the same period a year earlier |
-| Variance to budget | Against the 2025 Annual Operating Plan |
+| Variance to budget | Against that year's Annual Operating Plan (from 2017) |
 | Gross margin % | Gross margin as a share of net revenue |
 | Discount % | Discounts as a share of gross revenue |
 | Cost ratio | Cost of goods as a share of gross revenue |
 | Units | Units sold |
 
-## The year in the reports
+## The years in the reports
 
-Reports run from the plan memo in December 2024 to the last reviews of
+Reports run from the first weekly flash in May 2016 to the last reviews of
 2025, published in January 2026:
 
 ```{r}
-#| label: reports-by-month
+#| label: reports-by-year
 reports |>
-  dplyr::count(month = format(published, "%Y-%m"), name = "reports")
+  dplyr::count(year = format(published, "%Y"), name = "reports")
 ```
 
-Together they tell one story about 2025: an exit from third-party
-marketplaces, a TV range reset, a store refit programme ("Store Next"), a
-product recall, a PC refresh, and the usual stocktake, summer shutdown and
-holiday season. Each author only knows what their unit would know on the
-publication date.
+Together they tell one continuous story, and every event explains a
+movement in the data:
+
+| Year | What happens |
+|---|---|
+| 2016 | A new sales system goes live on 18 May, which is why the data starts then |
+| 2017 | A laptop and smartphone boom and the last big wave of new customers; smartphones replace compact cameras |
+| 2018 | A price-list reset, four store openings and a one-off anniversary sale |
+| 2019 | The best year so far, driven by a new loyalty programme that makes existing customers buy more often |
+| 2020 | A rush to redeem loyalty points, then a component shortage that cuts stock across the range |
+| 2021 | The shortage at its worst, then recovery |
+| 2022 | Marketplaces, a TV and air-conditioning boom and a strong dollar |
+| 2023 | A record year |
+| 2024 | A difficult year, as customers buy less often and the best ones start to leave |
+| 2025 | A marketplace exit, a TV range reset, a store refit programme ("Store Next"), a product safety notice and a PC refresh |
+
+The stocktake, summer shutdown and holiday season recur every year. Each
+author only knows what their unit would know on the publication date, and
+people change roles over the years.
+
+### Glossary of terms
+
+The terms the reports use, and the phrasings to search for, are defined in
+a glossary:
+
+```{r}
+#| label: glossary
+
+fp <- system.file("extdata", "reports", "glossary.yaml", package = "contoso")
+glossary <- yaml12::read_yaml(fp)
+glossary$win_back$definition
+```
 
 Some reports are deliberately wrong. A few authors misread the data or
 credit the wrong cause, as real business writing does. The package does not

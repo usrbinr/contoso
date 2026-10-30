@@ -309,7 +309,7 @@ search_reports <- function(
 search_tool <- ellmer::tool(
   search_reports,
   name = "search_reports",
-  description = "Keyword (BM25) search over Contoso's 2025 internal business reports.
+  description = "Keyword (BM25) search over Contoso's 2016-2025 internal business reports.
     Only reports published on or before `as_of` are searched.",
   arguments = list(
     query = ellmer::type_string("Keywords to search for."),
@@ -383,7 +383,7 @@ search_reports <- function(query, as_of, from = "1900-01-01", top_k = 6) {
 
 search_measure <- commons::measure(
   "search_reports",
-  "Search the text of Contoso 2025 business reports (what business units wrote and said). Only reports published on or before as_of are searched.",
+  "Search the text of Contoso's 2016-2025 business reports (what business units wrote and said). Only reports published on or before as_of are searched.",
   fn = search_reports,
   arguments = list(
     query = ellmer::type_string("Keywords to search for."),

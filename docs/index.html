@@ -263,7 +263,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
     <img src="./man/figures/logo.png" alt="" class="navbar-logo light-content"><img src="./man/figures/logo.png" alt="" class="navbar-logo dark-content"></a>
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">contoso 2.3.0</span>
+    <span class="navbar-title">contoso 2.4.0</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -351,11 +351,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Alejandro Hagan (author, maintainer)</li>
 </ul></section>
 </div></div>
-<p><a href="https://CRAN.R-project.org/package=contoso" class="external-link external-link"><img src="https://www.r-pkg.org/badges/version/contoso" alt="CRAN status"></a> <!-- badges: end --></p>
+<p><a href="https://CRAN.R-project.org/package=contoso" class="external-link"><img src="https://www.r-pkg.org/badges/version/contoso" alt="CRAN status"></a> <!-- badges: end --></p>
 <p><img src="man/figures/logo.png" width="150"></p>
 <p>Contoso is a synthetic dataset containing sample sales transaction data for the fictional “Contoso” company. It includes various supporting tables for business intelligence, such as customer, store, product, and currency exchange data.</p>
 <p>This dataset is perfect for practicing time series analysis, joins, financial modeling, or any business intelligence-related tasks.</p>
-<p>It comes with a built-in dataset as well as the ability to create an in-memory database with <a href="https://duckdb.org/" class="external-link external-link">duckdb</a></p>
+<p>It comes with a built-in dataset as well as the ability to create an in-memory database with <a href="https://duckdb.org/" class="external-link">duckdb</a></p>
 <p>The package comes with the following tables:</p>
 <ul>
 <li>
@@ -408,20 +408,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
 </ul>
 <p>Built into the package is the smallest version of the dataset: 7,794 sales lines across 3,242 orders and 3,165 customers.</p>
-<p>Every column is documented in a machine-readable <a href="https://data-dict.tidyverse.org/" class="external-link external-link">data-dict</a> dictionary, shipped with the package. There is one per dataset, each in its own directory: <code>extdata/small/</code> describes the bundled tables (and <code>size = "small"</code>), <code>extdata/cloud/</code> describes the <code>medium</code>, <code>large</code> and <code>mega</code> sizes.</p>
+<p>Every column is documented in a machine-readable <a href="https://data-dict.tidyverse.org/" class="external-link">data-dict</a> dictionary, shipped with the package. There is one per dataset, each in its own directory: <code>extdata/small/</code> describes the bundled tables (and <code>size = "small"</code>), <code>extdata/cloud/</code> describes the <code>medium</code>, <code>large</code> and <code>mega</code> sizes.</p>
 <div class="code-copy-outer-scaffold">
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"small"</span>, <span class="st">"data-dict.yaml"</span>, <span class="at">package =</span> <span class="st">"contoso"</span>)</span></code></pre></div>
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
-<p>Both validate against the spec, so the <a href="https://data-dict.tidyverse.org/" class="external-link external-link"><code>data-dict</code> CLI</a> can check either against its data, or render it as a browsable page. Point it at the directory:</p>
-<div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">data-dict</span> validate-data <span class="st">"</span><span class="va">$(</span><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'cat(system.file("extdata/small", package = "contoso"))'</span><span class="va">)</span><span class="st">"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">data-dict</span> render        <span class="st">"</span><span class="va">$(</span><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'cat(system.file("extdata/cloud", package = "contoso"))'</span><span class="va">)</span><span class="st">"</span> <span class="at">-o</span> dict.html</span></code></pre></div>
-<button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
-</div>
-<p>Using <a href="https://larmarange.github.io/labelled/reference/look_for.html" class="external-link external-link"><code>labelled::look_for()</code></a>, you can also see the columns’ labels from the <a href="https://larmarange.github.io/labelled/index.html" class="external-link external-link">labelled</a> package.</p>
+<p>Both validate against the spec, so the <a href="https://data-dict.tidyverse.org/" class="external-link"><code>data-dict</code> CLI</a> can check either against its data, or render it as a browsable page. Point it at the directory:</p>
+<p>Using <a href="https://larmarange.github.io/labelled/reference/look_for.html" class="external-link"><code>labelled::look_for()</code></a>, you can also see the columns’ labels from the <a href="https://larmarange.github.io/labelled/index.html" class="external-link">labelled</a> package.</p>
 <blockquote class="blockquote">
-<p>Inspiration to using <a href="https://larmarange.github.io/labelled/index.html" class="external-link external-link">labelled</a> comes from <a href="https://cghlewis.com/blog/dict_clean/" class="external-link external-link">Crystal Lewis</a> excellent blog post</p>
+<p>Inspiration to using <a href="https://larmarange.github.io/labelled/index.html" class="external-link">labelled</a> comes from <a href="https://cghlewis.com/blog/dict_clean/" class="external-link">Crystal Lewis</a> excellent blog post</p>
 </blockquote>
 <p>For larger datasets, use <a href="reference/create_contoso_duckdb.html"><code>create_contoso_duckdb()</code></a> with one of the following sizes:</p>
 <table class="caption-top table">
@@ -453,7 +448,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The larger datasets are stored as Parquet files on Cloudflare R2 cloud storage and streamed directly into DuckDB via the public URL:</p>
 <pre><code>https://pub-6aa63519a4b945948cb8c88949b320ca.r2.dev</code></pre>
 </section><section id="source" class="level2"><h2 class="anchored" data-anchor-id="source">Source</h2>
-<p>The data is originally sourced from the <a href="https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data" class="external-link external-link">sqlbi</a> github site</p>
+<p>The data is originally sourced from the <a href="https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data" class="external-link">sqlbi</a> github site</p>
 <section id="dataset-overview" class="level3"><h3 class="anchored" data-anchor-id="dataset-overview">Dataset overview</h3>
 <p><img src="man/figures/contoso.svg" class="img-fluid"></p>
 <p>The relationship keys that join each of the tables are listed below.</p>
@@ -517,40 +512,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table></section><section id="installation" class="level3"><h3 class="anchored" data-anchor-id="installation">Installation</h3>
 <p>You can install the package from CRAN:</p>
 <div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"contoso"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"contoso"</span>)</span></code></pre></div>
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 <p>Or install the development version from <a href="https://codeberg.org/usrbinr/contoso">Codeberg</a>:</p>
 <div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("remotes")</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_git</span>(<span class="st">"https://codeberg.org/usrbinr/contoso"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("remotes")</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_git</span>(<span class="st">"https://codeberg.org/usrbinr/contoso"</span>)</span></code></pre></div>
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 </section><section id="example" class="level3"><h3 class="anchored" data-anchor-id="example">Example</h3>
 <div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(contoso)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DuckDB connection to Contoso datasets</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> <span class="fu">create_contoso_duckdb</span>(<span class="at">size =</span> <span class="st">"medium"</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the sales dataset</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>db<span class="sc">$</span>sales <span class="sc">|&gt;</span> <span class="fu">head</span>()</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Launch the DuckDB UI to explore all tables interactively</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">launch_ui</span>(db<span class="sc">$</span>con)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean up when done</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(db<span class="sc">$</span>con, <span class="at">shutdown =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(contoso)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DuckDB connection to Contoso datasets</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> <span class="fu">create_contoso_duckdb</span>(<span class="at">size =</span> <span class="st">"medium"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the sales dataset</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>db<span class="sc">$</span>sales <span class="sc">|&gt;</span> <span class="fu">head</span>()</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Launch the DuckDB UI to explore all tables interactively</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">launch_ui</span>(db<span class="sc">$</span>con)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean up when done</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbDisconnect</span>(db<span class="sc">$</span>con, <span class="at">shutdown =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 </section><section id="business-reports" class="level3"><h3 class="anchored" data-anchor-id="business-reports">Business reports</h3>
-<p>The package also ships 118 fictional internal business reports about Contoso’s 2025 trading: weekly sales flashes, monthly e-commerce, supply chain and plant reviews, quarterly regional reviews, pricing committee minutes, operations notices, industry notes and the Annual Operating Plan. Their figures come from the “mega” dataset, and a few contain deliberate errors, for testing document search and FP&amp;A assistants.</p>
+<p>The package also ships 1,127 fictional internal business reports about Contoso’s trading from May 2016 to the end of 2025: weekly sales flashes, monthly e-commerce, supply chain and plant reviews, quarterly regional reviews, pricing committee minutes, operations notices, industry notes and each year’s Annual Operating Plan, with a glossary of the terms they use. Their figures come from the “mega” dataset, and a few contain deliberate errors, for testing document search and FP&amp;A assistants.</p>
 <div class="code-copy-outer-scaffold">
-<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>reports <span class="ot">&lt;-</span> <span class="fu">read_reports</span>()            <span class="co"># one row per report, Markdown text in `body`</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">export_reports</span>(<span class="st">"contoso-reports"</span>)    <span class="co"># or write them as one YAML file each</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>reports <span class="ot">&lt;-</span> <span class="fu">read_reports</span>() <span class="co"># one row per report, Markdown text in `body`</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">export_reports</span>(<span class="st">"contoso-reports"</span>) <span class="co"># or write them as one YAML file each</span></span></code></pre></div>
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
-<p>See the “Business reports” and “Searching the reports with ragnar” articles on the <a href="https://usrbinr.codeberg.page/contoso/" class="external-link external-link">package website</a>.</p>
+<p>See the “Business reports” and “Searching the reports with ragnar” articles on the <a href="https://usrbinr.codeberg.page/contoso/" class="external-link">package website</a>.</p>
 
 
 </section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
@@ -969,13 +964,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Built with <a href="https://quarto.org/" class="external-link external-link">Quarto</a> and <a href="https://codeberg.org/usrbinr/qrtdown" class="external-link external-link">qrtdown</a></p>
+<p>Built with <a href="https://quarto.org/" class="external-link">Quarto</a> and <a href="https://codeberg.org/usrbinr/qrtdown" class="external-link">qrtdown</a></p>
 </div>   
     <div class="nav-footer-center">
        
     </div>
     <div class="nav-footer-right">
-<p>contoso 2.3.0</p>
+<p>contoso 2.4.0</p>
 </div>
   </div>
 </footer>

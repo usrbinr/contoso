@@ -1,0 +1,715 @@
+# Glossary of terms used in the Contoso reports, 2016-2025.
+# Each term lists the phrasings the reports actually use (`also_called`), so
+# readers, and the BM25 search (which has no synonyms), can find every mention.
+# `not_the_same` lists look-alike words that mean something else. `years`
+# says when a term applies, where it doesn't apply throughout.
+
+# ---- Plan and comparisons -------------------------------------------------
+
+aop:
+  term: Annual Operating Plan (AOP)
+  definition: >
+    The budget for a year, set by month, country and category and published
+    in mid-December of the year before by Corporate Planning. The first plan
+    covers 2017 (built from the June-December 2016 run-rate); 2016 has no
+    budget. Targets: 2017 $11.3B, 2018 $14.3B, 2019 $18.8B, 2020 $31.9B,
+    2021 $18.4B, 2022 $21.0B, 2023 $28.5B, 2024 $49.6B, 2025 $35.3B. Fiscal
+    year = calendar year.
+  also_called: [AOP, Annual Operating Plan, the plan, budget, plan, "vs budget", "vs AOP", "vs plan", "short of the AOP", "below plan", "ahead of plan"]
+  years: 2017-2025
+  not_the_same:
+    replenishment plan: a supply schedule, not the budget.
+
+yoy:
+  term: Year on year (YoY)
+  definition: >
+    Change against the same period a year earlier. Weekly flashes compare
+    with the same weekdays 52 weeks earlier. Not available in 2016, and only
+    partly in early 2017, because the data starts on 18 May 2016.
+  also_called: [YoY, year on year, vs LY, vs last year, "on last year", "on [month] [year]"]
+
+like_for_like:
+  term: Like for like
+  definition: >
+    A comparison over the same dates and the same basis. 2017 against 2016
+    is only like for like from June: 2017's +84% full-year growth is against
+    a partial 2016 (18 May to 31 December); H2 2017 grew about 20%.
+  also_called: [like for like, like-for-like, LfL, comparable, "same days", "partial year", "partial 2016"]
+  years: 2016-2017
+
+wow:
+  term: Week on week (WoW)
+  definition: Change against the previous week. Used in the weekly Sales Flash.
+  also_called: [WoW, week on week, "on last week"]
+
+mom:
+  term: Month on month
+  definition: >
+    Change against the previous month. The reports almost never write "MoM";
+    they say "up 6% on September".
+  also_called: [month on month, "on [prior month]"]
+
+run_rate:
+  term: Run-rate
+  definition: The current weekly or monthly pace of revenue, used to project forward.
+  also_called: [run-rate, run rate, weekly run-rate, "settled at about $X a week"]
+
+# ---- Financial metrics -----------------------------------------------------
+
+gross_margin:
+  term: Gross margin
+  definition: >
+    Gross profit as a percentage of net revenue. 55.8-56.3% in every year;
+    price-list resets move prices and vendor costs together, so they leave
+    margin unchanged.
+  also_called: [gross margin, margin, margin rate, GM, GM%]
+
+cost_ratio:
+  term: Cost ratio
+  definition: Product cost as a percentage of gross revenue. Used in the vendor scorecard.
+  also_called: [cost ratio]
+
+discount_guardrail:
+  term: Discount policy / guardrail
+  definition: >
+    Total discounts are about 5.9% of gross revenue in every month of every
+    year (5.89-5.95%). Before 2025 the reports call it the standing discount
+    policy; on 29 Jan 2025 the pricing committee formalised it as a 6%
+    guardrail with no ad hoc promotions. No year has a promotion war.
+  also_called: [guardrail, 6% guardrail, discount guardrail, discount policy, standing discount policy, discount rate, "discounts at 5.9%", "no ad hoc promotions"]
+
+channel_mix:
+  term: Channel mix
+  definition: >
+    The split of revenue between Online and Stores, usually quoted as Online's
+    share of total: about 13% (2016), 19% (2019), 26% (2021), 39% (2022), 54%
+    (2023), 61% (2024), 55% (2025).
+  also_called: [channel mix, online share, mix, budgeted mix, AOP mix]
+  not_the_same:
+    price/volume mix: >
+      In variance analysis "mix" can mean the price x volume cross effect.
+      In these reports "mix" means channel share, or occasionally product
+      mix ("mix is moving toward higher price points"). Say which.
+
+rag_status:
+  term: Red / Amber / Green status
+  definition: The vendor scorecard rating in the monthly Supply Chain review, set by the VP Supply Chain.
+  also_called: [Red, Amber, Green, RAG, Status]
+
+# ---- Currency --------------------------------------------------------------
+
+reporting_currency:
+  term: Reporting currency (USD)
+  definition: >
+    Every Contoso figure is in US dollars. Prices are set in USD and converted
+    to local currency at the day's rate, so exchange rates change local
+    revenue but not demand.
+  also_called: [USD, dollars, reporting currency, group currency, "in dollar terms"]
+
+constant_currency:
+  term: Constant currency / translation
+  definition: >
+    Growth measured at the same exchange rate in both periods. A weaker local
+    currency makes local-currency growth look higher than USD growth: in 2022
+    the euro and pound weakened about 13% against the dollar, so UK store
+    revenue grew about 10% in USD but about 24% in pounds. Compare regions in
+    USD or at constant currency.
+  also_called: [constant currency, at constant rates, local currency, in pounds, in euros, in local terms, translation, FX, currency effect, "reported vs constant"]
+  years: 2022 most of all
+
+# ---- Channels and customers ------------------------------------------------
+
+online:
+  term: Online
+  definition: >
+    The e-commerce channel. In the data it is reported as its own "country"
+    (Online, store_key 999999); more than half of revenue from 2023.
+  also_called: [Online, contoso.com, own-site, e-commerce, digital, online store]
+  not_the_same:
+    Stores: >
+      The physical stores in 8 countries: 59 when the data starts in 2016,
+      57 from November 2019 on.
+
+online_funnel:
+  term: Traffic, conversion and basket
+  definition: >
+    Online performance drivers. Traffic = site visits; conversion = share of
+    visits that buy; basket = average order value. Traffic and conversion
+    figures come only from event notes (in 2025: traffic down about 15% YoY,
+    conversion 2.4% vs 2.1%, basket up about 6%).
+  also_called: [traffic, conversion, conversion rate, basket, average basket, basket size]
+  not_the_same:
+    conversion (Store Next): converting a store to the Store Next format.
+
+active_customer:
+  term: Active customer
+  definition: >
+    A customer with at least one order in the year: about 1.23M (2016), 1.64M
+    (2019, the peak), 1.50M (2025).
+  also_called: [active customers, active base, customer base, buyers]
+
+new_customer:
+  term: New customer / first-time buyer
+  definition: >
+    A customer whose first order is in the year. About 67% of all customers
+    first appear in 2016, when the data starts. After that: about 393k
+    (2017), 105k (2018), 62k (2019), 18k (2020), 10k (2021), 7k (2022), 4k
+    (2023), 889 (2024), 284 (2025). Growth never comes from acquisition.
+  also_called: [new customers, first-time buyers, acquisition, new to Contoso, recruitment]
+
+lapsed_customer:
+  term: Lapsed customer / churn
+  definition: >
+    A customer who stops buying: their last order falls in the year, which
+    is only known once the next year has passed. About 31k (2019), 38k
+    (2020), 33k (2021), 35k (2022), 50k (2023), 80k (2024). From 2023 the
+    leavers are bigger spenders (about $14k a year each, roughly double
+    earlier leavers), and the first top-10% customers start to leave.
+  also_called: [lapsed, lapsed customers, churn, churned, leavers, lost customers, defected, "did not buy", retention, early-warning list, at-risk customers]
+
+win_back:
+  term: Win-Back / returning customer
+  definition: >
+    The marketing programme, run every year from 2018, that targets customers
+    who have not bought for a year or more; also the customers who come
+    back. Returners: about 104k (2018), 122k (2019), 47k (2020), 91k (2021),
+    104k (2022), 82k (2023, including 743 not seen since 2016), 28k (2024).
+    Returners spend more than before they lapsed.
+  also_called: [Win-Back, win-back, winback, returning customers, returners, reactivated, reactivation, lapsed customers came back, came back]
+  years: 2018-2025
+
+purchase_frequency:
+  term: Purchase frequency / orders per customer
+  definition: >
+    Orders per active customer in a year: about 2.0 (2016 part-year), 2.8,
+    3.5, 6.0 (2019, Rewards), 4.5 (2020), 4.7, 6.6, 12.4 (2023, the peak),
+    10.7, 10.9. Every growth story in the data is customers buying more
+    often.
+  also_called: [frequency, purchase frequency, orders per customer, buying more often, repeat purchase, repeat rate]
+
+one_order_buyer:
+  term: One-order buyer
+  definition: >
+    A customer with a single order in the year: about 540k (2016), 154k
+    (2019), 203k (2020), 73k (2023).
+  also_called: [one-order buyers, single-order customers, bought only once, one-time buyers]
+
+customer_tier:
+  term: Customer value tier
+  definition: >
+    Customers ranked by lifetime spend: the top 1% (about 18k customers,
+    about $351k lifetime each), the next 9%, the middle 40% and the bottom
+    50% (about $62k). Almost all leavers are in the bottom half until 2023.
+    The top 1% live in the US, Germany and Canada; the four largest single
+    customers live around London.
+  also_called: [top 10%, top decile, top 1%, high-value customers, best customers, VIP, key customers, largest customers, low spenders]
+
+ageing_base:
+  term: Ageing customer base
+  definition: >
+    Measured as age at purchase, the average customer gets one year older
+    every year (about 48 in 2016, 57 in 2025): under-30s fall from about 23%
+    of revenue to 9%, over-70s rise from about 18% to 31%. Leavers are no
+    older than other customers.
+  also_called: [ageing, ageing customer base, older customers, younger shoppers, under-30s, over-70s]
+  years: warnings from 2022
+
+omnichannel:
+  term: Omnichannel customers / roaming
+  definition: >
+    Almost every customer shops both online and in stores, and customers use
+    several stores in their country: about 1.6 stores a year (2016), 3.4
+    (2019), 3.9 (2023), 3.3 (2025). Channel shifts are the same customers
+    switching, not different customers. A customer's main store is almost
+    never in their own state, so there are no catchment-area stories.
+  also_called: [omnichannel, both channels, cross-channel, shop several stores, stores per customer, multi-store, channel switching]
+
+# ---- Products and pricing --------------------------------------------------
+
+price_reset:
+  term: Price-list reset
+  definition: >
+    A one-day change to every vendor's list prices, agreed with vendors so
+    that cost moves with price and margin is unchanged. 1 July 2018
+    (Computers and Cameras about -18%, Music +48%, Games +27%), 1 January
+    2021 (Computers -25%, Cameras -16%, Music +44%) and 1 July 2023
+    (Computers -31%, phones -27%, Music -22%, Appliances, Audio and Games
+    +10%). Each one steps average selling prices and order values down or
+    up.
+  also_called: [price reset, price-list reset, list-price reset, new price lists, repricing, July reset, January reset]
+  not_the_same:
+    range reset: a cut to the range (2025), not a change of prices.
+
+asp:
+  term: Average selling price (ASP) / average order value (AOV)
+  definition: >
+    Revenue per unit and per order. Order value is the same online and in
+    stores and moves only with the price-list resets: about $2,920 (2018),
+    $2,760 (2019), $1,850 (2025). Growth comes from more orders, not bigger
+    baskets.
+  also_called: [ASP, average selling price, average price, AOV, average order value, basket size, average basket, ticket]
+
+trading_down:
+  term: Trading down / trading up
+  definition: >
+    Customers moving to cheaper or dearer lines within a category. Computers
+    trade down from 2021 (cheapest quarter of the range 8.8% of units in 2021,
+    12.2% in 2025) and Games sharply; TV and Cameras trade up.
+  also_called: [trading down, trade-down, cheaper lines, entry-level, trading up, premium, premiumisation]
+
+subcategory_shift:
+  term: Sub-category shifts
+  definition: >
+    Categories hide diverging lines (2025 revenue against 2017): desktops
+    flat while laptops and monitors triple; Digital SLR cameras double while
+    compacts stay flat; smartphones 6.2x; air conditioners 6x against 1.6x
+    for kitchen appliances; boxed games 11.5x against 5.7x for downloads;
+    car video 4.9x against 1.9x for TVs.
+  also_called: [desktops, laptops, Digital SLR, compact cameras, smartphones, air conditioners, boxed games, car video, home theatre]
+
+cannibalisation:
+  term: Smartphones replacing cameras and MP3 players
+  definition: >
+    From 2017 smartphones replace compact cameras (Cameras -30% in Q3 2017)
+    and MP3 players: MP3 players appear with phones in the same order 27%
+    less often than chance.
+  also_called: [cannibalisation, cannibalise, replacing, smartphones replacing compact cameras, MP3 players]
+  years: from 2017
+
+basket_affinity:
+  term: Bought together (affinity)
+  definition: >
+    Nothing is reliably bought together. The only mild affinities are
+    cameras with camera accessories and kitchen appliances with each other
+    (microwaves, coffee machines, fridges, water heaters). Basket size and
+    the share of multi-category orders (about 60%) are flat across all
+    years, so no bundle or attach-rate story is supported.
+  also_called: [bundle, bundles, attach, attach rate, bought together, cross-sell, kitchen refresh]
+
+contoso_ltd:
+  term: Contoso, Ltd (private label)
+  definition: >
+    Contoso's own manufacturing arm. Makes home appliances (including the
+    Breeze Series air conditioners), computers, media, phones, cameras and
+    audio. Reported by the Plant Director. Gains share in Computers from
+    2021 (7.5% to 10.9% by 2025).
+  also_called: [Contoso, Ltd, private label, private-label, the plant, own brand, own label]
+
+# ---- Stores -----------------------------------------------------------------
+
+store_estate:
+  term: Store estate
+  definition: >
+    59 stores when the data starts (May 2016), 57 from November 2019. All
+    openings and closures fall in 2016-2019; none after. The UK stores are in
+    Northern Ireland, Scotland and Wales, with none in England; France trades
+    from small stores (245-400 m²), several in overseas and island
+    territories. Stores in a country sell the same mix and grow at the same
+    rate, so no single-store performance stories are supported.
+  also_called: [store estate, estate, store network, store count, stores]
+
+store_events:
+  term: Store openings, closures and relocations
+  definition: >
+    Northern Territory closes 7 Jul 2016; Caltanissetta 3 Aug 2017; New
+    Brunswick store 72 closes 2 Feb 2018 and is replaced by a 3,500 m²
+    flagship on 2 Jun 2018; Bremen, Iowa and South Dakota open 3 Jun 2018;
+    Fermanagh closes 9 Sep 2018; Saarland opens 5 Mar 2019; Delaware (3 Aug),
+    Brandenburg (8 Aug) and Utah (3 Nov 2019) close. Earlier relocations to
+    bigger sites show as `status = "Restructured"`.
+  also_called: [opening, new store, closure, closing, relocation, relocated, restructured, consolidation, lease ends]
+  years: 2016-2019
+
+small_box:
+  term: Small Box
+  definition: >
+    The small-format store concept: Bremen (560 m², 2018) and Saarland (350
+    m², 2019). Saarland has the highest sales per square metre in the
+    company from 2020.
+  also_called: [Small Box, small format, compact format, small store]
+  years: 2018-2025
+
+flagship:
+  term: Flagship
+  definition: >
+    The 3,500 m² stores (New Brunswick, North Dakota). Size helps only up to
+    about 2,000 m²: the New Brunswick flagship takes about as much as
+    Canada's 1,210 m² store at a third of the sales per square metre.
+  also_called: [flagship, big box, large format, 3,500 m²]
+
+sales_per_m2:
+  term: Sales per square metre
+  definition: >
+    Store revenue divided by floor area. Falls with size: median about
+    $227k/m² for stores under 500 m² against about $91k/m² over 2,000 m²
+    (2025).
+  also_called: [sales per m², sales density, revenue per square metre, space productivity]
+
+# ---- Recurring calendar ----------------------------------------------------
+
+feb_sale:
+  term: New-year tech sale
+  definition: >
+    Weeks 7 and 8 every year, running at about one and a half to two times a
+    normal week. In 2020 it overlapped the Rewards redemption rush.
+  also_called: [new-year sale, tech sale, February sale, weeks 7-8, wk7-8, February peak]
+
+stocktake:
+  term: Spring stocktake
+  definition: >
+    Annual stock count, about four weeks from late March (weeks 12-16).
+    Stores trade reduced hours and online fulfilment is limited. Revenue in
+    these weeks is routinely 60-80% below a normal week, every year (week 14
+    about 0.2 of a normal week), and recovers by early May. Compare YoY, not
+    WoW or MoM.
+  also_called: [stocktake, spring stocktake, stocktake weeks, stocktake month, stocktake pattern, stocktake trough, "fulfilment was limited", annual range reset]
+
+dc_shutdown:
+  term: DC summer shutdown
+  definition: >
+    Annual maintenance shutdown of the distribution centres, weeks 30-31.
+    Online and store replenishment run at reduced capacity and revenue dips
+    by about a third, every year.
+  also_called: [DC shutdown, summer shutdown, maintenance shutdown, distribution centre shutdown, weeks 30-31, wk30-31, "reduced fulfilment capacity", "replenishment constrained"]
+
+holiday:
+  term: Holiday / peak
+  definition: >
+    Black Friday and holiday trading, late November to 24 December, every
+    year within the discount policy. Weeks 51-52 run at about 1.4-1.7 times
+    a normal week (about twice in 2022, the record holiday).
+  also_called: [holiday, peak, peak weeks, Black Friday, Christmas, festive]
+  not_the_same:
+    peak (PC): '"the expected Q2 peak" refers to PC refresh timing (2025).'
+
+# ---- Events, 2016-2024 ----------------------------------------------------
+
+meridian:
+  term: Meridian go-live
+  definition: >
+    The sales and finance system that went live on 18 May 2016, which is why
+    the data starts then. There are no comparisons before it.
+  also_called: [Meridian, new system, go-live, ERP, "the new system", migration]
+  years: 2016-2017
+  not_the_same:
+    marketplace migration: customers moving from marketplaces to contoso.com (2025).
+
+fulfilment_2020:
+  term: Fulfilment 2020
+  definition: >
+    Multi-year online fulfilment programme launched in 2016: delivery times
+    fall from about 9 days (2016) to about 3 (2024), with no disruption in
+    any year, including the shortage.
+  also_called: [Fulfilment 2020, delivery times, delivery days, fulfilment programme, faster delivery]
+
+pricewave:
+  term: PriceWave
+  definition: >
+    Fictional English electronics chain that expands across England from
+    2017 (about 35 stores in 2017, more than 200 by 2024), where Contoso has
+    no store. The running explanation for the UK's lag (UK share of revenue
+    18% in 2016, 8% in 2025).
+  also_called: [PriceWave, UK rival, English competitor, high-street rival]
+  years: 2017-2025
+
+contoso_days:
+  term: Contoso Days
+  definition: >
+    One-off anniversary sale, 4-10 June 2018 (week 23), in every channel and
+    country, timed with the June openings and doubling as the first
+    Win-Back campaign. Week 23 took about $568M against $338M the week
+    before.
+  also_called: [Contoso Days, anniversary sale, week 23]
+  years: 2018
+
+vantage:
+  term: Vantage console
+  definition: >
+    Fictional games console generation launched in autumn 2018; Games and
+    Toys about +140% in Q4 2018 and about +210% in 2019, boxed games ahead of
+    downloads.
+  also_called: [Vantage, console, console launch, games console]
+  years: 2018-2019
+
+contoso_rewards:
+  term: Contoso Rewards
+  definition: >
+    Store card and loyalty programme, announced 20 May and launched 1 July
+    2019, valid in every store and online. H2 2019 roughly doubled as
+    members bought more often and in more stores. Points earned in 2019
+    expired on 29 February 2020, causing the redemption rush of weeks 1-11
+    of 2020 (week 8 about $1.33B, five times a normal week).
+  also_called: [Contoso Rewards, Rewards, store card, loyalty card, points, points expiry, redemption, redemption rush]
+  years: 2019-2020
+  not_the_same:
+    Contoso Plus: the relaunched loyalty programme (2025).
+
+streamcam:
+  term: StreamCam craze
+  definition: >
+    Fictional creator-video trend that lifts Digital SLR cameras from mid-2019
+    (Cameras +135% in Q3 2019), led by A. Datum and Fabrikam.
+  also_called: [StreamCam, creator craze, creator trend, Digital SLR]
+  years: 2019
+  not_the_same:
+    creator cameras: A. Datum's 2025 creator line.
+
+kestrel_shortage:
+  term: Kestrel component shortage
+  definition: >
+    Fictional component shortage at Kestrel Microsystems. It hits appliance
+    vendors first (February 2020), spreads to every major vendor from April
+    2020, and is worst in Q1 2021 (revenue -66%) before vendor dual-sourcing
+    restores supply by February 2022. It cut volumes across the whole range,
+    not margin (55.8% throughout).
+  also_called: [Kestrel, shortage, component shortage, supply shortage, allocation cuts, short of stock, dual-sourcing]
+  years: 2020-2021
+
+delayed_stock:
+  term: Delayed-stock allocation
+  definition: >
+    A one-off delivery of stock held at vendors since February 2020, which
+    lifted weeks 18-22 of 2020 to about $400-460M a week. Not a recovery: Q3
+    2020 fell about 58%.
+  also_called: [delayed stock, one-off allocation, catch-up delivery, weeks 18-22]
+  years: 2020
+
+online_priority:
+  term: Online stock priority
+  definition: >
+    During the shortage online had first call on scarce stock (H1 2021):
+    online +5% against stores -15% in Q2 2021, the same customers switching
+    channel.
+  also_called: [online priority, first call on stock, stock priority, channel switching]
+  years: 2021
+
+lighting_gaps:
+  term: Lighting range gaps
+  definition: >
+    The only place shelves actually ran empty. 191 products, mostly lamps
+    (plus fans and some computer accessories), went one to three weeks
+    without a sale, mainly from August 2020 to April 2021 and around the
+    April stocktakes; 48 lines came back into stock in the week of 12 April
+    2021. No product ever went more than three weeks without a sale.
+  also_called: [lighting, lamps, lamp lines, fan lines, "went unsold", out of stock]
+  years: 2020-2021
+
+ultralume:
+  term: UltraLume
+  definition: >
+    Fictional TV panel standard; sets arrive in February 2022 and drive the
+    TV and Video boom of 2022-2023 (Q1 2022 about +120%). The cycle ends in
+    Q2 2024.
+  also_called: [UltraLume, new panels, TV upgrade cycle, upgrade cycle]
+  years: 2022-2024
+
+breeze:
+  term: Breeze Series
+  definition: >
+    Contoso, Ltd air-conditioner range behind the 2022-2023 air-conditioning
+    boom (air conditioners about 6x 2017 by 2025) and the early-season
+    pre-buy of Q1 2024.
+  also_called: [Breeze, Breeze Series, air conditioners, air conditioning, pre-buy]
+  years: 2022-2024
+
+marketplaces:
+  term: Marketplaces
+  definition: >
+    Third-party marketplaces Contoso sold through: ShopSphere from 10 January
+    2022, Bazaro and CartNest from March 2022. About 15% of online revenue by
+    October 2022 and about a fifth in 2023-2024. Marketplace buyers were
+    almost all existing or lapsed customers, so marketplaces never brought
+    meaningful new-customer reach. Commission rises in 2024 led to a
+    strategic review and the exit from 1 January 2025.
+  also_called: [marketplaces, marketplace, ShopSphere, Bazaro, CartNest, third-party platforms, marketplace channel, commission]
+  years: 2022-2024
+
+voltmart:
+  term: Voltmart
+  definition: Fictional US big-box rival running heavy UltraLume TV promotions from April 2024.
+  also_called: [Voltmart, US competitor, TV promotions]
+  years: 2024
+
+demand_normalisation:
+  term: Demand normalisation (2024)
+  definition: >
+    2024 revenue fell about 28% after the record 2023 as purchase frequency
+    fell back (12.4 to 10.7 orders per customer): Q1 -13%, Q2 -38%, Q3 -32%,
+    Q4 -27%. Online still grew in Q1 (+8%), then both channels fell.
+  also_called: [normalisation, demand normalising, unwinding, difficult year, slowdown]
+  years: 2024
+
+# ---- 2025 events -------------------------------------------------------------
+
+marketplace_exit:
+  term: Marketplace exit
+  definition: >
+    From 1 Jan 2025 Contoso stopped selling through third-party marketplaces
+    (ShopSphere and two smaller platforms). These were about a fifth of 2024
+    online revenue. The AOP assumed 80% of that volume would move to
+    contoso.com; actual migration stalled at about 30-40%.
+  also_called: [marketplace exit, ShopSphere, marketplace migration, migration, marketplace gap, marketplace volume, marketplace leakage, former marketplace customers, ex-marketplace customers, ex-ShopSphere customers, "marketplace-exit gap"]
+  years: 2025
+
+contoso_plus:
+  term: Contoso Plus
+  definition: The relaunched loyalty programme, lifting repeat online purchases from August 2025.
+  also_called: [Contoso Plus, loyalty programme, loyalty, CRM]
+  years: 2025
+
+range_reset:
+  term: TV range reset
+  definition: >
+    Planned exit of entry-level TVs and VCD/DVD players, cutting the TV and
+    Video range by about 40% of SKUs (mostly Adventure Works, Litware,
+    Southridge Video) to free floor space for Store Next. The plan assumed
+    TV and Video -8%; it ran about -40%. The delisted lines were not
+    reordered but kept selling through stock all year.
+  also_called: [range reset, TV reset, TV range reset, delisted, delisting, delisted SKUs, exited ranges, entry-level TV exit, entry-level TV gap]
+  years: 2025
+  not_the_same:
+    annual range reset: >
+      The stocktake notice also says "range reset" for the routine spring
+      reset that happens with the stocktake.
+    price-list reset: a change of list prices (2018, 2021, 2023).
+    stock_out: delisted lines run out on purpose and are not replenished.
+
+store_next:
+  term: Store Next
+  definition: >
+    Store format programme announced on 2 December 2024: experience zones for
+    cameras, audio and gaming, click-and-collect counters and extended
+    weekend hours. Wave 1 Germany, Netherlands, Italy, France (Jan-Mar); wave
+    2 Canada, Australia (Mar-May); UK (Jun-Jul, late after
+    planning-permission delays); US pilot in 10 stores from July, full US
+    rollout Sep-Nov. No store closes for a conversion.
+  also_called: [Store Next, experience zones, zones, experience-zone, converted stores, conversions, store conversions, wave 1, wave 2, US pilot, click-and-collect, format]
+  years: 2025
+  not_the_same:
+    conversion (online): the online conversion rate.
+
+litware_recall:
+  term: Litware safety notice (recall)
+  definition: >
+    From 10 March 2025, Litware issued a safety notice on five microwave and
+    coffee-machine models after reports of overheating. Stock was inspected
+    and fitted with an updated thermal fuse, the models stayed on sale, and
+    customers could bring units in for a free inspection. The notice closed
+    on 30 June with all five models passing; sales were never interrupted.
+    The reports usually call it the Litware recall.
+  also_called: [Litware recall, recall, safety notice, inspection, thermal fuse, recalled models]
+  years: 2025
+
+pc_refresh:
+  term: PC refresh / Lumen 10 refresh
+  definition: >
+    Replacement buying ahead of the end of support for Lumen 10, the most
+    widely used (fictional) PC operating system, on 14 Oct 2025. The AOP put
+    it in the first half (Computers +14%); customers delayed until nearer the
+    deadline, so it arrived from September.
+  also_called: [PC refresh, Lumen 10 refresh, Lumen 10, end of support, refresh demand, refresh timing, refresh volume, refresh wave, deferred demand, "14 October"]
+  years: 2025
+
+creator_cameras:
+  term: Creator cameras
+  definition: >
+    A. Datum's creator camera line, launched 3 March 2025, exclusive to
+    Contoso for six months and shown in Store Next zones. Fabrikam's vlogging
+    cameras sell alongside it.
+  also_called: [creator cameras, creator line, creator range, creator stock, A. Datum exclusive, exclusivity, vlogging cameras]
+  years: 2025
+
+contoso_sound:
+  term: Contoso Sound
+  definition: >
+    Private-label speakers and headphones launched 5 May 2025, built on a
+    water-heater line converted for audio.
+  also_called: [Contoso Sound, private-label audio, line conversion, converted line, water-heater line]
+  years: 2025
+
+# ---- Supply terms ------------------------------------------------------------
+
+stock_out:
+  term: Stock-out
+  definition: >
+    A product is not available to sell, or not in enough depth to meet demand,
+    in a store, online, or at the DC. Sales are lost because there is no
+    stock, not because customers don't want it. In the data, only the
+    lighting lines of 2020-2021 actually go unsold for whole weeks (see
+    lighting_gaps); every other stock-out is a shortfall in depth, and no
+    product goes more than three weeks without a sale.
+  also_called:
+    - stock-out / stock-outs
+    - out of stock
+    - running out / run out / stock runs out
+    - shelf gaps / gaps on the shelves / gaps on the floor / visible gaps
+    - availability / availability issue / holiday availability
+    - unavailable
+    - thin stock / "never thin again"
+    - in-stock depth / stock depth / inventory depth
+    - demand is outrunning supply
+    - outrun the replenishment plans / selling through faster than the replenishment cadence
+    - sell more than our allocation allowed
+    - replenishment was tight
+    - pinch point
+    - went unsold / no stock arriving
+  examples:
+    - report: manufacturing-2023-07
+      text: "Without extra shifts we risk stock-outs going into Q4."
+    - report: regional-de-2021-q2
+      text: "Shelf gaps in Computers remain the most visible customer complaint on the floor."
+    - report: supply-chain-2020-10
+      text: "My mitigation is to concentrate the appliance allocation we do receive on the highest-velocity lines, and to stop spreading thin stock across the full range."
+    - report: manufacturing-2025-08
+      text: "We are reviewing whether to shift some of them to camera accessories, where demand is outrunning supply."
+    - report: sales-flash-2020-w37
+      text: "The lamp/fan lines are still going a week or more without a sale because no stock is arriving."
+  search_tips: >
+    Try several phrasings with the category or vendor, e.g. "camera
+    availability", "shelf gaps Litware", "in-stock depth laptops", "lamp
+    lines".
+  not_the_same:
+    range_reset: delisted lines run out on purpose.
+    litware_recall: a 2025 safety inspection that never stopped sales.
+    kestrel_shortage: reduced allocations across the whole range (2020-2021), mostly fewer units rather than empty shelves.
+    gap: >
+      Most uses of "gap" mean a revenue variance (to plan or last year). Only
+      "shelf gaps", "gaps on shelf" or "gaps on the floor" mean stock.
+    back-order: an order taken for stock not on hand; a consequence, not a synonym.
+
+allocation:
+  term: Allocation
+  definition: >
+    The share of a vendor's supply Contoso, or a country, receives. Cut to
+    about half of normal during the 2020-2021 shortage, when Italy and the UK
+    had the lowest priority and online had first call. Country managers ask
+    for "priority allocation" to avoid running out.
+  also_called: [allocation, priority allocation, protected allocation, stock priority, inventory priority, allocation cuts]
+  not_the_same:
+    space reallocation: floor space moved between categories under Store Next.
+
+replenishment:
+  term: Replenishment
+  definition: Restocking stores and online DCs from vendors and the DCs.
+  also_called: [replenishment, resupply, inbound, restock, refill]
+
+cover:
+  term: Inventory cover
+  definition: >
+    Stock on hand or in transit relative to expected sales. Low cover warns
+    of a stock-out; "excess cover" is too much stock.
+  also_called: [cover, in-transit cover, appliance cover, pilot cover, excess cover]
+
+sell_through:
+  term: Sell-through
+  definition: How fast stock sells to customers, often quoted at full price.
+  also_called: [sell-through, sell through, full-price sell-through, selling through]
+
+dual_sourcing:
+  term: Dual-sourcing
+  definition: >
+    Buying the same component or product from two suppliers. Brought in by
+    Hannah Okafor from October 2020 to end the dependence on Kestrel
+    Microsystems; complete by February 2022.
+  also_called: [dual-sourcing, dual sourcing, second source, alternative suppliers]
+  years: 2020-2022
