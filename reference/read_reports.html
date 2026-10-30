@@ -263,7 +263,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../man/figures/logo.png" alt="" class="navbar-logo light-content"><img src="../man/figures/logo.png" alt="" class="navbar-logo dark-content"></a>
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">contoso 2.3.0</span>
+    <span class="navbar-title">contoso 2.4.0</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -348,7 +348,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Source: <a href="https://codeberg.org/usrbinr/contoso/src/branch/main/R/reports.R"><code>R/reports.R</code></a></p>
 </div>
 <p>
-Returns 118 fictional internal business documents written about Contoso’s 2025 trading, one row per report: the metadata a document system would record, plus the Markdown text in <code>body</code>. The figures in the reports come from the “mega” dataset (<code>create_contoso_duckdb(“mega”)</code>), not the bundled tables, which end in 2024. Use <code><a href="../reference/export_reports.html">export_reports()</a></code> to get them as files.
+Returns 1,127 fictional internal business documents written about Contoso’s trading from May 2016 to the end of 2025, one row per report: the metadata a document system would record, plus the Markdown text in <code>body</code>. The figures in the reports come from the “mega” dataset (<code>create_contoso_duckdb(“mega”)</code>), not the bundled tables, which end in 2024. Use <code><a href="../reference/export_reports.html">export_reports()</a></code> to get them as files. The terms the reports use are defined in <code>system.file(“extdata”, “reports”, “glossary.yaml”, package = “contoso”)</code>.
 </p>
 <section id="usage" class="level2"><h2 class="anchored" data-anchor-id="usage">Usage</h2>
 <div class="code-copy-outer-scaffold">
@@ -364,20 +364,20 @@ A tibble with columns <code>id</code>, <code>title</code>, <code>unit</code>, <c
 <div class="code-copy-outer-scaffold">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>reports <span class="ot">&lt;-</span> <span class="fu">read_reports</span>()</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>reports[, <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"published"</span>)]</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 118 × 2</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    id                      published </span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;                   &lt;date&gt;    </span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 aop-2025                2024-12-16</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 sales-flash-2025-w01    2025-01-06</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 sales-flash-2025-w02    2025-01-13</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 supply-alert-2025-01-15 2025-01-15</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 sales-flash-2025-w03    2025-01-20</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 sales-flash-2025-w04    2025-01-27</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 pricing-2025-01         2025-01-29</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 sales-flash-2025-w05    2025-02-03</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 ecommerce-2025-01       2025-02-04</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 manufacturing-2025-01   2025-02-05</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 108 more rows</span></span></code></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,127 × 2</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    id                    published </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;                 &lt;date&gt;    </span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 sales-flash-2016-w21  2016-05-30</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 sales-flash-2016-w22  2016-06-06</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 sales-flash-2016-w23  2016-06-13</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 ops-notice-2016-06-20 2016-06-20</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 sales-flash-2016-w24  2016-06-20</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 sales-flash-2016-w25  2016-06-27</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 ecommerce-2016-06     2016-07-04</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 sales-flash-2016-w26  2016-07-04</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 manufacturing-2016-06 2016-07-05</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 supply-chain-2016-06  2016-07-05</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 1,117 more rows</span></span></code></pre></div>
 <button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button>
 </div>
 </div>
@@ -799,13 +799,13 @@ A tibble with columns <code>id</code>, <code>title</code>, <code>unit</code>, <c
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Built with <a href="https://quarto.org/" class="external-link external-link external-link external-link external-link external-link">Quarto</a> and <a href="https://codeberg.org/usrbinr/qrtdown" class="external-link external-link external-link external-link external-link external-link">qrtdown</a></p>
+<p>Built with <a href="https://quarto.org/" class="external-link">Quarto</a> and <a href="https://codeberg.org/usrbinr/qrtdown" class="external-link">qrtdown</a></p>
 </div>   
     <div class="nav-footer-center">
        
     </div>
     <div class="nav-footer-right">
-<p>contoso 2.3.0</p>
+<p>contoso 2.4.0</p>
 </div>
   </div>
 </footer>
